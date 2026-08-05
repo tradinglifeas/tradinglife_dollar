@@ -16,7 +16,7 @@ BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
 
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-RSS_URL = "https://www.eghtesadonline.com/fa/rss/13/mostcommented"
+RSS_URL = "https://news.google.com/rss/search?q=%D9%82%DB%8C%D9%85%D8%AA%20%D8%AF%D9%84%D8%A7%D8%B1%20%D8%A7%DB%8C%D8%B1%D8%A7%D9%86&hl=fa&gl=IR&ceid=IR:fa"
 HISTORY_FILE = "news_history.json"
 
 REQUEST_HEADERS = {
