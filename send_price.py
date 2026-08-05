@@ -18,10 +18,16 @@ TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 # این یه کلید عمومی و رایگان است (بدون نیاز به ثبت‌نام یا انقضا) که تا ۱۵۰۰ درخواست در روز مجازه
 PRICE_API_URL = "https://Api.BrsApi.ir/Market/Gold_Currency_Pro.php"
 
+# بعضی سایت‌ها درخواست‌های بدون هدر مرورگر رو مسدود می‌کنن
+REQUEST_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+}
+
 
 def get_dollar_price():
     params = {"key": "FreeSV0E1LSgB9RDjuf0QorSLViX8pPG", "section": "currency"}
-    response = requests.get(PRICE_API_URL, params=params, timeout=15)
+    response = requests.get(PRICE_API_URL, params=params, headers=REQUEST_HEADERS, timeout=15)
 
     try:
         data = response.json()
