@@ -103,13 +103,19 @@ def format_line(label, item, unit="تومان"):
 
 
 def main():
+    # ساعت گیت‌هاب به‌صورت پیش‌فرض UTC هست، پس به وقت تهران تبدیلش می‌کنیم
+    iran_time = datetime.now(ZoneInfo("Asia/Tehran"))
+
+    # بین ساعت ۲۲ (۱۰ شب) تا ۸ صبح به وقت ایران، پیامی ارسال نشه
+    if iran_time.hour >= 22 or iran_time.hour < 8:
+        print(f"ساعت {iran_time.strftime('%H:%M')} به وقت ایران - داخل بازه‌ی سکوت هست، پیامی ارسال نمی‌شه.")
+        return
+
     prices = get_all_prices()
     if not prices:
         print("قیمت‌ها دریافت نشدن.")
         raise SystemExit(1)
 
-    # ساعت گیت‌هاب به‌صورت پیش‌فرض UTC هست، پس به وقت تهران تبدیلش می‌کنیم
-    iran_time = datetime.now(ZoneInfo("Asia/Tehran"))
     shamsi_date = jdatetime.datetime.fromgregorian(datetime=iran_time)
     now = shamsi_date.strftime("%Y/%m/%d %H:%M")
 
