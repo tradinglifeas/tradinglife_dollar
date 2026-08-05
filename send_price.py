@@ -17,9 +17,15 @@ CHAT_ID = os.environ["CHAT_ID"]
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 PRICE_API_URL = "https://brsapi.ir/FreeTsetmcBourseApi/Api_Free_Gold_Currency_v2.json"
 
+# بعضی سایت‌ها درخواست‌های بدون هدر مرورگر رو مسدود می‌کنن، پس این هدر رو اضافه می‌کنیم
+REQUEST_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+}
+
 
 def get_dollar_price():
-    response = requests.get(PRICE_API_URL, timeout=15)
+    response = requests.get(PRICE_API_URL, headers=REQUEST_HEADERS, timeout=15)
 
     # اگه پاسخ JSON نبود (مثلاً یه صفحه خطا برگشته)، کل متن رو چاپ کن
     # تا توی لاگ گیت‌هاب دقیقاً ببینیم مشکل چیه
