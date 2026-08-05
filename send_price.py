@@ -10,6 +10,7 @@
 import os
 import requests
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
@@ -102,21 +103,30 @@ def main():
         print("قیمت‌ها دریافت نشدن.")
         raise SystemExit(1)
 
-    now = datetime.now().strftime("%Y-%m-%d %H:%M")
+    # ساعت گیت‌هاب به‌صورت پیش‌فرض UTC هست، پس به وقت تهران تبدیلش می‌کنیم
+    iran_time = datetime.now(ZoneInfo("Asia/Tehran"))
+    now = iran_time.strftime("%Y-%m-%d %H:%M")
 
     lines = [
         "📊 <b>گزارش نرخ ارز و طلا</b>",
         "",
         format_line("💵 دلار آمریکا", prices["usd"]),
+        "",
         format_line("🇨🇦 دلار کانادا", prices["cad"]),
+        "",
         format_line("🥇 طلای ۱۸ عیار", prices["gold_18"]),
+        "",
         format_line("🪙 سکه بهار آزادی", prices["bahar_azadi"]),
+        "",
         format_line("🪙 سکه امامی", prices["emami"]),
+        "",
         format_line("🪙 نیم سکه", prices["half_coin"]),
+        "",
         format_line("🪙 ربع سکه", prices["quarter_coin"]),
+        "",
         format_line("₿ بیت‌کوین", prices["btc"], unit="دلار"),
         "",
-        f"🕐 {now}",
+        f"🕐 {now} (به وقت ایران)",
     ]
     message = "\n".join(lines)
     send_to_telegram(message)
