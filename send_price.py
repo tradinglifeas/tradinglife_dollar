@@ -126,7 +126,7 @@ def main():
         "",
         format_line("₿ بیت‌کوین", prices["btc"], unit="دلار"),
         "",
-        f"🕐 {now} (به وقت ایران)",
+        f"🕐 {now} (ایران)",
     ]
     message = "\n".join(lines)
     send_to_telegram(message)
