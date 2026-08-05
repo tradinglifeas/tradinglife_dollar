@@ -9,6 +9,7 @@
 
 import os
 import requests
+import jdatetime
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -94,7 +95,11 @@ def format_line(label, item, unit="تومان"):
     if item is None:
         return f"{label}: نامشخص"
     price = item.get("price", "نامشخص")
-    return f"{label}: {price} {unit}"
+    try:
+        price_display = f"{int(price):,}"
+    except (ValueError, TypeError):
+        price_display = price
+    return f"{label}: {price_display} {unit}"
 
 
 def main():
@@ -105,7 +110,8 @@ def main():
 
     # ساعت گیت‌هاب به‌صورت پیش‌فرض UTC هست، پس به وقت تهران تبدیلش می‌کنیم
     iran_time = datetime.now(ZoneInfo("Asia/Tehran"))
-    now = iran_time.strftime("%Y-%m-%d %H:%M")
+    shamsi_date = jdatetime.datetime.fromgregorian(datetime=iran_time)
+    now = shamsi_date.strftime("%Y/%m/%d %H:%M")
 
     lines = [
         "📊 <b>گزارش نرخ ارز و طلا</b>",
@@ -126,7 +132,7 @@ def main():
         "",
         format_line("₿ بیت‌کوین", prices["btc"], unit="دلار"),
         "",
-        f"🕐 {now} (ایران)",
+        f"🕐 {now} ",
     ]
     message = "\n".join(lines)
     send_to_telegram(message)
