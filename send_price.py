@@ -13,14 +13,14 @@ from datetime import datetime
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
-ALANCHAND_TOKEN = os.environ["ALANCHAND_TOKEN"]
 
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-PRICE_API_URL = "https://api.alanchand.com/"
+# این یه کلید عمومی و رایگان است (بدون نیاز به ثبت‌نام یا انقضا) که تا ۱۵۰۰ درخواست در روز مجازه
+PRICE_API_URL = "https://Api.BrsApi.ir/Market/Gold_Currency_Pro.php"
 
 
 def get_dollar_price():
-    params = {"type": "currencies", "token": ALANCHAND_TOKEN}
+    params = {"key": "FreeSV0E1LSgB9RDjuf0QorSLViX8pPG", "section": "currency"}
     response = requests.get(PRICE_API_URL, params=params, timeout=15)
 
     try:
@@ -30,28 +30,15 @@ def get_dollar_price():
         print(f"متن پاسخ (۵۰۰ کاراکتر اول): {response.text[:500]}")
         return None
 
-    # چاپ کامل داده برای دیباگ (اگه دلار پیدا نشد، این کمک می‌کنه بفهمیم ساختار دقیق چیه)
     print(f"داده‌ی دریافتی از API: {data}")
 
-    # حالت ۱: دیکشنری با کلید usd
-    if isinstance(data, dict):
-        if "usd" in data:
-            item = data["usd"]
-            if isinstance(item, dict):
-                return item.get("value") or item.get("price") or item.get("sell")
-            return item
-        # حالت ۲: دیکشنری با یه لیست داخلش (مثلاً data["currencies"])
-        for value in data.values():
-            if isinstance(value, list):
-                for item in value:
-                    if isinstance(item, dict) and str(item.get("symbol", "")).lower() == "usd":
-                        return item.get("value") or item.get("price") or item.get("sell")
+    currency_list = data.get("currency", data if isinstance(data, list) else [])
 
-    # حالت ۳: خود پاسخ یه لیست باشه
-    if isinstance(data, list):
-        for item in data:
-            if isinstance(item, dict) and str(item.get("symbol", "")).lower() == "usd":
-                return item.get("value") or item.get("price") or item.get("sell")
+    for item in currency_list:
+        symbol = str(item.get("symbol", "")).upper()
+        name = str(item.get("name", ""))
+        if symbol == "USD" or "دلار" in name:
+            return item.get("price")
 
     print("دلار توی داده‌ها پیدا نشد.")
     return None
