@@ -2,9 +2,8 @@ name: Send Dollar Price
 
 on:
   schedule:
-    # هر ۳۰ دقیقه یک‌بار اجرا می‌شه (زمان بر اساس UTC است)
     - cron: "0 * * * *"
-  workflow_dispatch: # امکان اجرای دستی از تب Actions برای تست
+  workflow_dispatch:
 
 jobs:
   send-price:
@@ -21,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-     - name: Send price to Telegram
+      - name: Send price to Telegram
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
