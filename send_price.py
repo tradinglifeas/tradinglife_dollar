@@ -13,22 +13,16 @@ from datetime import datetime
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
+ALANCHAND_TOKEN = os.environ["ALANCHAND_TOKEN"]
 
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-PRICE_API_URL = "https://brsapi.ir/FreeTsetmcBourseApi/Api_Free_Gold_Currency_v2.json"
-
-# بعضی سایت‌ها درخواست‌های بدون هدر مرورگر رو مسدود می‌کنن، پس این هدر رو اضافه می‌کنیم
-REQUEST_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                  "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-}
+PRICE_API_URL = "https://api.alanchand.com/"
 
 
 def get_dollar_price():
-    response = requests.get(PRICE_API_URL, headers=REQUEST_HEADERS, timeout=15)
+    params = {"type": "currencies", "token": ALANCHAND_TOKEN}
+    response = requests.get(PRICE_API_URL, params=params, timeout=15)
 
-    # اگه پاسخ JSON نبود (مثلاً یه صفحه خطا برگشته)، کل متن رو چاپ کن
-    # تا توی لاگ گیت‌هاب دقیقاً ببینیم مشکل چیه
     try:
         data = response.json()
     except ValueError:
@@ -36,16 +30,30 @@ def get_dollar_price():
         print(f"متن پاسخ (۵۰۰ کاراکتر اول): {response.text[:500]}")
         return None
 
-    # ساختار این API معمولاً شامل یه لیست currency است
-    currency_list = data.get("currency", data if isinstance(data, list) else [])
+    # چاپ کامل داده برای دیباگ (اگه دلار پیدا نشد، این کمک می‌کنه بفهمیم ساختار دقیق چیه)
+    print(f"داده‌ی دریافتی از API: {data}")
 
-    for item in currency_list:
-        name = str(item.get("name", ""))
-        symbol = str(item.get("symbol", "")).upper()
-        if "دلار" in name or symbol == "USD":
-            return item.get("price")
+    # حالت ۱: دیکشنری با کلید usd
+    if isinstance(data, dict):
+        if "usd" in data:
+            item = data["usd"]
+            if isinstance(item, dict):
+                return item.get("value") or item.get("price") or item.get("sell")
+            return item
+        # حالت ۲: دیکشنری با یه لیست داخلش (مثلاً data["currencies"])
+        for value in data.values():
+            if isinstance(value, list):
+                for item in value:
+                    if isinstance(item, dict) and str(item.get("symbol", "")).lower() == "usd":
+                        return item.get("value") or item.get("price") or item.get("sell")
 
-    print(f"دلار توی داده‌ها پیدا نشد. کل داده: {data}")
+    # حالت ۳: خود پاسخ یه لیست باشه
+    if isinstance(data, list):
+        for item in data:
+            if isinstance(item, dict) and str(item.get("symbol", "")).lower() == "usd":
+                return item.get("value") or item.get("price") or item.get("sell")
+
+    print("دلار توی داده‌ها پیدا نشد.")
     return None
 
 
