@@ -56,11 +56,23 @@ def get_all_prices():
 
     usd = find_item(currency_list, symbol="USD", name_contains="دلار آمریکا")
     cad = find_item(currency_list, symbol="CAD", name_contains="دلار کانادا")
-    gold = find_item(gold_list, name_contains="طلای 18") or (gold_list[0] if gold_list else None)
-    coin = find_item(gold_list, name_contains="امامی") or find_item(gold_list, name_contains="سکه")
+    gold_18 = find_item(gold_list, name_contains="طلای 18") or (gold_list[0] if gold_list else None)
+    bahar_azadi = find_item(gold_list, name_contains="بهار آزادی")
+    emami = find_item(gold_list, name_contains="امامی")
+    half_coin = find_item(gold_list, name_contains="نیم")
+    quarter_coin = find_item(gold_list, name_contains="ربع")
     btc = find_item(crypto_list, symbol="BTC", name_contains="بیت")
 
-    return {"usd": usd, "cad": cad, "gold": gold, "coin": coin, "btc": btc}
+    return {
+        "usd": usd,
+        "cad": cad,
+        "gold_18": gold_18,
+        "bahar_azadi": bahar_azadi,
+        "emami": emami,
+        "half_coin": half_coin,
+        "quarter_coin": quarter_coin,
+        "btc": btc,
+    }
 
 
 def send_to_telegram(text):
@@ -97,8 +109,11 @@ def main():
         "",
         format_line("💵 دلار آمریکا", prices["usd"]),
         format_line("🇨🇦 دلار کانادا", prices["cad"]),
-        format_line("🥇 طلای ۱۸ عیار", prices["gold"]),
-        format_line("🪙 سکه امامی", prices["coin"]),
+        format_line("🥇 طلای ۱۸ عیار", prices["gold_18"]),
+        format_line("🪙 سکه بهار آزادی", prices["bahar_azadi"]),
+        format_line("🪙 سکه امامی", prices["emami"]),
+        format_line("🪙 نیم سکه", prices["half_coin"]),
+        format_line("🪙 ربع سکه", prices["quarter_coin"]),
         format_line("₿ بیت‌کوین", prices["btc"], unit="دلار"),
         "",
         f"🕐 {now}",
