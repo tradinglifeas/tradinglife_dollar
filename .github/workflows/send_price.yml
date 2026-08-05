@@ -1,8 +1,6 @@
 name: Send Dollar Price
 
 on:
-  schedule:
-    - cron: "25 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -18,7 +16,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests jdatetime
 
       - name: Send price to Telegram
         env:
