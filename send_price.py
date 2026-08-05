@@ -1,9 +1,9 @@
 """
-اسکریپت ارسال قیمت دلار به گروه تلگرام
+اسکریپت ارسال قیمت دلار، دلار کانادا، طلا و بیت‌کوین به گروه تلگرام
 این نسخه برای اجرا با GitHub Actions طراحی شده: هر بار اجرا می‌شه،
-یک بار قیمت رو می‌گیره و می‌فرسته (زمان‌بندی رو خود گیت‌هاب انجام می‌ده).
+یک بار قیمت‌ها رو می‌گیره و می‌فرسته (زمان‌بندی رو خود گیت‌هاب انجام می‌ده).
 
-توکن و Chat ID از "GitHub Secrets" خونده می‌شن، نه از داخل کد
+توکن‌ها از "GitHub Secrets" خونده می‌شن، نه از داخل کد
 (برای امنیت بیشتر، این مقادیر داخل خود فایل نوشته نمی‌شن).
 """
 
@@ -25,8 +25,20 @@ REQUEST_HEADERS = {
 }
 
 
-def get_dollar_price():
-    params = {"key": BRSAPI_KEY, "section": "currency"}
+def find_item(items, symbol=None, name_contains=None):
+    """توی یه لیست از آیتم‌ها دنبال یکی با symbol یا بخشی از name می‌گرده"""
+    for item in items:
+        item_symbol = str(item.get("symbol", "")).upper()
+        item_name = str(item.get("name", ""))
+        if symbol and item_symbol == symbol.upper():
+            return item
+        if name_contains and name_contains in item_name:
+            return item
+    return None
+
+
+def get_all_prices():
+    params = {"key": BRSAPI_KEY, "section": "gold,currency,cryptocurrency"}
     response = requests.get(PRICE_API_URL, params=params, headers=REQUEST_HEADERS, timeout=15)
 
     try:
@@ -38,16 +50,17 @@ def get_dollar_price():
 
     print(f"داده‌ی دریافتی از API: {data}")
 
-    currency_list = data.get("currency", data if isinstance(data, list) else [])
+    gold_list = data.get("gold", [])
+    currency_list = data.get("currency", [])
+    crypto_list = data.get("cryptocurrency", [])
 
-    for item in currency_list:
-        symbol = str(item.get("symbol", "")).upper()
-        name = str(item.get("name", ""))
-        if symbol == "USD" or "دلار" in name:
-            return item.get("price")
+    usd = find_item(currency_list, symbol="USD", name_contains="دلار آمریکا")
+    cad = find_item(currency_list, symbol="CAD", name_contains="دلار کانادا")
+    gold = find_item(gold_list, name_contains="طلای 18") or (gold_list[0] if gold_list else None)
+    coin = find_item(gold_list, name_contains="امامی") or find_item(gold_list, name_contains="سکه")
+    btc = find_item(crypto_list, symbol="BTC", name_contains="بیت")
 
-    print("دلار توی داده‌ها پیدا نشد.")
-    return None
+    return {"usd": usd, "cad": cad, "gold": gold, "coin": coin, "btc": btc}
 
 
 def send_to_telegram(text):
@@ -64,15 +77,34 @@ def send_to_telegram(text):
     print(f"پیام با موفقیت ارسال شد - {datetime.now()}")
 
 
+def format_line(label, item, unit="تومان"):
+    if item is None:
+        return f"{label}: نامشخص"
+    price = item.get("price", "نامشخص")
+    return f"{label}: {price} {unit}"
+
+
 def main():
-    price = get_dollar_price()
-    if price:
-        now = datetime.now().strftime("%Y-%m-%d %H:%M")
-        message = f"💵 <b>قیمت دلار</b>\n\n{price} تومان\n\n🕐 {now}"
-        send_to_telegram(message)
-    else:
-        print("قیمت دریافت نشد.")
+    prices = get_all_prices()
+    if not prices:
+        print("قیمت‌ها دریافت نشدن.")
         raise SystemExit(1)
+
+    now = datetime.now().strftime("%Y-%m-%d %H:%M")
+
+    lines = [
+        "📊 <b>گزارش نرخ ارز و طلا</b>",
+        "",
+        format_line("💵 دلار آمریکا", prices["usd"]),
+        format_line("🇨🇦 دلار کانادا", prices["cad"]),
+        format_line("🥇 طلای ۱۸ عیار", prices["gold"]),
+        format_line("🪙 سکه امامی", prices["coin"]),
+        format_line("₿ بیت‌کوین", prices["btc"], unit="دلار"),
+        "",
+        f"🕐 {now}",
+    ]
+    message = "\n".join(lines)
+    send_to_telegram(message)
 
 
 if __name__ == "__main__":
