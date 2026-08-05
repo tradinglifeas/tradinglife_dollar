@@ -13,12 +13,12 @@ from datetime import datetime
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
+BRSAPI_KEY = os.environ["BRSAPI_KEY"]
 
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-# این یه کلید عمومی و رایگان است (بدون نیاز به ثبت‌نام یا انقضا) که تا ۱۵۰۰ درخواست در روز مجازه
-PRICE_API_URL = "https://Api.BrsApi.ir/Market/Gold_Currency_Pro.php"
+PRICE_API_URL = "https://Api.BrsApi.ir/Market/Gold_Currency.php"
 
-# بعضی سایت‌ها درخواست‌های بدون هدر مرورگر رو مسدود می‌کنن
+# بعضی سایت‌ها درخواست‌های بدون هدر مرورگر (خصوصاً User-Agent پیش‌فرض پایتون) رو مسدود می‌کنن
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
@@ -26,7 +26,7 @@ REQUEST_HEADERS = {
 
 
 def get_dollar_price():
-    params = {"key": "FreeSV0E1LSgB9RDjuf0QorSLViX8pPG", "section": "currency"}
+    params = {"key": BRSAPI_KEY, "section": "currency"}
     response = requests.get(PRICE_API_URL, params=params, headers=REQUEST_HEADERS, timeout=15)
 
     try:
