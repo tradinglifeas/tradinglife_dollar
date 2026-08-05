@@ -15,20 +15,32 @@ BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
 
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-PRICE_API_URL = "https://api.codebazan.ir/arz/"
+PRICE_API_URL = "https://brsapi.ir/FreeTsetmcBourseApi/Api_Free_Gold_Currency_v2.json"
 
 
 def get_dollar_price():
+    response = requests.get(PRICE_API_URL, timeout=15)
+
+    # اگه پاسخ JSON نبود (مثلاً یه صفحه خطا برگشته)، کل متن رو چاپ کن
+    # تا توی لاگ گیت‌هاب دقیقاً ببینیم مشکل چیه
     try:
-        response = requests.get(PRICE_API_URL, timeout=15)
         data = response.json()
-        for item in data:
-            if item.get("name") == "دلار":
-                return item.get("price")
+    except ValueError:
+        print(f"پاسخ سایت JSON نبود. کد وضعیت: {response.status_code}")
+        print(f"متن پاسخ (۵۰۰ کاراکتر اول): {response.text[:500]}")
         return None
-    except Exception as e:
-        print(f"خطا در گرفتن قیمت: {e}")
-        return None
+
+    # ساختار این API معمولاً شامل یه لیست currency است
+    currency_list = data.get("currency", data if isinstance(data, list) else [])
+
+    for item in currency_list:
+        name = str(item.get("name", ""))
+        symbol = str(item.get("symbol", "")).upper()
+        if "دلار" in name or symbol == "USD":
+            return item.get("price")
+
+    print(f"دلار توی داده‌ها پیدا نشد. کل داده: {data}")
+    return None
 
 
 def send_to_telegram(text):
