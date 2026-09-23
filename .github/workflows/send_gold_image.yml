@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests pillow arabic-reshaper python-bidi
+        run: pip install requests pillow
       - name: Download Persian font
         run: |
           curl -sL -o Vazirmatn-Regular.ttf https://raw.githubusercontent.com/rastikerdar/vazirmatn/master/fonts/ttf/Vazirmatn-Regular.ttf
