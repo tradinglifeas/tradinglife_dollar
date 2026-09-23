@@ -1,0 +1,27 @@
+{
+  "gold_18": {
+    "yesterday_price": null,
+    "last_date": "2026-09-24",
+    "last_price": 23765900
+  },
+  "bahar_azadi": {
+    "yesterday_price": null,
+    "last_date": "2026-09-24",
+    "last_price": 232225000
+  },
+  "emami": {
+    "yesterday_price": null,
+    "last_date": "2026-09-24",
+    "last_price": 236480000
+  },
+  "half_coin": {
+    "yesterday_price": null,
+    "last_date": "2026-09-24",
+    "last_price": 121500000
+  },
+  "quarter_coin": {
+    "yesterday_price": null,
+    "last_date": "2026-09-24",
+    "last_price": 64000000
+  }
+}
