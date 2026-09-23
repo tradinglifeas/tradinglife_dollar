@@ -22,7 +22,6 @@ BRSAPI_KEY = os.environ["BRSAPI_KEY"]
 
 TELEGRAM_PHOTO_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
 GOLD_API_URL = "https://Api.BrsApi.ir/Market/Gold_Currency.php"
-COMMODITY_API_URL = "https://BrsApi.ir/Api/Market/Commodity.php"
 HISTORY_FILE = "gold_history_series.json"
 MAX_HISTORY_DAYS = 400  # کمی بیشتر از یک سال، برای امکان مقایسه‌ی سالانه
 
@@ -73,29 +72,8 @@ def get_gold_prices():
         "emami": find_item(gold_list, symbol="IR_COIN_EMAMI") or find_item(gold_list, name_contains="امامی"),
         "half_coin": find_item(gold_list, symbol="IR_COIN_HALF") or find_item(gold_list, name_contains="نیم"),
         "quarter_coin": find_item(gold_list, symbol="IR_COIN_QUARTER") or find_item(gold_list, name_contains="ربع"),
+        "global_gold_ounce": find_item(gold_list, symbol="XAUUSD") or find_item(gold_list, name_contains="انس طلا"),
     }
-
-
-def get_global_gold_price():
-    params = {"key": BRSAPI_KEY}
-    response = requests.get(COMMODITY_API_URL, params=params, headers=REQUEST_HEADERS, timeout=15)
-    try:
-        data = response.json()
-    except ValueError:
-        print(f"پاسخ کامودیتی JSON نبود. کد وضعیت: {response.status_code}")
-        print(f"متن پاسخ: {response.text[:500]}")
-        return None
-
-    print(f"داده‌ی کامودیتی (طلای جهانی): {data}")
-    all_items = []
-    if isinstance(data, dict):
-        for value in data.values():
-            if isinstance(value, list):
-                all_items.extend(value)
-    elif isinstance(data, list):
-        all_items = data
-
-    return find_item(all_items, symbol="XAU", name_contains="طلا")
 
 
 def format_number(value):
@@ -370,16 +348,14 @@ def main():
     today_str = iran_time.strftime("%Y-%m-%d")
 
     gold = get_gold_prices()
-    global_gold = get_global_gold_price()
+    global_gold = gold.get("global_gold_ounce")
     records = load_history()
 
     snapshot = {}
-    for key in ["gold_18", "bahar_azadi", "emami", "half_coin", "quarter_coin"]:
+    for key in ["gold_18", "bahar_azadi", "emami", "half_coin", "quarter_coin", "global_gold_ounce"]:
         item = gold.get(key)
         if item and item.get("price") is not None:
             snapshot[key] = item["price"]
-    if global_gold and global_gold.get("price") is not None:
-        snapshot["global_gold_ounce"] = global_gold["price"]
 
     records = update_history(records, today_str, snapshot)
 
