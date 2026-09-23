@@ -3,9 +3,8 @@ name: Send Gold Image
 on:
    schedule:
     - cron: '30 9 * * *'
-      timezone: 'Asia/Tehran'
     - cron: '0 15 * * *'
-      timezone: 'Asia/Tehran
+  
 
   workflow_dispatch:
 
