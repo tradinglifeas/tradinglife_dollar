@@ -1,10 +1,12 @@
 """
 اسکریپت ساخت و ارسال تصویر روزانه‌ی قیمت طلا و سکه (بازار ایران) به تلگرام.
 مستقل از اسکریپت‌های نقره و بیت‌کوینه.
+
+تغییر قیمت نسبت به دیروز مستقیماً از خود API گرفته می‌شه (فیلدهای
+change_value و change_percent)، نیازی به ذخیره‌ی تاریخچه نیست.
 """
 
 import os
-import json
 import requests
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -16,7 +18,6 @@ BRSAPI_KEY = os.environ["BRSAPI_KEY"]
 
 TELEGRAM_PHOTO_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
 GOLD_API_URL = "https://Api.BrsApi.ir/Market/Gold_Currency.php"
-HISTORY_FILE = "gold_history.json"
 
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -47,21 +48,6 @@ def find_item(items, symbol=None, name_contains=None):
     return None
 
 
-def load_history():
-    if not os.path.exists(HISTORY_FILE):
-        return {}
-    try:
-        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (ValueError, OSError):
-        return {}
-
-
-def save_history(history):
-    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(history, f, ensure_ascii=False, indent=2)
-
-
 def get_gold_prices():
     params = {"key": BRSAPI_KEY, "section": "gold"}
     response = requests.get(GOLD_API_URL, params=params, headers=REQUEST_HEADERS, timeout=15)
@@ -75,53 +61,41 @@ def get_gold_prices():
     print(f"داده‌ی طلا: {data}")
     gold_list = data.get("gold", [])
     return {
-        "gold_18": find_item(gold_list, name_contains="طلای 18") or (gold_list[0] if gold_list else None),
-        "bahar_azadi": find_item(gold_list, name_contains="بهار آزادی"),
-        "emami": find_item(gold_list, name_contains="امامی"),
-        "half_coin": find_item(gold_list, name_contains="نیم"),
-        "quarter_coin": find_item(gold_list, name_contains="ربع"),
+        "gold_18": find_item(gold_list, symbol="IR_GOLD_18K") or find_item(gold_list, name_contains="طلای 18") or (gold_list[0] if gold_list else None),
+        "bahar_azadi": find_item(gold_list, symbol="IR_COIN_BAHAR") or find_item(gold_list, name_contains="بهار آزادی"),
+        "emami": find_item(gold_list, symbol="IR_COIN_EMAMI") or find_item(gold_list, name_contains="امامی"),
+        "half_coin": find_item(gold_list, symbol="IR_COIN_HALF") or find_item(gold_list, name_contains="نیم"),
+        "quarter_coin": find_item(gold_list, symbol="IR_COIN_QUARTER") or find_item(gold_list, name_contains="ربع"),
     }
 
 
 def format_number(value):
     try:
-        return f"{int(float(value)):,}"
+        return f"{int(round(float(value))):,}"
     except (ValueError, TypeError):
         return str(value)
 
 
-def compute_change(history, key, current_price, today_str):
-    entry = history.get(key, {})
-    last_date = entry.get("last_date")
-    last_price = entry.get("last_price")
-    yesterday_price = entry.get("yesterday_price")
-
-    if last_date != today_str:
-        if last_price is not None:
-            yesterday_price = last_price
-        entry["yesterday_price"] = yesterday_price
-
-    entry["last_date"] = today_str
-    entry["last_price"] = current_price
-    history[key] = entry
-
-    if yesterday_price is None or current_price is None:
+def get_change(item):
+    if not item:
+        return None, None
+    change_percent = item.get("change_percent")
+    change_value = item.get("change_value")
+    if change_percent is None:
         return None, None
     try:
-        current_price = float(current_price)
-        yesterday_price = float(yesterday_price)
+        change_percent = float(change_percent)
     except (ValueError, TypeError):
         return None, None
-    if yesterday_price == 0:
-        return None, None
-    diff = current_price - yesterday_price
-    percent = (diff / yesterday_price) * 100
-    return diff, percent
+    try:
+        change_value = float(change_value) if change_value is not None else None
+    except (ValueError, TypeError):
+        change_value = None
+    return change_value, change_percent
 
 
-def draw_row(draw, y, margin, width, label, item, history, key, today_str,
-             unit, label_font, value_font, change_font, card_color,
-             text_color, label_color, card_height=95):
+def draw_row(draw, y, margin, width, label, item, unit, label_font, value_font,
+             change_font, card_color, text_color, label_color, card_height=95):
     draw.rounded_rectangle([margin, y, width - margin, y + card_height], radius=16, fill=card_color)
 
     draw.text((width - margin - 30, y + 16), label, font=label_font, fill=label_color,
@@ -132,14 +106,17 @@ def draw_row(draw, y, margin, width, label, item, history, key, today_str,
     draw.text((margin + 30, y + 14), value_text, font=value_font, fill=text_color,
               direction="ltr", anchor="la")
 
-    diff, percent = compute_change(history, key, price, today_str)
-    if diff is not None:
-        sign = "+" if diff > 0 else ("-" if diff < 0 else "")
-        change_color = UP_COLOR if diff > 0 else (DOWN_COLOR if diff < 0 else NEUTRAL_COLOR)
-        change_text = f"{sign}{abs(percent):.2f}%  ({sign}{format_number(abs(diff))} {unit})"
+    change_value, change_percent = get_change(item)
+    if change_percent is not None:
+        sign = "+" if change_percent > 0 else ("-" if change_percent < 0 else "")
+        change_color = UP_COLOR if change_percent > 0 else (DOWN_COLOR if change_percent < 0 else NEUTRAL_COLOR)
+        if change_value is not None:
+            change_text = f"{sign}{abs(change_percent):.2f}%  ({sign}{format_number(abs(change_value))} {unit})"
+        else:
+            change_text = f"{sign}{abs(change_percent):.2f}%"
     else:
         change_color = NEUTRAL_COLOR
-        change_text = "داده‌ی دیروز نداریم"
+        change_text = "داده‌ی تغییرات نداریم"
 
     draw.text((margin + 30, y + 58), change_text, font=change_font, fill=change_color,
               direction="ltr", anchor="la")
@@ -147,7 +124,7 @@ def draw_row(draw, y, margin, width, label, item, history, key, today_str,
     return y + card_height + 16
 
 
-def build_image(gold, history, today_str, now_text):
+def build_image(gold, now_text):
     width, max_height = 900, 900
     bg_color = (18, 18, 24)
     card_color = (30, 30, 40)
@@ -172,15 +149,15 @@ def build_image(gold, history, today_str, now_text):
     y += 100
 
     gold_rows = [
-        ("طلای ۱۸ عیار (هر گرم)", gold.get("gold_18"), "gold_18"),
-        ("سکه بهار آزادی", gold.get("bahar_azadi"), "bahar_azadi"),
-        ("سکه امامی", gold.get("emami"), "emami"),
-        ("نیم سکه", gold.get("half_coin"), "half_coin"),
-        ("ربع سکه", gold.get("quarter_coin"), "quarter_coin"),
+        ("طلای ۱۸ عیار (هر گرم)", gold.get("gold_18")),
+        ("سکه بهار آزادی", gold.get("bahar_azadi")),
+        ("سکه امامی", gold.get("emami")),
+        ("نیم سکه", gold.get("half_coin")),
+        ("ربع سکه", gold.get("quarter_coin")),
     ]
-    for label, item, key in gold_rows:
-        y = draw_row(draw, y, margin, width, label, item, history, key, today_str,
-                     "تومان", label_font, value_font, change_font, card_color, text_color, label_color)
+    for label, item in gold_rows:
+        y = draw_row(draw, y, margin, width, label, item, "تومان",
+                     label_font, value_font, change_font, card_color, text_color, label_color)
 
     y += 15
     draw.text((width / 2, y + 10), now_text, font=footer_font, fill=label_color,
@@ -209,13 +186,9 @@ def send_photo(image_path):
 def main():
     iran_time = datetime.now(ZoneInfo("Asia/Tehran"))
     now_text = "بروزرسانی: " + iran_time.strftime("%Y/%m/%d - %H:%M") + " به وقت ایران"
-    today_str = iran_time.strftime("%Y-%m-%d")
 
     gold = get_gold_prices()
-    history = load_history()
-
-    image_path = build_image(gold, history, today_str, now_text)
-    save_history(history)
+    image_path = build_image(gold, now_text)
     send_photo(image_path)
 
 
