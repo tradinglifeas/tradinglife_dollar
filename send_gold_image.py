@@ -9,8 +9,6 @@ import requests
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from PIL import Image, ImageDraw, ImageFont
-import arabic_reshaper
-from bidi.algorithm import get_display
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
@@ -34,8 +32,8 @@ NEUTRAL_COLOR = (170, 170, 180)
 GOLD_COLOR = (255, 205, 86)
 
 
-def reshape(text):
-    return get_display(arabic_reshaper.reshape(text))
+def load_font(path, size):
+    return ImageFont.truetype(path, size, layout_engine=ImageFont.Layout.RAQM)
 
 
 def find_item(items, symbol=None, name_contains=None):
@@ -126,13 +124,13 @@ def draw_row(draw, y, margin, width, label, item, history, key, today_str,
              text_color, label_color, card_height=95):
     draw.rounded_rectangle([margin, y, width - margin, y + card_height], radius=16, fill=card_color)
 
-    label_text = reshape(label)
-    bbox = draw.textbbox((0, 0), label_text, font=label_font)
-    draw.text((width - margin - 30 - (bbox[2] - bbox[0]), y + 16), label_text, font=label_font, fill=label_color)
+    draw.text((width - margin - 30, y + 16), label, font=label_font, fill=label_color,
+              direction="rtl", anchor="ra")
 
     price = item.get("price") if item else None
-    value_text = reshape(f"{format_number(price)} {unit}" if price else "نامشخص")
-    draw.text((margin + 30, y + 14), value_text, font=value_font, fill=text_color)
+    value_text = f"{format_number(price)} {unit}" if price else "نامشخص"
+    draw.text((margin + 30, y + 14), value_text, font=value_font, fill=text_color,
+              direction="ltr", anchor="la")
 
     diff, percent = compute_change(history, key, price, today_str)
     if diff is not None:
@@ -141,9 +139,11 @@ def draw_row(draw, y, margin, width, label, item, history, key, today_str,
         change_text = f"{sign}{abs(percent):.2f}%  ({sign}{format_number(abs(diff))} {unit})"
     else:
         change_color = NEUTRAL_COLOR
-        change_text = reshape("داده‌ی دیروز نداریم")
+        change_text = "داده‌ی دیروز نداریم"
 
-    draw.text((margin + 30, y + 58), change_text, font=change_font, fill=change_color)
+    draw.text((margin + 30, y + 58), change_text, font=change_font, fill=change_color,
+              direction="ltr", anchor="la")
+
     return y + card_height + 16
 
 
@@ -157,18 +157,18 @@ def build_image(gold, history, today_str, now_text):
     img = Image.new("RGB", (width, max_height), bg_color)
     draw = ImageDraw.Draw(img)
 
-    title_font = ImageFont.truetype(FONT_BOLD, 50)
-    label_font = ImageFont.truetype(FONT_REGULAR, 30)
-    value_font = ImageFont.truetype(FONT_BOLD, 32)
-    change_font = ImageFont.truetype(FONT_REGULAR, 24)
-    footer_font = ImageFont.truetype(FONT_REGULAR, 22)
+    title_font = load_font(FONT_BOLD, 50)
+    label_font = load_font(FONT_REGULAR, 30)
+    value_font = load_font(FONT_BOLD, 32)
+    change_font = load_font(FONT_REGULAR, 24)
+    footer_font = load_font(FONT_REGULAR, 22)
 
     margin = 60
     y = 45
 
-    title = reshape("قیمت طلا و سکه (بازار ایران)")
-    bbox = draw.textbbox((0, 0), title, font=title_font)
-    draw.text(((width - (bbox[2] - bbox[0])) / 2, y), title, font=title_font, fill=GOLD_COLOR)
+    title = "قیمت طلا و سکه (بازار ایران)"
+    draw.text((width / 2, y), title, font=title_font, fill=GOLD_COLOR,
+              direction="rtl", anchor="ma")
     y += 100
 
     gold_rows = [
@@ -183,12 +183,10 @@ def build_image(gold, history, today_str, now_text):
                      "تومان", label_font, value_font, change_font, card_color, text_color, label_color)
 
     y += 15
-    footer = reshape(now_text)
-    bbox = draw.textbbox((0, 0), footer, font=footer_font)
-    footer_y = y + 10
-    draw.text(((width - (bbox[2] - bbox[0])) / 2, footer_y), footer, font=footer_font, fill=label_color)
+    draw.text((width / 2, y + 10), now_text, font=footer_font, fill=label_color,
+              direction="rtl", anchor="ma")
 
-    final_height = footer_y + 60
+    final_height = y + 10 + 60
     img = img.crop((0, 0, width, min(final_height, max_height)))
 
     output_path = "gold_price.png"
