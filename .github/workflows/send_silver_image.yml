@@ -3,9 +3,7 @@ name: Send Silver Image
 on:
    schedule:
     - cron: '32 9 * * *'
-      timezone: 'Asia/Tehran'
     - cron: '02 15 * * *'
-      timezone: 'Asia/Tehran
   workflow_dispatch:
 
 permissions:
