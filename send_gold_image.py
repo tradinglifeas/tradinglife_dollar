@@ -14,7 +14,7 @@ import json
 import requests
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
@@ -259,6 +259,25 @@ def draw_chart(draw, x, y, chart_width, chart_height, records, key, font, color,
         draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=color)
 
 
+def add_gold_glow(bg_color, width, height):
+    """پس‌زمینه‌ی تیره رو با چند لکه‌ی محو طلایی تزیین می‌کنه"""
+    glow_layer = Image.new("RGB", (width, height), bg_color)
+    glow_draw = ImageDraw.Draw(glow_layer)
+
+    blobs = [
+        (width * 0.15, height * 0.04, 260, (255, 205, 86)),
+        (width * 0.92, height * 0.12, 220, (255, 180, 60)),
+        (width * 0.08, height * 0.55, 200, (255, 205, 86)),
+    ]
+    for cx, cy, r, color in blobs:
+        glow_draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=color)
+
+    glow_layer = glow_layer.filter(ImageFilter.GaussianBlur(120))
+
+    base = Image.new("RGB", (width, height), bg_color)
+    return Image.blend(base, glow_layer, alpha=0.22)
+
+
 def build_image(gold, global_gold, records, now_text):
     width, max_height = 950, 1700
     bg_color = (18, 18, 24)
@@ -266,7 +285,7 @@ def build_image(gold, global_gold, records, now_text):
     text_color = (240, 240, 240)
     label_color = (170, 170, 180)
 
-    img = Image.new("RGB", (width, max_height), bg_color)
+    img = add_gold_glow(bg_color, width, max_height)
     draw = ImageDraw.Draw(img)
 
     title_font = load_font(FONT_BOLD, 46)
