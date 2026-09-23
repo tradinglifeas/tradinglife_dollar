@@ -1,6 +1,11 @@
 name: Send BTC Image
 
 on:
+   schedule:
+    - cron: '34 9 * * *'
+      timezone: 'Asia/Tehran'
+    - cron: '04 15 * * *'
+      timezone: 'Asia/Tehran
   workflow_dispatch:
 
 permissions:
