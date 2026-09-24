@@ -104,7 +104,7 @@ def ask_groq_for_analysis(headlines, strength_summary):
     )
 
     payload = {
-        "model": "openai/gpt-oss-120b",
+        "model": "gemma2-9b-it",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0.4,
         "max_tokens": 220,
@@ -123,7 +123,13 @@ def ask_groq_for_analysis(headlines, strength_summary):
 
     print(f"پاسخ Groq: {data}")
     try:
-        return data["choices"][0]["message"]["content"].strip()
+        message = data["choices"][0]["message"]
+        content = (message.get("content") or "").strip()
+        if content:
+            return content
+        # اگه content خالی بود (مدل فقط توی reasoning نوشته)، از همون به‌عنوان جایگزین استفاده کن
+        reasoning = (message.get("reasoning") or "").strip()
+        return reasoning if reasoning else None
     except (KeyError, IndexError):
         return None
 
