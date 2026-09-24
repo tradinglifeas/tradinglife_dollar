@@ -11,6 +11,7 @@ RUN_MODE = os.getenv('RUN_MODE', 'full').lower()
 ASSET_FILTER = os.getenv('ASSET_FILTER', 'ALL').upper()
 
 AV = 'https://www.alphavantage.co/query'
+BINANCE_FUTURES = 'https://fapi.binance.com'
 CFTC_DISAGG = 'https://publicreporting.cftc.gov/resource/72hh-3qpy.json'
 CFTC_LEGACY = 'https://publicreporting.cftc.gov/resource/6dca-aqww.json'
 CACHE = 'market_intelligence_cache.json'
@@ -20,12 +21,12 @@ OUT = 'market_cards'
 ASSETS = [
     {'symbol':'XAU','name':'Gold','kind':'metal','api_symbol':'GOLD','cftc':'disagg','code':'088691'},
     {'symbol':'XAG','name':'Silver','kind':'metal','api_symbol':'SILVER','cftc':'disagg','code':'084691'},
-    {'symbol':'BTC','name':'Bitcoin','kind':'crypto','cftc':'legacy','code':'133741'},
-    {'symbol':'ETH','name':'Ethereum','kind':'crypto','cftc':'legacy','code':'146021'},
-    {'symbol':'SOL','name':'Solana','kind':'crypto','cftc':None,'code':None},
-    {'symbol':'XRP','name':'XRP','kind':'crypto','cftc':None,'code':None},
-    {'symbol':'ADA','name':'Cardano','kind':'crypto','cftc':None,'code':None},
-    {'symbol':'DOGE','name':'Dogecoin','kind':'crypto','cftc':None,'code':None},
+    {'symbol':'BTC','name':'Bitcoin','kind':'crypto','cftc':'legacy','code':'133741','binance':'BTCUSDT'},
+    {'symbol':'ETH','name':'Ethereum','kind':'crypto','cftc':'legacy','code':'146021','binance':'ETHUSDT'},
+    {'symbol':'SOL','name':'Solana','kind':'crypto','cftc':None,'code':None,'binance':'SOLUSDT'},
+    {'symbol':'XRP','name':'XRP','kind':'crypto','cftc':None,'code':None,'binance':'XRPUSDT'},
+    {'symbol':'ADA','name':'Cardano','kind':'crypto','cftc':None,'code':None,'binance':'ADAUSDT'},
+    {'symbol':'DOGE','name':'Dogecoin','kind':'crypto','cftc':None,'code':None,'binance':'DOGEUSDT'},
 ]
 
 def sf(v, default=None):
@@ -168,6 +169,151 @@ def cftc(asset):
     return {'available':True,'cohort':cohort,'long':L,'short':S,'net':net,'net_change':(net-pnet if pnet is not None else None),
             'oi':oi,'oi_change':pct(oi,poi) if oi is not None and poi not in (None,0) else None,'date':dt(cur)[:10]}
 
+
+def binance_public(asset):
+    """
+    Free/public Binance USDⓈ-M futures market data.
+    No Binance API key is used here.
+
+    IMPORTANT:
+    - These numbers describe Binance futures activity, not the entire crypto market.
+    - For SOL/XRP/ADA/DOGE they are NOT labeled as institutional flows.
+    """
+    if asset.get('kind') != 'crypto' or not asset.get('binance'):
+        return {'available': False, 'reason': 'Not a crypto asset'}
+
+    symbol = asset['binance']
+    out = {'available': False, 'symbol': symbol}
+
+    try:
+        oi = get_json(
+            BINANCE_FUTURES + '/futures/data/openInterestHist',
+            {'symbol': symbol, 'period': '1h', 'limit': 2}
+        )
+        if isinstance(oi, list) and oi:
+            cur = oi[-1]
+            prev = oi[-2] if len(oi) > 1 else {}
+            out['oi_value'] = sf(cur.get('sumOpenInterestValue'))
+            out['oi_contracts'] = sf(cur.get('sumOpenInterest'))
+            prev_val = sf(prev.get('sumOpenInterestValue'))
+            out['oi_change_pct'] = (
+                pct(out['oi_value'], prev_val)
+                if out.get('oi_value') is not None and prev_val not in (None, 0)
+                else None
+            )
+            out['available'] = True
+    except Exception as e:
+        print('Binance OI error', symbol, e)
+
+    try:
+        taker = get_json(
+            BINANCE_FUTURES + '/futures/data/takerlongshortRatio',
+            {'symbol': symbol, 'period': '1h', 'limit': 1}
+        )
+        if isinstance(taker, list) and taker:
+            row = taker[-1]
+            out['taker_ratio'] = sf(row.get('buySellRatio'))
+            out['taker_buy'] = sf(row.get('buyVol'))
+            out['taker_sell'] = sf(row.get('sellVol'))
+            out['available'] = True
+    except Exception as e:
+        print('Binance taker error', symbol, e)
+
+    try:
+        ls = get_json(
+            BINANCE_FUTURES + '/futures/data/globalLongShortAccountRatio',
+            {'symbol': symbol, 'period': '1h', 'limit': 1}
+        )
+        if isinstance(ls, list) and ls:
+            row = ls[-1]
+            out['long_short_ratio'] = sf(row.get('longShortRatio'))
+            out['long_account'] = sf(row.get('longAccount'))
+            out['short_account'] = sf(row.get('shortAccount'))
+            out['available'] = True
+    except Exception as e:
+        print('Binance long/short error', symbol, e)
+
+    try:
+        funding = get_json(
+            BINANCE_FUTURES + '/fapi/v1/fundingRate',
+            {'symbol': symbol, 'limit': 1}
+        )
+        if isinstance(funding, list) and funding:
+            out['funding_rate'] = sf(funding[-1].get('fundingRate'))
+            out['available'] = True
+    except Exception as e:
+        print('Binance funding error', symbol, e)
+
+    try:
+        ticker = get_json(
+            BINANCE_FUTURES + '/fapi/v1/ticker/24hr',
+            {'symbol': symbol}
+        )
+        if isinstance(ticker, dict):
+            out['futures_24h_change'] = sf(ticker.get('priceChangePercent'))
+            out['futures_quote_volume'] = sf(ticker.get('quoteVolume'))
+            out['available'] = True
+    except Exception as e:
+        print('Binance ticker error', symbol, e)
+
+    return out
+
+def derivatives_pressure(bd, t):
+    """
+    0-100 pressure score built from free Binance futures data.
+    It is a DERIVATIVES PRESSURE metric, not a claim of true money inflow/outflow.
+    """
+    if not bd.get('available'):
+        return None
+
+    s = 50.0
+
+    oi = bd.get('oi_change_pct')
+    if oi is not None:
+        if oi > 0.15 and t['daily'] > 0:
+            s += min(16, 7 + oi * 3)
+        elif oi > 0.15 and t['daily'] < 0:
+            s -= min(16, 7 + oi * 3)
+        elif oi < -0.15 and t['daily'] > 0:
+            s += 3
+        elif oi < -0.15 and t['daily'] < 0:
+            s -= 3
+
+    tr = bd.get('taker_ratio')
+    if tr is not None:
+        s += max(-18, min(18, (tr - 1.0) * 35))
+
+    fr = bd.get('funding_rate')
+    if fr is not None:
+        # Small positive/negative funding expresses directional positioning.
+        # Extreme funding is treated as crowding, so the contribution is capped.
+        contribution = max(-7, min(7, fr * 10000 * 1.5))
+        s += contribution
+
+    ls = bd.get('long_short_ratio')
+    if ls is not None:
+        # Broad account positioning gets only a small weight.
+        s += max(-6, min(6, (ls - 1.0) * 8))
+
+    return clamp(s)
+
+def derivatives_label(s):
+    if s is None: return 'NO BINANCE DERIVATIVES DATA'
+    if s >= 75: return 'STRONG UPSIDE FLOW PRESSURE'
+    if s >= 60: return 'UPSIDE FLOW PRESSURE'
+    if s >= 40: return 'BALANCED / MIXED'
+    if s >= 25: return 'DOWNSIDE FLOW PRESSURE'
+    return 'STRONG DOWNSIDE FLOW PRESSURE'
+
+def funding_label(fr):
+    if fr is None: return 'N/A'
+    pctv = fr * 100
+    if pctv >= 0.05: return 'Long crowded'
+    if pctv <= -0.05: return 'Short crowded'
+    if pctv > 0: return 'Positive'
+    if pctv < 0: return 'Negative'
+    return 'Neutral'
+
 def ema(v,n):
     if len(v)<n:return None
     k=2/(n+1); x=sum(v[:n])/n
@@ -233,20 +379,121 @@ def flow_label(s):
     return 'STRONG INFLOW PRESSURE' if s>=75 else 'INFLOW PRESSURE' if s>=60 else 'NEUTRAL / MIXED' if s>=40 else 'OUTFLOW PRESSURE' if s>=25 else 'STRONG OUTFLOW PRESSURE'
 
 def intelligence(asset,h,sp,m,prev):
-    t=tech(h,sp); ci=cftc(asset); ins=inst_score(ci,t); proxy=flow_proxy(t); ms=macro_score(m) if asset['kind']=='metal' else None
-    if asset['kind']=='metal':strength=.5*t['score']+.3*ins+.2*ms if ins is not None else .65*t['score']+.35*ms
-    else:strength=.55*t['score']+.3*ins+.15*proxy if ins is not None else .65*t['score']+.35*proxy
-    strength=clamp(strength); ps=sf(prev.get('strength')); pf=sf(prev.get('flow_score'))
-    ds=(strength-ps) if ps is not None else None; df=(ins-pf) if ins is not None and pf is not None else None
-    alert='NO MAJOR ALERT'; detail='No major threshold change detected.'
-    if ins is not None and ins>=72 and (df is None or df>=5):alert='INSTITUTIONAL INFLOW ALERT'; detail='Large-trader positioning and participation show stronger inflow pressure.'
-    elif ins is not None and ins<=28 and (df is None or df<=-5):alert='CAPITAL OUTFLOW ALERT'; detail='Large-trader positioning and participation show stronger outflow pressure.'
-    elif strength>=68 and t['daily']>0 and (ds is None or ds>=4):alert='UPWARD PRESSURE INCREASING'; detail='Market strength and price momentum are strengthening together.'
-    elif strength<=32 and t['daily']<0 and (ds is None or ds<=-4):alert='DOWNSIDE PRESSURE INCREASING'; detail='Market strength is weakening while downside pressure increases.'
-    elif ds is not None and ds>=8:alert='MARKET STRENGTH IMPROVING'; detail=f'Strength rose {ds:.1f} points since the prior report.'
-    elif ds is not None and ds<=-8:alert='MARKET STRENGTH WEAKENING'; detail=f'Strength fell {abs(ds):.1f} points since the prior report.'
-    return {**t,'symbol':asset['symbol'],'name':asset['name'],'kind':asset['kind'],'market_strength':strength,'strength_label':strength_label(strength),
-            'strength_delta':ds,'macro':m,'macro_score':ms,'institutional':ci,'flow_score':ins,'flow_label':flow_label(ins),'proxy':proxy,'alert':alert,'alert_detail':detail}
+    t = tech(h, sp)
+    ci = cftc(asset)
+    ins = inst_score(ci, t)
+    proxy = flow_proxy(t)
+    ms = macro_score(m) if asset['kind'] == 'metal' else None
+
+    bd = binance_public(asset) if asset['kind'] == 'crypto' else {'available': False}
+    dscore = derivatives_pressure(bd, t) if asset['kind'] == 'crypto' else None
+
+    if asset['kind'] == 'metal':
+        strength = (
+            .50*t['score'] + .30*ins + .20*ms
+            if ins is not None else
+            .65*t['score'] + .35*ms
+        )
+        primary_flow = ins
+        primary_flow_label = flow_label(ins)
+        flow_kind = 'institutional'
+    else:
+        if ins is not None and dscore is not None:
+            # BTC/ETH: official CFTC large-trader positioning + Binance derivatives.
+            strength = .45*t['score'] + .25*ins + .30*dscore
+            primary_flow = .45*ins + .55*dscore
+            primary_flow_label = derivatives_label(primary_flow)
+            flow_kind = 'institutional+derivatives'
+        elif dscore is not None:
+            # Altcoins: do NOT call this institutional flow.
+            strength = .55*t['score'] + .45*dscore
+            primary_flow = dscore
+            primary_flow_label = derivatives_label(dscore)
+            flow_kind = 'derivatives'
+        else:
+            strength = .65*t['score'] + .35*proxy
+            primary_flow = proxy
+            primary_flow_label = 'MARKET FLOW PROXY'
+            flow_kind = 'market_proxy'
+
+    strength = clamp(strength)
+    ps = sf(prev.get('strength'))
+    pf = sf(prev.get('flow_score'))
+    ds = (strength - ps) if ps is not None else None
+    df = (primary_flow - pf) if primary_flow is not None and pf is not None else None
+
+    alert = 'NO MAJOR ALERT'
+    detail = 'No major threshold change detected.'
+
+    # Crypto flow-pressure alerts from FREE derivatives data.
+    if asset['kind'] == 'crypto' and dscore is not None:
+        oi = bd.get('oi_change_pct')
+        tr = bd.get('taker_ratio')
+
+        if dscore >= 72 and (oi is None or oi > 0) and (tr is None or tr >= 1.03):
+            alert = 'DERIVATIVES INFLOW PRESSURE'
+            detail = 'Open interest and aggressive buy/sell activity show stronger upside flow pressure on Binance futures.'
+        elif dscore <= 28 and (oi is None or oi > 0) and (tr is None or tr <= 0.97):
+            alert = 'DERIVATIVES OUTFLOW PRESSURE'
+            detail = 'Open interest and aggressive buy/sell activity show stronger downside flow pressure on Binance futures.'
+        elif abs((bd.get('funding_rate') or 0) * 100) >= 0.05:
+            alert = 'FUNDING CROWDING ALERT'
+            detail = f"Funding is {funding_label(bd.get('funding_rate')).lower()}, which can indicate crowded positioning."
+        elif ds is not None and ds >= 8:
+            alert = 'MARKET STRENGTH IMPROVING'
+            detail = f'Strength rose {ds:.1f} points since the prior report.'
+        elif ds is not None and ds <= -8:
+            alert = 'MARKET STRENGTH WEAKENING'
+            detail = f'Strength fell {abs(ds):.1f} points since the prior report.'
+        elif strength >= 68 and t['daily'] > 0 and (ds is None or ds >= 4):
+            alert = 'UPWARD PRESSURE INCREASING'
+            detail = 'Market strength, price momentum, and derivatives pressure are strengthening together.'
+        elif strength <= 32 and t['daily'] < 0 and (ds is None or ds <= -4):
+            alert = 'DOWNSIDE PRESSURE INCREASING'
+            detail = 'Market strength and derivatives pressure are weakening together.'
+
+    else:
+        # Metals: existing CFTC / macro logic.
+        if ins is not None and ins >= 72 and (df is None or df >= 5):
+            alert = 'INSTITUTIONAL INFLOW ALERT'
+            detail = 'Large-trader positioning and participation show stronger inflow pressure.'
+        elif ins is not None and ins <= 28 and (df is None or df <= -5):
+            alert = 'CAPITAL OUTFLOW ALERT'
+            detail = 'Large-trader positioning and participation show stronger outflow pressure.'
+        elif strength >= 68 and t['daily'] > 0 and (ds is None or ds >= 4):
+            alert = 'UPWARD PRESSURE INCREASING'
+            detail = 'Market strength and price momentum are strengthening together.'
+        elif strength <= 32 and t['daily'] < 0 and (ds is None or ds <= -4):
+            alert = 'DOWNSIDE PRESSURE INCREASING'
+            detail = 'Market strength is weakening while downside pressure increases.'
+        elif ds is not None and ds >= 8:
+            alert = 'MARKET STRENGTH IMPROVING'
+            detail = f'Strength rose {ds:.1f} points since the prior report.'
+        elif ds is not None and ds <= -8:
+            alert = 'MARKET STRENGTH WEAKENING'
+            detail = f'Strength fell {abs(ds):.1f} points since the prior report.'
+
+    return {
+        **t,
+        'symbol': asset['symbol'],
+        'name': asset['name'],
+        'kind': asset['kind'],
+        'market_strength': strength,
+        'strength_label': strength_label(strength),
+        'strength_delta': ds,
+        'macro': m,
+        'macro_score': ms,
+        'institutional': ci,
+        'flow_score': primary_flow,
+        'flow_label': primary_flow_label,
+        'flow_kind': flow_kind,
+        'proxy': proxy,
+        'binance': bd,
+        'derivatives_score': dscore,
+        'derivatives_label': derivatives_label(dscore),
+        'alert': alert,
+        'alert_detail': detail
+    }
 
 def compact(v):
     if v is None:return 'N/A'
@@ -289,36 +536,140 @@ def render(a):
     im=Image.new('RGB',(W,H),BG);d=ImageDraw.Draw(im)
     d.text((55,42),'TRADINGLIFE',font=F38,fill=TEXT);d.text((55,91),'Market Intelligence',font=F21,fill=MUTED)
     d.text((1025,52),f"{a['name'].upper()} | {a['symbol']}/USD",font=F30,fill=accent,anchor='ra')
-    rounded(d,(50,140,1030,375));d.text((82,172),price(a['price']),font=F64,fill=TEXT);d.text((85,260),f"{a['daily']:+.2f}% vs prior daily close",font=F24,fill=GREEN if a['daily']>=0 else RED)
-    d.text((690,175),'MARKET STRENGTH',font=F18,fill=MUTED);d.text((690,212),f"{a['market_strength']:.0f} / 100",font=F46,fill=col(a['market_strength']));d.text((690,275),a['strength_label'],font=F24,fill=col(a['market_strength']))
-    if a['strength_delta'] is not None:d.text((690,315),f"Change: {a['strength_delta']:+.1f} pts",font=F21,fill=GREEN if a['strength_delta']>=0 else RED)
-    rounded(d,(50,400,1030,625),fill=PANEL2);d.text((78,425),'60-DAY PRICE TREND',font=F18,fill=MUTED);spark(d,(82,475,995,595),a['closes'],accent)
-    rounded(d,(50,650,520,1015));d.text((78,678),'MARKET CONDITION',font=F26,fill=TEXT)
-    metric(d,78,735,405,'RSI (14)',f"{a['rsi']:.1f}" if a['rsi'] is not None else 'N/A');metric(d,78,780,405,'EMA 20',price(a['ema20']));metric(d,78,825,405,'EMA 50',price(a['ema50']));metric(d,78,870,405,'EMA 200',price(a['ema200']))
-    md='Positive' if a['macd'] is not None and a['macd_signal'] is not None and a['macd']>a['macd_signal'] else 'Negative';metric(d,78,915,405,'Momentum (MACD)',md,GREEN if md=='Positive' else RED);metric(d,78,960,405,'7D / 30D',f"{a['r7']:+.1f}% / {a['r30']:+.1f}%")
-    rounded(d,(550,650,1030,1015));d.text((578,678),'INSTITUTIONAL POSITIONING',font=F26,fill=TEXT);ci=a['institutional']
-    if ci.get('available'):
-        metric(d,578,735,410,ci['cohort']+' Net',compact(ci['net']),GREEN if ci['net']>=0 else RED);metric(d,578,780,410,'Weekly Net Change',compact(ci['net_change']),GREEN if (ci['net_change'] or 0)>=0 else RED);metric(d,578,825,410,'Open Interest',compact(ci['oi']));metric(d,578,870,410,'OI Weekly Change',f"{ci['oi_change']:+.2f}%" if ci['oi_change'] is not None else 'N/A',GREEN if (ci['oi_change'] or 0)>=0 else RED)
-        metric(d,578,915,410,'Institutional Flow',f"{a['flow_score']:.0f} / 100",col(a['flow_score']));d.text((578,962),a['flow_label'],font=F18,fill=col(a['flow_score']));d.text((578,987),f"CFTC report: {ci.get('date','')}",font=F18,fill=MUTED)
+
+    rounded(d,(50,140,1030,375))
+    d.text((82,172),price(a['price']),font=F64,fill=TEXT)
+    d.text((85,260),f"{a['daily']:+.2f}% vs prior daily close",font=F24,fill=GREEN if a['daily']>=0 else RED)
+    d.text((690,175),'MARKET STRENGTH',font=F18,fill=MUTED)
+    d.text((690,212),f"{a['market_strength']:.0f} / 100",font=F46,fill=col(a['market_strength']))
+    d.text((690,275),a['strength_label'],font=F24,fill=col(a['market_strength']))
+    if a['strength_delta'] is not None:
+        d.text((690,315),f"Change: {a['strength_delta']:+.1f} pts",font=F21,fill=GREEN if a['strength_delta']>=0 else RED)
+
+    rounded(d,(50,400,1030,625),fill=PANEL2)
+    d.text((78,425),'60-DAY PRICE TREND',font=F18,fill=MUTED)
+    spark(d,(82,475,995,595),a['closes'],accent)
+
+    rounded(d,(50,650,520,1015))
+    d.text((78,678),'MARKET CONDITION',font=F26,fill=TEXT)
+    metric(d,78,735,405,'RSI (14)',f"{a['rsi']:.1f}" if a['rsi'] is not None else 'N/A')
+    metric(d,78,780,405,'EMA 20',price(a['ema20']))
+    metric(d,78,825,405,'EMA 50',price(a['ema50']))
+    metric(d,78,870,405,'EMA 200',price(a['ema200']))
+    md='Positive' if a['macd'] is not None and a['macd_signal'] is not None and a['macd']>a['macd_signal'] else 'Negative'
+    metric(d,78,915,405,'Momentum (MACD)',md,GREEN if md=='Positive' else RED)
+    metric(d,78,960,405,'7D / 30D',f"{a['r7']:+.1f}% / {a['r30']:+.1f}%")
+
+    rounded(d,(550,650,1030,1015))
+    ci=a['institutional']
+
+    if a['kind']=='metal':
+        d.text((578,678),'INSTITUTIONAL POSITIONING',font=F26,fill=TEXT)
+        if ci.get('available'):
+            metric(d,578,735,410,ci['cohort']+' Net',compact(ci['net']),GREEN if ci['net']>=0 else RED)
+            metric(d,578,780,410,'Weekly Net Change',compact(ci['net_change']),GREEN if (ci['net_change'] or 0)>=0 else RED)
+            metric(d,578,825,410,'Open Interest',compact(ci['oi']))
+            metric(d,578,870,410,'OI Weekly Change',f"{ci['oi_change']:+.2f}%" if ci['oi_change'] is not None else 'N/A',GREEN if (ci['oi_change'] or 0)>=0 else RED)
+            metric(d,578,915,410,'Institutional Flow',f"{a['flow_score']:.0f} / 100",col(a['flow_score']))
+            d.text((578,962),a['flow_label'],font=F18,fill=col(a['flow_score']))
+            d.text((578,987),f"CFTC report: {ci.get('date','')}",font=F18,fill=MUTED)
+        else:
+            d.text((578,755),'No direct CFTC institutional data.',font=F21,fill=AMBER)
+
     else:
-        d.text((578,755),'No direct CFTC institutional',font=F21,fill=AMBER);d.text((578,790),'positioning used for this asset.',font=F21,fill=AMBER);d.text((578,850),'Market Flow Pressure',font=F21,fill=MUTED);d.text((578,890),f"{a['proxy']:.0f} / 100",font=F38,fill=col(a['proxy']));d.text((578,950),'Market-derived flow proxy only,',font=F18,fill=MUTED);d.text((578,978),'not an institutional-flow claim.',font=F18,fill=MUTED)
+        title = 'INSTITUTIONAL + DERIVATIVES' if ci.get('available') else 'BINANCE DERIVATIVES FLOW'
+        d.text((578,678),title,font=F26,fill=TEXT)
+        bd=a.get('binance',{})
+
+        if ci.get('available'):
+            metric(d,578,735,410,'CFTC Large Traders Net',compact(ci['net']),GREEN if ci['net']>=0 else RED)
+        else:
+            metric(d,578,735,410,'CFTC Positioning','No direct coverage',AMBER)
+
+        oi=bd.get('oi_change_pct')
+        metric(d,578,780,410,'Open Interest (1H)',f"{oi:+.2f}%" if oi is not None else 'N/A',GREEN if (oi or 0)>=0 else RED)
+
+        tr=bd.get('taker_ratio')
+        metric(d,578,825,410,'Taker Buy / Sell',f"{tr:.2f}x" if tr is not None else 'N/A',GREEN if (tr or 1)>=1 else RED)
+
+        fr=bd.get('funding_rate')
+        metric(d,578,870,410,'Funding Rate',f"{fr*100:+.4f}%" if fr is not None else 'N/A')
+
+        ls=bd.get('long_short_ratio')
+        metric(d,578,915,410,'Global Long / Short',f"{ls:.2f}x" if ls is not None else 'N/A')
+
+        ds=a.get('derivatives_score')
+        metric(d,578,960,410,'Derivatives Pressure',f"{ds:.0f} / 100" if ds is not None else 'N/A',col(ds) if ds is not None else MUTED)
+        if ds is not None:
+            d.text((578,990),a['derivatives_label'],font=F18,fill=col(ds))
+
     rounded(d,(50,1040,1030,1285),fill=PANEL2)
     if a['kind']=='metal':
-        d.text((78,1068),'MACRO CONTEXT',font=F26,fill=TEXT);m=a['macro'];d.text((78,1120),f"USD Index (5D): {m.get('usd5'):+.2f}%" if m.get('usd5') is not None else 'USD Index (5D): N/A',font=F21,fill=MUTED);d.text((390,1120),f"US 10Y (5D): {m.get('y105'):+.0f} bps" if m.get('y105') is not None else 'US 10Y (5D): N/A',font=F21,fill=MUTED);d.text((730,1120),f"CPI YoY: {m.get('cpi'):.2f}%" if m.get('cpi') is not None else 'CPI YoY: N/A',font=F21,fill=MUTED);d.text((78,1175),f"Macro Support Score: {a['macro_score']:.0f} / 100",font=F24,fill=col(a['macro_score']));d.text((78,1225),'Lower USD/yields are treated as more supportive for precious metals.',font=F18,fill=MUTED)
+        d.text((78,1068),'MACRO CONTEXT',font=F26,fill=TEXT)
+        m=a['macro']
+        d.text((78,1120),f"USD Index (5D): {m.get('usd5'):+.2f}%" if m.get('usd5') is not None else 'USD Index (5D): N/A',font=F21,fill=MUTED)
+        d.text((390,1120),f"US 10Y (5D): {m.get('y105'):+.0f} bps" if m.get('y105') is not None else 'US 10Y (5D): N/A',font=F21,fill=MUTED)
+        d.text((730,1120),f"CPI YoY: {m.get('cpi'):.2f}%" if m.get('cpi') is not None else 'CPI YoY: N/A',font=F21,fill=MUTED)
+        d.text((78,1175),f"Macro Support Score: {a['macro_score']:.0f} / 100",font=F24,fill=col(a['macro_score']))
+        d.text((78,1225),'Lower USD/yields are treated as more supportive for precious metals.',font=F18,fill=MUTED)
     else:
-        d.text((78,1068),'MARKET FLOW',font=F26,fill=TEXT);vr=a.get('volume_ratio');d.text((78,1122),f"Volume / 20D Avg: {vr:.2f}x" if vr is not None else 'Volume / 20D Avg: N/A',font=F21,fill=MUTED);d.text((390,1122),f"30D Return: {a['r30']:+.2f}%",font=F21,fill=GREEN if a['r30']>=0 else RED);d.text((730,1122),f"Market Cap: {money(a.get('market_cap'))}",font=F21,fill=MUTED);d.text((78,1180),f"Market Flow Pressure: {a['proxy']:.0f} / 100",font=F24,fill=col(a['proxy']));
-        if not ci.get('available'):d.text((78,1230),'No direct CFTC positioning: this flow score is market-derived only.',font=F18,fill=MUTED)
-    rounded(d,(50,1310,1030,1495),fill=(27,31,42),outline=col(a['market_strength']),w=2);d.text((78,1338),'ALERT',font=F21,fill=MUTED)
+        d.text((78,1068),'FREE CRYPTO FLOW DATA',font=F26,fill=TEXT)
+        bd=a.get('binance',{})
+        qv=bd.get('futures_quote_volume')
+        d.text((78,1122),f"Binance Futures 24H Volume: {money(qv)}" if qv is not None else 'Binance Futures 24H Volume: N/A',font=F21,fill=MUTED)
+
+        pc=bd.get('futures_24h_change')
+        d.text((430,1122),f"Futures 24H: {pc:+.2f}%" if pc is not None else 'Futures 24H: N/A',font=F21,fill=GREEN if (pc or 0)>=0 else RED)
+
+        la=bd.get('long_account'); sa=bd.get('short_account')
+        if la is not None and sa is not None:
+            d.text((78,1175),f"All Accounts: Long {la*100:.1f}% | Short {sa*100:.1f}%",font=F21,fill=MUTED)
+        else:
+            d.text((78,1175),'All Accounts Long/Short: N/A',font=F21,fill=MUTED)
+
+        d.text((78,1225),'Free Binance futures data = one-exchange derivatives pressure, not total-market capital flow.',font=F18,fill=MUTED)
+
+    rounded(d,(50,1310,1030,1495),fill=(27,31,42),outline=col(a['market_strength']),w=2)
+    d.text((78,1338),'ALERT',font=F21,fill=MUTED)
     ac=RED if any(x in a['alert'] for x in ('OUTFLOW','DOWNSIDE','WEAKENING')) else GREEN if any(x in a['alert'] for x in ('INFLOW','UPWARD','IMPROVING')) else AMBER
-    d.text((78,1375),a['alert'],font=F30,fill=ac);d.text((78,1425),a['alert_detail'],font=F21,fill=TEXT)
-    ir=datetime.now(ZoneInfo('Asia/Tehran')).strftime('%Y-%m-%d %H:%M');d.text((55,1533),f'TradingLife • Updated {ir} Iran',font=F18,fill=MUTED);d.text((1025,1533),'Sources: Alpha Vantage • CFTC COT • FRED | Market intelligence, not investment advice',font=F18,fill=MUTED,anchor='ra')
-    os.makedirs(OUT,exist_ok=True);p=os.path.join(OUT,f"{a['symbol'].lower()}_tradinglife.png");im.save(p,'PNG',optimize=True);return p
+    d.text((78,1375),a['alert'],font=F30,fill=ac)
+    d.text((78,1425),a['alert_detail'],font=F21,fill=TEXT)
+
+    ir=datetime.now(ZoneInfo('Asia/Tehran')).strftime('%Y-%m-%d %H:%M')
+    d.text((55,1533),f'TradingLife • Updated {ir} Iran',font=F18,fill=MUTED)
+    footer='Sources: Alpha Vantage • CFTC COT • FRED'
+    if a['kind']=='crypto': footer+=' • Binance Futures public market data'
+    footer+=' | Market intelligence, not investment advice'
+    d.text((1025,1533),footer,font=F18,fill=MUTED,anchor='ra')
+
+    os.makedirs(OUT,exist_ok=True)
+    p=os.path.join(OUT,f"{a['symbol'].lower()}_tradinglife.png")
+    im.save(p,'PNG',optimize=True)
+    return p
 
 def send(p,a):
-    inst=a['flow_label'] if a['institutional'].get('available') else 'No direct CFTC institutional coverage'
-    cap=f"TradingLife | {a['name']} ({a['symbol']}/USD)\nMarket Strength: {a['market_strength']:.0f}/100 — {a['strength_label']}\nInstitutional: {inst}\nAlert: {a['alert']}\nMarket intelligence only — not investment advice."
+    if a['kind']=='metal':
+        flow_text=a['flow_label']
+    elif a.get('flow_kind')=='institutional+derivatives':
+        flow_text=f"Institutional/Derivatives Pressure: {a['flow_score']:.0f}/100"
+    else:
+        flow_text=f"Binance Derivatives Pressure: {a['flow_score']:.0f}/100"
+
+    cap=(
+        f"TradingLife | {a['name']} ({a['symbol']}/USD)\n"
+        f"Market Strength: {a['market_strength']:.0f}/100 — {a['strength_label']}\n"
+        f"{flow_text}\n"
+        f"Alert: {a['alert']}\n"
+        f"Market intelligence only — not investment advice."
+    )
     with open(p,'rb') as f:
-        r=requests.post(f'https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto',data={'chat_id':CHAT_ID,'caption':cap},files={'photo':f},timeout=60);r.raise_for_status()
+        r=requests.post(
+            f'https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto',
+            data={'chat_id':CHAT_ID,'caption':cap},
+            files={'photo':f},
+            timeout=60
+        )
+        r.raise_for_status()
 
 def load(path,default):
     try:
