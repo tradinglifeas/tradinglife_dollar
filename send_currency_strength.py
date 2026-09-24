@@ -104,10 +104,11 @@ def ask_groq_for_analysis(headlines, strength_summary):
     )
 
     payload = {
-        "model": "gemma2-9b-it",
+        "model": "openai/gpt-oss-20b",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0.4,
-        "max_tokens": 220,
+        "max_tokens": 600,
+        "reasoning_effort": "low",
     }
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
