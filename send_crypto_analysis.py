@@ -8,6 +8,8 @@
 """
 
 import os
+import re
+import time
 import requests
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -21,6 +23,34 @@ TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 GOLD_API_URL = "https://Api.BrsApi.ir/Market/Gold_Currency.php"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
+def call_groq_with_retry(payload, headers, max_retries=3):
+    """
+    درخواست رو به Groq می‌فرسته. اگه به خطای rate_limit_exceeded خورد،
+    مدت زمانی که خودش پیشنهاد داده (یا ۱۵ ثانیه) صبر می‌کنه و دوباره امتحان می‌کنه.
+    """
+    for attempt in range(max_retries):
+        response = requests.post(GROQ_URL, json=payload, headers=headers, timeout=45)
+        try:
+            data = response.json()
+        except ValueError:
+            print(f"پاسخ Groq JSON نبود. کد وضعیت: {response.status_code}")
+            print(f"متن پاسخ: {response.text[:500]}")
+            return None
+
+        error = data.get("error") if isinstance(data, dict) else None
+        if error and error.get("code") == "rate_limit_exceeded":
+            match = re.search(r"try again in ([\d.]+)s", error.get("message", ""))
+            wait_seconds = float(match.group(1)) + 2 if match else 15
+            print(f"محدودیت نرخ Groq - {wait_seconds:.1f} ثانیه صبر می‌کنیم (تلاش {attempt + 1}/{max_retries})")
+            time.sleep(wait_seconds)
+            continue
+
+        return data
+
+    print("بعد از چند بار تلاش، بازم محدودیت نرخ برطرف نشد.")
+    return None
+
+
 # بیت‌کوین به‌عنوان اصلی‌ترین ارز دیجیتال، پلاس چند ارز مهم دیگه
 TRACKED_COINS = ["BTC", "ETH"]
 
@@ -28,6 +58,11 @@ REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 }
+
+
+def clean_citations(text):
+    """علامت‌های استناد داخلی مدل (مثل 【3†L163-L170】) رو از متن نهایی پاک می‌کنه"""
+    return re.sub(r"【[^】]*】", "", text).strip()
 
 
 def find_item(items, symbol=None, name_contains=None):
@@ -80,19 +115,23 @@ def get_change(item):
     return change_value, change_percent
 
 
-def ask_groq_for_analysis(prices_summary):
+def ask_groq_for_analysis(prices_summary, today_str):
     """
     از قابلیت browser_search خود Groq استفاده می‌کنیم تا مدل مستقیماً
     وب رو جستجو کنه و اخبار تازه‌ی کریپتو رو ببینه.
     """
     prompt = (
-        "Search the web for today's most important crypto market news. "
+        f"Today's date is {today_str}. Search the web for the most important "
+        f"crypto market news from the last 24 to 48 hours (do not use older "
+        f"news). If your search results are not clearly from around "
+        f"{today_str}, search again with a more specific recent query. "
         "Then, based on what you find, write a short, neutral 2-3 sentence analysis "
         "in English explaining what appears to be driving today's crypto market moves. "
         "Do not quote sources verbatim; paraphrase in your own words. "
         "Do not give financial advice.\n\n"
         f"Current prices:\n{prices_summary}\n\n"
-        "Write only the analysis paragraph, nothing else."
+        "Write only the analysis paragraph, nothing else. Do not include any "
+        "citation markers or brackets, only plain text."
     )
 
     payload = {
@@ -108,22 +147,17 @@ def ask_groq_for_analysis(prices_summary):
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json",
     }
-    response = requests.post(GROQ_URL, json=payload, headers=headers, timeout=45)
-    try:
-        data = response.json()
-    except ValueError:
-        print(f"پاسخ Groq JSON نبود. کد وضعیت: {response.status_code}")
-        print(f"متن پاسخ: {response.text[:500]}")
+    data = call_groq_with_retry(payload, headers)
+    if data is None:
         return None
 
     print(f"پاسخ Groq: {data}")
     try:
         message = data["choices"][0]["message"]
         content = (message.get("content") or "").strip()
-        if content:
-            return content
-        reasoning = (message.get("reasoning") or "").strip()
-        return reasoning if reasoning else None
+        if not content:
+            content = (message.get("reasoning") or "").strip()
+        return clean_citations(content) if content else None
     except (KeyError, IndexError):
         return None
 
@@ -153,10 +187,11 @@ def main():
             prices_summary_lines.append(f"{symbol}: ${format_number(price)}")
     prices_summary = "\n".join(prices_summary_lines)
 
-    analysis = ask_groq_for_analysis(prices_summary)
-
     ny_time = datetime.now(ZoneInfo("America/New_York"))
+    today_str = ny_time.strftime("%B %d, %Y")
     now_text = ny_time.strftime("%Y-%m-%d %H:%M %Z")
+
+    analysis = ask_groq_for_analysis(prices_summary, today_str)
 
     lines = ["₿ <b>Crypto Market Update</b>", ""]
 

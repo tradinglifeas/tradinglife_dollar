@@ -2,13 +2,14 @@
 اسکریپت ساخت و ارسال گزارش «قدرت ارزهای G10» به کانال تلگرام (انگلیسی).
 
 داده‌ی عددی: از Frankfurter API (رایگان، بدون نیاز به کلید) - نرخ رسمی بانک مرکزی اروپا.
-تحلیل خبری: از Groq با قابلیت browser_search - مدل خودش وب رو جستجو می‌کنه
-(دیگه نیازی به گرفتن خبر از RSS و دادنش به مدل نیست).
+تحلیل خبری: از Groq با قابلیت browser_search - مدل خودش وب رو جستجو می‌کنه.
 
 پیام فقط به‌صورت متن (نه عکس) ارسال می‌شه.
 """
 
 import os
+import re
+import time
 import requests
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -21,12 +22,45 @@ TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 FRANKFURTER_URL = "https://api.frankfurter.app"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
+def call_groq_with_retry(payload, headers, max_retries=3):
+    """
+    درخواست رو به Groq می‌فرسته. اگه به خطای rate_limit_exceeded خورد،
+    مدت زمانی که خودش پیشنهاد داده (یا ۱۵ ثانیه) صبر می‌کنه و دوباره امتحان می‌کنه.
+    """
+    for attempt in range(max_retries):
+        response = requests.post(GROQ_URL, json=payload, headers=headers, timeout=45)
+        try:
+            data = response.json()
+        except ValueError:
+            print(f"پاسخ Groq JSON نبود. کد وضعیت: {response.status_code}")
+            print(f"متن پاسخ: {response.text[:500]}")
+            return None
+
+        error = data.get("error") if isinstance(data, dict) else None
+        if error and error.get("code") == "rate_limit_exceeded":
+            match = re.search(r"try again in ([\d.]+)s", error.get("message", ""))
+            wait_seconds = float(match.group(1)) + 2 if match else 15
+            print(f"محدودیت نرخ Groq - {wait_seconds:.1f} ثانیه صبر می‌کنیم (تلاش {attempt + 1}/{max_retries})")
+            time.sleep(wait_seconds)
+            continue
+
+        return data
+
+    print("بعد از چند بار تلاش، بازم محدودیت نرخ برطرف نشد.")
+    return None
+
+
 G10_CURRENCIES = ["EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "NZD"]
 
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 }
+
+
+def clean_citations(text):
+    """علامت‌های استناد داخلی مدل (مثل 【3†L163-L170】) رو از متن نهایی پاک می‌کنه"""
+    return re.sub(r"【[^】]*】", "", text).strip()
 
 
 def get_rates(date_str):
@@ -68,19 +102,23 @@ def compute_strength():
     return results
 
 
-def ask_groq_for_analysis(strength_summary):
+def ask_groq_for_analysis(strength_summary, today_str):
     """
-    به‌جای گرفتن خبر از RSS و دادنش به مدل، از قابلیت browser_search خود Groq
-    استفاده می‌کنیم تا مدل مستقیماً وب رو جستجو کنه و اخبار تازه‌ی فارکس رو ببینه.
+    از قابلیت browser_search خود Groq استفاده می‌کنیم تا مدل مستقیماً
+    وب رو جستجو کنه و اخبار تازه‌ی فارکس رو ببینه.
     """
     prompt = (
-        "Search the web for today's most important forex/currency market news. "
+        f"Today's date is {today_str}. Search the web for the most important "
+        f"forex/currency market news from the last 24 to 48 hours (do not use "
+        f"older news). If your search results are not clearly from around "
+        f"{today_str}, search again with a more specific recent query. "
         "Then, based on what you find, write a short, neutral 2-3 sentence analysis "
         "in English explaining what appears to be driving today's currency market moves. "
         "Do not quote sources verbatim; paraphrase in your own words. "
         "Do not give financial advice.\n\n"
         f"Today's G10 currency strength ranking (vs USD):\n{strength_summary}\n\n"
-        "Write only the analysis paragraph, nothing else."
+        "Write only the analysis paragraph, nothing else. Do not include any "
+        "citation markers or brackets, only plain text."
     )
 
     payload = {
@@ -96,22 +134,17 @@ def ask_groq_for_analysis(strength_summary):
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json",
     }
-    response = requests.post(GROQ_URL, json=payload, headers=headers, timeout=45)
-    try:
-        data = response.json()
-    except ValueError:
-        print(f"پاسخ Groq JSON نبود. کد وضعیت: {response.status_code}")
-        print(f"متن پاسخ: {response.text[:500]}")
+    data = call_groq_with_retry(payload, headers)
+    if data is None:
         return None
 
     print(f"پاسخ Groq: {data}")
     try:
         message = data["choices"][0]["message"]
         content = (message.get("content") or "").strip()
-        if content:
-            return content
-        reasoning = (message.get("reasoning") or "").strip()
-        return reasoning if reasoning else None
+        if not content:
+            content = (message.get("reasoning") or "").strip()
+        return clean_citations(content) if content else None
     except (KeyError, IndexError):
         return None
 
@@ -139,10 +172,11 @@ def main():
     strength_summary_lines = [f"{r['currency']}: {r['percent']:+.2f}%" for r in strength]
     strength_summary = "\n".join(strength_summary_lines)
 
-    analysis = ask_groq_for_analysis(strength_summary)
-
     ny_time = datetime.now(ZoneInfo("America/New_York"))
+    today_str = ny_time.strftime("%B %d, %Y")
     now_text = ny_time.strftime("%Y-%m-%d %H:%M %Z")
+
+    analysis = ask_groq_for_analysis(strength_summary, today_str)
 
     lines = ["💱 <b>G10 Currency Strength (vs USD)</b>", ""]
     for i, r in enumerate(strength, 1):
