@@ -155,8 +155,6 @@ def main():
         print("داده‌ی قدرت ارزها دریافت نشد.")
         return
 
-    strongest = strength[:3]
-    weakest = strength[-3:][::-1]
 
     strength_summary_lines = [f"{r['currency']}: {r['percent']:+.2f}%" for r in strength]
     strength_summary = "\n".join(strength_summary_lines)
@@ -167,14 +165,11 @@ def main():
     ny_time = datetime.now(ZoneInfo("America/New_York"))
     now_text = ny_time.strftime("%Y-%m-%d %H:%M %Z")
 
-    lines = ["💱 <b>G10 Currency Strength</b>", ""]
-    lines.append("🟢 <b>Strongest:</b>")
-    for i, r in enumerate(strongest, 1):
-        lines.append(f"{i}. {r['currency']}: {r['percent']:+.2f}%")
-    lines.append("")
-    lines.append("🔴 <b>Weakest:</b>")
-    for i, r in enumerate(weakest, 1):
-        lines.append(f"{i}. {r['currency']}: {r['percent']:+.2f}%")
+    lines = ["💱 <b>G10 Currency Strength (vs USD)</b>", "", "<i>Each % shows how much the currency gained/lost against the US Dollar today:</i>", ""]
+    for i, r in enumerate(strength, 1):
+        emoji = "🟢" if r["percent"] > 0 else ("🔴" if r["percent"] < 0 else "⚪")
+        direction = "stronger" if r["percent"] > 0 else ("weaker" if r["percent"] < 0 else "unchanged")
+        lines.append(f"{i}. {emoji} {r['currency']}: {r['percent']:+.2f}% ({direction} vs USD)")
 
     if analysis:
         lines.append("")
