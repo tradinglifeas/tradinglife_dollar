@@ -12,6 +12,8 @@ ASSET_FILTER = os.getenv('ASSET_FILTER', 'ALL').upper()
 
 AV = 'https://www.alphavantage.co/query'
 BINANCE_FUTURES = 'https://fapi.binance.com'
+BYBIT_PUBLIC = 'https://api.bybit.com'
+OKX_PUBLIC = 'https://www.okx.com'
 CFTC_DISAGG = 'https://publicreporting.cftc.gov/resource/72hh-3qpy.json'
 CFTC_LEGACY = 'https://publicreporting.cftc.gov/resource/6dca-aqww.json'
 CACHE = 'market_intelligence_cache.json'
@@ -170,20 +172,21 @@ def cftc(asset):
             'oi':oi,'oi_change':pct(oi,poi) if oi is not None and poi not in (None,0) else None,'date':dt(cur)[:10]}
 
 
-def binance_public(asset):
-    """
-    Free/public Binance USDⓈ-M futures market data.
-    No Binance API key is used here.
+def _metric_count(d):
+    keys = (
+        'oi_value', 'oi_change_pct', 'funding_rate',
+        'futures_quote_volume', 'futures_24h_change',
+        'long_short_ratio', 'taker_ratio'
+    )
+    return sum(1 for k in keys if d.get(k) is not None)
 
-    IMPORTANT:
-    - These numbers describe Binance futures activity, not the entire crypto market.
-    - For SOL/XRP/ADA/DOGE they are NOT labeled as institutional flows.
-    """
+def binance_public(asset):
+    """Free/public Binance futures data. May be unavailable from some cloud/IP regions."""
     if asset.get('kind') != 'crypto' or not asset.get('binance'):
-        return {'available': False, 'reason': 'Not a crypto asset'}
+        return {'available': False, 'source': 'Binance'}
 
     symbol = asset['binance']
-    out = {'available': False, 'symbol': symbol}
+    out = {'available': False, 'source': 'Binance', 'symbol': symbol}
 
     try:
         oi = get_json(
@@ -195,13 +198,9 @@ def binance_public(asset):
             prev = oi[-2] if len(oi) > 1 else {}
             out['oi_value'] = sf(cur.get('sumOpenInterestValue'))
             out['oi_contracts'] = sf(cur.get('sumOpenInterest'))
-            prev_val = sf(prev.get('sumOpenInterestValue'))
-            out['oi_change_pct'] = (
-                pct(out['oi_value'], prev_val)
-                if out.get('oi_value') is not None and prev_val not in (None, 0)
-                else None
-            )
-            out['available'] = True
+            pv = sf(prev.get('sumOpenInterestValue'))
+            if out.get('oi_value') is not None and pv not in (None, 0):
+                out['oi_change_pct'] = pct(out['oi_value'], pv)
     except Exception as e:
         print('Binance OI error', symbol, e)
 
@@ -215,7 +214,6 @@ def binance_public(asset):
             out['taker_ratio'] = sf(row.get('buySellRatio'))
             out['taker_buy'] = sf(row.get('buyVol'))
             out['taker_sell'] = sf(row.get('sellVol'))
-            out['available'] = True
     except Exception as e:
         print('Binance taker error', symbol, e)
 
@@ -229,7 +227,6 @@ def binance_public(asset):
             out['long_short_ratio'] = sf(row.get('longShortRatio'))
             out['long_account'] = sf(row.get('longAccount'))
             out['short_account'] = sf(row.get('shortAccount'))
-            out['available'] = True
     except Exception as e:
         print('Binance long/short error', symbol, e)
 
@@ -240,7 +237,6 @@ def binance_public(asset):
         )
         if isinstance(funding, list) and funding:
             out['funding_rate'] = sf(funding[-1].get('fundingRate'))
-            out['available'] = True
     except Exception as e:
         print('Binance funding error', symbol, e)
 
@@ -252,28 +248,179 @@ def binance_public(asset):
         if isinstance(ticker, dict):
             out['futures_24h_change'] = sf(ticker.get('priceChangePercent'))
             out['futures_quote_volume'] = sf(ticker.get('quoteVolume'))
-            out['available'] = True
     except Exception as e:
         print('Binance ticker error', symbol, e)
 
+    out['available'] = _metric_count(out) > 0
     return out
+
+def bybit_public(asset):
+    """Free/public Bybit V5 market data. No key is sent."""
+    if asset.get('kind') != 'crypto' or not asset.get('binance'):
+        return {'available': False, 'source': 'Bybit'}
+
+    symbol = asset['binance']
+    out = {'available': False, 'source': 'Bybit', 'symbol': symbol}
+
+    try:
+        d = get_json(
+            BYBIT_PUBLIC + '/v5/market/tickers',
+            {'category': 'linear', 'symbol': symbol}
+        )
+        rows = ((d.get('result') or {}).get('list') or []) if isinstance(d, dict) else []
+        if rows:
+            r = rows[0]
+            out['oi_value'] = sf(r.get('openInterestValue'))
+            out['oi_contracts'] = sf(r.get('openInterest'))
+            out['funding_rate'] = sf(r.get('fundingRate'))
+            p24 = sf(r.get('price24hPcnt'))
+            out['futures_24h_change'] = p24 * 100 if p24 is not None else None
+            out['futures_quote_volume'] = sf(r.get('turnover24h'))
+    except Exception as e:
+        print('Bybit ticker error', symbol, e)
+
+    try:
+        d = get_json(
+            BYBIT_PUBLIC + '/v5/market/open-interest',
+            {'category': 'linear', 'symbol': symbol, 'intervalTime': '1h', 'limit': 2}
+        )
+        rows = ((d.get('result') or {}).get('list') or []) if isinstance(d, dict) else []
+        if len(rows) >= 2:
+            # Bybit can return newest first, so sort by timestamp.
+            rows = sorted(rows, key=lambda x: int(x.get('timestamp', 0)))
+            a = sf(rows[-1].get('openInterest'))
+            b = sf(rows[-2].get('openInterest'))
+            if a is not None and b not in (None, 0):
+                out['oi_change_pct'] = pct(a, b)
+    except Exception as e:
+        print('Bybit OI history error', symbol, e)
+
+    try:
+        d = get_json(
+            BYBIT_PUBLIC + '/v5/market/account-ratio',
+            {'category': 'linear', 'symbol': symbol, 'period': '1h', 'limit': 1}
+        )
+        rows = ((d.get('result') or {}).get('list') or []) if isinstance(d, dict) else []
+        if rows:
+            r = rows[0]
+            la = sf(r.get('buyRatio'))
+            sa = sf(r.get('sellRatio'))
+            out['long_account'] = la
+            out['short_account'] = sa
+            if la is not None and sa not in (None, 0):
+                out['long_short_ratio'] = la / sa
+    except Exception as e:
+        print('Bybit long/short error', symbol, e)
+
+    out['available'] = _metric_count(out) > 0
+    return out
+
+def okx_public(asset):
+    """Free/public OKX market data. No key is sent."""
+    if asset.get('kind') != 'crypto':
+        return {'available': False, 'source': 'OKX'}
+
+    inst = f"{asset['symbol']}-USDT-SWAP"
+    out = {'available': False, 'source': 'OKX', 'symbol': inst}
+
+    try:
+        d = get_json(
+            OKX_PUBLIC + '/api/v5/public/open-interest',
+            {'instType': 'SWAP', 'instId': inst}
+        )
+        rows = d.get('data', []) if isinstance(d, dict) else []
+        if rows:
+            r = rows[0]
+            out['oi_value'] = sf(r.get('oiUsd')) or sf(r.get('oiCcy')) or sf(r.get('oi'))
+            out['oi_contracts'] = sf(r.get('oi'))
+    except Exception as e:
+        print('OKX OI error', inst, e)
+
+    try:
+        d = get_json(
+            OKX_PUBLIC + '/api/v5/public/funding-rate',
+            {'instId': inst}
+        )
+        rows = d.get('data', []) if isinstance(d, dict) else []
+        if rows:
+            out['funding_rate'] = sf(rows[0].get('fundingRate'))
+    except Exception as e:
+        print('OKX funding error', inst, e)
+
+    try:
+        d = get_json(
+            OKX_PUBLIC + '/api/v5/market/ticker',
+            {'instId': inst}
+        )
+        rows = d.get('data', []) if isinstance(d, dict) else []
+        if rows:
+            r = rows[0]
+            last = sf(r.get('last'))
+            op = sf(r.get('open24h'))
+            if last is not None and op not in (None, 0):
+                out['futures_24h_change'] = pct(last, op)
+            # OKX returns 24h volume fields; volCcy24h is the more useful
+            # quote/base-currency volume depending on instrument rules.
+            out['futures_quote_volume'] = sf(r.get('volCcy24h')) or sf(r.get('vol24h'))
+    except Exception as e:
+        print('OKX ticker error', inst, e)
+
+    out['available'] = _metric_count(out) > 0
+    return out
+
+def free_derivatives(asset, prev_state):
+    """
+    Try several FREE public derivatives feeds.
+    Choose the first sufficiently complete feed; otherwise keep the best partial feed.
+    No exchange API key is used.
+    """
+    candidates = []
+
+    for provider in (binance_public, bybit_public, okx_public):
+        d = provider(asset)
+        candidates.append(d)
+        if _metric_count(d) >= 3:
+            best = d
+            break
+    else:
+        best = max(candidates, key=_metric_count) if candidates else {
+            'available': False, 'source': 'None'
+        }
+
+    # If a provider gives current OI but not a 1h historical OI change,
+    # calculate change versus the previous TradingLife report — only when
+    # the provider is the same as the previous report.
+    if (
+        best.get('oi_change_pct') is None
+        and best.get('oi_value') is not None
+        and prev_state.get('deriv_source') == best.get('source')
+    ):
+        prev_oi = sf(prev_state.get('deriv_oi_value'))
+        if prev_oi not in (None, 0):
+            best['oi_change_pct'] = pct(best['oi_value'], prev_oi)
+            best['oi_change_period'] = 'since prior report'
+
+    if best.get('oi_change_period') is None:
+        best['oi_change_period'] = '1H'
+
+    return best
 
 def derivatives_pressure(bd, t):
     """
-    0-100 pressure score built from free Binance futures data.
-    It is a DERIVATIVES PRESSURE metric, not a claim of true money inflow/outflow.
+    0-100 FREE derivatives pressure score.
+    This is not a measurement of total capital entering/leaving the entire asset.
     """
     if not bd.get('available'):
         return None
 
     s = 50.0
-
     oi = bd.get('oi_change_pct')
+
     if oi is not None:
         if oi > 0.15 and t['daily'] > 0:
-            s += min(16, 7 + oi * 3)
+            s += min(16, 7 + abs(oi) * 3)
         elif oi > 0.15 and t['daily'] < 0:
-            s -= min(16, 7 + oi * 3)
+            s -= min(16, 7 + abs(oi) * 3)
         elif oi < -0.15 and t['daily'] > 0:
             s += 3
         elif oi < -0.15 and t['daily'] < 0:
@@ -285,15 +432,19 @@ def derivatives_pressure(bd, t):
 
     fr = bd.get('funding_rate')
     if fr is not None:
-        # Small positive/negative funding expresses directional positioning.
-        # Extreme funding is treated as crowding, so the contribution is capped.
-        contribution = max(-7, min(7, fr * 10000 * 1.5))
-        s += contribution
+        s += max(-7, min(7, fr * 10000 * 1.5))
 
     ls = bd.get('long_short_ratio')
     if ls is not None:
-        # Broad account positioning gets only a small weight.
         s += max(-6, min(6, (ls - 1.0) * 8))
+
+    # If the free source has no taker or long/short ratio, use the exchange's
+    # futures 24h change as a small supporting input rather than leaving the
+    # pressure score effectively empty.
+    if tr is None and ls is None:
+        pc = bd.get('futures_24h_change')
+        if pc is not None:
+            s += max(-8, min(8, pc * 0.8))
 
     return clamp(s)
 
@@ -385,7 +536,7 @@ def intelligence(asset,h,sp,m,prev):
     proxy = flow_proxy(t)
     ms = macro_score(m) if asset['kind'] == 'metal' else None
 
-    bd = binance_public(asset) if asset['kind'] == 'crypto' else {'available': False}
+    bd = free_derivatives(asset, prev) if asset['kind'] == 'crypto' else {'available': False, 'source': 'None'}
     dscore = derivatives_pressure(bd, t) if asset['kind'] == 'crypto' else None
 
     if asset['kind'] == 'metal':
@@ -432,10 +583,10 @@ def intelligence(asset,h,sp,m,prev):
 
         if dscore >= 72 and (oi is None or oi > 0) and (tr is None or tr >= 1.03):
             alert = 'DERIVATIVES INFLOW PRESSURE'
-            detail = 'Open interest and aggressive buy/sell activity show stronger upside flow pressure on Binance futures.'
+            detail = f"{bd.get('source','Public')} derivatives data show stronger upside flow pressure."
         elif dscore <= 28 and (oi is None or oi > 0) and (tr is None or tr <= 0.97):
             alert = 'DERIVATIVES OUTFLOW PRESSURE'
-            detail = 'Open interest and aggressive buy/sell activity show stronger downside flow pressure on Binance futures.'
+            detail = f"{bd.get('source','Public')} derivatives data show stronger downside flow pressure."
         elif abs((bd.get('funding_rate') or 0) * 100) >= 0.05:
             alert = 'FUNDING CROWDING ALERT'
             detail = f"Funding is {funding_label(bd.get('funding_rate')).lower()}, which can indicate crowded positioning."
@@ -488,7 +639,7 @@ def intelligence(asset,h,sp,m,prev):
         'flow_label': primary_flow_label,
         'flow_kind': flow_kind,
         'proxy': proxy,
-        'binance': bd,
+        'derivatives': bd,
         'derivatives_score': dscore,
         'derivatives_label': derivatives_label(dscore),
         'alert': alert,
@@ -515,11 +666,11 @@ def price(v):
     if v is None:return 'N/A'
     return f'${v:,.2f}' if v>=1000 else f'${v:,.3f}' if v>=10 else f'${v:,.4f}' if v>=1 else f'${v:,.6f}'
 
-W,H=1080,1600; BG=(11,14,20); PANEL=(24,29,39); PANEL2=(18,22,31); TEXT=(240,244,248); MUTED=(155,165,178); GREEN=(44,200,134); RED=(239,83,80); AMBER=(245,185,66); GOLD=(212,175,55); SILVER=(195,202,212); BLUE=(91,155,255)
+W,H=1080,1680; BG=(11,14,20); PANEL=(24,29,39); PANEL2=(18,22,31); TEXT=(240,244,248); MUTED=(155,165,178); GREEN=(44,200,134); RED=(239,83,80); AMBER=(245,185,66); GOLD=(212,175,55); SILVER=(195,202,212); BLUE=(91,155,255)
 def font(n,b=False):
     p='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf' if b else '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
     return ImageFont.truetype(p,n) if os.path.exists(p) else ImageFont.load_default()
-F18=font(18);F21=font(21);F24=font(24);F26=font(26,1);F30=font(30,1);F38=font(38,1);F46=font(46,1);F64=font(64,1)
+F16=font(16);F18=font(18);F21=font(21);F24=font(24);F26=font(26,1);F30=font(30,1);F38=font(38,1);F46=font(46,1);F64=font(64,1)
 def rounded(d,xy,fill=PANEL,outline=None,w=1):d.rounded_rectangle(xy,radius=22,fill=fill,outline=outline,width=w)
 def col(s):return GREEN if s>=60 else RED if s<=40 else AMBER
 def metric(d,x,y,width,label,value,color=TEXT):
@@ -534,7 +685,9 @@ def spark(d,box,v,accent):
 def render(a):
     accent=GOLD if a['symbol']=='XAU' else SILVER if a['symbol']=='XAG' else BLUE
     im=Image.new('RGB',(W,H),BG);d=ImageDraw.Draw(im)
-    d.text((55,42),'TRADINGLIFE',font=F38,fill=TEXT);d.text((55,91),'Market Intelligence',font=F21,fill=MUTED)
+
+    d.text((55,42),'TRADINGLIFE',font=F38,fill=TEXT)
+    d.text((55,91),'Market Intelligence',font=F21,fill=MUTED)
     d.text((1025,52),f"{a['name'].upper()} | {a['symbol']}/USD",font=F30,fill=accent,anchor='ra')
 
     rounded(d,(50,140,1030,375))
@@ -550,6 +703,7 @@ def render(a):
     d.text((78,425),'60-DAY PRICE TREND',font=F18,fill=MUTED)
     spark(d,(82,475,995,595),a['closes'],accent)
 
+    # Left: technical condition
     rounded(d,(50,650,520,1015))
     d.text((78,678),'MARKET CONDITION',font=F26,fill=TEXT)
     metric(d,78,735,405,'RSI (14)',f"{a['rsi']:.1f}" if a['rsi'] is not None else 'N/A')
@@ -560,6 +714,7 @@ def render(a):
     metric(d,78,915,405,'Momentum (MACD)',md,GREEN if md=='Positive' else RED)
     metric(d,78,960,405,'7D / 30D',f"{a['r7']:+.1f}% / {a['r30']:+.1f}%")
 
+    # Right: institutional / derivatives
     rounded(d,(550,650,1030,1015))
     ci=a['institutional']
 
@@ -577,32 +732,50 @@ def render(a):
             d.text((578,755),'No direct CFTC institutional data.',font=F21,fill=AMBER)
 
     else:
-        title = 'INSTITUTIONAL + DERIVATIVES' if ci.get('available') else 'BINANCE DERIVATIVES FLOW'
-        d.text((578,678),title,font=F26,fill=TEXT)
-        bd=a.get('binance',{})
+        bd=a.get('derivatives',{})
+        src=bd.get('source','Public')
+        title = f"INSTITUTIONAL + {src.upper()}" if ci.get('available') else f"DERIVATIVES FLOW — {src.upper()}"
+        d.text((578,678),title,font=F24,fill=TEXT)
 
+        rows=[]
         if ci.get('available'):
-            metric(d,578,735,410,'CFTC Large Traders Net',compact(ci['net']),GREEN if ci['net']>=0 else RED)
-        else:
-            metric(d,578,735,410,'CFTC Positioning','No direct coverage',AMBER)
+            rows.append(('CFTC Large Traders Net', compact(ci['net']), GREEN if ci['net']>=0 else RED))
 
-        oi=bd.get('oi_change_pct')
-        metric(d,578,780,410,'Open Interest (1H)',f"{oi:+.2f}%" if oi is not None else 'N/A',GREEN if (oi or 0)>=0 else RED)
-
-        tr=bd.get('taker_ratio')
-        metric(d,578,825,410,'Taker Buy / Sell',f"{tr:.2f}x" if tr is not None else 'N/A',GREEN if (tr or 1)>=1 else RED)
-
-        fr=bd.get('funding_rate')
-        metric(d,578,870,410,'Funding Rate',f"{fr*100:+.4f}%" if fr is not None else 'N/A')
-
-        ls=bd.get('long_short_ratio')
-        metric(d,578,915,410,'Global Long / Short',f"{ls:.2f}x" if ls is not None else 'N/A')
+        if bd.get('oi_value') is not None:
+            rows.append(('Open Interest', money(bd.get('oi_value')), TEXT))
+        if bd.get('oi_change_pct') is not None:
+            period=bd.get('oi_change_period','1H')
+            v=bd['oi_change_pct']
+            rows.append((f'OI Change ({period})', f"{v:+.2f}%", GREEN if v>=0 else RED))
+        if bd.get('funding_rate') is not None:
+            fr=bd['funding_rate']
+            rows.append(('Funding Rate', f"{fr*100:+.4f}%", GREEN if fr<=0.0005 else AMBER))
+        if bd.get('long_short_ratio') is not None:
+            ls=bd['long_short_ratio']
+            rows.append(('Long / Short', f"{ls:.2f}x", GREEN if ls>=1 else RED))
+        if bd.get('taker_ratio') is not None:
+            tr=bd['taker_ratio']
+            rows.append(('Taker Buy / Sell', f"{tr:.2f}x", GREEN if tr>=1 else RED))
+        if bd.get('futures_24h_change') is not None:
+            pc=bd['futures_24h_change']
+            rows.append(('Futures 24H', f"{pc:+.2f}%", GREEN if pc>=0 else RED))
 
         ds=a.get('derivatives_score')
-        metric(d,578,960,410,'Derivatives Pressure',f"{ds:.0f} / 100" if ds is not None else 'N/A',col(ds) if ds is not None else MUTED)
         if ds is not None:
-            d.text((578,990),a['derivatives_label'],font=F18,fill=col(ds))
+            rows.append(('Derivatives Pressure', f"{ds:.0f} / 100", col(ds)))
 
+        y=735
+        for label,value,color in rows[:6]:
+            metric(d,578,y,410,label,value,color)
+            y+=43
+
+        if not rows:
+            d.text((578,755),'Public derivatives feed unavailable.',font=F21,fill=AMBER)
+            d.text((578,795),'Market Strength uses price/history only.',font=F18,fill=MUTED)
+        else:
+            d.text((578,985),f"Free source: {src}",font=F18,fill=MUTED)
+
+    # Bottom data panel
     rounded(d,(50,1040,1030,1285),fill=PANEL2)
     if a['kind']=='metal':
         d.text((78,1068),'MACRO CONTEXT',font=F26,fill=TEXT)
@@ -613,34 +786,53 @@ def render(a):
         d.text((78,1175),f"Macro Support Score: {a['macro_score']:.0f} / 100",font=F24,fill=col(a['macro_score']))
         d.text((78,1225),'Lower USD/yields are treated as more supportive for precious metals.',font=F18,fill=MUTED)
     else:
-        d.text((78,1068),'FREE CRYPTO FLOW DATA',font=F26,fill=TEXT)
-        bd=a.get('binance',{})
+        bd=a.get('derivatives',{})
+        src=bd.get('source','Public')
+        d.text((78,1068),'FREE CRYPTO DERIVATIVES DATA',font=F26,fill=TEXT)
+        d.text((78,1115),f"Active source: {src}",font=F21,fill=BLUE)
+
         qv=bd.get('futures_quote_volume')
-        d.text((78,1122),f"Binance Futures 24H Volume: {money(qv)}" if qv is not None else 'Binance Futures 24H Volume: N/A',font=F21,fill=MUTED)
+        if qv is not None:
+            d.text((78,1160),f"24H Turnover / Volume: {money(qv)}",font=F21,fill=MUTED)
 
         pc=bd.get('futures_24h_change')
-        d.text((430,1122),f"Futures 24H: {pc:+.2f}%" if pc is not None else 'Futures 24H: N/A',font=F21,fill=GREEN if (pc or 0)>=0 else RED)
+        if pc is not None:
+            d.text((500,1160),f"Futures 24H: {pc:+.2f}%",font=F21,fill=GREEN if pc>=0 else RED)
 
         la=bd.get('long_account'); sa=bd.get('short_account')
         if la is not None and sa is not None:
-            d.text((78,1175),f"All Accounts: Long {la*100:.1f}% | Short {sa*100:.1f}%",font=F21,fill=MUTED)
-        else:
-            d.text((78,1175),'All Accounts Long/Short: N/A',font=F21,fill=MUTED)
+            # Some APIs return 0-1 ratios; display as percentages.
+            d.text((78,1205),f"Accounts: Long {la*100:.1f}% | Short {sa*100:.1f}%",font=F21,fill=MUTED)
+        elif bd.get('funding_rate') is not None:
+            d.text((78,1205),f"Funding: {bd['funding_rate']*100:+.4f}%",font=F21,fill=MUTED)
 
-        d.text((78,1225),'Free Binance futures data = one-exchange derivatives pressure, not total-market capital flow.',font=F18,fill=MUTED)
+        d.text((78,1248),'Exchange derivatives pressure ≠ total-market capital flow or verified institutional flow.',
+               font=F16,fill=MUTED)
 
-    rounded(d,(50,1310,1030,1495),fill=(27,31,42),outline=col(a['market_strength']),w=2)
-    d.text((78,1338),'ALERT',font=F21,fill=MUTED)
+    # Alert
+    rounded(d,(50,1310,1030,1475),fill=(27,31,42),outline=col(a['market_strength']),w=2)
+    d.text((78,1335),'ALERT',font=F21,fill=MUTED)
     ac=RED if any(x in a['alert'] for x in ('OUTFLOW','DOWNSIDE','WEAKENING')) else GREEN if any(x in a['alert'] for x in ('INFLOW','UPWARD','IMPROVING')) else AMBER
-    d.text((78,1375),a['alert'],font=F30,fill=ac)
-    d.text((78,1425),a['alert_detail'],font=F21,fill=TEXT)
+    d.text((78,1372),a['alert'],font=F30,fill=ac)
+    # Keep alert detail safely inside the box.
+    detail=a['alert_detail']
+    if len(detail)>86:
+        split=detail.rfind(' ',0,86)
+        if split<40: split=86
+        d.text((78,1420),detail[:split],font=F18,fill=TEXT)
+        d.text((78,1445),detail[split+1:],font=F18,fill=TEXT)
+    else:
+        d.text((78,1420),detail,font=F18,fill=TEXT)
 
+    # Dedicated footer area — no caption overlay from Telegram.
+    rounded(d,(50,1500,1030,1635),fill=PANEL2)
     ir=datetime.now(ZoneInfo('Asia/Tehran')).strftime('%Y-%m-%d %H:%M')
-    d.text((55,1533),f'TradingLife • Updated {ir} Iran',font=F18,fill=MUTED)
-    footer='Sources: Alpha Vantage • CFTC COT • FRED'
-    if a['kind']=='crypto': footer+=' • Binance Futures public market data'
-    footer+=' | Market intelligence, not investment advice'
-    d.text((1025,1533),footer,font=F18,fill=MUTED,anchor='ra')
+    d.text((75,1525),f'TradingLife  •  Updated {ir} Iran',font=F18,fill=TEXT)
+    src='Alpha Vantage • CFTC COT • FRED'
+    if a['kind']=='crypto':
+        src += f" • {a.get('derivatives',{}).get('source','Public')} public derivatives data"
+    d.text((75,1567),f"Sources: {src}",font=F16,fill=MUTED)
+    d.text((75,1598),'Market intelligence only • Not investment advice',font=F16,fill=MUTED)
 
     os.makedirs(OUT,exist_ok=True)
     p=os.path.join(OUT,f"{a['symbol'].lower()}_tradinglife.png")
@@ -648,24 +840,13 @@ def render(a):
     return p
 
 def send(p,a):
-    if a['kind']=='metal':
-        flow_text=a['flow_label']
-    elif a.get('flow_kind')=='institutional+derivatives':
-        flow_text=f"Institutional/Derivatives Pressure: {a['flow_score']:.0f}/100"
-    else:
-        flow_text=f"Binance Derivatives Pressure: {a['flow_score']:.0f}/100"
-
-    cap=(
-        f"TradingLife | {a['name']} ({a['symbol']}/USD)\n"
-        f"Market Strength: {a['market_strength']:.0f}/100 — {a['strength_label']}\n"
-        f"{flow_text}\n"
-        f"Alert: {a['alert']}\n"
-        f"Market intelligence only — not investment advice."
-    )
+    # Everything the user needs is already inside the image.
+    # Sending without a Telegram caption prevents the app's media-viewer
+    # caption overlay from covering the card footer.
     with open(p,'rb') as f:
         r=requests.post(
             f'https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto',
-            data={'chat_id':CHAT_ID,'caption':cap},
+            data={'chat_id':CHAT_ID},
             files={'photo':f},
             timeout=60
         )
@@ -698,7 +879,15 @@ def main():
         except Exception as e:print('ERROR',a['symbol'],e);fail.append(f"{a['symbol']}: {e}")
     if not results:raise RuntimeError('No cards built. '+' | '.join(fail))
     for a in results:
-        p=render(a);send(p,a);state[a['symbol']]={'strength':round(a['market_strength'],3),'flow_score':round(a['flow_score'],3) if a['flow_score'] is not None else None,'alert':a['alert'],'price':a['price'],'updated':datetime.utcnow().isoformat()+'Z'};time.sleep(.8)
+        p=render(a);send(p,a);state[a['symbol']]={
+            'strength':round(a['market_strength'],3),
+            'flow_score':round(a['flow_score'],3) if a['flow_score'] is not None else None,
+            'alert':a['alert'],
+            'price':a['price'],
+            'deriv_source':a.get('derivatives',{}).get('source'),
+            'deriv_oi_value':a.get('derivatives',{}).get('oi_value'),
+            'updated':datetime.utcnow().isoformat()+'Z'
+        };time.sleep(.8)
     save(STATE,state)
     if fail:requests.post(f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage',data={'chat_id':CHAT_ID,'text':'TradingLife warnings:\n'+'\n'.join(fail)},timeout=30)
     print('Done',RUN_MODE,ASSET_FILTER,len(results))
