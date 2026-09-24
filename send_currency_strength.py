@@ -10,16 +10,15 @@
 import os
 import re
 import time
+from pathlib import Path
+from math import isfinite
 import requests
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-BOT_TOKEN = os.environ["BOT_TOKEN"]
-CHAT_ID = os.environ["CHAT_ID"]
 GROQ_API_KEY = os.environ["GROQ_API_KEY"]
 
-TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-FRANKFURTER_URL = "https://api.frankfurter.app"
+FRANKFURTER_URL = "https://api.frankfurter.dev/v1"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 def call_groq_with_retry(payload, headers, max_retries=3):
@@ -50,7 +49,7 @@ def call_groq_with_retry(payload, headers, max_retries=3):
     return None
 
 
-G10_CURRENCIES = ["EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "NZD"]
+G10_CURRENCIES = ["EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "NZD", "NOK", "SEK"]
 
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -59,50 +58,51 @@ REQUEST_HEADERS = {
 
 
 def clean_citations(text):
-    """علامت‌های استناد داخلی مدل (مثل 【3†L163-L170】) رو از متن نهایی پاک می‌کنه"""
-    return re.sub(r"【[^】]*】", "", text).strip()
+    """Keep references visible in a review draft; an editor must check real URLs."""
+    return text.strip()
 
 
 def get_rates(date_str):
-    """نرخ ارزهای G10 نسبت به دلار رو در یه تاریخ مشخص می‌گیره"""
+    """Return the date and complete USD-based ECB reference-rate snapshot."""
     url = f"{FRANKFURTER_URL}/{date_str}"
-    params = {"from": "USD", "to": ",".join(G10_CURRENCIES)}
+    params = {"base": "USD", "symbols": ",".join(G10_CURRENCIES)}
     response = requests.get(url, params=params, headers=REQUEST_HEADERS, timeout=15)
-    try:
-        data = response.json()
-    except ValueError:
-        print(f"پاسخ Frankfurter JSON نبود. کد وضعیت: {response.status_code}")
-        print(f"متن پاسخ: {response.text[:500]}")
-        return None
-    print(f"داده‌ی نرخ {date_str}: {data}")
-    return data.get("rates", {})
+    response.raise_for_status()
+    data = response.json()
+    if data.get("base") != "USD":
+        raise ValueError(f"Frankfurter returned base {data.get('base')!r}, not USD")
+    data_date = datetime.strptime(data["date"], "%Y-%m-%d").date()
+    if date_str != "latest" and data_date > datetime.strptime(date_str, "%Y-%m-%d").date():
+        raise ValueError("Frankfurter returned a date after the requested date")
+    rates = data.get("rates", {})
+    if set(rates) != set(G10_CURRENCIES):
+        raise ValueError(f"Incomplete currency list: {sorted(rates)}")
+    if not all(isfinite(float(rate)) and float(rate) > 0 for rate in rates.values()):
+        raise ValueError("Invalid exchange rate")
+    return data_date, rates
 
 
 def compute_strength():
-    """درصد تغییر هر ارز نسبت به دلار (نسبت به دیروز) رو حساب می‌کنه"""
-    today = datetime.now(ZoneInfo("America/New_York")).date()
-    yesterday = today - timedelta(days=3)  # چند روز عقب‌تر تا مطمئن باشیم روز کاری بوده
-
-    today_rates = get_rates(today.strftime("%Y-%m-%d"))
-    yesterday_rates = get_rates(yesterday.strftime("%Y-%m-%d"))
-
-    if not today_rates or not yesterday_rates:
-        return []
+    """Compare the last two *published* dates, not two arbitrary calendar days."""
+    latest_date, latest_rates = get_rates("latest")
+    age_days = (datetime.now(ZoneInfo("America/New_York")).date() - latest_date).days
+    if age_days < 0 or age_days > 5:
+        raise ValueError("Latest reference rate is too old for a current draft")
+    earlier_date, earlier_rates = get_rates((latest_date - timedelta(days=1)).isoformat())
+    if earlier_date >= latest_date or (latest_date - earlier_date).days > 5:
+        raise ValueError("No reasonably recent previous reference date was returned")
 
     results = []
     for currency in G10_CURRENCIES:
-        rate_today = today_rates.get(currency)
-        rate_yesterday = yesterday_rates.get(currency)
-        if rate_today is None or rate_yesterday is None:
-            continue
-        percent_change = -((rate_today - rate_yesterday) / rate_yesterday) * 100
+        # USD -> currency quote must be inverted to measure currency -> USD.
+        percent_change = (float(earlier_rates[currency]) / float(latest_rates[currency]) - 1) * 100
         results.append({"currency": currency, "percent": percent_change})
 
     results.sort(key=lambda x: x["percent"], reverse=True)
-    return results
+    return results, earlier_date, latest_date
 
 
-def ask_groq_for_analysis(strength_summary, today_str):
+def ask_groq_for_analysis(strength_summary, today_str, date_range):
     """
     از قابلیت browser_search خود Groq استفاده می‌کنیم تا مدل مستقیماً
     وب رو جستجو کنه و اخبار تازه‌ی فارکس رو ببینه.
@@ -112,20 +112,22 @@ def ask_groq_for_analysis(strength_summary, today_str):
         f"forex/currency market news from the last 24 to 48 hours (do not use "
         f"older news). If your search results are not clearly from around "
         f"{today_str}, search again with a more specific recent query. "
-        "Then, based on what you find, write a short, neutral 2-3 sentence analysis "
-        "in English explaining what appears to be driving today's currency market moves. "
+        f"The figures below compare official daily reference rates for {date_range}, "
+        "not live or intraday prices. Write 2-3 neutral sentences about potentially "
+        "relevant currency-market developments. Do not assert causation without evidence. "
+        "For every factual claim, include the event date and a full original source URL; "
+        "omit a claim if you cannot provide both. "
         "Do not quote sources verbatim; paraphrase in your own words. "
         "Do not give financial advice.\n\n"
         f"Today's G10 currency strength ranking (vs USD):\n{strength_summary}\n\n"
-        "Write only the analysis paragraph, nothing else. Do not include any "
-        "citation markers or brackets, only plain text."
+        "Write only the analysis paragraph; preserve source links."
     )
 
     payload = {
         "model": "openai/gpt-oss-20b",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0.4,
-        "max_tokens": 600,
+        "max_tokens": 1200,
         "reasoning_effort": "low",
         "tools": [{"type": "browser_search"}],
         "tool_choice": "required",
@@ -138,33 +140,24 @@ def ask_groq_for_analysis(strength_summary, today_str):
     if data is None:
         return None
 
-    print(f"پاسخ Groq: {data}")
+    print("Groq draft response received.")
     try:
         message = data["choices"][0]["message"]
         content = (message.get("content") or "").strip()
-        if not content:
-            content = (message.get("reasoning") or "").strip()
         return clean_citations(content) if content else None
     except (KeyError, IndexError):
         return None
 
 
-def send_to_telegram(text):
-    payload = {
-        "chat_id": CHAT_ID,
-        "text": text,
-        "parse_mode": "HTML",
-    }
-    response = requests.post(TELEGRAM_API_URL, data=payload, timeout=15)
-    result = response.json()
-    if not result.get("ok"):
-        print(f"خطا در ارسال پیام: {result}")
-        raise SystemExit(1)
-    print("پیام قدرت ارزها با موفقیت ارسال شد.")
+def save_draft(text):
+    print("DRAFT ONLY. No Telegram message was sent.\n" + text)
+    if os.environ.get("GITHUB_STEP_SUMMARY"):
+        with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as summary:
+            summary.write("## Currency draft — manual review required\n\n" + text + "\n")
 
 
 def main():
-    strength = compute_strength()
+    strength, previous_date, latest_date = compute_strength()
     if not strength:
         print("داده‌ی قدرت ارزها دریافت نشد.")
         return
@@ -176,23 +169,24 @@ def main():
     today_str = ny_time.strftime("%B %d, %Y")
     now_text = ny_time.strftime("%Y-%m-%d %H:%M %Z")
 
-    analysis = ask_groq_for_analysis(strength_summary, today_str)
+    analysis = ask_groq_for_analysis(strength_summary, today_str, f"{previous_date} to {latest_date}")
 
-    lines = ["💱 <b>G10 Currency Strength (vs USD)</b>", ""]
+    lines = ["💱 G10 reference-rate change (vs USD)", f"Reference dates: {previous_date} → {latest_date}", ""]
     for i, r in enumerate(strength, 1):
         emoji = "🟢" if r["percent"] > 0 else ("🔴" if r["percent"] < 0 else "⚪")
         lines.append(f"{i}. {emoji} {r['currency']}: {r['percent']:+.2f}%")
 
     if analysis:
         lines.append("")
-        lines.append("📰 <b>What's driving it:</b>")
+        lines.append("📰 Possible context (verify source links before posting):")
         lines.append(analysis)
 
     lines.append("")
-    lines.append(f"🕐 Updated: {now_text}")
+    lines.append("Source: Frankfurter daily reference rates; not live trading quotes.")
+    lines.append(f"🕐 Draft generated: {now_text}")
 
     message = "\n".join(lines)
-    send_to_telegram(message)
+    save_draft(message)
 
 
 if __name__ == "__main__":
