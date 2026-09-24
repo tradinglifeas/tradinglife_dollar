@@ -1,9 +1,6 @@
 name: Send Silver Image
 
 on:
-   schedule:
-    - cron: '32 9 * * *'
-    - cron: '02 15 * * *'
   workflow_dispatch:
 
 permissions:

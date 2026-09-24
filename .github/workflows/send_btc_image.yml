@@ -1,9 +1,6 @@
 name: Send BTC Image
 
 on:
-   schedule:
-    - cron: '34 9 * * *'
-    - cron: '04 15 * * *'
   workflow_dispatch:
 
 permissions:
