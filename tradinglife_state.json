@@ -1,58 +1,58 @@
 {
   "XAU": {
-    "strength": 31.405,
+    "strength": 31.385,
     "flow_score": 24.426,
-    "alert": "CAPITAL OUTFLOW ALERT",
-    "price": 4287.2105221865,
-    "updated": "2026-09-24T03:15:27.906149Z"
+    "alert": "NO MAJOR ALERT",
+    "price": 4285.933480598,
+    "updated": "2026-09-24T03:32:44.540087Z"
   },
   "XAG": {
-    "strength": 42.353,
+    "strength": 42.332,
     "flow_score": 36.378,
     "alert": "NO MAJOR ALERT",
-    "price": 64.0616750958,
-    "updated": "2026-09-24T03:15:30.060821Z"
+    "price": 64.0423749438,
+    "updated": "2026-09-24T03:32:47.211270Z"
   },
   "BTC": {
-    "strength": 72.873,
-    "flow_score": 32.742,
-    "alert": "NO MAJOR ALERT",
-    "price": 84242.27,
-    "updated": "2026-09-24T03:15:32.423980Z"
+    "strength": 86.895,
+    "flow_score": 71.842,
+    "alert": "MARKET STRENGTH IMPROVING",
+    "price": 84012.62,
+    "updated": "2026-09-24T03:32:50.287197Z"
   },
   "ETH": {
-    "strength": 76.103,
-    "flow_score": 42.843,
-    "alert": "NO MAJOR ALERT",
-    "price": 2679.39,
-    "updated": "2026-09-24T03:15:34.745020Z"
+    "strength": 87.382,
+    "flow_score": 73.234,
+    "alert": "MARKET STRENGTH IMPROVING",
+    "price": 2674.98,
+    "updated": "2026-09-24T03:32:53.145557Z"
   },
   "SOL": {
-    "strength": 89.239,
-    "flow_score": null,
-    "alert": "UPWARD PRESSURE INCREASING",
-    "price": 115.1,
-    "updated": "2026-09-24T03:15:37.127867Z"
+    "strength": 89.173,
+    "flow_score": 78.352,
+    "alert": "NO MAJOR ALERT",
+    "price": 114.77,
+    "updated": "2026-09-24T03:32:55.618934Z"
   },
   "XRP": {
-    "strength": 86.492,
-    "flow_score": null,
-    "alert": "UPWARD PRESSURE INCREASING",
-    "price": 1.5045,
-    "updated": "2026-09-24T03:15:40.249861Z"
+    "strength": 86.354,
+    "flow_score": 70.297,
+    "alert": "NO MAJOR ALERT",
+    "price": 1.4942,
+    "updated": "2026-09-24T03:32:58.278061Z"
   },
   "ADA": {
-    "strength": 88.372,
-    "flow_score": null,
-    "alert": "UPWARD PRESSURE INCREASING",
-    "price": 0.2398,
-    "updated": "2026-09-24T03:15:43.662774Z"
+    "strength": 88.252,
+    "flow_score": 75.721,
+    "alert": "NO MAJOR ALERT",
+    "price": 0.2385,
+    "updated": "2026-09-24T03:33:00.772116Z"
   },
   "DOGE": {
-    "strength": 87.366,
-    "flow_score": null,
-    "alert": "UPWARD PRESSURE INCREASING",
-    "price": 0.09374,
-    "updated": "2026-09-24T03:15:45.705682Z"
+    "strength": 87.269,
+    "flow_score": 72.912,
+    "alert": "NO MAJOR ALERT",
+    "price": 0.09331,
+    "updated": "2026-09-24T03:33:03.234734Z"
   }
 }
