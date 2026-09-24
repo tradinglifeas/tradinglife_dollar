@@ -9,7 +9,6 @@
 
 import os
 import requests
-import xml.etree.ElementTree as ET
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -22,7 +21,6 @@ TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 GOLD_API_URL = "https://Api.BrsApi.ir/Market/Gold_Currency.php"
 COMMODITY_API_URL = "https://Api.BrsApi.ir/Market/Commodity.php"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-NEWS_RSS_URL = "https://news.google.com/rss/search?q=gold%20silver%20market&hl=en-US&gl=US&ceid=US:en"
 
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -100,36 +98,18 @@ def get_change(item):
     return change_value, change_percent
 
 
-def get_news_headlines(limit=6):
-    response = requests.get(NEWS_RSS_URL, headers=REQUEST_HEADERS, timeout=15)
-    try:
-        root = ET.fromstring(response.content)
-    except ET.ParseError:
-        print(f"پاسخ RSS قابل خوندن نبود. کد وضعیت: {response.status_code}")
-        return []
-
-    headlines = []
-    for item in root.findall(".//item")[:limit]:
-        title = item.findtext("title", default="").strip()
-        if title:
-            headlines.append(title)
-    print(f"عنوان‌های خبری طلا/نقره: {headlines}")
-    return headlines
-
-
-def ask_groq_for_analysis(headlines, gold_price, silver_price):
-    if not headlines:
-        return None
-
-    headlines_text = "\n".join(f"- {h}" for h in headlines)
+def ask_groq_for_analysis(gold_price, silver_price):
+    """
+    از قابلیت browser_search خود Groq استفاده می‌کنیم تا مدل مستقیماً
+    وب رو جستجو کنه و اخبار تازه‌ی طلا/نقره رو ببینه.
+    """
     prompt = (
-        "You are a financial news summarizer. Based ONLY on the following news headlines "
-        "(do not invent facts not implied by them), write a short, neutral 2-3 sentence "
-        "analysis in English explaining what appears to be driving today's gold and silver "
-        "market moves. Do not quote headlines verbatim; paraphrase in your own words. "
+        "Search the web for today's most important gold and silver market news. "
+        "Then, based on what you find, write a short, neutral 2-3 sentence analysis "
+        "in English explaining what appears to be driving today's gold and silver "
+        "market moves. Do not quote sources verbatim; paraphrase in your own words. "
         "Do not give financial advice.\n\n"
         f"Gold: ${gold_price}/oz | Silver: ${silver_price}/oz\n\n"
-        f"Recent gold/silver news headlines:\n{headlines_text}\n\n"
         "Write only the analysis paragraph, nothing else."
     )
 
@@ -139,12 +119,14 @@ def ask_groq_for_analysis(headlines, gold_price, silver_price):
         "temperature": 0.4,
         "max_tokens": 600,
         "reasoning_effort": "low",
+        "tools": [{"type": "browser_search"}],
+        "tool_choice": "required",
     }
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json",
     }
-    response = requests.post(GROQ_URL, json=payload, headers=headers, timeout=30)
+    response = requests.post(GROQ_URL, json=payload, headers=headers, timeout=45)
     try:
         data = response.json()
     except ValueError:
@@ -185,8 +167,7 @@ def main():
     gold_price = gold.get("price") if gold else None
     silver_price = silver.get("price") if silver else None
 
-    headlines = get_news_headlines()
-    analysis = ask_groq_for_analysis(headlines, gold_price, silver_price)
+    analysis = ask_groq_for_analysis(gold_price, silver_price)
 
     ny_time = datetime.now(ZoneInfo("America/New_York"))
     now_text = ny_time.strftime("%Y-%m-%d %H:%M %Z")

@@ -2,14 +2,14 @@
 اسکریپت ساخت و ارسال گزارش «قدرت ارزهای G10» به کانال تلگرام (انگلیسی).
 
 داده‌ی عددی: از Frankfurter API (رایگان، بدون نیاز به کلید) - نرخ رسمی بانک مرکزی اروپا.
-تحلیل خبری: از Groq (رایگان) - خلاصه‌ای از اخبار فارکس روز.
+تحلیل خبری: از Groq با قابلیت browser_search - مدل خودش وب رو جستجو می‌کنه
+(دیگه نیازی به گرفتن خبر از RSS و دادنش به مدل نیست).
 
 پیام فقط به‌صورت متن (نه عکس) ارسال می‌شه.
 """
 
 import os
 import requests
-import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -20,7 +20,6 @@ GROQ_API_KEY = os.environ["GROQ_API_KEY"]
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 FRANKFURTER_URL = "https://api.frankfurter.app"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-NEWS_RSS_URL = "https://news.google.com/rss/search?q=forex%20market%20currencies&hl=en-US&gl=US&ceid=US:en"
 
 G10_CURRENCIES = ["EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "NZD"]
 
@@ -48,7 +47,7 @@ def get_rates(date_str):
 def compute_strength():
     """درصد تغییر هر ارز نسبت به دلار (نسبت به دیروز) رو حساب می‌کنه"""
     today = datetime.now(ZoneInfo("America/New_York")).date()
-    yesterday = today - timedelta(days=3)  # چند روز عقب‌تر تا مطمئن باشیم روز کاری بوده (آخر هفته و تعطیلات)
+    yesterday = today - timedelta(days=3)  # چند روز عقب‌تر تا مطمئن باشیم روز کاری بوده
 
     today_rates = get_rates(today.strftime("%Y-%m-%d"))
     yesterday_rates = get_rates(yesterday.strftime("%Y-%m-%d"))
@@ -62,7 +61,6 @@ def compute_strength():
         rate_yesterday = yesterday_rates.get(currency)
         if rate_today is None or rate_yesterday is None:
             continue
-        # rate = مقدار این ارز به‌ازای ۱ دلار. اگه این عدد کم شده، یعنی ارز قوی‌تر شده (دلار ضعیف‌تر شده نسبت بهش)
         percent_change = -((rate_today - rate_yesterday) / rate_yesterday) * 100
         results.append({"currency": currency, "percent": percent_change})
 
@@ -70,36 +68,18 @@ def compute_strength():
     return results
 
 
-def get_news_headlines(limit=6):
-    response = requests.get(NEWS_RSS_URL, headers=REQUEST_HEADERS, timeout=15)
-    try:
-        root = ET.fromstring(response.content)
-    except ET.ParseError:
-        print(f"پاسخ RSS قابل خوندن نبود. کد وضعیت: {response.status_code}")
-        return []
-
-    headlines = []
-    for item in root.findall(".//item")[:limit]:
-        title = item.findtext("title", default="").strip()
-        if title:
-            headlines.append(title)
-    print(f"عنوان‌های خبری فارکس: {headlines}")
-    return headlines
-
-
-def ask_groq_for_analysis(headlines, strength_summary):
-    if not headlines:
-        return None
-
-    headlines_text = "\n".join(f"- {h}" for h in headlines)
+def ask_groq_for_analysis(strength_summary):
+    """
+    به‌جای گرفتن خبر از RSS و دادنش به مدل، از قابلیت browser_search خود Groq
+    استفاده می‌کنیم تا مدل مستقیماً وب رو جستجو کنه و اخبار تازه‌ی فارکس رو ببینه.
+    """
     prompt = (
-        "You are a financial news summarizer. Based ONLY on the following news headlines "
-        "(do not invent facts not implied by them), write a short, neutral 2-3 sentence "
-        "analysis in English explaining what appears to be driving today's currency market "
-        "moves. Do not quote headlines verbatim; paraphrase in your own words. "
+        "Search the web for today's most important forex/currency market news. "
+        "Then, based on what you find, write a short, neutral 2-3 sentence analysis "
+        "in English explaining what appears to be driving today's currency market moves. "
+        "Do not quote sources verbatim; paraphrase in your own words. "
         "Do not give financial advice.\n\n"
         f"Today's G10 currency strength ranking (vs USD):\n{strength_summary}\n\n"
-        f"Recent forex news headlines:\n{headlines_text}\n\n"
         "Write only the analysis paragraph, nothing else."
     )
 
@@ -109,12 +89,14 @@ def ask_groq_for_analysis(headlines, strength_summary):
         "temperature": 0.4,
         "max_tokens": 600,
         "reasoning_effort": "low",
+        "tools": [{"type": "browser_search"}],
+        "tool_choice": "required",
     }
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json",
     }
-    response = requests.post(GROQ_URL, json=payload, headers=headers, timeout=30)
+    response = requests.post(GROQ_URL, json=payload, headers=headers, timeout=45)
     try:
         data = response.json()
     except ValueError:
@@ -128,7 +110,6 @@ def ask_groq_for_analysis(headlines, strength_summary):
         content = (message.get("content") or "").strip()
         if content:
             return content
-        # اگه content خالی بود (مدل فقط توی reasoning نوشته)، از همون به‌عنوان جایگزین استفاده کن
         reasoning = (message.get("reasoning") or "").strip()
         return reasoning if reasoning else None
     except (KeyError, IndexError):
@@ -155,12 +136,10 @@ def main():
         print("داده‌ی قدرت ارزها دریافت نشد.")
         return
 
-
     strength_summary_lines = [f"{r['currency']}: {r['percent']:+.2f}%" for r in strength]
     strength_summary = "\n".join(strength_summary_lines)
 
-    headlines = get_news_headlines()
-    analysis = ask_groq_for_analysis(headlines, strength_summary)
+    analysis = ask_groq_for_analysis(strength_summary)
 
     ny_time = datetime.now(ZoneInfo("America/New_York"))
     now_text = ny_time.strftime("%Y-%m-%d %H:%M %Z")
