@@ -1,17 +1,30 @@
-"""Create a source-linked, numeric-only G10 reference-rate review draft.
+"""Draft a G10 currency post with a market explanation and private review notes.
 
-The draft is displayed in GitHub Actions. It never sends a Telegram message.
-News context needs separate source verification before it can be added.
+The copyable post contains no links. Nothing is sent to Telegram automatically.
 """
 
 import os
+import re
+import time
 from pathlib import Path
 from math import isfinite
+from urllib.parse import urlsplit
 import requests
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 FRANKFURTER_URL = "https://api.frankfurter.dev/v1"
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+
+# Only show candidate links from established reporting and primary institutions
+# in the private review section; this does not verify any article's claims.
+REVIEW_SOURCE_DOMAINS = (
+    "reuters.com", "apnews.com", "bloomberg.com", "ft.com", "wsj.com",
+    "cnbc.com", "federalreserve.gov", "ecb.europa.eu", "bls.gov",
+    "bea.gov", "treasury.gov", "boj.or.jp", "bankofengland.co.uk",
+    "bankofcanada.ca", "rba.gov.au", "snb.ch", "norges-bank.no",
+    "riksbank.se", "rbnz.govt.nz", "ismworld.org", "spglobal.com",
+)
 
 
 G10_CURRENCIES = ["EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "NZD", "NOK", "SEK"]
@@ -62,34 +75,142 @@ def compute_strength():
     return results, earlier_date, latest_date
 
 
-def save_draft(text):
+def parse_analysis(raw, reference_date):
+    """Keep the channel copy separate from unverified source suggestions."""
+    raw = raw.strip()
+    if raw.startswith("```") and raw.endswith("```"):
+        raw = re.sub(r"^```(?:text)?\s*|\s*```$", "", raw, flags=re.IGNORECASE)
+    match = re.fullmatch(
+        r"\s*POST_ANALYSIS:\s*(.*?)\s*SOURCES_FOR_REVIEW:\s*(.*?)\s*",
+        raw, flags=re.IGNORECASE | re.DOTALL,
+    )
+    if not match:
+        return None, [], "Groq did not return the requested review format."
+
+    analysis = re.sub(r"[【〖][^】〗]*[】〗]", "", match.group(1))
+    analysis = re.sub(r"\[([^\]]+)\]\(https?://[^)]+\)", r"\1", analysis)
+    analysis = re.sub(r"https?://\S+|www\.\S+", "", analysis)
+    analysis = " ".join(analysis.split()).strip(" -*")
+    analysis = re.sub(r"\s+([.,;:!?])", r"\1", analysis)
+    if not 35 <= len(analysis) <= 900:
+        return None, [], "Groq returned an empty or unusually long explanation."
+
+    sources = []
+    for line in match.group(2).splitlines():
+        line = re.sub(r"[【〖][^】〗]*[】〗]", "", line).strip()
+        row = re.fullmatch(r"\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]{2,80})\s*\|\s*(https://\S+)\s*", line)
+        if not row:
+            continue
+        try:
+            published = datetime.strptime(row.group(1), "%Y-%m-%d").date()
+            parsed = urlsplit(row.group(3))
+            host = (parsed.hostname or "").lower()
+            allowed = any(host == domain or host.endswith("." + domain)
+                          for domain in REVIEW_SOURCE_DOMAINS)
+            if not allowed or parsed.username or parsed.password or parsed.port not in (None, 443):
+                continue
+            if not reference_date - timedelta(days=3) <= published <= reference_date:
+                continue
+        except (ValueError, TypeError):
+            continue
+        if row.group(3) not in [source[2] for source in sources]:
+            sources.append((row.group(1), row.group(2).strip(), row.group(3)))
+
+    note = ("Candidate source dates and claims still require manual checking."
+            if sources else "No usable, dated source URL was supplied; check the explanation before publishing.")
+    return analysis, sources[:4], note
+
+
+def ask_groq_for_analysis(strength, previous_date, latest_date):
+    key = os.environ.get("GROQ_API_KEY")
+    if not key:
+        return None, [], "GROQ_API_KEY is missing; no market explanation was generated."
+
+    summary = "\n".join(f"{row['currency']}: {row['percent']:+.2f}%" for row in strength)
+    prompt = (
+        f"Write a short English market explanation for changes in G10 currencies versus USD "
+        f"between the published reference dates {previous_date} and {latest_date}. "
+        "Search for contemporaneous reporting from Reuters/AP/Bloomberg/FT or primary "
+        "central bank/economic sources, published no more than three days before the "
+        f"reference date {latest_date}. Do not treat a report published after the "
+        "reference-rate fixing as its cause. Explain a broad USD driver and, if evidence "
+        "supports it, why the relatively strongest and weakest currencies differ. "
+        "Separate observations from plausible explanations; avoid unsupported claims "
+        "of causation, precise index levels, future rate decisions, or interventions. "
+        "If no timely evidence exists, say so plainly rather than inventing a reason. "
+        "Use 2-3 neutral sentences without advice, URLs, or citation markers in the analysis. "
+        "After the analysis list each actual article URL (not a search URL) with its "
+        "publication date and publisher, only if you found it while searching. "
+        "Return exactly this plain-text format, without Markdown fences:\n"
+        "POST_ANALYSIS:\n<2-3 sentences>\nSOURCES_FOR_REVIEW:\n"
+        "YYYY-MM-DD | Publisher | https://article-url\n"
+        f"Verified reference-rate changes (not intraday trading moves):\n{summary}"
+    )
+    payload = {
+        "model": "openai/gpt-oss-20b",
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.2,
+        "max_tokens": 1200,
+        "reasoning_effort": "low",
+        "tools": [{"type": "browser_search"}],
+        "tool_choice": "required",
+    }
+    headers = {"Authorization": f"Bearer {key}", "Content-Type": "application/json"}
+    for attempt in range(2):
+        try:
+            response = requests.post(GROQ_URL, json=payload, headers=headers, timeout=65)
+            if response.status_code == 429 and attempt == 0:
+                retry_after = response.headers.get("Retry-After", "15")
+                try:
+                    wait = min(max(float(retry_after), 1), 25)
+                except ValueError:
+                    wait = 15
+                time.sleep(wait)
+                continue
+            response.raise_for_status()
+            message = response.json()["choices"][0]["message"]
+            return parse_analysis(message.get("content") or "", latest_date)
+        except (requests.RequestException, ValueError, KeyError, IndexError, TypeError) as error:
+            return None, [], f"Groq analysis unavailable ({type(error).__name__}); no explanation was generated."
+    return None, [], "Groq rate limit; no explanation was generated."
+
+
+def save_draft(text, sources, review_note, previous_date, latest_date):
     print("DRAFT ONLY. No Telegram message was sent.\n" + text)
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as summary:
-            summary.write("## Currency draft — manual review required\n\n" + text + "\n")
+            summary.write("## Currency draft — manual review required\n\n")
+            summary.write("### Copyable channel post (no links)\n\n" + text + "\n\n")
+            summary.write("### Review only — do not copy into the channel\n\n")
+            summary.write(review_note + "\n\n")
+            for date, publisher, url in sources:
+                summary.write(f"- {date} · {publisher}: {url}\n")
+            summary.write(f"- Reference-rate dates: {previous_date} → {latest_date}. "
+                          "Frankfurter/ECB daily reference rates; these are not live quotes.\n")
 
 
 def main():
     strength, previous_date, latest_date = compute_strength()
     ny_time = datetime.now(ZoneInfo("America/New_York"))
     now_text = ny_time.strftime("%Y-%m-%d %H:%M %Z")
+    analysis, sources, review_note = ask_groq_for_analysis(strength, previous_date, latest_date)
 
-    lines = ["💱 G10 Currency Strength vs USD — Reference Rate Change",
+    lines = ["💱 G10 Currency Strength (vs USD)",
              f"Reference dates: {previous_date} → {latest_date}", ""]
     for i, r in enumerate(strength, 1):
         emoji = "🟢" if r["percent"] > 0 else ("🔴" if r["percent"] < 0 else "⚪")
         lines.append(f"{i}. {emoji} {r['currency']}: {r['percent']:+.2f}%")
 
-    down_count = sum(r["percent"] < 0 for r in strength)
+    if analysis:
+        lines += ["", "📰 What's driving it:", analysis]
+    else:
+        review_note = review_note + " Draft has no market explanation."
     lines.append("")
-    lines.append(f"{down_count} of {len(strength)} currencies declined vs USD over these reference dates.")
-    lines.append("Source: Frankfurter daily reference rates; not live trading quotes.")
-    lines.append(f"Current rates: {FRANKFURTER_URL}/{latest_date}?base=USD")
-    lines.append(f"Previous rates: {FRANKFURTER_URL}/{previous_date}?base=USD")
+    lines.append("Daily reference-rate change; not a live trading quote.")
     lines.append(f"🕐 Draft generated: {now_text}")
 
     message = "\n".join(lines)
-    save_draft(message)
+    save_draft(message, sources, review_note, previous_date, latest_date)
 
 
 if __name__ == "__main__":
