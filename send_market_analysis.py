@@ -58,46 +58,136 @@ def polite_pause():
 # -----------------------------
 
 def parse_metal_history(data):
-    rows = data.get("data")
+    """
+    Alpha Vantage commodity responses have changed shape across endpoints.
+    This parser accepts:
+      - {"data": [{"date": "...", "value": "..."}]}
+      - {"data": [{"date": "...", "price": "..."}]}
+      - {"data": {"2026-09-22": "..." ...}}
+      - {"Time Series ...": {"2026-09-22": {...}}}
+      - nested dict/list variants containing date/timestamp + value/price/close
+    """
     out = []
-    if isinstance(rows, list):
-        for row in rows:
-            try:
-                date = str(row.get("date") or row.get("timestamp"))
-                value = row.get("value")
-                if value is None:
-                    value = row.get("close")
-                out.append({
-                    "date": date,
-                    "open": float(value),
-                    "high": float(value),
-                    "low": float(value),
-                    "close": float(value),
-                    "volume": None,
-                    "market_cap": None,
-                })
-            except (TypeError, ValueError):
+
+    def to_float(v):
+        try:
+            if v in (None, "", ".", "null", "None", "N/A"):
+                return None
+            return float(v)
+        except (TypeError, ValueError):
+            return None
+
+    def add_point(date, value, row=None):
+        value = to_float(value)
+        if not date or value is None:
+            return
+        row = row if isinstance(row, dict) else {}
+        o = to_float(row.get("open")) or value
+        h = to_float(row.get("high")) or value
+        l = to_float(row.get("low")) or value
+        c = (
+            to_float(row.get("close"))
+            or to_float(row.get("price"))
+            or to_float(row.get("value"))
+            or to_float(row.get("rate"))
+            or value
+        )
+        out.append({
+            "date": str(date),
+            "open": o,
+            "high": h,
+            "low": l,
+            "close": c,
+            "volume": None,
+            "market_cap": None,
+        })
+
+    def row_value(row):
+        if not isinstance(row, dict):
+            return to_float(row)
+        # Exact common field names first.
+        for key in ("value", "price", "close", "rate", "spot", "usd"):
+            if key in row:
+                v = to_float(row.get(key))
+                if v is not None:
+                    return v
+        # Then any numeric field whose name looks price-like.
+        for k, v in row.items():
+            lk = str(k).lower()
+            if any(token in lk for token in ("value", "price", "close", "rate", "spot")):
+                num = to_float(v)
+                if num is not None:
+                    return num
+        return None
+
+    # 1) Standard `data` container.
+    container = data.get("data") if isinstance(data, dict) else None
+    if isinstance(container, list):
+        for row in container:
+            if not isinstance(row, dict):
                 continue
+            date = row.get("date") or row.get("timestamp") or row.get("time")
+            add_point(date, row_value(row), row)
+
+    elif isinstance(container, dict):
+        for date, row in container.items():
+            if isinstance(row, dict):
+                add_point(
+                    row.get("date") or row.get("timestamp") or date,
+                    row_value(row),
+                    row,
+                )
+            else:
+                add_point(date, row)
+
+    # 2) Time-series-style top-level container.
+    if not out and isinstance(data, dict):
+        for key, value in data.items():
+            if not isinstance(value, dict):
+                continue
+            lk = str(key).lower()
+            if "time series" in lk or "history" in lk or "prices" in lk:
+                for date, row in value.items():
+                    if isinstance(row, dict):
+                        add_point(
+                            row.get("date") or row.get("timestamp") or date,
+                            row_value(row),
+                            row,
+                        )
+                    else:
+                        add_point(date, row)
+
+    # 3) Generic recursive scan for objects with a date/timestamp.
     if not out:
-        # Fallback for any time-series style response.
-        ts_key = next((k for k in data if "time series" in k.lower()), None)
-        if ts_key and isinstance(data[ts_key], dict):
-            for date, row in data[ts_key].items():
-                if isinstance(row, dict):
-                    nums = []
-                    for k, v in row.items():
-                        if "close" in k.lower() or "value" in k.lower():
-                            try:
-                                nums.append(float(v))
-                            except (TypeError, ValueError):
-                                pass
-                    if nums:
-                        v = nums[0]
-                        out.append({"date": date, "open": v, "high": v, "low": v,
-                                    "close": v, "volume": None, "market_cap": None})
+        def walk(obj):
+            if isinstance(obj, dict):
+                date = obj.get("date") or obj.get("timestamp") or obj.get("time")
+                if date:
+                    val = row_value(obj)
+                    if val is not None:
+                        add_point(date, val, obj)
+                for v in obj.values():
+                    walk(v)
+            elif isinstance(obj, list):
+                for item in obj:
+                    walk(item)
+        walk(data)
+
+    # De-duplicate by date, then sort.
+    dedup = {}
+    for row in out:
+        dedup[row["date"]] = row
+    out = list(dedup.values())
     out.sort(key=lambda x: x["date"])
+
     if len(out) < 55:
-        raise RuntimeError(f"Not enough metal history returned ({len(out)} rows).")
+        # Make GitHub Actions show what Alpha Vantage actually returned,
+        # without ever printing the API key (it is not part of the response).
+        preview = json.dumps(data, ensure_ascii=False)[:1200]
+        raise RuntimeError(
+            f"Not enough metal history returned ({len(out)} rows). "
+            f"Alpha Vantage response preview: {preview}"
+        )
     return out
 
 def pick_num(row, contains, prefer_usd=False):
