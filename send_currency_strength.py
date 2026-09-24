@@ -165,11 +165,10 @@ def main():
     ny_time = datetime.now(ZoneInfo("America/New_York"))
     now_text = ny_time.strftime("%Y-%m-%d %H:%M %Z")
 
-    lines = ["💱 <b>G10 Currency Strength (vs USD)</b>", "", "<i>Each % shows how much the currency gained/lost against the US Dollar today:</i>", ""]
+    lines = ["💱 <b>G10 Currency Strength (vs USD)</b>", ""]
     for i, r in enumerate(strength, 1):
         emoji = "🟢" if r["percent"] > 0 else ("🔴" if r["percent"] < 0 else "⚪")
-        direction = "stronger" if r["percent"] > 0 else ("weaker" if r["percent"] < 0 else "unchanged")
-        lines.append(f"{i}. {emoji} {r['currency']}: {r['percent']:+.2f}% ({direction} vs USD)")
+        lines.append(f"{i}. {emoji} {r['currency']}: {r['percent']:+.2f}%")
 
     if analysis:
         lines.append("")
