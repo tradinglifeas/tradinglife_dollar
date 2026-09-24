@@ -1,0 +1,91 @@
+name: TradingLife Market Analysis Cards
+
+on:
+  schedule:
+    # Iran 09:30 = UTC 06:00
+    - cron: '0 6 * * *'
+    # Iran 15:00 = UTC 11:30
+    - cron: '30 11 * * *'
+
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "full = history + spot; refresh = cached history + new spot"
+        required: true
+        default: "full"
+        type: choice
+        options:
+          - full
+          - refresh
+      asset:
+        description: "For testing, choose one asset to save API calls"
+        required: true
+        default: "XAU"
+        type: choice
+        options:
+          - XAU
+          - XAG
+          - BTC
+          - ETH
+          - SOL
+          - XRP
+          - ADA
+          - DOGE
+          - ALL
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-send:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests pillow
+
+      - name: Choose run mode
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "RUN_MODE=${{ inputs.mode }}" >> "$GITHUB_ENV"
+            echo "ASSET_FILTER=${{ inputs.asset }}" >> "$GITHUB_ENV"
+          elif [ "${{ github.event.schedule }}" = "0 6 * * *" ]; then
+            echo "RUN_MODE=full" >> "$GITHUB_ENV"
+            echo "ASSET_FILTER=ALL" >> "$GITHUB_ENV"
+          else
+            echo "RUN_MODE=refresh" >> "$GITHUB_ENV"
+            echo "ASSET_FILTER=ALL" >> "$GITHUB_ENV"
+          fi
+
+      - name: Build cards and send to Telegram
+        env:
+          ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python send_market_analysis.py
+
+      - name: Save morning analysis cache
+        shell: bash
+        run: |
+          if [ "$RUN_MODE" != "full" ] || [ "$ASSET_FILTER" != "ALL" ]; then
+            echo "Skipping shared cache commit for this run."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add market_analysis_cache.json
+          if git diff --cached --quiet; then
+            echo "No cache changes to commit."
+          else
+            git commit -m "Update TradingLife analysis cache [skip ci]"
+            git push
+          fi
