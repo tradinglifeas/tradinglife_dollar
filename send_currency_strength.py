@@ -269,7 +269,7 @@ def publish_to_telegram(text):
 def main():
     strength, previous_date, latest_date = compute_strength()
     ny_time = datetime.now(ZoneInfo("America/New_York"))
-    if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and latest_date != ny_time.date():
+    if os.environ.get("PUBLISH_TO_TELEGRAM") == "true" and latest_date != ny_time.date():
         note = (f"No new reference rate for {ny_time.date()}; latest published "
                 f"reference date is {latest_date}. Nothing was sent to Telegram.")
         print(note)
