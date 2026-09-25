@@ -26,6 +26,19 @@ REVIEW_SOURCE_DOMAINS = (
     "riksbank.se", "rbnz.govt.nz", "ismworld.org", "spglobal.com",
 )
 
+# Groq selects only these evidence categories. The public sentence is assembled
+# here, so it cannot append unsupported claims about sentiment or individual FX.
+DRIVER_TAGS = {
+    "FED_HIKE_EXPECTATIONS": ("expectations of further Fed rate increases", "strength"),
+    "FED_CUT_EXPECTATIONS": ("expectations of Fed rate cuts", "weakness"),
+    "US_DATA_STRONG": ("stronger U.S. economic data", "strength"),
+    "US_DATA_WEAK": ("weaker U.S. economic data", "weakness"),
+    "US_YIELDS_RISE": ("higher U.S. Treasury yields", "strength"),
+    "US_YIELDS_FALL": ("lower U.S. Treasury yields", "weakness"),
+    "OIL_MIDDLE_EAST_RISE": ("higher oil prices amid Middle East tensions", "strength"),
+    "OIL_SUPPLY_FALL": ("lower oil prices as supply concerns eased", "weakness"),
+}
+
 
 G10_CURRENCIES = ["EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "NZD", "NOK", "SEK"]
 
@@ -75,40 +88,27 @@ def compute_strength():
     return results, earlier_date, latest_date
 
 
-def parse_analysis(raw, reference_date):
-    """Require earlier-dated sources and avoid invented pair-specific drivers."""
+def parse_analysis(raw, reference_date, usd_move):
+    """Render only recognized drivers with eligible earlier-dated source rows."""
     raw = raw.strip()
     if raw.startswith("```") and raw.endswith("```"):
         raw = re.sub(r"^```(?:text)?\s*|\s*```$", "", raw, flags=re.IGNORECASE)
     match = re.fullmatch(
-        r"\s*POST_ANALYSIS:\s*(.*?)\s*SOURCES_FOR_REVIEW:\s*(.*?)\s*",
+        r"\s*DRIVERS_FOR_REVIEW:\s*(.*?)\s*",
         raw, flags=re.IGNORECASE | re.DOTALL,
     )
     if not match:
-        return None, [], "Groq did not return the requested review format."
-
-    analysis = re.sub(r"[【〖][^】〗]*[】〗]", "", match.group(1))
-    analysis = re.sub(r"\[([^\]]+)\]\(https?://[^)]+\)", r"\1", analysis)
-    analysis = re.sub(r"https?://\S+|www\.\S+", "", analysis)
-    analysis = " ".join(analysis.split()).strip(" -*")
-    analysis = re.sub(r"\s+([.,;:!?])", r"\1", analysis)
-    if not 35 <= len(analysis) <= 900:
-        return None, [], "Groq returned an empty or unusually long explanation."
-    if re.search(r"\b(both days|each day|on each day)\b", analysis, re.IGNORECASE):
-        return None, [], "The explanation describes two daily moves, but the data contain only one dated comparison."
-    if re.search(
-        r"\b(yen|franc|loonie|krona|krone|sterling|pound|euro|"
-        r"canadian dollar|australian dollar|new zealand dollar|"
-        r"CHF|CAD|JPY|EUR|GBP|AUD|NZD|NOK|SEK)\b",
-        analysis, re.IGNORECASE,
-    ):
-        return None, [], "Groq attributed relative currency moves to unverified pair-specific drivers."
+        return None, [], "Groq did not return the requested evidence categories."
 
     sources = []
     same_day_sources = []
-    for line in match.group(2).splitlines():
+    drivers = []
+    for line in match.group(1).splitlines():
         line = re.sub(r"[【〖][^】〗]*[】〗]", "", line).strip()
-        row = re.fullmatch(r"\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]{2,80})\s*\|\s*(https://\S+)\s*", line)
+        row = re.fullmatch(
+            r"\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]{2,80})\s*\|\s*(https://[^\s|]+)\s*\|\s*([A-Z_]+)\s*",
+            line,
+        )
         if not row:
             continue
         try:
@@ -128,17 +128,28 @@ def parse_analysis(raw, reference_date):
                 continue
         except (ValueError, TypeError):
             continue
-        if row.group(3) not in [source[2] for source in sources]:
+        driver = DRIVER_TAGS.get(row.group(4))
+        if not driver or (usd_move != "mixed" and driver[1] != usd_move):
+            continue
+        if row.group(3) not in {source[2] for source in sources}:
             sources.append((row.group(1), row.group(2).strip(), row.group(3)))
+        if row.group(4) not in drivers:
+            drivers.append(row.group(4))
 
     if same_day_sources:
         return None, sources[:3] + same_day_sources[:2], (
             "The explanation cited a same-date article without a publication time. "
             "Check its time before the reference-rate fixing; explanation withheld."
         )
-    if not sources:
-        return None, [], "No eligible earlier-dated source URL was supplied; explanation withheld."
-    return analysis, sources[:4], "Candidate source dates and claims still require manual checking."
+    if not drivers:
+        return None, [], "No eligible earlier-dated driver with a source URL was supplied; explanation withheld."
+    phrases = [DRIVER_TAGS[tag][0] for tag in drivers[:2]]
+    if usd_move == "mixed":
+        analysis = "Market reports highlighted " + " and ".join(phrases) + " as relevant context for currency trading."
+    else:
+        analysis = ("Market reports pointed to " + " and ".join(phrases)
+                    + f" as possible factors behind the dollar's {usd_move}.")
+    return analysis, sources[:4], "Candidate source dates and driver claims still require manual checking."
 
 
 def ask_groq_for_analysis(strength, previous_date, latest_date):
@@ -147,26 +158,26 @@ def ask_groq_for_analysis(strength, previous_date, latest_date):
         return None, [], "GROQ_API_KEY is missing; no market explanation was generated."
 
     summary = "\n".join(f"{row['currency']}: {row['percent']:+.2f}%" for row in strength)
+    usd_move = ("strength" if all(row["percent"] < 0 for row in strength)
+                else "weakness" if all(row["percent"] > 0 for row in strength) else "mixed")
+    categories = ", ".join(DRIVER_TAGS)
     prompt = (
-        f"Write a short English market explanation for changes in G10 currencies versus USD "
-        f"between the published reference dates {previous_date} and {latest_date}. "
-        "Search for contemporaneous reporting from Reuters/AP/Bloomberg/FT or primary "
-        "central bank/economic sources. Because only article dates can be checked by this "
-        f"program, use only reports dated BEFORE {latest_date}, no more than three days "
-        "earlier. An article published on the reference date might have appeared after "
-        "the reference-rate fixing. Describe one plausible, broad USD market backdrop "
-        "from those reports; do not speculate about reasons why individual currencies "
-        "differed. The input contains one change between two snapshots, NOT two daily "
-        "moves; never write 'on both days'. "
-        "Separate observations from plausible explanations; avoid unsupported claims "
-        "of causation, precise index levels, future rate decisions, or interventions. "
-        "If no timely evidence exists, say so plainly rather than inventing a reason. "
-        "Use 1-2 neutral sentences without advice, URLs, or citation markers in the analysis. "
-        "After the analysis list each actual article URL (not a search URL) with its "
-        "publication date and publisher, only if you found it while searching. "
-        "Return exactly this plain-text format, without Markdown fences:\n"
-        "POST_ANALYSIS:\n<1-2 sentences about broad USD drivers only>\nSOURCES_FOR_REVIEW:\n"
-        "YYYY-MM-DD | Publisher | https://article-url\n"
+        f"Research market reporting relevant to G10 currencies versus USD between "
+        f"the reference dates {previous_date} and {latest_date}. "
+        "Search Reuters/AP/Bloomberg/FT or original central bank/economic releases. "
+        f"Use only reports dated BEFORE {latest_date}, at most three days earlier, "
+        "because a same-date article could have been published after the FX reference "
+        "rate was fixed. Identify no more than TWO broad-dollar driver categories "
+        "that an article explicitly links to the dollar move; do not infer a link "
+        "from general economic theory. Avoid invented explanations for individual "
+        "currencies, sentiment, or the move 'on both days': there is one comparison. "
+        f"The dollar's move across all nine currencies is: {usd_move}. "
+        f"Allowed category codes only: {categories}. "
+        "Return NO prose, analysis paragraph, title, commentary or citation-only lines. "
+        "For EACH category output its real article URL (not search results), actual "
+        "publication date and publisher. If you cannot find evidence, output only "
+        "the DRIVERS_FOR_REVIEW header. Exact plain-text output format:\n"
+        "DRIVERS_FOR_REVIEW:\nYYYY-MM-DD | Publisher | https://article-url | CATEGORY_CODE\n"
         f"Verified reference-rate changes (not intraday trading moves):\n{summary}"
     )
     payload = {
@@ -192,7 +203,7 @@ def ask_groq_for_analysis(strength, previous_date, latest_date):
                 continue
             response.raise_for_status()
             message = response.json()["choices"][0]["message"]
-            return parse_analysis(message.get("content") or "", latest_date)
+            return parse_analysis(message.get("content") or "", latest_date, usd_move)
         except (requests.RequestException, ValueError, KeyError, IndexError, TypeError) as error:
             return None, [], f"Groq analysis unavailable ({type(error).__name__}); no explanation was generated."
     return None, [], "Groq rate limit; no explanation was generated."
