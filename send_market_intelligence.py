@@ -49,8 +49,12 @@ def get_json(url, params=None, timeout=40):
 def av(function, **kwargs):
     d=get_json(AV, {'function':function,'apikey':ALPHA_KEY,**kwargs})
     for k in ('Information','Note','Error Message'):
-        if k in d: raise RuntimeError('Alpha Vantage: '+str(d[k]))
-    time.sleep(1)
+        if k in d:
+            msg=str(d[k])
+            if 'rate limit' in msg.lower() or 'requests per day' in msg.lower() or 'sparingly' in msg.lower():
+                msg='rate limit reached (free tier: 25 requests/day, 1 request/second)'
+            raise RuntimeError('Alpha Vantage: '+msg.replace(ALPHA_KEY,'***'))
+    time.sleep(1.6)
     return d
 
 def parse_metal(d):
@@ -106,9 +110,40 @@ def parse_crypto(d):
     if len(out)<55: raise RuntimeError(f'Not enough crypto history ({len(out)} rows)')
     return out
 
+def okx_history(asset, days=300):
+    """Daily UTC candles from OKX spot (free, no key). Newest-first pages of 100."""
+    inst=f"{asset['symbol']}-USDT"; rows={}; after=None
+    for _ in range(4):
+        params={'instId':inst,'bar':'1Dutc','limit':100}
+        if after: params['after']=after
+        d=get_json(OKX_PUBLIC+'/api/v5/market/history-candles',params,timeout=25)
+        data=d.get('data',[]) if isinstance(d,dict) else []
+        if not data: break
+        for c in data:
+            ts=int(c[0]); day=datetime.utcfromtimestamp(ts/1000).strftime('%Y-%m-%d')
+            rows[day]={'date':day,'open':sf(c[1]),'high':sf(c[2]),'low':sf(c[3]),'close':sf(c[4]),
+                       'volume':sf(c[7]) if len(c)>7 else sf(c[5]),'market_cap':None}
+        after=data[-1][0]
+        if len(rows)>=days: break
+        time.sleep(0.3)
+    out=sorted((r for r in rows.values() if r['close'] is not None),key=lambda x:x['date'])
+    if len(out)<55: raise RuntimeError(f'Not enough OKX history for {inst} ({len(out)} rows)')
+    return out
+
+def okx_spot(asset):
+    d=get_json(OKX_PUBLIC+'/api/v5/market/ticker',{'instId':f"{asset['symbol']}-USDT"},timeout=20)
+    rows=d.get('data',[]) if isinstance(d,dict) else []
+    v=sf(rows[0].get('last')) if rows else None
+    if v is None: raise RuntimeError('OKX spot could not be parsed')
+    return v
+
 def history(asset):
     if asset['kind']=='metal': return parse_metal(av('GOLD_SILVER_HISTORY',symbol=asset['api_symbol'],interval='daily'))
-    return parse_crypto(av('DIGITAL_CURRENCY_DAILY',symbol=asset['symbol'],market='USD'))
+    try:
+        return okx_history(asset)
+    except Exception as e:
+        print('OKX history failed, falling back to Alpha Vantage',asset['symbol'],e)
+        return parse_crypto(av('DIGITAL_CURRENCY_DAILY',symbol=asset['symbol'],market='USD'))
 
 def spot(asset):
     if asset['kind']=='metal':
@@ -120,37 +155,83 @@ def spot(asset):
                 for k,x in v.items():
                     if ('price' in k.lower() or 'rate' in k.lower()) and sf(x) is not None:return sf(x)
         raise RuntimeError('Metal spot could not be parsed')
+    try:
+        return okx_spot(asset)
+    except Exception as e:
+        print('OKX spot failed, falling back to Alpha Vantage',asset['symbol'],e)
     d=av('CURRENCY_EXCHANGE_RATE',from_currency=asset['symbol'],to_currency='USD')
     x=d.get('Realtime Currency Exchange Rate',{}).get('5. Exchange Rate')
     if sf(x) is None: raise RuntimeError('Crypto spot could not be parsed')
     return sf(x)
 
-def fred_series(sid):
-    # FRED renamed the CSV date column from 'DATE' to 'observation_date',
-    # so read columns by position (col 0 = date, col 1 = value) instead of by name.
-    r=requests.get('https://fred.stlouisfed.org/graph/fredgraph.csv',params={'id':sid},timeout=35,headers=UA); r.raise_for_status()
+# ---------------- MACRO (keyless sources; FRED times out from GitHub runners) ----------------
+DXY_W = {'EUR':0.576,'JPY':0.136,'GBP':0.119,'CAD':0.091,'SEK':0.042,'CHF':0.036}
+
+def usd_index_series():
+    """ICE-DXY formula rebuilt from ECB reference rates (Frankfurter, free, no key).
+    With base=USD each rate r = units of X per 1 USD, so DXY = 50.14348112 * prod(r^w)."""
+    from datetime import timedelta
+    end=datetime.utcnow().date(); start=end-timedelta(days=25)
+    last_err=None
+    for base in ('https://api.frankfurter.app','https://api.frankfurter.dev/v1'):
+        try:
+            d=get_json(f"{base}/{start}..{end}",{'from':'USD','to':','.join(DXY_W)},timeout=25)
+            out=[]
+            for day in sorted(d.get('rates',{})):
+                r=d['rates'][day]
+                if all(sf(r.get(c)) for c in DXY_W):
+                    v=50.14348112
+                    for c,w in DXY_W.items(): v*=sf(r[c])**w
+                    out.append((day,v))
+            if len(out)>=6: return out
+            last_err=f'only {len(out)} rows'
+        except Exception as e:
+            last_err=e
+    raise RuntimeError(f'USD index unavailable: {last_err}')
+
+def treasury_10y_series():
+    """US Treasury official daily par yield curve CSV (free, no key). Returns oldest->newest."""
     rows=[]
-    reader=csv.reader(io.StringIO(r.text))
-    header=next(reader,None)
-    for row in reader:
-        if len(row)<2: continue
-        v=sf(row[1])
-        if v is not None: rows.append((row[0],v))
-    if len(rows)<14:
-        raise RuntimeError(f'FRED {sid}: only {len(rows)} rows. Header={header} Head={r.text[:200]!r}')
+    yr=datetime.utcnow().year
+    for y in (yr, yr-1):
+        url=('https://home.treasury.gov/resource-center/data-chart-center/interest-rates/'
+             f'daily-treasury-rates.csv/{y}/all')
+        r=requests.get(url,params={'type':'daily_treasury_yield_curve','field_tdr_date_value':str(y),'_format':'csv'},
+                       headers=UA,timeout=25)
+        r.raise_for_status()
+        for row in csv.DictReader(io.StringIO(r.text.lstrip('\ufeff'))):
+            v=sf(row.get('10 Yr')); dd=row.get('Date','')
+            if v is None or not dd: continue
+            try: iso=datetime.strptime(dd,'%m/%d/%Y').strftime('%Y-%m-%d')
+            except Exception: continue
+            rows.append((iso,v))
+        if len(rows)>=6: break
+    rows=sorted(set(rows))
+    if len(rows)<6: raise RuntimeError(f'Treasury 10Y: only {len(rows)} rows')
     return rows
+
+def cpi_yoy():
+    """BLS public API v1 (free, no key). CPI-U all items, not seasonally adjusted = headline YoY."""
+    d=get_json('https://api.bls.gov/publicAPI/v1/timeseries/data/CUUR0000SA0',timeout=25)
+    if d.get('status')!='REQUEST_SUCCEEDED': raise RuntimeError(f"BLS: {d.get('status')} {d.get('message')}")
+    data=d['Results']['series'][0]['data']
+    m=[x for x in data if str(x.get('period','')).startswith('M') and x['period']!='M13' and sf(x.get('value')) is not None]
+    m.sort(key=lambda x:(int(x['year']),int(x['period'][1:])),reverse=True)
+    if len(m)<13: raise RuntimeError(f'BLS CPI: only {len(m)} months')
+    return pct(sf(m[0]['value']),sf(m[12]['value'])), f"{m[0]['year']}-{m[0]['period'][1:]}"
 
 def macro():
     o={}
     try:
-        x=fred_series('DTWEXBGS'); o['usd']=x[-1][1]; o['usd5']=pct(x[-1][1],x[-6][1])
-    except Exception as e: print('FRED USD',e)
+        x=usd_index_series(); o['usd']=x[-1][1]; o['usd5']=pct(x[-1][1],x[-6][1])
+    except Exception as e: print('MACRO USD',e)
     try:
-        x=fred_series('DGS10'); o['y10']=x[-1][1]; o['y105']=(x[-1][1]-x[-6][1])*100
-    except Exception as e: print('FRED 10Y',e)
+        x=treasury_10y_series(); o['y10']=x[-1][1]; o['y105']=(x[-1][1]-x[-6][1])*100
+    except Exception as e: print('MACRO 10Y',e)
     try:
-        x=fred_series('CPIAUCSL'); o['cpi']=pct(x[-1][1],x[-13][1])
-    except Exception as e: print('FRED CPI',e)
+        o['cpi'],o['cpi_month']=cpi_yoy()
+    except Exception as e: print('MACRO CPI',e)
+    print('MACRO result',o)
     return o
 
 def cftc(asset):
@@ -809,7 +890,7 @@ def render(a):
         m=a['macro']
         d.text((78,1120),f"USD Index (5D): {m.get('usd5'):+.2f}%" if m.get('usd5') is not None else 'USD Index (5D): N/A',font=F21,fill=MUTED)
         d.text((390,1120),f"US 10Y (5D): {m.get('y105'):+.0f} bps" if m.get('y105') is not None else 'US 10Y (5D): N/A',font=F21,fill=MUTED)
-        d.text((730,1120),f"CPI YoY: {m.get('cpi'):.2f}%" if m.get('cpi') is not None else 'CPI YoY: N/A',font=F21,fill=MUTED)
+        d.text((730,1120),f"CPI YoY: {m.get('cpi'):.1f}%" if m.get('cpi') is not None else 'CPI YoY: N/A',font=F21,fill=MUTED)
         d.text((78,1175),f"Macro Support Score: {a['macro_score']:.0f} / 100",font=F24,fill=col(a['macro_score']))
         d.text((78,1225),'Lower USD/yields are treated as more supportive for precious metals.',font=F18,fill=MUTED)
     else:
@@ -855,8 +936,11 @@ def render(a):
     rounded(d,(50,1500,1030,1635),fill=PANEL2)
     ir=datetime.now(ZoneInfo('Asia/Tehran')).strftime('%Y-%m-%d %H:%M')
     d.text((75,1525),f'TradingLife  •  Updated {ir} Iran',font=F18,fill=TEXT)
-    src='Alpha Vantage • CFTC COT • FRED'
-    if a['kind']=='crypto':
+    if a['kind']=='metal':
+        src='Alpha Vantage • CFTC COT • ECB • US Treasury • BLS'
+    else:
+        src='OKX market data'
+        if a['institutional'].get('available'): src+=' • CFTC COT'
         src += f" • {a.get('derivatives',{}).get('source','Public')} public derivatives data"
     d.text((75,1567),f"Sources: {src}",font=F16,fill=MUTED)
     d.text((75,1598),'Market intelligence only • Not investment advice',font=F16,fill=MUTED)
@@ -895,7 +979,7 @@ def main():
     if RUN_MODE=='refresh':
         c=load(CACHE,{});hs=c.get('histories',{});m=c.get('macro',{})
         if any(a['symbol'] not in hs for a in selected):RUN_MODE='full'
-    m=macro() or m   # FRED is free; refresh every run, fall back to cache if it fails
+    m=macro() or m   # macro sources are free; refresh every run, fall back to cache if they fail
     if RUN_MODE=='full':
         for a in selected:print('History',a['symbol']);hs[a['symbol']]=history(a)
         if ASSET_FILTER=='ALL':save(CACHE,{'saved_at':datetime.utcnow().isoformat()+'Z','histories':hs,'macro':m})
@@ -916,6 +1000,9 @@ def main():
             'updated':datetime.utcnow().isoformat()+'Z'
         };time.sleep(.8)
     save(STATE,state)
-    if fail:requests.post(f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage',data={'chat_id':CHAT_ID,'text':'TradingLife warnings:\n'+'\n'.join(fail)},timeout=30)
+    if fail:
+        # Warnings go to the GitHub Actions log ONLY — never to the public channel.
+        print('WARNINGS (not sent to Telegram):')
+        for x in fail: print('  -',x.replace(ALPHA_KEY,'***'))
     print('Done',RUN_MODE,ASSET_FILTER,len(results))
 if __name__=='__main__':main()
