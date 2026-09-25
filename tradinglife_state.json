@@ -1,12 +1,12 @@
 {
   "XAU": {
-    "strength": 31.66,
-    "flow_score": 24.426,
-    "alert": "NO MAJOR ALERT",
-    "price": 4304.1631587737,
+    "strength": 43.386,
+    "flow_score": 65.415,
+    "alert": "MARKET STRENGTH IMPROVING",
+    "price": 4269.2350384658,
     "deriv_source": "None",
     "deriv_oi_value": null,
-    "updated": "2026-09-25T11:35:41.575965Z"
+    "updated": "2026-09-25T14:42:45.600529Z"
   },
   "XAG": {
     "strength": 47.062,
