@@ -40,8 +40,11 @@ def sf(v, default=None):
 def clamp(v,a=0,b=100): return max(a,min(b,v))
 def pct(a,b): return ((a/b)-1)*100 if b not in (None,0) else 0.0
 
+UA = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'}
+CFTC_MAX_AGE_DAYS = 21  # COT is weekly; anything older than ~3 weeks is treated as stale
+
 def get_json(url, params=None, timeout=40):
-    r=requests.get(url,params=params,timeout=timeout); r.raise_for_status(); return r.json()
+    r=requests.get(url,params=params,timeout=timeout,headers=UA); r.raise_for_status(); return r.json()
 
 def av(function, **kwargs):
     d=get_json(AV, {'function':function,'apikey':ALPHA_KEY,**kwargs})
@@ -123,11 +126,18 @@ def spot(asset):
     return sf(x)
 
 def fred_series(sid):
-    r=requests.get('https://fred.stlouisfed.org/graph/fredgraph.csv',params={'id':sid},timeout=35); r.raise_for_status()
+    # FRED renamed the CSV date column from 'DATE' to 'observation_date',
+    # so read columns by position (col 0 = date, col 1 = value) instead of by name.
+    r=requests.get('https://fred.stlouisfed.org/graph/fredgraph.csv',params={'id':sid},timeout=35,headers=UA); r.raise_for_status()
     rows=[]
-    for row in csv.DictReader(io.StringIO(r.text)):
-        try: rows.append((row['DATE'],float(row[sid])))
-        except: pass
+    reader=csv.reader(io.StringIO(r.text))
+    header=next(reader,None)
+    for row in reader:
+        if len(row)<2: continue
+        v=sf(row[1])
+        if v is not None: rows.append((row[0],v))
+    if len(rows)<14:
+        raise RuntimeError(f'FRED {sid}: only {len(rows)} rows. Header={header} Head={r.text[:200]!r}')
     return rows
 
 def macro():
@@ -147,7 +157,8 @@ def cftc(asset):
     if not asset['code']: return {'available':False,'reason':'No direct CFTC contract mapping'}
     url=CFTC_DISAGG if asset['cftc']=='disagg' else CFTC_LEGACY
     try:
-        rows=get_json(url,{'$limit':10,'$where':f"cftc_contract_market_code='{asset['code']}'"})
+        rows=get_json(url,{'$limit':10,'$order':'report_date_as_yyyy_mm_dd DESC',
+                           '$where':f"cftc_contract_market_code='{asset['code']}'"})
     except Exception as e:
         print('CFTC query error',asset['symbol'],e); return {'available':False,'reason':'CFTC unavailable'}
     if not rows:return {'available':False,'reason':'No CFTC rows'}
@@ -167,6 +178,14 @@ def cftc(asset):
     oi=f(cur,'open_interest_all'); poi=f(prev,'open_interest_all')
     if L is None or S is None:
         print('CFTC keys',asset['symbol'],list(cur.keys())[:50]); return {'available':False,'reason':'CFTC fields not parsed'}
+    try:
+        rep_date=datetime.strptime(dt(cur)[:10],'%Y-%m-%d').date()
+        age=(datetime.utcnow().date()-rep_date).days
+    except Exception:
+        age=None
+    if age is None or age>CFTC_MAX_AGE_DAYS:
+        print('CFTC stale/undated',asset['symbol'],dt(cur),'age',age)
+        return {'available':False,'reason':f'CFTC data stale ({dt(cur)[:10]})'}
     net=L-S; pnet=(pL-pS) if pL is not None and pS is not None else None
     return {'available':True,'cohort':cohort,'long':L,'short':S,'net':net,'net_change':(net-pnet if pnet is not None else None),
             'oi':oi,'oi_change':pct(oi,poi) if oi is not None and poi not in (None,0) else None,'date':dt(cur)[:10]}
@@ -331,7 +350,8 @@ def okx_public(asset):
         rows = d.get('data', []) if isinstance(d, dict) else []
         if rows:
             r = rows[0]
-            out['oi_value'] = sf(r.get('oiUsd')) or sf(r.get('oiCcy')) or sf(r.get('oi'))
+            out['oi_value'] = sf(r.get('oiUsd'))
+            out['oi_ccy'] = sf(r.get('oiCcy'))  # coin units; converted to USD below if oiUsd missing
             out['oi_contracts'] = sf(r.get('oi'))
     except Exception as e:
         print('OKX OI error', inst, e)
@@ -359,9 +379,13 @@ def okx_public(asset):
             op = sf(r.get('open24h'))
             if last is not None and op not in (None, 0):
                 out['futures_24h_change'] = pct(last, op)
-            # OKX returns 24h volume fields; volCcy24h is the more useful
-            # quote/base-currency volume depending on instrument rules.
-            out['futures_quote_volume'] = sf(r.get('volCcy24h')) or sf(r.get('vol24h'))
+            # For OKX USDT swaps, volCcy24h is in COIN units (e.g. BTC), not USD.
+            # Convert to USD turnover by multiplying by the last price.
+            vccy = sf(r.get('volCcy24h'))
+            if vccy is not None and last is not None:
+                out['futures_quote_volume'] = vccy * last
+            if out.get('oi_value') is None and out.get('oi_ccy') is not None and last is not None:
+                out['oi_value'] = out['oi_ccy'] * last
     except Exception as e:
         print('OKX ticker error', inst, e)
 
@@ -449,7 +473,7 @@ def derivatives_pressure(bd, t):
     return clamp(s)
 
 def derivatives_label(s):
-    if s is None: return 'NO BINANCE DERIVATIVES DATA'
+    if s is None: return 'NO DERIVATIVES DATA'
     if s >= 75: return 'STRONG UPSIDE FLOW PRESSURE'
     if s >= 60: return 'UPSIDE FLOW PRESSURE'
     if s >= 40: return 'BALANCED / MIXED'
@@ -666,7 +690,7 @@ def price(v):
     if v is None:return 'N/A'
     return f'${v:,.2f}' if v>=1000 else f'${v:,.3f}' if v>=10 else f'${v:,.4f}' if v>=1 else f'${v:,.6f}'
 
-W,H=1080,1680; BG=(11,14,20); PANEL=(24,29,39); PANEL2=(18,22,31); TEXT=(240,244,248); MUTED=(155,165,178); GREEN=(44,200,134); RED=(239,83,80); AMBER=(245,185,66); GOLD=(212,175,55); SILVER=(195,202,212); BLUE=(91,155,255)
+W,H=1080,1750; BG=(11,14,20); PANEL=(24,29,39); PANEL2=(18,22,31); TEXT=(240,244,248); MUTED=(155,165,178); GREEN=(44,200,134); RED=(239,83,80); AMBER=(245,185,66); GOLD=(212,175,55); SILVER=(195,202,212); BLUE=(91,155,255)
 def font(n,b=False):
     p='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf' if b else '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
     return ImageFont.truetype(p,n) if os.path.exists(p) else ImageFont.load_default()
@@ -773,7 +797,10 @@ def render(a):
             d.text((578,755),'Public derivatives feed unavailable.',font=F21,fill=AMBER)
             d.text((578,795),'Market Strength uses price/history only.',font=F18,fill=MUTED)
         else:
-            d.text((578,985),f"Free source: {src}",font=F18,fill=MUTED)
+            foot=f"Free source: {src}"
+            if ci.get('available') and ci.get('date'):
+                foot+=f"  •  CFTC: {ci['date']}"
+            d.text((578,985),foot,font=F18,fill=MUTED)
 
     # Bottom data panel
     rounded(d,(50,1040,1030,1285),fill=PANEL2)
@@ -868,8 +895,8 @@ def main():
     if RUN_MODE=='refresh':
         c=load(CACHE,{});hs=c.get('histories',{});m=c.get('macro',{})
         if any(a['symbol'] not in hs for a in selected):RUN_MODE='full'
+    m=macro() or m   # FRED is free; refresh every run, fall back to cache if it fails
     if RUN_MODE=='full':
-        m=macro()
         for a in selected:print('History',a['symbol']);hs[a['symbol']]=history(a)
         if ASSET_FILTER=='ALL':save(CACHE,{'saved_at':datetime.utcnow().isoformat()+'Z','histories':hs,'macro':m})
     results=[];fail=[]
