@@ -2,6 +2,9 @@ name: Send Currency Strength
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "15 17 * * 1-5"
+      timezone: "America/New_York"
 
 jobs:
   send-message:
