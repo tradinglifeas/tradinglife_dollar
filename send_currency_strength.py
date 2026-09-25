@@ -76,7 +76,7 @@ def compute_strength():
 
 
 def parse_analysis(raw, reference_date):
-    """Keep the channel copy separate from unverified source suggestions."""
+    """Require earlier-dated sources and avoid invented pair-specific drivers."""
     raw = raw.strip()
     if raw.startswith("```") and raw.endswith("```"):
         raw = re.sub(r"^```(?:text)?\s*|\s*```$", "", raw, flags=re.IGNORECASE)
@@ -94,8 +94,18 @@ def parse_analysis(raw, reference_date):
     analysis = re.sub(r"\s+([.,;:!?])", r"\1", analysis)
     if not 35 <= len(analysis) <= 900:
         return None, [], "Groq returned an empty or unusually long explanation."
+    if re.search(r"\b(both days|each day|on each day)\b", analysis, re.IGNORECASE):
+        return None, [], "The explanation describes two daily moves, but the data contain only one dated comparison."
+    if re.search(
+        r"\b(yen|franc|loonie|krona|krone|sterling|pound|euro|"
+        r"canadian dollar|australian dollar|new zealand dollar|"
+        r"CHF|CAD|JPY|EUR|GBP|AUD|NZD|NOK|SEK)\b",
+        analysis, re.IGNORECASE,
+    ):
+        return None, [], "Groq attributed relative currency moves to unverified pair-specific drivers."
 
     sources = []
+    same_day_sources = []
     for line in match.group(2).splitlines():
         line = re.sub(r"[【〖][^】〗]*[】〗]", "", line).strip()
         row = re.fullmatch(r"\s*(\d{4}-\d{2}-\d{2})\s*\|\s*([^|]{2,80})\s*\|\s*(https://\S+)\s*", line)
@@ -109,16 +119,26 @@ def parse_analysis(raw, reference_date):
                           for domain in REVIEW_SOURCE_DOMAINS)
             if not allowed or parsed.username or parsed.password or parsed.port not in (None, 443):
                 continue
-            if not reference_date - timedelta(days=3) <= published <= reference_date:
+            if published == reference_date:
+                # A day-only timestamp cannot prove publication preceded the
+                # ECB reference-rate fixing on that same date.
+                same_day_sources.append((row.group(1), row.group(2).strip(), row.group(3)))
+                continue
+            if not reference_date - timedelta(days=3) <= published < reference_date:
                 continue
         except (ValueError, TypeError):
             continue
         if row.group(3) not in [source[2] for source in sources]:
             sources.append((row.group(1), row.group(2).strip(), row.group(3)))
 
-    note = ("Candidate source dates and claims still require manual checking."
-            if sources else "No usable, dated source URL was supplied; check the explanation before publishing.")
-    return analysis, sources[:4], note
+    if same_day_sources:
+        return None, sources[:3] + same_day_sources[:2], (
+            "The explanation cited a same-date article without a publication time. "
+            "Check its time before the reference-rate fixing; explanation withheld."
+        )
+    if not sources:
+        return None, [], "No eligible earlier-dated source URL was supplied; explanation withheld."
+    return analysis, sources[:4], "Candidate source dates and claims still require manual checking."
 
 
 def ask_groq_for_analysis(strength, previous_date, latest_date):
@@ -131,18 +151,21 @@ def ask_groq_for_analysis(strength, previous_date, latest_date):
         f"Write a short English market explanation for changes in G10 currencies versus USD "
         f"between the published reference dates {previous_date} and {latest_date}. "
         "Search for contemporaneous reporting from Reuters/AP/Bloomberg/FT or primary "
-        "central bank/economic sources, published no more than three days before the "
-        f"reference date {latest_date}. Do not treat a report published after the "
-        "reference-rate fixing as its cause. Explain a broad USD driver and, if evidence "
-        "supports it, why the relatively strongest and weakest currencies differ. "
+        "central bank/economic sources. Because only article dates can be checked by this "
+        f"program, use only reports dated BEFORE {latest_date}, no more than three days "
+        "earlier. An article published on the reference date might have appeared after "
+        "the reference-rate fixing. Describe one plausible, broad USD market backdrop "
+        "from those reports; do not speculate about reasons why individual currencies "
+        "differed. The input contains one change between two snapshots, NOT two daily "
+        "moves; never write 'on both days'. "
         "Separate observations from plausible explanations; avoid unsupported claims "
         "of causation, precise index levels, future rate decisions, or interventions. "
         "If no timely evidence exists, say so plainly rather than inventing a reason. "
-        "Use 2-3 neutral sentences without advice, URLs, or citation markers in the analysis. "
+        "Use 1-2 neutral sentences without advice, URLs, or citation markers in the analysis. "
         "After the analysis list each actual article URL (not a search URL) with its "
         "publication date and publisher, only if you found it while searching. "
         "Return exactly this plain-text format, without Markdown fences:\n"
-        "POST_ANALYSIS:\n<2-3 sentences>\nSOURCES_FOR_REVIEW:\n"
+        "POST_ANALYSIS:\n<1-2 sentences about broad USD drivers only>\nSOURCES_FOR_REVIEW:\n"
         "YYYY-MM-DD | Publisher | https://article-url\n"
         f"Verified reference-rate changes (not intraday trading moves):\n{summary}"
     )
@@ -202,7 +225,13 @@ def main():
         lines.append(f"{i}. {emoji} {r['currency']}: {r['percent']:+.2f}%")
 
     if analysis:
-        lines += ["", "📰 What's driving it:", analysis]
+        strongest = " and ".join(row["currency"] for row in strength[:2])
+        weakest = " and ".join(row["currency"] for row in strength[-2:])
+        relative_moves = (
+            f"In this reference-rate comparison, {strongest} held up best "
+            f"against the dollar, while {weakest} weakened the most."
+        )
+        lines += ["", "📰 What's driving it:", analysis + " " + relative_moves]
     else:
         review_note = review_note + " Draft has no market explanation."
     lines.append("")
