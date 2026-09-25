@@ -269,6 +269,12 @@ def publish_to_telegram(text):
 def main():
     strength, previous_date, latest_date = compute_strength()
     ny_time = datetime.now(ZoneInfo("America/New_York"))
+    if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and latest_date != ny_time.date():
+        note = (f"No new reference rate for {ny_time.date()}; latest published "
+                f"reference date is {latest_date}. Nothing was sent to Telegram.")
+        print(note)
+        add_run_summary(f"**Status:** {note}")
+        return
     now_text = ny_time.strftime("%Y-%m-%d %H:%M %Z")
     analysis, sources, review_note = ask_groq_for_analysis(strength, previous_date, latest_date)
 
