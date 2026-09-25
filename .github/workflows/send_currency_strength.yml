@@ -2,15 +2,6 @@ name: Send Currency Strength
 
 on:
   workflow_dispatch:
-    inputs:
-      publish_now:
-        description: "Publish this manual run to the Telegram channel"
-        required: false
-        type: boolean
-        default: false
-  schedule:
-    - cron: "15 17 * * 1-5"
-      timezone: "America/New_York"
 
 jobs:
   send-message:
@@ -33,5 +24,5 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           CURRENCY_CHAT_ID: ${{ secrets.CURRENCY_CHAT_ID }}
-          PUBLISH_TO_TELEGRAM: ${{ (github.event_name == 'schedule' || inputs.publish_now) && 'true' || 'false' }}
+          PUBLISH_TO_TELEGRAM: "true"
         run: python send_currency_strength.py
