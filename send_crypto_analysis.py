@@ -11,6 +11,7 @@ import os
 import re
 import time
 import requests
+import xml.etree.ElementTree as ET
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -22,6 +23,7 @@ GROQ_API_KEY = os.environ["GROQ_API_KEY"]
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 GOLD_API_URL = "https://Api.BrsApi.ir/Market/Gold_Currency.php"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+BLOOMBERG_RSS_URL = "https://feeds.bloomberg.com/Crypto/news.rss"
 
 def call_groq_with_retry(payload, headers, max_retries=3):
     """
@@ -115,24 +117,65 @@ def get_change(item):
     return change_value, change_percent
 
 
-def ask_groq_for_analysis(prices_summary, today_str):
+def get_bloomberg_headlines(limit=8):
     """
-    از قابلیت browser_search خود Groq استفاده می‌کنیم تا مدل مستقیماً
-    وب رو جستجو کنه و اخبار تازه‌ی کریپتو رو ببینه.
+    سعی می‌کنه از فید Bloomberg Crypto، آخرین عنوان‌های خبری کریپتو رو بگیره.
+    اگه در دسترس نبود، لیست خالی برمی‌گردونه (و browser_search جایگزینش می‌شه).
     """
-    prompt = (
-        f"Today's date is {today_str}. Search the web for the most important "
-        f"crypto market news from the last 24 to 48 hours (do not use older "
-        f"news). If your search results are not clearly from around "
-        f"{today_str}, search again with a more specific recent query. "
-        "Then, based on what you find, write a short, neutral 2-3 sentence analysis "
-        "in English explaining what appears to be driving today's crypto market moves. "
-        "Do not quote sources verbatim; paraphrase in your own words. "
-        "Do not give financial advice.\n\n"
-        f"Current prices:\n{prices_summary}\n\n"
-        "Write only the analysis paragraph, nothing else. Do not include any "
-        "citation markers or brackets, only plain text."
-    )
+    try:
+        response = requests.get(BLOOMBERG_RSS_URL, headers=REQUEST_HEADERS, timeout=15)
+        root = ET.fromstring(response.content)
+    except (requests.RequestException, ET.ParseError) as e:
+        print(f"خطا در خوندن فید Bloomberg: {e}")
+        return []
+
+    headlines = []
+    for item in root.findall(".//item")[:limit]:
+        title = item.findtext("title", default="").strip()
+        description = item.findtext("description", default="").strip()
+        if title:
+            headlines.append(f"{title} — {description}" if description else title)
+    print(f"عنوان‌های Bloomberg: {headlines}")
+    return headlines
+
+
+def ask_groq_for_analysis(prices_summary, today_str, bloomberg_headlines):
+    """
+    اول سعی می‌کنه از عنوان‌های واقعی Bloomberg (منبع معتبرتر) استفاده کنه.
+    اگه بلومبرگ چیزی نداشت، به browser_search خود Groq اکتفا می‌کنه.
+    """
+    if bloomberg_headlines:
+        headlines_text = "\n".join(f"- {h}" for h in bloomberg_headlines)
+        prompt = (
+            f"Today's date is {today_str}. Here are recent headlines from "
+            f"Bloomberg Crypto:\n{headlines_text}\n\n"
+            "Using these headlines as your primary source, write a short, neutral "
+            "2-3 sentence analysis in English explaining what appears to be driving "
+            "today's crypto market moves. If these headlines don't cover it well "
+            f"enough, you may also search the web for additional recent context "
+            f"(today's date is {today_str}). "
+            "Do not quote sources verbatim; paraphrase in your own words. "
+            "Do not give financial advice.\n\n"
+            f"Current prices:\n{prices_summary}\n\n"
+            "Write only the analysis paragraph, nothing else. Do not include any "
+            "citation markers or brackets, only plain text."
+        )
+        tool_choice = "auto"
+    else:
+        prompt = (
+            f"Today's date is {today_str}. Search the web for the most important "
+            f"crypto market news from the last 24 to 48 hours (do not use older "
+            f"news). If your search results are not clearly from around "
+            f"{today_str}, search again with a more specific recent query. "
+            "Then, based on what you find, write a short, neutral 2-3 sentence analysis "
+            "in English explaining what appears to be driving today's crypto market moves. "
+            "Do not quote sources verbatim; paraphrase in your own words. "
+            "Do not give financial advice.\n\n"
+            f"Current prices:\n{prices_summary}\n\n"
+            "Write only the analysis paragraph, nothing else. Do not include any "
+            "citation markers or brackets, only plain text."
+        )
+        tool_choice = "required"
 
     payload = {
         "model": "openai/gpt-oss-20b",
@@ -141,7 +184,7 @@ def ask_groq_for_analysis(prices_summary, today_str):
         "max_tokens": 600,
         "reasoning_effort": "low",
         "tools": [{"type": "browser_search"}],
-        "tool_choice": "required",
+        "tool_choice": tool_choice,
     }
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
@@ -191,7 +234,7 @@ def main():
     today_str = ny_time.strftime("%B %d, %Y")
     now_text = ny_time.strftime("%Y-%m-%d %H:%M %Z")
 
-    analysis = ask_groq_for_analysis(prices_summary, today_str)
+    analysis = ask_groq_for_analysis(prices_summary, today_str, get_bloomberg_headlines())
 
     lines = ["₿ <b>Crypto Market Update</b>", ""]
 
