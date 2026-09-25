@@ -1,6 +1,6 @@
-"""Draft a G10 currency post with a market explanation and private review notes.
+"""Build a G10 currency post and optionally publish it to a Telegram channel.
 
-The copyable post contains no links. Nothing is sent to Telegram automatically.
+Source links appear only in the private GitHub Actions run summary.
 """
 
 import os
@@ -15,6 +15,7 @@ from zoneinfo import ZoneInfo
 
 FRANKFURTER_URL = "https://api.frankfurter.dev/v1"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+TELEGRAM_URL = "https://api.telegram.org/bot{token}/{method}"
 
 # Only show candidate links from established reporting and primary institutions
 # in the private review section; this does not verify any article's claims.
@@ -209,18 +210,60 @@ def ask_groq_for_analysis(strength, previous_date, latest_date):
     return None, [], "Groq rate limit; no explanation was generated."
 
 
-def save_draft(text, sources, review_note, previous_date, latest_date):
-    print("DRAFT ONLY. No Telegram message was sent.\n" + text)
+def add_run_summary(note):
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as summary:
-            summary.write("## Currency draft — manual review required\n\n")
-            summary.write("### Copyable channel post (no links)\n\n" + text + "\n\n")
-            summary.write("### Review only — do not copy into the channel\n\n")
+            summary.write(note + "\n\n")
+
+
+def save_preview(text, sources, review_note, previous_date, latest_date):
+    print("Currency post preview:\n" + text)
+    if os.environ.get("GITHUB_STEP_SUMMARY"):
+        with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a", encoding="utf-8") as summary:
+            summary.write("## Currency post\n\n")
+            summary.write("### Channel text (no links)\n\n" + text + "\n\n")
+            summary.write("### Review only — not sent to Telegram\n\n")
             summary.write(review_note + "\n\n")
             for date, publisher, url in sources:
                 summary.write(f"- {date} · {publisher}: {url}\n")
             summary.write(f"- Reference-rate dates: {previous_date} → {latest_date}. "
                           "Frankfurter/ECB daily reference rates; these are not live quotes.\n")
+
+
+def telegram_api(method, token, payload):
+    """Keep the bot token out of exception messages and GitHub Actions logs."""
+    try:
+        response = requests.post(TELEGRAM_URL.format(token=token, method=method),
+                                 json=payload, timeout=20)
+        if response.status_code != 200:
+            raise RuntimeError(f"Telegram {method} failed (HTTP {response.status_code}).")
+        data = response.json()
+    except requests.RequestException as error:
+        raise RuntimeError(f"Telegram {method} request failed ({type(error).__name__}).") from None
+    except ValueError:
+        raise RuntimeError(f"Telegram {method} returned invalid JSON.") from None
+    if data.get("ok") is not True:
+        raise RuntimeError(f"Telegram {method} rejected the request (code {data.get('error_code')}).")
+    return data.get("result", {})
+
+
+def publish_to_telegram(text):
+    token = os.environ.get("BOT_TOKEN", "").strip()
+    chat_id = (os.environ.get("CURRENCY_CHAT_ID") or os.environ.get("CHAT_ID") or "").strip()
+    if not token or not chat_id:
+        raise RuntimeError("BOT_TOKEN and CURRENCY_CHAT_ID (or CHAT_ID) must be set in Actions secrets.")
+    if not text or len(text) > 4096 or re.search(r"https?://|www\.", text, flags=re.IGNORECASE):
+        raise RuntimeError("Channel text must be at most 4096 characters and contain no links.")
+
+    chat = telegram_api("getChat", token, {"chat_id": chat_id})
+    if chat.get("type") != "channel":
+        raise RuntimeError("Configured Telegram destination is not a channel; nothing was sent.")
+    result = telegram_api("sendMessage", token, {
+        "chat_id": chat_id,
+        "text": text,
+        "link_preview_options": {"is_disabled": True},
+    })
+    return result.get("message_id")
 
 
 def main():
@@ -247,10 +290,24 @@ def main():
         review_note = review_note + " Draft has no market explanation."
     lines.append("")
     lines.append("Daily reference-rate change; not a live trading quote.")
-    lines.append(f"🕐 Draft generated: {now_text}")
+    lines.append(f"🕐 Updated: {now_text}")
 
     message = "\n".join(lines)
-    save_draft(message, sources, review_note, previous_date, latest_date)
+    save_preview(message, sources, review_note, previous_date, latest_date)
+
+    if os.environ.get("PUBLISH_TO_TELEGRAM") != "true":
+        add_run_summary("**Status:** Preview only; no Telegram message was sent.")
+        return
+    if not analysis or not sources:
+        add_run_summary("**Status:** No Telegram message was sent: a sourced market explanation was unavailable.")
+        raise RuntimeError("No eligible sourced market explanation; nothing was sent to Telegram.")
+    try:
+        message_id = publish_to_telegram(message)
+    except RuntimeError as error:
+        add_run_summary(f"**Status:** Telegram publication failed: {error}")
+        raise
+    print(f"Sent currency post to Telegram (message id: {message_id}).")
+    add_run_summary(f"**Status:** Sent to Telegram channel (message id: {message_id}).")
 
 
 if __name__ == "__main__":
