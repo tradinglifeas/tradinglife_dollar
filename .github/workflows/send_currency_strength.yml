@@ -6,6 +6,9 @@ on:
 jobs:
   send-message:
     runs-on: ubuntu-latest
+    concurrency:
+      group: currency-strength-channel
+      cancel-in-progress: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -15,9 +18,11 @@ jobs:
           python-version: "3.11"
       - name: Install dependencies
         run: pip install requests
-      - name: Build and send message
+      - name: Build and publish G10 currency post
         env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          CURRENCY_CHAT_ID: ${{ secrets.CURRENCY_CHAT_ID }}
+          PUBLISH_TO_TELEGRAM: "true"
         run: python send_currency_strength.py
