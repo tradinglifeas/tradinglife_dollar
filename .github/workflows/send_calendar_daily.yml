@@ -1,0 +1,23 @@
+name: Send Economic Calendar (Daily)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  send-calendar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install requests pillow
+      - name: Build and send calendar
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          MODE: daily
+        run: python send_economic_calendar.py
