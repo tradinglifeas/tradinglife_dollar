@@ -135,11 +135,16 @@ def get_global():
 def get_movers():
     try:
         rows = get_json(f"{COINGECKO}/coins/markets",
-                        {"vs_currency": "usd", "order": "market_cap_desc", "per_page": 70,
+                        {"vs_currency": "usd", "order": "market_cap_desc", "per_page": 100,
                          "page": 1, "price_change_percentage": "24h"}, headers=cg_headers())
     except Exception as e:
         print(f"✗ CoinGecko markets: {e}")
         return None
+    # تغییر ۲۴ ساعته‌ی ارزش کل بازار رو خودمون از ۱۰۰ کوین برتر حساب می‌کنیم
+    # (عدد آماده‌ی CoinGecko گاهی با حرکت واقعی بازار نمی‌خونه)
+    tot = sum(sf(r.get("market_cap")) or 0 for r in rows)
+    chg = sum(sf(r.get("market_cap_change_24h")) or 0 for r in rows)
+    agg = chg / (tot - chg) * 100 if tot and tot != chg else None
     clean = []
     for r in rows:
         sym, name = (r.get("symbol") or "").lower(), (r.get("name") or "").lower()
@@ -154,7 +159,7 @@ def get_movers():
         return None
     s = sorted(clean, key=lambda x: x["ch"], reverse=True)
     print(f"✓ CoinGecko movers from top {len(clean)}")
-    return {"up": s[:3], "down": s[-3:][::-1], "n": len(clean)}
+    return {"up": s[:3], "down": s[-3:][::-1], "n": len(clean), "mcap_ch_top100": agg}
 
 
 def get_fng():
@@ -581,6 +586,11 @@ def main():
     glob = get_global()
     movers = get_movers()
     fng = get_fng()
+    if glob and movers and movers.get("mcap_ch_top100") is not None:
+        print(f"تغییر ارزش بازار: CoinGecko {glob['mcap_ch']} → محاسبه‌ی ۱۰۰ کوین برتر {movers['mcap_ch_top100']:.2f}")
+        glob["mcap_ch"] = movers["mcap_ch_top100"]
+    elif glob:
+        glob["mcap_ch"] = None   # عدد تأییدنشده نمایش داده نمی‌شه
     summary = summary_sentence(coins, glob)
     print(f"خلاصه: {summary}")
     news = select_news(collect_news())
