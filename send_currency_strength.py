@@ -13,6 +13,7 @@
 
 import os
 import re
+import math
 import time
 import html
 import requests
@@ -43,13 +44,14 @@ REQUEST_HEADERS = {
 
 def get_rate_history(days_back=12):
     """
-    همه‌ی نرخ‌های منتشرشده‌ی چند روز اخیر رو یکجا می‌گیره.
-    خروجی: لیست (تاریخ، نرخ‌ها) از قدیم به جدید، فقط روزهایی که هر ۹ ارز رو دارن.
-    نرخ‌ها به شکل «واحد ارز به ازای ۱ دلار» هستن.
+    نرخ‌های اصلی ECB (بر پایه‌ی یورو) رو می‌گیره و خودمون به «واحد ارز برای هر دلار» تبدیل می‌کنیم.
+    این‌طوری گرد کردن میانی Frankfurter حذف می‌شه و عددها دقیقاً از نرخ رسمی ECB میان.
+    خروجی: لیست (تاریخ، نرخ‌ها) از قدیم به جدید.
     """
     today = datetime.now(ZoneInfo("America/New_York")).date()
     start = today - timedelta(days=days_back)
-    params = {"from": "USD", "to": ",".join(G10_CURRENCIES)}
+    others = [c for c in G10_CURRENCIES if c != "EUR"]
+    params = {"from": "EUR", "to": ",".join(["USD"] + others)}
     last_error = None
     for base in FRANKFURTER_URLS:
         try:
@@ -58,10 +60,15 @@ def get_rate_history(days_back=12):
             response.raise_for_status()
             data = response.json()
             rows = []
-            for day, rates in sorted(data.get("rates", {}).items()):
-                if all(c in rates and float(rates[c]) > 0 for c in G10_CURRENCIES):
-                    rows.append((datetime.strptime(day, "%Y-%m-%d").date(), rates))
-            print(f"Frankfurter ({base}): {len(rows)} published dates -> {[d.isoformat() for d, _ in rows]}")
+            for day, r in sorted(data.get("rates", {}).items()):
+                if not all(c in r and float(r[c]) > 0 for c in ["USD"] + others):
+                    continue
+                usd = float(r["USD"])                       # دلار برای هر یورو
+                per_usd = {"EUR": 1 / usd}                   # یورو برای هر دلار
+                for c in others:
+                    per_usd[c] = float(r[c]) / usd           # ارز برای هر دلار
+                rows.append((datetime.strptime(day, "%Y-%m-%d").date(), per_usd))
+            print(f"Frankfurter ({base}): {len(rows)} ECB dates -> {[d.isoformat() for d, _ in rows]}")
             if len(rows) >= 2:
                 return rows
             last_error = f"only {len(rows)} complete dates"
@@ -77,10 +84,20 @@ def compute_strength():
     فرمول دقیق: نرخ به شکل «ارز برای هر دلار» است، پس ارزش ارز در برابر دلار عکس آن است:
         تغییر٪ = (نرخ قبلی ÷ نرخ جدید − 1) × 100
     """
-    rows = get_rate_history()
-    (prev_date, prev_rates), (last_date, last_rates) = rows[-2], rows[-1]
-
     today = datetime.now(ZoneInfo("America/New_York")).date()
+    # در روزهای کاری، نرخ امروز ECB باید منتشر شده باشه (حدود ۱۰ صبح نیویورک).
+    # اگه هنوز نیومده، تا ۲۰ دقیقه صبر می‌کنیم؛ اگه باز نیومد (مثلاً تعطیلی ECB)، پست تکراری نمی‌ره.
+    for attempt in range(5):
+        rows = get_rate_history()
+        if today.weekday() >= 5 or rows[-1][0] >= today:
+            break
+        if attempt < 4:
+            print(f"نرخ امروز ECB هنوز منتشر نشده (آخرین: {rows[-1][0]}) - ۵ دقیقه صبر")
+            time.sleep(300)
+    else:
+        print(f"ECB برای امروز ({today}) نرخی منتشر نکرده (احتمالاً تعطیلی) - پستی ارسال نشد.")
+        return None, None, None, None
+    (prev_date, prev_rates), (last_date, last_rates) = rows[-2], rows[-1]
     age = (today - last_date).days
     if age > MAX_DATA_AGE_DAYS:
         raise RuntimeError(f"آخرین نرخ ECB مال {last_date} است ({age} روز پیش) - داده کهنه است.")
@@ -94,7 +111,25 @@ def compute_strength():
     print(f"مقایسه: {prev_date} -> {last_date}")
     for r in results:
         print(f"  {r['currency']}: {r['percent']:+.3f}%")
-    return results, prev_date, last_date
+    index = strength_index(results)
+    return results, index, prev_date, last_date
+
+
+def strength_index(vs_usd):
+    """
+    شاخص قدرت واقعی: هر ارز (از جمله خود دلار) در برابر میانگین ۹ ارز دیگه‌ی G10.
+    با بازده لگاریتمی: r_X = تغییر ارز X در برابر دلار (r_USD = 0)
+        قدرت X = میانگین (r_X − r_Y) برای همه‌ی Y ≠ X
+    """
+    r = {x["currency"]: math.log(1 + x["percent"] / 100) for x in vs_usd}
+    r["USD"] = 0.0
+    total, n = sum(r.values()), len(r)
+    out = [{"currency": c, "percent": (math.exp((n * v - total) / (n - 1)) - 1) * 100} for c, v in r.items()]
+    out.sort(key=lambda x: x["percent"], reverse=True)
+    print("شاخص قدرت (در برابر همه‌ی G10):")
+    for x in out:
+        print(f"  {x['currency']}: {x['percent']:+.3f}%")
+    return out
 
 
 # ---------------------------------------------------------------- تحلیل خبری
@@ -337,18 +372,31 @@ def main():
     # نکته: آخر هفته ECB نرخ جدید منتشر نمی‌کنه. زمان‌بندی این گزارش در cron-job.org
     # باید فقط دوشنبه تا جمعه باشه تا پست تکراری نره.
 
-    strength, prev_date, last_date = compute_strength()
+    strength, index, prev_date, last_date = compute_strength()
+    if strength is None:
+        return
     facts = facts_sentence(strength)
+    usd_rank = next(i for i, x in enumerate(index, 1) if x["currency"] == "USD")
+    facts += f" In the overall strength ranking, the U.S. dollar placed {usd_rank} of 10."
     drivers = find_drivers(strength, prev_date, last_date)
 
+    fix_et = datetime(last_date.year, last_date.month, last_date.day, 14, 15,
+                      tzinfo=ZoneInfo("Europe/Berlin")).astimezone(ZoneInfo("America/New_York"))
+    fix_txt = fix_et.strftime("%I:%M %p ET").lstrip("0")
+
     lines = [
-        "💱 <b>G10 Currency Strength (vs USD)</b>",
-        f"📅 {prev_date.strftime('%b %d')} → {last_date.strftime('%b %d, %Y')}",
+        "💱 <b>G10 Currency Strength</b>",
+        f"📅 {prev_date.strftime('%b %d')} → {last_date.strftime('%b %d, %Y')} · ECB fixing {fix_txt}",
         "",
+        "<b>Strength vs all other G10 currencies:</b>",
     ]
-    for i, r in enumerate(strength, 1):
+    for i, r in enumerate(index, 1):
         emoji = "🟢" if r["percent"] > 0 else ("🔴" if r["percent"] < 0 else "⚪")
-        lines.append(f"{i}. {emoji} {r['currency']}: {r['percent']:+.2f}%")
+        name = f"<b>{r['currency']}</b>" if r["currency"] == "USD" else r["currency"]
+        lines.append(f"{i}. {emoji} {name}: {r['percent']:+.2f}%")
+
+    lines += ["", "<b>Change vs USD:</b>",
+              " · ".join(f"{r['currency']} {r['percent']:+.2f}%" for r in strength)]
 
     lines += ["", "📊 <b>Summary:</b>", html.escape(facts)]
     if drivers:
@@ -356,7 +404,8 @@ def main():
 
     lines += [
         "",
-        "<i>ECB daily reference rates (14:15 CET fixing), not live quotes.</i>",
+        f"<i>ECB daily reference rates, fixed at {fix_txt} (not live quotes). Moves after that time, "
+        "including most U.S. data releases, appear in the next report. Differences under ~0.05% are noise.</i>",
         f"🕐 Updated: {ny_now.strftime('%Y-%m-%d %H:%M %Z')}",
     ]
     send_to_telegram("\n".join(lines))
