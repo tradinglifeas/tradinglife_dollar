@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  send-message:
+  send-metals:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -14,11 +14,12 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests
-      - name: Build and send message
+        run: pip install requests pillow
+      - name: Build and send gold & silver card
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-          BRSAPI_KEY: ${{ secrets.BRSAPI_KEY }}
+          ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
+          ALPHA_VANTAGE_METALS_KEY: ${{ secrets.ALPHA_VANTAGE_METALS_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: python send_gold_silver_analysis.py
