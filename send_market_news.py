@@ -48,7 +48,7 @@ FEEDS = [
 
 MIN_ITEMS_TO_POST = 3
 MAX_ITEMS_TO_POST = 5
-MAX_CANDIDATES = 45
+MAX_CANDIDATES = 30   # پرامپت کوچیک‌تر = زیر سقف ۸۰۰۰ توکن در دقیقه‌ی Groq
 
 REQUEST_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -225,7 +225,7 @@ def call_groq(payload, headers, max_retries=3):
 def select_with_groq(candidates):
     listing = "\n".join(
         f"[{i}] ({c['source']}, {c['time'].strftime('%b %d %H:%M UTC')}) {c['title']}"
-        + (f" — {c['desc']}" if c["desc"] else "")
+        + (f" — {c['desc'][:220]}" if c["desc"] else "")
         for i, c in enumerate(candidates, 1)
     )
     prompt = (
@@ -253,14 +253,16 @@ def select_with_groq(candidates):
         f"NEWS ITEMS:\n{listing}"
     )
     headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
-    for model in GROQ_MODELS:
+    # حالت JSON اجباری Groq گاهی خروجی خالی می‌ده (json_validate_failed)،
+    # پس بدون اون درخواست می‌دیم و JSON رو خودمون از متن جدا می‌کنیم.
+    attempts = [(m, e) for m in GROQ_MODELS for e in ("low", "medium")]
+    for model, effort in attempts:
         payload = {
             "model": model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.2,
-            "max_tokens": 1500,
-            "reasoning_effort": "medium",
-            "response_format": {"type": "json_object"},
+            "max_tokens": 3000,
+            "reasoning_effort": effort,
         }
         data = call_groq(payload, headers)
         if not data:
@@ -270,9 +272,12 @@ def select_with_groq(candidates):
             m = re.search(r"\{.*\}", raw, re.DOTALL)
             selection = json.loads(m.group(0))["items"] if m else []
         except (KeyError, IndexError, TypeError, ValueError, json.JSONDecodeError) as e:
-            print(f"خروجی Groq ({model}) قابل خواندن نبود: {e}")
+            print(f"خروجی Groq ({model}/{effort}) قابل خواندن نبود: {e}")
             continue
-        print(f"Groq ({model}) {len(selection)} خبر انتخاب کرد. اعتبارسنجی:")
+        if not selection:
+            print(f"Groq ({model}/{effort}) خروجی خالی داد: {raw[:200]!r}")
+            continue
+        print(f"Groq ({model}/{effort}) {len(selection)} خبر انتخاب کرد. اعتبارسنجی:")
         valid = validate(selection, candidates)
         if len(valid) >= MIN_ITEMS_TO_POST:
             return valid
