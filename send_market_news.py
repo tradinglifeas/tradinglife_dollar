@@ -182,6 +182,13 @@ def validate(selection, candidates):
         if max(longest_common_run(summary, item["title"]),
                longest_common_run(summary, item["desc"])) >= 9:
             print(f"  رد شد #{idx}: خلاصه تقریباً کپی متن منبع است"); continue
+        # اگه عدد در منبع بازه‌ی زمانی داره (مثلاً «۸٪ در هفته»)، خلاصه نباید اون رو حذف کنه
+        # وگرنه یک افت هفتگی شبیه افت یک‌روزه به نظر میاد
+        tf = re.findall(r"\b(week|weekly|month|monthly|quarter|year[- ]to[- ]date|ytd|this year|for the year)\b",
+                        source_text, re.I)
+        if tf and re.search(r"\d\s*%|percent", summary, re.I) and not re.search(
+                r"\b(week|weekly|month|monthly|quarter|year|ytd)\b", summary, re.I):
+            print(f"  رد شد #{idx}: بازه‌ی زمانی عدد ({tf[0]}) در خلاصه حذف شده"); continue
         # اگه خبر اصلی «گزارش» یا «نقل‌قول» است، خلاصه هم باید همین رو بگه
         # (نه اینکه یک ادعای گزارش‌شده رو به‌عنوان واقعیت قطعی بیان کنه)
         if re.search(r"\b(reports?|reported|according to|citing|sources say|WSJ|people familiar)\b",
@@ -237,6 +244,9 @@ def select_with_groq(candidates):
         "- If the item says something was REPORTED by a news outlet or anonymous officials "
         "(e.g. 'WSJ reports', 'according to sources'), keep that attribution in your sentence "
         "(e.g. 'The Wall Street Journal reported that...'). Never turn a report into a confirmed fact.\n"
+        "- Attribute a statement ONLY to the person or outlet the item says made it. Never attribute a "
+        "price move or market data to a person.\n"
+        "- Keep time qualifiers attached to numbers exactly (e.g. 'fell 8% for the week', not 'fell 8%').\n"
         "- No financial advice.\n"
         "- label = 1-2 words topic, e.g. Fed, ECB, Inflation, Jobs, Oil, Stocks, Bonds, Dollar, Geopolitics.\n"
         'Return ONLY JSON: {"items":[{"id":<number>,"label":"<topic>","summary":"<sentence>"}]}\n\n'
