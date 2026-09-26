@@ -99,8 +99,16 @@ def fetch_feed(source, url):
         desc = strip_tags(fields.get("description") or fields.get("summary") or "")[:400]
         when = parse_date(fields.get("pubDate") or fields.get("published")
                           or fields.get("updated") or fields.get("date"))
+        link = (fields.get("link") or "").strip()
+        if not link:
+            for c in node:
+                if c.tag.split("}")[-1] == "link" and c.get("href"):
+                    link = c.get("href"); break
+        low = (link + " " + title).lower()
+        if any(k in low for k in ("/video", "/videos/", "/opinion/", "podcast", "/audio/", "/live-blog")):
+            continue   # ویدیو، مصاحبه، ستون نظر و پادکست خبر نیستن
         if title and when:
-            items.append({"source": source, "title": title, "desc": desc, "time": when})
+            items.append({"source": source, "title": title, "desc": desc, "time": when, "link": link})
     print(f"  ✓ {source}: {len(items)} items  ({url})")
     return items
 
@@ -171,8 +179,15 @@ def validate(selection, candidates):
         extra = numbers_in(summary) - numbers_in(source_text)
         if extra:
             print(f"  رد شد #{idx}: عدد(های) ساختگی {extra} در خلاصه"); continue
-        if longest_common_run(summary, item["title"]) >= 9:
-            print(f"  رد شد #{idx}: خلاصه تقریباً کپی عنوان است"); continue
+        if max(longest_common_run(summary, item["title"]),
+               longest_common_run(summary, item["desc"])) >= 9:
+            print(f"  رد شد #{idx}: خلاصه تقریباً کپی متن منبع است"); continue
+        # اگه خبر اصلی «گزارش» یا «نقل‌قول» است، خلاصه هم باید همین رو بگه
+        # (نه اینکه یک ادعای گزارش‌شده رو به‌عنوان واقعیت قطعی بیان کنه)
+        if re.search(r"\b(reports?|reported|according to|citing|sources say|WSJ|people familiar)\b",
+                     source_text, re.I) and not re.search(
+                r"\b(report|reported|reports|according|citing|said|says|told)\b", summary, re.I):
+            print(f"  رد شد #{idx}: منبعِ گزارش‌شده در خلاصه حذف شده"); continue
         ok.append({"id": idx, "label": label, "summary": summary, "source": item["source"]})
         print(f"  قبول شد #{idx} [{item['source']}] {label}: {summary}")
     return ok[:MAX_ITEMS_TO_POST]
@@ -211,12 +226,17 @@ def select_with_groq(candidates):
         f"Select the {MIN_ITEMS_TO_POST} to {MAX_ITEMS_TO_POST} items that matter MOST to global "
         "financial markets (central banks, inflation/jobs/GDP data, bond yields, oil and energy, "
         "major geopolitical events, big moves in major stock indexes or the dollar). "
-        "Skip personal-finance tips, opinion pieces, single-company gossip, and duplicates of the same story.\n"
+        "Prefer concrete events and data (decisions, releases, market moves) over interviews, commentary "
+        "or analysis. Skip personal-finance tips, opinion pieces, single-company gossip, and duplicates "
+        "of the same story.\n"
         "For each selected item write ONE neutral sentence (max 35 words) summarizing it.\n"
         "STRICT RULES:\n"
         "- Use ONLY information stated in that item's title/description. Add no facts, causes, "
         "numbers, names, or predictions that are not there.\n"
-        "- Paraphrase in your own words; do not copy the headline.\n"
+        "- Paraphrase in your own words; do not copy the headline or description.\n"
+        "- If the item says something was REPORTED by a news outlet or anonymous officials "
+        "(e.g. 'WSJ reports', 'according to sources'), keep that attribution in your sentence "
+        "(e.g. 'The Wall Street Journal reported that...'). Never turn a report into a confirmed fact.\n"
         "- No financial advice.\n"
         "- label = 1-2 words topic, e.g. Fed, ECB, Inflation, Jobs, Oil, Stocks, Bonds, Dollar, Geopolitics.\n"
         'Return ONLY JSON: {"items":[{"id":<number>,"label":"<topic>","summary":"<sentence>"}]}\n\n'
