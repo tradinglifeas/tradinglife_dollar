@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  send-message:
+  send-crypto:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -14,11 +14,11 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: pip install requests
-      - name: Build and send message
+        run: pip install requests pillow
+      - name: Build and send crypto card
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-          BRSAPI_KEY: ${{ secrets.BRSAPI_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
         run: python send_crypto_analysis.py
