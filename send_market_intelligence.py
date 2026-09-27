@@ -950,14 +950,40 @@ def render(a):
     im.save(p,'PNG',optimize=True)
     return p
 
+MI_TAGS = {'XAU': '#Gold #XAUUSD', 'XAG': '#Silver #XAGUSD', 'BTC': '#Bitcoin #BTC', 'ETH': '#Ethereum #ETH',
+           'SOL': '#Solana #SOL', 'XRP': '#XRP', 'ADA': '#Cardano #ADA', 'DOGE': '#Dogecoin #DOGE'}
+
+
+def caption(a):
+    """متن خیلی کوتاه زیر هر کارت — فقط واقعیت‌های تکنیکال، بدون سیگنال."""
+    pair = f"{a['symbol']}/USD"
+    lines = [f"{a['name']} ({pair}) — {price(a['price'])} ({a['daily']:+.2f}%)"]
+    bits = []
+    if a.get('rsi') is not None:
+        r = a['rsi']
+        bits.append(f"RSI {r:.0f}" + (" (overbought)" if r >= 70 else " (oversold)" if r <= 30 else ""))
+    emas = [(n, a.get(k)) for n, k in (('20', 'ema20'), ('50', 'ema50'), ('200', 'ema200')) if a.get(k)]
+    if emas:
+        above = [n for n, v in emas if a['price'] > v]; below = [n for n, v in emas if a['price'] <= v]
+        if not below:
+            bits.append("above 20/50/200-day EMAs")
+        elif not above:
+            bits.append("below 20/50/200-day EMAs")
+        else:
+            bits.append(f"above {'/'.join(above)}-day, below {'/'.join(below)}-day EMA")
+    if a.get('macd') is not None and a.get('macd_signal') is not None:
+        bits.append("MACD " + ("positive" if a['macd'] > a['macd_signal'] else "negative"))
+    if bits:
+        lines.append(" · ".join(bits))
+    lines += ["", f"{MI_TAGS.get(a['symbol'], '')} #TechnicalAnalysis".strip()]
+    return "\n".join(lines)
+
+
 def send(p,a):
-    # Everything the user needs is already inside the image.
-    # Sending without a Telegram caption prevents the app's media-viewer
-    # caption overlay from covering the card footer.
     with open(p,'rb') as f:
         r=requests.post(
             f'https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto',
-            data={'chat_id':CHAT_ID},
+            data={'chat_id':CHAT_ID,'caption':caption(a)},
             files={'photo':f},
             timeout=60
         )
@@ -975,6 +1001,10 @@ def main():
     global RUN_MODE
     selected=ASSETS if ASSET_FILTER=='ALL' else [x for x in ASSETS if x['symbol']==ASSET_FILTER]
     if not selected:raise RuntimeError('Unknown ASSET_FILTER='+ASSET_FILTER)
+    # آخر هفته بازار طلا و نقره بسته‌ست: کارت تکراری فلزات نمی‌فرستیم (کریپتو ۲۴/۷ ادامه داره)
+    if ASSET_FILTER=='ALL' and datetime.now(ZoneInfo('America/New_York')).weekday()>=5:
+        selected=[x for x in selected if x['kind']!='metal']
+        print('Weekend: metals skipped (market closed).')
     state=load(STATE,{}); hs={}; m={}
     if RUN_MODE=='refresh':
         c=load(CACHE,{});hs=c.get('histories',{});m=c.get('macro',{})
