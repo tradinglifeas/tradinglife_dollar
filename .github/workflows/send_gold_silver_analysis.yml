@@ -2,20 +2,54 @@ name: Send Gold Silver Analysis
 
 on:
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Send even if already sent in the last 6 hours"
+        type: boolean
+        default: false
 
 jobs:
   send-metals:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
     steps:
+      - name: Skip if already sent recently (duplicate guard)
+        id: guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # اگه یک اجرای قبلی همین workflow در ۶ ساعت اخیر موفق بوده یا هنوز در حال اجراست،
+          # این اجرا چیزی نمی‌فرسته. (اجرای ناموفق حساب نمی‌شه، پس تلاش دوباره مجازه.)
+          if [ "${{ inputs.force }}" = "true" ]; then
+            echo "Force run requested - guard skipped."; echo "skip=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          since=$(date -u -d '-6 hours' +%Y-%m-%dT%H:%M:%SZ)
+          n=$(gh run list -R "${{ github.repository }}" --workflow "${{ github.workflow }}" \
+                --created ">=$since" --limit 50 --json databaseId,status,conclusion \
+                --jq '[.[] | select(.databaseId < ${{ github.run_id }})
+                       | select(.conclusion == "success" or .status != "completed")] | length')
+          echo "Earlier successful/in-progress runs in the last 6h: $n"
+          if [ "$n" -gt 0 ]; then
+            echo "::notice::Duplicate run - already sent in the last 6 hours. Nothing was posted."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Checkout repository
+        if: steps.guard.outputs.skip != 'true'
         uses: actions/checkout@v4
       - name: Set up Python
+        if: steps.guard.outputs.skip != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Install dependencies
+        if: steps.guard.outputs.skip != 'true'
         run: pip install requests pillow
-      - name: Build and send gold & silver card
+      - name: Build and send
+        if: steps.guard.outputs.skip != 'true'
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
