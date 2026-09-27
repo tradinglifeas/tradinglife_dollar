@@ -1,28 +1,25 @@
 name: TradingLife Market Intelligence
 
+# روزی یک بار با cron-job.org اجرا می‌شه (زمان‌بندی داخلی GitHub حذف شد چون قابل اعتماد نیست).
+# cron-job.org فقط {"ref":"main"} می‌فرسته، پس پیش‌فرض‌ها = اجرای کامل همه‌ی دارایی‌ها.
 on:
-  schedule:
-    # 09:30 Iran = 06:00 UTC
-    - cron: '0 6 * * *'
-    # 15:00 Iran = 11:30 UTC
-    - cron: '30 11 * * *'
-
   workflow_dispatch:
     inputs:
       mode:
         description: "full = history + spot; refresh = cached history + fresh spot"
-        required: true
+        required: false
         default: "full"
         type: choice
         options:
           - full
           - refresh
       asset:
-        description: "Test one asset first to conserve Alpha Vantage quota"
-        required: true
-        default: "XAU"
+        description: "ALL for the daily post; pick one asset only for testing"
+        required: false
+        default: "ALL"
         type: choice
         options:
+          - ALL
           - XAU
           - XAG
           - BTC
@@ -31,41 +28,64 @@ on:
           - XRP
           - ADA
           - DOGE
-          - ALL
+      force:
+        description: "Send even if already sent in the last 6 hours"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   market-intelligence:
     runs-on: ubuntu-latest
     steps:
+      - name: Skip if already sent recently (duplicate guard)
+        id: guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # اجرای تک‌دارایی (تست) محافظ نمی‌گیره؛ فقط اجرای کامل روزانه محافظت می‌شه.
+          if [ "${{ inputs.force }}" = "true" ] || [ "${{ inputs.asset }}" != "ALL" -a -n "${{ inputs.asset }}" ]; then
+            echo "Guard not applied (force or single-asset test)."; echo "skip=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          since=$(date -u -d '-6 hours' +%Y-%m-%dT%H:%M:%SZ)
+          n=$(gh run list -R "${{ github.repository }}" --workflow "${{ github.workflow }}" \
+                --created ">=$since" --limit 50 --json databaseId,status,conclusion \
+                --jq '[.[] | select(.databaseId < ${{ github.run_id }})
+                       | select(.conclusion == "success" or .status != "completed")] | length')
+          echo "Earlier successful/in-progress runs in the last 6h: $n"
+          if [ "$n" -gt 0 ]; then
+            echo "::notice::Duplicate run - already sent in the last 6 hours. Nothing was posted."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Checkout
+        if: steps.guard.outputs.skip != 'true'
         uses: actions/checkout@v4
 
       - name: Python
+        if: steps.guard.outputs.skip != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Install dependencies
+        if: steps.guard.outputs.skip != 'true'
         run: pip install requests pillow
 
       - name: Select mode
+        if: steps.guard.outputs.skip != 'true'
         shell: bash
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "RUN_MODE=${{ inputs.mode }}" >> "$GITHUB_ENV"
-            echo "ASSET_FILTER=${{ inputs.asset }}" >> "$GITHUB_ENV"
-          elif [ "${{ github.event.schedule }}" = "0 6 * * *" ]; then
-            echo "RUN_MODE=full" >> "$GITHUB_ENV"
-            echo "ASSET_FILTER=ALL" >> "$GITHUB_ENV"
-          else
-            echo "RUN_MODE=refresh" >> "$GITHUB_ENV"
-            echo "ASSET_FILTER=ALL" >> "$GITHUB_ENV"
-          fi
+          echo "RUN_MODE=${{ inputs.mode || 'full' }}" >> "$GITHUB_ENV"
+          echo "ASSET_FILTER=${{ inputs.asset || 'ALL' }}" >> "$GITHUB_ENV"
 
       - name: Build cards and send to Telegram
+        if: steps.guard.outputs.skip != 'true'
         env:
           ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
@@ -73,6 +93,7 @@ jobs:
         run: python send_market_intelligence.py
 
       - name: Save cache and state
+        if: steps.guard.outputs.skip != 'true'
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
