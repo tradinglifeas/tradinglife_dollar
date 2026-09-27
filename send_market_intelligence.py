@@ -952,30 +952,98 @@ def render(a):
 
 MI_TAGS = {'XAU': '#Gold #XAUUSD', 'XAG': '#Silver #XAGUSD', 'BTC': '#Bitcoin #BTC', 'ETH': '#Ethereum #ETH',
            'SOL': '#Solana #SOL', 'XRP': '#XRP', 'ADA': '#Cardano #ADA', 'DOGE': '#Dogecoin #DOGE'}
+OZ_PER_CONTRACT = {'XAU': 100, 'XAG': 5000}   # قرارداد COMEX: طلا ۱۰۰ اونس، نقره ۵۰۰۰ اونس
+
+
+def okx_taker_flow(sym, total_vol=None, last=None):
+    """
+    خرید و فروش «تهاجمی» (taker) قراردادهای آتی OKX در ۲۴ ساعت اخیر (رایگان، بدون کلید).
+    خرید بیشتر از فروش = فشار خرید (پول بیشتری با عجله وارد شده). این جریان واقعی ورود/خروج
+    سرمایه به صرافی نیست؛ فقط معیار فشار خرید و فروش معامله‌گرهاست.
+    """
+    try:
+        d = get_json(OKX_PUBLIC + '/api/v5/rubik/stat/taker-volume',
+                     {'ccy': sym, 'instType': 'CONTRACTS', 'period': '1H'}, timeout=20)
+        rows = d.get('data', []) if isinstance(d, dict) else []
+        rows = rows[:24]                                    # جدیدترین‌ها اول: ۲۴ ساعت اخیر
+        if len(rows) < 20:
+            return None
+        sell = sum(sf(r[1]) or 0 for r in rows); buy = sum(sf(r[2]) or 0 for r in rows)
+        # واحد باید دلار باشه؛ با حجم کل ۲۴ ساعته مقایسه می‌کنیم تا مطمئن بشیم
+        if total_vol and not (0.05 * total_vol <= buy + sell <= 20 * total_vol) and last:
+            buy, sell = buy * last, sell * last             # اگه به واحد کوین بود، به دلار تبدیل کن
+            if not (0.05 * total_vol <= buy + sell <= 20 * total_vol):
+                print('Taker flow unit check failed', sym); return None
+        return {'buy': buy, 'sell': sell, 'net': buy - sell}
+    except Exception as e:
+        print('OKX taker flow error', sym, e)
+        return None
+
+
+def usd_big(v):
+    a = abs(v); sgn = '-' if v < 0 else ''
+    return f"{sgn}${a/1e9:.2f}B" if a >= 1e9 else f"{sgn}${a/1e6:.1f}M" if a >= 1e6 else f"{sgn}${a:,.0f}"
+
+
+def oi_reading(price_ch, oi_ch):
+    """تفسیر استاندارد بازار آتی از ترکیب جهت قیمت و Open Interest."""
+    if oi_ch is None or price_ch is None:
+        return None
+    if abs(oi_ch) < 1:
+        return "little changed — no strong positioning shift"
+    if abs(price_ch) < 0.2:
+        return "rising with flat price — positions building" if oi_ch > 0 else "falling with flat price — positions closing"
+    if price_ch > 0 and oi_ch > 0:
+        return "rising with price up → new long positions"
+    if price_ch < 0 and oi_ch > 0:
+        return "rising with price down → new short positions"
+    if price_ch > 0 and oi_ch < 0:
+        return "falling with price up → shorts covering"
+    return "falling with price down → longs closing"
+
+
+def funding_reading(fr):
+    if fr is None:
+        return None
+    p = fr * 100
+    if p >= 0.03:
+        return f"Funding {p:+.3f}% — longs paying a premium (crowded long)"
+    if p <= -0.01:
+        return f"Funding {p:+.3f}% — shorts paying a premium (crowded short)"
+    return None                                        # حالت عادی: ذکرش لازم نیست
 
 
 def caption(a):
-    """متن خیلی کوتاه زیر هر کارت — فقط واقعیت‌های تکنیکال، بدون سیگنال."""
-    pair = f"{a['symbol']}/USD"
-    lines = [f"{a['name']} ({pair}) — {price(a['price'])} ({a['daily']:+.2f}%)"]
-    bits = []
-    if a.get('rsi') is not None:
-        r = a['rsi']
-        bits.append(f"RSI {r:.0f}" + (" (overbought)" if r >= 70 else " (oversold)" if r <= 30 else ""))
-    emas = [(n, a.get(k)) for n, k in (('20', 'ema20'), ('50', 'ema50'), ('200', 'ema200')) if a.get(k)]
-    if emas:
-        above = [n for n, v in emas if a['price'] > v]; below = [n for n, v in emas if a['price'] <= v]
-        if not below:
-            bits.append("above 20/50/200-day EMAs")
-        elif not above:
-            bits.append("below 20/50/200-day EMAs")
-        else:
-            bits.append(f"above {'/'.join(above)}-day, below {'/'.join(below)}-day EMA")
-    if a.get('macd') is not None and a.get('macd_signal') is not None:
-        bits.append("MACD " + ("positive" if a['macd'] > a['macd_signal'] else "negative"))
-    if bits:
-        lines.append(" · ".join(bits))
-    lines += ["", f"{MI_TAGS.get(a['symbol'], '')} #TechnicalAnalysis".strip()]
+    """متن کوتاه زیر هر کارت: فشار خرید/فروش و تغییر موقعیت‌ها — بدون سیگنال."""
+    lines = [f"{a['name']} ({a['symbol']}/USD) — {price(a['price'])} ({a['daily']:+.2f}%)"]
+    if a['kind'] == 'crypto':
+        f = a.get('flow24'); bd = a.get('derivatives') or {}
+        if f and f['buy'] + f['sell'] > 0:
+            bp = 100 * f['buy'] / (f['buy'] + f['sell'])
+            side = "buyers in control" if bp >= 52 else "sellers in control" if bp <= 48 else "balanced"
+            lines.append(f"Futures pressure (OKX, 24h): buyers {bp:.0f}% · sellers {100 - bp:.0f}% — {side}")
+        r = oi_reading(a['daily'], bd.get('oi_change_pct'))
+        if r:
+            lines.append(f"Open interest {bd['oi_change_pct']:+.1f}% since yesterday: {r}")
+        fr = funding_reading(bd.get('funding_rate'))
+        if fr:
+            lines.append(fr)
+        tags = f"{MI_TAGS.get(a['symbol'], '')} #OrderFlow"
+    else:
+        c = a.get('institutional') or {}
+        if c.get('available') and c.get('net_change') is not None:
+            wk = datetime.strptime(c['date'][:10], '%Y-%m-%d').strftime('%b %d')
+            chg = c['net_change']
+            notional = abs(chg) * OZ_PER_CONTRACT[a['symbol']] * a['price']
+            if c['net'] >= 0:
+                verb = "added net longs" if chg > 0 else "cut net longs"
+            else:
+                verb = "reduced net shorts" if chg > 0 else "added net shorts"
+            lines.append(f"Large speculators (CFTC, week to {wk}): {verb} by {abs(chg)/1000:.1f}K contracts "
+                         f"(≈{usd_big(notional)} notional)")
+            lines.append(f"Still net {'long' if c['net'] >= 0 else 'short'} {abs(c['net'])/1000:.1f}K contracts")
+        tags = f"{MI_TAGS.get(a['symbol'], '')} #Positioning"
+    lines += ["", tags.strip()]
     return "\n".join(lines)
 
 
@@ -1017,6 +1085,9 @@ def main():
     for a in selected:
         try:
             print('Spot',a['symbol']);sp=spot(a);results.append(intelligence(a,hs[a['symbol']],sp,m,state.get(a['symbol'],{})))
+            if a['kind']=='crypto':
+                bd=results[-1].get('derivatives') or {}
+                results[-1]['flow24']=okx_taker_flow(a['symbol'],bd.get('futures_quote_volume'),sp); time.sleep(0.5)
         except Exception as e:print('ERROR',a['symbol'],e);fail.append(f"{a['symbol']}: {e}")
     if not results:raise RuntimeError('No cards built. '+' | '.join(fail))
     for a in results:
