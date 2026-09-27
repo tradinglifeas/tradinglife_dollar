@@ -16,6 +16,7 @@
 """
 
 import os
+import re
 import time
 import requests
 from PIL import Image, ImageDraw, ImageFont
@@ -293,10 +294,78 @@ def render(pages_idx, pages_total, days, tag, date_range, today, empty_text, now
 
 # ---------------------------------------------------------------- ارسال
 
-def send_photo(path):
+# ---------------------------------------------------------------- متن زیر عکس
+
+TAG_RULES = [(r"(^|\| )(Non-Farm Employment Change|Unemployment Rate|Average Hourly)", "#NFP"), (r"\bCPI\b", "#CPI"),
+             (r"\bPCE\b", "#PCE"), (r"FOMC|Federal Funds|Fed Chair", "#FOMC"), (r"\bGDP\b", "#GDP"),
+             (r"\bISM\b", "#ISM"), (r"Retail Sales", "#RetailSales"), (r"JOLTS", "#JOLTS"),
+             (r"\bPPI\b", "#PPI")]
+
+
+def short_time(e):
+    return "All day" if e["impact"] == "Holiday" else e["when"].strftime("%a %H:%M" if MODE == "weekly" else "%H:%M") + " ET"
+
+
+def build_caption(events, date_label, now):
+    """متن زیر عکس — فقط از روی داده‌های تقویم (بدون هوش مصنوعی)."""
+    usd_high = [e for e in events if e["cur"] == "USD" and e["impact"] == "High"]
+    other_high = [e for e in events if e["cur"] != "USD" and e["impact"] == "High"]
+    holidays = [e for e in events if e["impact"] == "Holiday"]
+
+    if MODE == "weekly":
+        lines = [f"🗓 Economic Calendar — Week Ahead ({date_label})", ""]
+        intro = "Key U.S. releases this week:"
+    else:
+        lines = [f"🗓 Economic Calendar — Tomorrow ({date_label})", ""]
+        intro = "Key U.S. releases:"
+
+    if not events:
+        lines.append("No high-impact events are scheduled — a quiet day on the calendar."
+                     if MODE == "daily" else "No high-impact events are scheduled this week.")
+    else:
+        if usd_high:
+            lines.append(intro)
+            # مهم‌ترین‌ها اول انتخاب می‌شن (گزارش اشتغال، تورم، فدرال رزرو...)، بعد به ترتیب زمان نمایش
+            prio = [r"^Non-Farm Employment Change$", r"^(Core )?CPI m/m", r"Federal Funds|FOMC Statement",
+                    r"^Core PCE", r"GDP q/q", r"Retail Sales m/m", r"^ISM Manufacturing PMI", r"^ISM Services PMI",
+                    r"Unemployment Rate", r"^(Core )?PPI m/m", r"JOLTS", r"Fed Chair"]
+            rank = lambda e: next((i for i, pt in enumerate(prio) if re.search(pt, e["title"], re.I)), len(prio))
+            top = sorted(sorted(usd_high, key=rank)[:6], key=lambda e: e["when"])
+            for e in top:
+                fc = f" (forecast {e['forecast']})" if e["forecast"] else ""
+                lines.append(f"• {short_time(e)} — {e['title']}{fc}")
+            if len(usd_high) > 6:
+                lines.append(f"• …and {len(usd_high) - 6} more on the card")
+        else:
+            lines.append("No high-impact U.S. data is scheduled; see the card for other releases.")
+        if other_high:
+            lines += ["", "Also on watch:"]
+            for e in other_high[:3]:
+                lines.append(f"• {FLAGS.get(e['cur'], '')} {short_time(e)} — {e['title']}")
+        for h in holidays[:1]:
+            lines += ["", f"🏖 {h['title']} ({h['when'].strftime('%a')}) — U.S. markets closed or shortened."]
+
+    lines += ["", "Times in ET. Forecasts from the Forex Factory calendar; schedules can change."]
+
+    tags = ["#EconomicCalendar", "#USD"]
+    titles = " | ".join(e["title"] for e in events if e["cur"] == "USD")
+    for pat, tag in TAG_RULES:
+        if re.search(pat, titles, re.I) and tag not in tags:
+            tags.append(tag)
+    lines += ["", " ".join(tags[:7])]
+    txt = "\n".join(lines)
+    if len(txt) > 1024:                                   # سقف کپشن تلگرام
+        txt = txt[:1000].rsplit("\n", 1)[0] + "\n\n" + " ".join(tags[:7])
+    return txt
+
+
+def send_photo(path, caption=None):
+    data = {"chat_id": CHAT_ID}
+    if caption:
+        data["caption"] = caption
     with open(path, "rb") as f:
         r = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto",
-                          data={"chat_id": CHAT_ID}, files={"photo": f}, timeout=60)
+                          data=data, files={"photo": f}, timeout=60)
     res = r.json()
     if not res.get("ok"):
         print(f"خطا در ارسال: {res}")
@@ -329,7 +398,8 @@ def main():
     pages = paginate(events)
     for i, days in enumerate(pages, 1):
         path = render(i, len(pages), days, tag, date_range, today, empty, now)
-        send_photo(path)
+        # متن فقط زیر عکس اول (اگه کارت چند صفحه باشه)
+        send_photo(path, build_caption(events, date_range, now) if i == 1 else None)
         print(f"ارسال شد: {path}")
         time.sleep(1)
     print(f"تمام ({MODE}): {len(events)} رویداد در {len(pages)} تصویر.")

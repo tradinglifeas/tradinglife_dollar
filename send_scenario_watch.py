@@ -61,7 +61,8 @@ RULES = [
      "why_up": "Higher producer prices can signal inflation pressure ahead, supporting tighter policy expectations.",
      "why_down": "Softer producer prices can signal easing inflation pressure ahead."},
     {"key": "nfp", "name": "Jobs Report (Non-Farm Payrolls)",
-     "match": r"Non-Farm Employment Change|Unemployment Rate|Average Hourly Earnings",
+     # «^» مهمه: ADP Non-Farm Employment Change گزارش خصوصیه و قانون جدای خودش رو داره
+     "match": r"^Non-Farm Employment Change|^Unemployment Rate|^Average Hourly Earnings",
      "priority": [r"^Non-Farm Employment Change"],
      "react": "hawkish_growth", "inverse": False,
      "why_up": "Stronger hiring tends to support expectations that rates stay higher for longer.",
@@ -328,10 +329,49 @@ def render(scenarios, now):
     return path
 
 
-def send_photo(path):
+SC_TAGS = {"cpi": "#CPI", "pce": "#PCE", "ppi": "#PPI", "nfp": "#NFP", "unemp": "#Jobs", "claims": "#Jobs",
+           "jolts": "#JOLTS", "adp": "#Jobs", "gdp": "#GDP", "retail": "#RetailSales", "ism_m": "#ISM",
+           "ism_s": "#ISM", "conf": "#ConsumerConfidence", "fomc": "#FOMC"}
+
+
+def short_watch(reactions):
+    parts = [f"{n.replace('10Y yield', 'yields').replace('U.S. dollar', 'dollar').lower()} {a}"
+             for n, a in reactions if n in ("10Y yield", "U.S. dollar", "Gold")]
+    return ", ".join(parts)
+
+
+def caption_text(scenarios, now):
+    """متن زیر عکس — خلاصه‌ی سناریوها، فقط از روی جدول قوانین و تقویم."""
+    lines = [f"🎯 Scenario Watch — {now.strftime('%a, %b %d')}", "", "Today's key U.S. data:"]
+    for s in scenarios:
+        rule, p = s["rule"], s["primary"]
+        hawk = REACTIONS[rule["react"]]
+        up, down = (flip(hawk), hawk) if rule["inverse"] else (hawk, flip(hawk))
+        basis = "forecast" if s["base_kind"] == "forecast" else "previous"
+        lines.append(f"• {s['time'].strftime('%H:%M')} ET — {rule['name']} ({basis} {s['base']})")
+        lines.append(f"   Above: {short_watch(up)}")
+        lines.append(f"   Below: {short_watch(down)}")
+    lines += ["", "If markets move against the matching scenario within an hour, reassess.",
+              "Typical reactions, not trading signals. Not investment advice."]
+    tags = ["#Scenarios", "#USD"]
+    for s in scenarios:
+        t = SC_TAGS.get(s["rule"]["key"])
+        if t and t not in tags:
+            tags.append(t)
+    lines += ["", " ".join(tags[:7])]
+    txt = "\n".join(lines)
+    if len(txt) > 1024:
+        txt = txt[:990].rsplit("\n•", 1)[0] + "\n…see the card for all scenarios.\n\n" + " ".join(tags[:7])
+    return txt
+
+
+def send_photo(path, caption=None):
+    data = {"chat_id": CHAT_ID}
+    if caption:
+        data["caption"] = caption
     with open(path, "rb") as f:
         r = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto",
-                          data={"chat_id": CHAT_ID}, files={"photo": f}, timeout=60)
+                          data=data, files={"photo": f}, timeout=60)
     res = r.json()
     if not res.get("ok"):
         print(f"خطا در ارسال: {res}")
@@ -349,7 +389,7 @@ def main():
     if not scenarios:
         print("امروز رویداد پراهمیت آمریکایی با سناریوی تعریف‌شده نیست — پستی ارسال نشد.")
         return
-    send_photo(render(scenarios, now))
+    send_photo(render(scenarios, now), caption_text(scenarios, now))
 
 
 if __name__ == "__main__":

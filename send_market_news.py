@@ -146,7 +146,7 @@ def numbers_in(text):
 
 def longest_common_run(a, b):
     """طولانی‌ترین تعداد کلمات پشت‌سرهم مشترک بین دو متن"""
-    wa, wb = re.findall(r"\w+", a.lower()), re.findall(r"\w+", b.lower())
+    wa, wb = re.findall(r"[a-z]+", a.lower()), re.findall(r"[a-z]+", b.lower())   # فقط کلمات، نه عدد
     best = 0
     for i in range(len(wa)):
         for j in range(len(wb)):
@@ -298,6 +298,27 @@ def send_to_telegram(text):
     print("پیام اخبار با موفقیت ارسال شد.")
 
 
+TAG_MAP = {"fed": "#Fed", "ecb": "#ECB", "boj": "#BOJ", "boe": "#BOE", "central bank": "#CentralBanks",
+           "snb": "#SNB", "oil": "#Oil", "energy": "#Energy", "inflation": "#Inflation", "jobs": "#Jobs",
+           "labor": "#Jobs", "stocks": "#Stocks", "equities": "#Stocks", "bonds": "#Bonds", "yields": "#Bonds",
+           "dollar": "#USD", "currencies": "#Forex", "forex": "#Forex", "geopolitics": "#Geopolitics",
+           "trade": "#Trade", "tariffs": "#Tariffs", "gdp": "#GDP", "gold": "#Gold", "crypto": "#Crypto",
+           "housing": "#Housing", "earnings": "#Earnings"}
+
+
+def news_tags(items):
+    tags = ["#MarketNews"]
+    for it in items:
+        lab = it["label"].lower()
+        t = next((v for k, v in TAG_MAP.items() if k in lab), None)
+        if not t:   # برچسب ناشناخته: همون برچسب به شکل هشتگ (فقط حروف و عدد)
+            clean = re.sub(r"[^A-Za-z0-9]", "", it["label"].title())
+            t = f"#{clean}" if 2 <= len(clean) <= 20 else None
+        if t and t not in tags:
+            tags.append(t)
+    return " ".join(tags[:6])
+
+
 def main():
     ny = datetime.now(ZoneInfo("America/New_York"))
     candidates, hours = collect_news()
@@ -315,6 +336,7 @@ def main():
         lines.append("")
     window = "past 72 hours" if hours == 72 else "past 24 hours"
     lines += [f"<i>Summaries of reports from the named sources, {window}. Not investment advice.</i>",
+              news_tags(items),
               f"🕐 Updated: {ny.strftime('%Y-%m-%d %H:%M %Z')}"]
     send_to_telegram("\n".join(lines))
 

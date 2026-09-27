@@ -407,6 +407,9 @@ def main():
         f"<i>ECB daily reference rates, fixed at {fix_txt} (not live quotes). Moves after that time, "
         "including most U.S. data releases, appear in the next report. Differences under ~0.05% are noise.</i>",
         f"🕐 Updated: {ny_now.strftime('%Y-%m-%d %H:%M %Z')}",
+        "",
+        " ".join(dict.fromkeys(["#Forex", "#USD", "#G10", f"#{index[0]['currency']}",
+                                f"#{index[-1]['currency']}"])),
     ]
     send_to_telegram("\n".join(lines))
 

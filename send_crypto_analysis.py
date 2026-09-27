@@ -265,7 +265,7 @@ def numbers_in(t):
 
 
 def common_run(a, b):
-    wa, wb = re.findall(r"\w+", a.lower()), re.findall(r"\w+", b.lower())
+    wa, wb = re.findall(r"[a-z]+", a.lower()), re.findall(r"[a-z]+", b.lower())   # فقط کلمات، نه عدد
     best = 0
     for i in range(len(wa)):
         for j in range(len(wb)):
@@ -569,10 +569,50 @@ def render(coins, glob, movers, fng, summary, news, now):
     return p
 
 
-def send_photo(path):
+COIN_TAGS = {"BTC": "#Bitcoin", "ETH": "#Ethereum", "SOL": "#Solana", "XRP": "#XRP",
+             "ADA": "#Cardano", "DOGE": "#Dogecoin"}
+
+
+def caption_text(coins, glob, movers, fng, summary, news, now):
+    """متن زیر عکس — فقط از روی داده‌ها."""
+    def price(sym):
+        c = coins.get(sym)
+        return f"{sym} {fmt_price(c['price'])} ({fmt_pct(c['ch24'])})" if c else None
+    lines = [f"₿ Crypto Market Update — {now.strftime('%a, %b %d')}", ""]
+    lines.append(" · ".join(x for x in (price("BTC"), price("ETH")) if x))
+    lines.append(summary)
+    extra = []
+    if glob and glob.get("mcap"):
+        extra.append(f"Total market value {fmt_big(glob['mcap'])} · BTC dominance {glob['btc_dom']:.1f}%")
+    if fng:
+        prev = f", from {fng['prev']} yesterday" if fng.get("prev") is not None else ""
+        extra.append(f"Fear & Greed: {fng['value']} ({fng['label']}){prev}")
+    if movers:
+        u, d = movers["up"][0], movers["down"][0]
+        extra.append(f"Top gainer: {u['sym']} {fmt_pct(u['ch'])} · Top loser: {d['sym']} {fmt_pct(d['ch'])}")
+    if extra:
+        lines += [""] + extra
+    if news:
+        lines += ["", "Key news:"] + [f"• {n['label']}: {n['summary']} ({n['source']})" for n in news[:2]]
+    tags = ["#Crypto", "#Bitcoin", "#Ethereum"]
+    for sym, c in coins.items():                       # کوین‌هایی که حرکت بزرگ داشتن
+        if c.get("ch24") is not None and abs(c["ch24"]) >= 5 and COIN_TAGS[sym] not in tags:
+            tags.append(COIN_TAGS[sym])
+    lines += ["", "Not investment advice.", "", " ".join(tags[:7])]
+    txt = "\n".join(lines)
+    if len(txt) > 1024:                                # سقف کپشن تلگرام: اول اخبار کوتاه می‌شه
+        txt = "\n".join(lines[:lines.index("Key news:") - 1] if "Key news:" in lines else lines[:-4])
+        txt = txt[:990] + "\n\n" + " ".join(tags[:7])
+    return txt
+
+
+def send_photo(path, caption=None):
+    data = {"chat_id": CHAT_ID}
+    if caption:
+        data["caption"] = caption
     with open(path, "rb") as f:
         r = requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto",
-                          data={"chat_id": CHAT_ID}, files={"photo": f}, timeout=60)
+                          data=data, files={"photo": f}, timeout=60)
     res = r.json()
     if not res.get("ok"):
         print(f"خطا در ارسال: {res}")
@@ -596,7 +636,8 @@ def main():
     news = select_news(collect_news())
     if not news:
         print("بخش اخبار حذف شد (خبر معتبر کافی نبود).")
-    send_photo(render(coins, glob, movers, fng, summary, news, now))
+    send_photo(render(coins, glob, movers, fng, summary, news, now),
+               caption_text(coins, glob, movers, fng, summary, news, now))
 
 
 if __name__ == "__main__":
