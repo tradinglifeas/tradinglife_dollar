@@ -1,0 +1,22 @@
+name: Bank Sources Probe (test only)
+
+# فقط اجرای دستی. هیچ چیزی در کانال ارسال نمی‌شه.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - name: Probe bank research sources
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          MY_CHAT_ID: ${{ secrets.MY_CHAT_ID }}
+        run: python bank_sources_probe.py
