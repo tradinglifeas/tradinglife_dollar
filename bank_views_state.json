@@ -26,7 +26,8 @@
   "9c396ff60c1969a9": "2026-10-02T14:01:12.677294+00:00",
   "78a4cb9c75653f8a": "2026-10-02T14:28:22.844613+00:00",
   "bb6f8e0652c0fa89": "2026-10-02T17:00:32.373109+00:00",
-  "87d461f018b82fdb": "2026-10-02T19:24:22.271111+00:00"
+  "87d461f018b82fdb": "2026-10-02T19:24:22.271111+00:00",
+  "b920c9f0aeeefaed": "2026-10-02T22:00:34.628087+00:00"
  },
  "week": [
   {
@@ -304,6 +305,18 @@
    "desc": "As stocks rise and bond yields pull back ahead of the jobs report, Nadia Lovell of UBS says she remains bullish on equities, but believes the market’s next advance must be earned. She argues that markets are entering a new investment cycle after years of companies prioritizing financial efficiency through measures such as buybacks and lower capital spending. The shift now extends beyond AI to investment in power, supply chains, and defense, broadening corporate profit opportunities. If these investments deliver a productivity boost, Lovell says, they could support a healthier market and further gains over the longer term. (Source: Bloomberg)",
    "link": "https://www.bloomberg.com/news/videos/2026-10-02/nadia-lovell-equities-must-earn-the-next-leg-up-video",
    "time": "2026-10-02T19:20:35+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "b920c9f0aeeefaed",
+   "source": "Bloomberg",
+   "bank": "Morgan Stanley",
+   "title": "Morgan Stanley's Nike Analyst on quarterly earnings",
+   "desc": "Morgan Stanley's Alex Straton sees Nike sales and earnings softening as the company deals with inventory gluts in North America and China. She speaks with Romaine Bostick on Bloomberg's \"The Close.\" (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-02/morgan-stanley-s-nike-analyst-on-quarterly-earnings-video",
+   "time": "2026-10-02T21:55:08+00:00",
    "assets": [
     "stocks"
    ]
