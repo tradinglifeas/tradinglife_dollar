@@ -1,0 +1,44 @@
+name: Bank Views (weekly)
+
+on:
+  workflow_dispatch:
+
+# دو workflow دیدگاه بانک‌ها هیچ‌وقت هم‌زمان اجرا نمی‌شن (فایل حافظه‌ی مشترک دارن)
+concurrency:
+  group: bank-views
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  bank-views:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests pillow
+      - name: Run bank views (weekly)
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          MY_CHAT_ID: ${{ secrets.MY_CHAT_ID }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          MODE: weekly
+        run: python bank_views.py
+      - name: Save memory
+        if: always()
+        shell: bash
+        run: |
+          [ -f bank_views_state.json ] || exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bank_views_state.json
+          if git diff --cached --quiet; then echo "No changes."; exit 0; fi
+          git commit -m "Update bank views state [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase -q && git push -q && exit 0
+            echo "Push failed, retrying ($i)"; sleep 5
+          done
+          exit 1
