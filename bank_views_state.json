@@ -25,7 +25,8 @@
   "75c7215601df4351": "2026-10-02T12:38:30.300804+00:00",
   "9c396ff60c1969a9": "2026-10-02T14:01:12.677294+00:00",
   "78a4cb9c75653f8a": "2026-10-02T14:28:22.844613+00:00",
-  "bb6f8e0652c0fa89": "2026-10-02T17:00:32.373109+00:00"
+  "bb6f8e0652c0fa89": "2026-10-02T17:00:32.373109+00:00",
+  "87d461f018b82fdb": "2026-10-02T19:24:22.271111+00:00"
  },
  "week": [
   {
@@ -293,6 +294,18 @@
    "time": "2026-10-02T13:36:15+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "87d461f018b82fdb",
+   "source": "Bloomberg",
+   "bank": "UBS",
+   "title": "Nadia Lovell: Equities Must Earn the Next Leg Up",
+   "desc": "As stocks rise and bond yields pull back ahead of the jobs report, Nadia Lovell of UBS says she remains bullish on equities, but believes the market’s next advance must be earned. She argues that markets are entering a new investment cycle after years of companies prioritizing financial efficiency through measures such as buybacks and lower capital spending. The shift now extends beyond AI to investment in power, supply chains, and defense, broadening corporate profit opportunities. If these investments deliver a productivity boost, Lovell says, they could support a healthier market and further gains over the longer term. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-02/nadia-lovell-equities-must-earn-the-next-leg-up-video",
+   "time": "2026-10-02T19:20:35+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
