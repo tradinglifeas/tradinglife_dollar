@@ -1,0 +1,261 @@
+{
+ "seen": {
+  "5d4223b2424cd972": "2026-10-02T12:38:30.300804+00:00",
+  "eefeb48999385031": "2026-10-02T12:38:30.300804+00:00",
+  "9d5f2d6f5f614a9e": "2026-10-02T12:38:30.300804+00:00",
+  "48cd1c075f889853": "2026-10-02T12:38:30.300804+00:00",
+  "2595f54512ce3e1f": "2026-10-02T12:38:30.300804+00:00",
+  "d253a613e1f77a40": "2026-10-02T12:38:30.300804+00:00",
+  "b93bbccc8877ab7b": "2026-10-02T12:38:30.300804+00:00",
+  "5be09608a6d9183a": "2026-10-02T12:38:30.300804+00:00",
+  "cd0fb5d82d44839c": "2026-10-02T12:38:30.300804+00:00",
+  "2a00c3b8a49ac9be": "2026-10-02T12:38:30.300804+00:00",
+  "8fa435e581435bdf": "2026-10-02T12:38:30.300804+00:00",
+  "3ee8341512fa0525": "2026-10-02T12:38:30.300804+00:00",
+  "815b3f89b6f6ac6c": "2026-10-02T12:38:30.300804+00:00",
+  "35a1770271821612": "2026-10-02T12:38:30.300804+00:00",
+  "e2c7c3649f5e12a5": "2026-10-02T12:38:30.300804+00:00",
+  "6881610eaf875fe6": "2026-10-02T12:38:30.300804+00:00",
+  "7078088366d49d2b": "2026-10-02T12:38:30.300804+00:00",
+  "e3ecb5255b1c5d48": "2026-10-02T12:38:30.300804+00:00",
+  "9f4a3c5fac281dbd": "2026-10-02T12:38:30.300804+00:00",
+  "7ff5f1e366a6d5b1": "2026-10-02T12:38:30.300804+00:00",
+  "5ba265d914b40952": "2026-10-02T12:38:30.300804+00:00",
+  "3cc80066503f084a": "2026-10-02T12:38:30.300804+00:00",
+  "75c7215601df4351": "2026-10-02T12:38:30.300804+00:00"
+ },
+ "week": [
+  {
+   "id": "2595f54512ce3e1f",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "Flash PMIs Take Center Stage",
+   "desc": "In focus today In the euro area, September flash PMIs are released and will be closely watched for the ECB outlook. We expect the release to confirm that decent growth momentum continued in September. We forecast the manufacturing index to rise to 53.3 from 52.7, supported by rising orders and a rebound in global activity. […] The post Flash PMIs Take Center Stage appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/655057-flash-pmis-take-center-stage/",
+   "time": "2026-09-23T06:11:24+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "d253a613e1f77a40",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "Weekly Focus – Bond Yields Hit New Highs, Equities Calm",
+   "desc": "Global bond yields continued to move higher over the past week, with 10-year US government bond yields rising from 4.95% on Monday to a weekly high of more than 5.20% on Thursday. Bonds also came under pressure in Europe and Japan, where yields reached new cycle highs. However, the increase in yields appears to be […] The post Weekly Focus – Bond Yields Hit New Highs, Equities Calm appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/655452-weekly-focus-bond-yields-hit-new-highs-equities-calm/",
+   "time": "2026-09-25T14:23:56+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "b93bbccc8877ab7b",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "Trump Rejects Iranian Offer to Open the Strait of Hormuz",
+   "desc": "In focus today The data calendar for today is empty, so we will focus on the ECB President Lagarde’s speech at the European parliament in the afternoon. With the turmoil in the bond markets in recent weeks, markets will be listening to Lagarde’s speech for any comments on the euro area bond market or inflation […] The post Trump Rejects Iranian Offer to Open the Strait of Hormuz appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/655571-trump-rejects-iranian-offer-to-open-the-strait-of-hormuz/",
+   "time": "2026-09-28T05:46:50+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "5be09608a6d9183a",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "Focus Turns to US Job Openings",
+   "desc": "In focus today In the euro area, focus turns to the September flash inflation print for Spain which will give the first indication of where the euro area data on Friday lands. We expect a modest rise in headline due to higher energy costs and a small increase in core inflation. We also receive the […] The post Focus Turns to US Job Openings appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/655692-focus-turns-to-us-job-openings/",
+   "time": "2026-09-29T05:57:13+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "cd0fb5d82d44839c",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "Focus Today on Inflation Prints From Europe and the US",
+   "desc": "In focus today In the euro area, September flash inflation prints for Germany, France, and Italy will be released. The data will give hints to where the data for the whole euro area will land on Friday. In the US, August PCE inflation will be released in the afternoon. Headline inflation likely rose from July […] The post Focus Today on Inflation Prints From Europe and the US appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/655823-focus-today-on-inflation-prints-from-europe-and-the-us/",
+   "time": "2026-09-30T06:22:30+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "2a00c3b8a49ac9be",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Fiscal troubles for the euro may only be starting",
+   "desc": "History suggests that the euro’s correlation with eurozone spread widening can pick up rapidly. Today’s budget announcement in France leaves OATs at risk of further underperformance, and a so far resilient EUR/USD may be looking at material downside risks if things don’t improve. EUR/CHF is facing similar depreciation potential",
+   "link": "https://think.ing.com/articles/fiscal-troubles-for-the-euro-may-only-be-starting/",
+   "time": "2026-10-01T14:04:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "8fa435e581435bdf",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "US Jobs Report Is Due: We Expect a Hot One",
+   "desc": "In focus today In the euro area, the September flash inflation print will be released. We expect the headline HICP inflation to rise to 3.6% y/y (prior: 3.2% y/y) and the core to rise slightly to 2.5% y/y (prior: 2.4% y/y). Headline HICP inflation prints from France, Italy and Germany on Wednesday were above expectations […] The post US Jobs Report Is Due: We Expect a Hot One appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/656129-us-jobs-report-is-due-we-expect-a-hot-one/",
+   "time": "2026-10-02T06:03:16+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "3ee8341512fa0525",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Tipping point",
+   "desc": "Markets reached a point of inflection yesterday, where the sell-off in French debt broke the narrative of ever-higher short-term market interest rates. This questions whether central banks are about to extend into policy error territory with tightening cycles. If that is the case, the ECB has less cause to tighten than the Fed, and EUR/USD can stay offered",
+   "link": "https://think.ing.com/articles/fx-daily-tipping-point/",
+   "time": "2026-10-02T06:40:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "815b3f89b6f6ac6c",
+   "source": "FXStreet",
+   "bank": "Deutsche Bank",
+   "title": "Gold: Modest gains in risk-off backdrop – Deutsche Bank",
+   "desc": "Deutsche Bank notes that Gold prices edged higher alongside broader risk-off moves and rising financial stress in Europe. While the report focuses more on bonds, equities and energy, Gold’s advance came as volatility ticked up and investors digested geopolitical risks and shifting central bank expectations ahead of key US and Euro Area data releases.",
+   "link": "https://www.fxstreet.com/news/gold-modest-gains-in-risk-off-backdrop-deutsche-bank-202610020732",
+   "time": "2026-10-02T07:32:54+00:00",
+   "assets": [
+    "metals",
+    "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "35a1770271821612",
+   "source": "FXStreet",
+   "bank": "Commerzbank",
+   "title": "Japanese Yen: Safe-haven status questioned – Commerzbank",
+   "desc": "Commerzbank’s Michael Pfister and Volkmar Baur highlight that the Japanese Yen is struggling as a safe haven despite risk-off conditions. Rising Japanese debt concerns and the Bank of Japan’s (BoJ) rate hikes are seen eroding its traditional crisis appeal.",
+   "link": "https://www.fxstreet.com/news/japanese-yen-safe-haven-status-questioned-commerzbank-202610020734",
+   "time": "2026-10-02T07:34:12+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "e2c7c3649f5e12a5",
+   "source": "FXStreet",
+   "bank": "Deutsche Bank",
+   "title": "EUR/USD: Under pressure on Euro stress – Deutsche Bank",
+   "desc": "Deutsche Bank analysts describe EUR/USD weakness as European spreads widened and bank stocks sold off. The Euro fell sharply against the Dollar, while markets questioned whether the European Central Bank could deliver another rate hike this year.",
+   "link": "https://www.fxstreet.com/news/eur-usd-under-pressure-on-euro-stress-deutsche-bank-202610020735",
+   "time": "2026-10-02T07:35:39+00:00",
+   "assets": [
+    "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "6881610eaf875fe6",
+   "source": "FXStreet",
+   "bank": "Commerzbank",
+   "title": "Swiss Franc: Safe-haven appeal strengthens – Commerzbank",
+   "desc": "Commerzbank’s Michael Pfister argues that rising global bond yields and mounting government debt concerns are increasingly supporting the Swiss Franc over the Euro. He notes Switzerland’s debt brake and relatively sound public finances as key advantages.",
+   "link": "https://www.fxstreet.com/news/swiss-franc-safe-haven-appeal-strengthens-commerzbank-202610020828",
+   "time": "2026-10-02T08:28:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "7078088366d49d2b",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "US Dollar: Fed pricing supports Dollar resilience – ING",
+   "desc": "ING’s Chris Turner notes that the French debt sell-off triggered a reassessment of global rate expectations, but US short-dated yields only corrected modestly.",
+   "link": "https://www.fxstreet.com/news/us-dollar-fed-pricing-supports-dollar-resilience-ing-202610020830",
+   "time": "2026-10-02T08:30:17+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "e3ecb5255b1c5d48",
+   "source": "FXStreet",
+   "bank": "Deutsche Bank",
+   "title": "S&P 500: Resilient as Fed tone turns dovish – Deutsche Bank",
+   "desc": "Deutsche Bank’s Early Morning Reid team reports that the S&P 500 broke a three-day losing streak, helped by a pullback in US Treasury yields and more dovish FOMC commentary. Despite strong US data and earlier upward pressure on yields, markets now price a much lower probability of an October Fed hike, supporting US equities into the upcoming jobs report.",
+   "link": "https://www.fxstreet.com/news/sp-500-resilient-as-fed-tone-turns-dovish-deutsche-bank-202610020831",
+   "time": "2026-10-02T08:31:34+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "9f4a3c5fac281dbd",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "EUR/USD: French risk premium weighs on Euro – ING",
+   "desc": "ING’s Chris Turner argues that the French debt sell-off has broken the narrative of ever-higher short-term rates and raised doubts about further European Central Bank (ECB) tightening.",
+   "link": "https://www.fxstreet.com/news/eur-usd-french-risk-premium-weighs-on-euro-ing-202610020912",
+   "time": "2026-10-02T09:12:44+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "7ff5f1e366a6d5b1",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "Mexican Peso: Carry liquidation pressures LatAm currencies – MUFG",
+   "desc": "MUFG’s Derek Halpenny notes that rising rates volatility is driving a broader unwind of EM FX carry trades, with LatAm currencies under particular pressure. USD/MXN has surged and MXN long leveraged positions are being squeezed as implied volatility jumps.",
+   "link": "https://www.fxstreet.com/news/mexican-peso-carry-liquidation-pressures-latam-currencies-mufg-202610021003",
+   "time": "2026-10-02T10:03:41+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "5ba265d914b40952",
+   "source": "FXStreet",
+   "bank": "BBH",
+   "title": "US Dollar: Uptrend intact as NFP looms – BBH",
+   "desc": "Brown Brothers Harriman’s Elias Haddad notes the recent US Dollar rally and bond selloff have stalled as FOMC officials temper expectations for an October rate hike.",
+   "link": "https://www.fxstreet.com/news/us-dollar-uptrend-intact-as-nfp-looms-bbh-202610021012",
+   "time": "2026-10-02T10:12:18+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "3cc80066503f084a",
+   "source": "FXStreet",
+   "bank": "BBH",
+   "title": "Euro: Downside risks despite ECB scope – BBH",
+   "desc": "Brown Brothers Harriman’s Elias Haddad reports EUR/USD has slightly recovered after hitting fresh cyclical lows, with support at 1.1200 and 1.1111.",
+   "link": "https://www.fxstreet.com/news/euro-downside-risks-despite-ecb-scope-bbh-202610021107",
+   "time": "2026-10-02T11:07:52+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "75c7215601df4351",
+   "source": "Bloomberg",
+   "bank": "Citi",
+   "title": "Stocks Climb Ahead of Payrolls Report, Anthropic Eyes November IPO",
+   "desc": "US equity futures rise after a week of sharp swings in yields, with the US payrolls report still to come. Anthropic is seeking to go public as soon as mid-November, with formal marketing for its IPO potentially starting the week of November 9. Veronica Clark of Citi joins \"Bloomberg Brief\" to look ahead to the US jobs report. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-02/bloomberg-brief-10-02-2026-video",
+   "time": "2026-10-02T12:05:45+00:00",
+   "assets": [
+    "stocks"
+   ]
+  }
+ ],
+ "last_weekly": null
+}
