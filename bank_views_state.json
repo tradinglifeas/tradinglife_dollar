@@ -23,7 +23,8 @@
   "5ba265d914b40952": "2026-10-02T12:38:30.300804+00:00",
   "3cc80066503f084a": "2026-10-02T12:38:30.300804+00:00",
   "75c7215601df4351": "2026-10-02T12:38:30.300804+00:00",
-  "9c396ff60c1969a9": "2026-10-02T14:01:12.677294+00:00"
+  "9c396ff60c1969a9": "2026-10-02T14:01:12.677294+00:00",
+  "78a4cb9c75653f8a": "2026-10-02T14:28:22.844613+00:00"
  },
  "week": [
   {
@@ -265,6 +266,18 @@
    "desc": "Bond market swings continue to be at centre stage in world markets. On Thursday the French government presented its 2027 budget bill that aims to curb the booming deficit back to 5% of GDP. Following the announcement the spread between French and German 10Y yields rose to a new post euro crisis high. Uncertainty around […] The post Weekly Focus – French Budget Sets Off Turmoil in European Bonds appeared first on ActionForex .",
    "link": "https://www.actionforex.com/action-insight/market-overview/656221-weekly-focus-french-budget-sets-off-turmoil-in-european-bonds/",
    "time": "2026-10-02T13:36:15+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "78a4cb9c75653f8a",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "RBI to keep tightening risks alive – MUFG",
+   "desc": "MUFG analysts Lin Li, Michael Wan, Lloyd Chan and Khang Sek Lee highlight that Asia FX will be driven by the Reserve Bank of India’s (RBI) finely balanced decision on 7 October.",
+   "link": "https://www.fxstreet.com/news/rbi-to-keep-tightening-risks-alive-mufg-202610021428",
+   "time": "2026-10-02T14:28:05+00:00",
    "assets": [
     "fx"
    ]
