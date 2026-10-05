@@ -37,7 +37,9 @@
   "8938d26931c43e22": "2026-10-05T08:12:24.202379+00:00",
   "bccf1596acd4a942": "2026-10-05T09:00:40.484532+00:00",
   "2c4ddbd99ed1adf1": "2026-10-05T09:09:39.657235+00:00",
-  "e07291fade948afb": "2026-10-05T09:27:24.053316+00:00"
+  "e07291fade948afb": "2026-10-05T09:27:24.053316+00:00",
+  "de380041072afbd7": "2026-10-05T10:00:32.694196+00:00",
+  "04e184e04a04e7a4": "2026-10-05T10:00:32.694196+00:00"
  },
  "week": [
   {
@@ -437,6 +439,30 @@
    "time": "2026-10-05T09:26:00+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "de380041072afbd7",
+   "source": "FXStreet",
+   "bank": "Société Générale",
+   "title": "CEE FX: Hawkish holds and cautious easing path – Societe Generale",
+   "desc": "Societe Generale strategists expect a hawkish hold from Poland’s National Bank of Poland (NBP) at 3.75% and no change from Romania’s central bank NBR at 6.50%, as inflation and political uncertainty constrain policy flexibility.",
+   "link": "https://www.fxstreet.com/news/cee-fx-hawkish-holds-and-cautious-easing-path-societe-generale-202610050932",
+   "time": "2026-10-05T09:32:43+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "04e184e04a04e7a4",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Swiss Franc: Tight range expected against US Dollar - UOB",
+   "desc": "United Overseas Bank (UOB) strategist Quek Ser Leang notes USD/CHF reversed sharply from 0.8382 to close at 0.8286, with intraday price action expected to edge lower toward 0.8245 while staying above 0.8225.",
+   "link": "https://www.fxstreet.com/news/swiss-franc-tight-range-expected-against-us-dollar-uob-202610050943",
+   "time": "2026-10-05T09:43:58+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
