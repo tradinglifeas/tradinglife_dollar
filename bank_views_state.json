@@ -54,7 +54,8 @@
   "96bbb0a4dfef5c4e": "2026-10-05T16:00:36.710176+00:00",
   "f370531b4d4e50ae": "2026-10-05T17:14:23.541091+00:00",
   "2a67eccf18e36a7a": "2026-10-05T18:00:36.960177+00:00",
-  "da330bc21f4bbbdb": "2026-10-05T18:19:26.743479+00:00"
+  "da330bc21f4bbbdb": "2026-10-05T18:19:26.743479+00:00",
+  "b798ebcb61524959": "2026-10-05T19:11:45.106978+00:00"
  },
  "week": [
   {
@@ -647,6 +648,18 @@
    "time": "2026-10-05T18:18:57+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "b798ebcb61524959",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Chinese Yuan: Sideways with firmer bias against US Dollar - UOB",
+   "desc": "United Overseas Bank (UOB) strategist Quek Ser Leang reports USD/CNH slipped to 6.7008 before closing at 6.7041, with intraday price action expected to stay between 6.7000 and 6.7105. For the coming 1–3 weeks, he continues to see the pair confined to a 6.6950–6.7270 range.",
+   "link": "https://www.fxstreet.com/news/chinese-yuan-sideways-with-firmer-bias-against-us-dollar-uob-202610051908",
+   "time": "2026-10-05T19:08:42+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
