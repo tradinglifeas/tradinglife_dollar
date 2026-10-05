@@ -30,7 +30,8 @@
   "b920c9f0aeeefaed": "2026-10-02T22:00:34.628087+00:00",
   "aba70ab3a2ec3a18": "2026-10-05T07:00:33.024005+00:00",
   "9bc360e27d18b4a1": "2026-10-05T07:00:33.024005+00:00",
-  "d3ad43abf65f3e77": "2026-10-05T07:00:33.024005+00:00"
+  "d3ad43abf65f3e77": "2026-10-05T07:00:33.024005+00:00",
+  "5624c124ad69a9eb": "2026-10-05T07:09:18.890444+00:00"
  },
  "week": [
   {
@@ -346,6 +347,18 @@
    "time": "2026-10-05T06:58:17+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "5624c124ad69a9eb",
+   "source": "FXStreet",
+   "bank": "Danske Bank",
+   "title": "Equities: Strong earnings cycle offsets yield shock – Danske Bank",
+   "desc": "Danske Research Team reports that global equities ended last week only 0.5% lower despite a rapid rise in yields, with tech and cyclicals outperforming. Over the past two weeks, equities are up 0.4%, while volatility has been largely confined to bonds. The team argues strong earnings growth explains equities’ resilience versus the rates shock.",
+   "link": "https://www.fxstreet.com/news/equities-strong-earnings-cycle-offsets-yield-shock-danske-bank-202610050709",
+   "time": "2026-10-05T07:09:05+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
