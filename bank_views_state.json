@@ -51,7 +51,8 @@
   "15bdbc33ebd7d291": "2026-10-05T15:00:35.641142+00:00",
   "28006d4b24ec0189": "2026-10-05T15:00:35.641142+00:00",
   "4fe963018c15b525": "2026-10-05T15:25:56.575164+00:00",
-  "96bbb0a4dfef5c4e": "2026-10-05T16:00:36.710176+00:00"
+  "96bbb0a4dfef5c4e": "2026-10-05T16:00:36.710176+00:00",
+  "f370531b4d4e50ae": "2026-10-05T17:14:23.541091+00:00"
  },
  "week": [
   {
@@ -608,6 +609,18 @@
    "time": "2026-10-05T15:55:42+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "f370531b4d4e50ae",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "JPMorgan Sees US High-Grade Credit Rallying as Supply Falls",
+   "desc": "JPMorgan Chase & Co. strategists see US investment-grade corporate bonds outperforming Treasuries in the fourth quarter, citing factors including slowing sales from big tech companies and strong corporate earnings.",
+   "link": "https://www.bloomberg.com/news/articles/2026-10-05/jpmorgan-sees-us-high-grade-credit-rallying-as-supply-falls",
+   "time": "2026-10-05T17:08:15+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
