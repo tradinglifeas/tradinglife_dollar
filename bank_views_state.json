@@ -27,7 +27,10 @@
   "78a4cb9c75653f8a": "2026-10-02T14:28:22.844613+00:00",
   "bb6f8e0652c0fa89": "2026-10-02T17:00:32.373109+00:00",
   "87d461f018b82fdb": "2026-10-02T19:24:22.271111+00:00",
-  "b920c9f0aeeefaed": "2026-10-02T22:00:34.628087+00:00"
+  "b920c9f0aeeefaed": "2026-10-02T22:00:34.628087+00:00",
+  "aba70ab3a2ec3a18": "2026-10-05T07:00:33.024005+00:00",
+  "9bc360e27d18b4a1": "2026-10-05T07:00:33.024005+00:00",
+  "d3ad43abf65f3e77": "2026-10-05T07:00:33.024005+00:00"
  },
  "week": [
   {
@@ -307,6 +310,42 @@
    "time": "2026-10-02T21:55:08+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "aba70ab3a2ec3a18",
+   "source": "FXStreet",
+   "bank": "Commerzbank",
+   "title": "Euro: Political risks weigh on common currency – Commerzbank",
+   "desc": "Commerzbank’s Thu Lan Nguyen argues that growing concerns over France’s public debt sustainability are now weighing on the Euro (EUR), after previously leaving the currency largely untouched despite bond market turmoil.",
+   "link": "https://www.fxstreet.com/news/euro-political-risks-weigh-on-common-currency-commerzbank-202610050648",
+   "time": "2026-10-05T06:48:34+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "9bc360e27d18b4a1",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Euro repriced for fiscal woes",
+   "desc": "Independent euro weakness is the dominant story in FX markets as investors adjust positions for French fiscal risk. With the ECB tightening cycle far more vulnerable to repricing than the Fed's, EUR/USD looks set to remain under pressure. Elsewhere, Brazilian asset markets are expected to rally today after Sunday's election results",
+   "link": "https://think.ing.com/articles/fx-daily-euro-repriced-for-fiscal-woes/",
+   "time": "2026-10-05T06:50:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "d3ad43abf65f3e77",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "British Pound: Rebound capped as downside bias lingers against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategist Quek Ser Leang notes GBP/USD recovered to 1.3238 after failing to extend Thursday’s decline, but intraday gains are expected to stay within 1.3215–1.3265.",
+   "link": "https://www.fxstreet.com/news/british-pound-rebound-capped-as-downside-bias-lingers-against-us-dollar-uob-202610050658",
+   "time": "2026-10-05T06:58:17+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
