@@ -32,7 +32,8 @@
   "9bc360e27d18b4a1": "2026-10-05T07:00:33.024005+00:00",
   "d3ad43abf65f3e77": "2026-10-05T07:00:33.024005+00:00",
   "5624c124ad69a9eb": "2026-10-05T07:09:18.890444+00:00",
-  "7f785a72bef55201": "2026-10-05T07:27:48.272648+00:00"
+  "7f785a72bef55201": "2026-10-05T07:27:48.272648+00:00",
+  "d20473169152a627": "2026-10-05T08:02:39.316536+00:00"
  },
  "week": [
   {
@@ -370,6 +371,18 @@
    "desc": "ING’s Frantisek Taborsky expects higher September inflation across Czech Republic and Hungary, with Czech data seen backing a November rate hike. He forecasts unchanged policy in Poland and Romania, maintains a bearish regional FX bias, and favours the Czech koruna, which he sees as less tied to global narratives and likely to outperform more dovish CEE currencies.",
    "link": "https://www.fxstreet.com/news/cee-fx-inflation-supports-koruna-over-peers-ing-202610050727",
    "time": "2026-10-05T07:27:35+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "d20473169152a627",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "Euro: Fiscal contagion fears weigh on single currency – MUFG",
+   "desc": "MUFG’s Lee Hardman highlights that Euro (EUR) weakness at the start of the week reflects mounting concerns over destabilizing financial conditions in the Euro-zone, triggered by a sharp sell-off in French government bonds.",
+   "link": "https://www.fxstreet.com/news/euro-fiscal-contagion-fears-weigh-on-single-currency-mufg-202610050801",
+   "time": "2026-10-05T08:01:08+00:00",
    "assets": [
     "fx"
    ]
