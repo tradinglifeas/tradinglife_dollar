@@ -46,7 +46,8 @@
   "005c52a9d2ece247": "2026-10-05T12:15:26.675332+00:00",
   "dfa22765b6e1e256": "2026-10-05T13:15:27.567938+00:00",
   "e2191d7e395caf00": "2026-10-05T14:00:40.999448+00:00",
-  "74d22f148dafc66d": "2026-10-05T14:00:40.999448+00:00"
+  "74d22f148dafc66d": "2026-10-05T14:00:40.999448+00:00",
+  "76e6f51fad1ff50c": "2026-10-05T14:10:27.954266+00:00"
  },
  "week": [
   {
@@ -552,6 +553,18 @@
    "desc": "Societe Generale strategists highlight renewed Euro (EUR) weakness as widening European spreads and US Dollar (USD) demand push EUR/USD below 1.12, far from the European Central Bank's (ECB) technical assumption of 1.16 for 2026-28.",
    "link": "https://www.fxstreet.com/news/euro-debt-contagion-fears-weigh-on-eur-against-us-dollar-societe-generale-202610051359",
    "time": "2026-10-05T13:59:21+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "76e6f51fad1ff50c",
+   "source": "FXStreet",
+   "bank": "BBH",
+   "title": "US Dollar: Upside risks persist as data watched – BBH",
+   "desc": "Brown Brothers Harriman’s Elias Haddad notes the Dollar rallied broadly last week as DXY hit new cyclical highs alongside widening US-G6 rate differentials and a deepening global bond selloff.",
+   "link": "https://www.fxstreet.com/news/us-dollar-upside-risks-persist-as-data-watched-bbh-202610051410",
+   "time": "2026-10-05T14:10:03+00:00",
    "assets": [
     "fx"
    ]
