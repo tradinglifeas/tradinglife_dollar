@@ -49,7 +49,8 @@
   "74d22f148dafc66d": "2026-10-05T14:00:40.999448+00:00",
   "76e6f51fad1ff50c": "2026-10-05T14:10:27.954266+00:00",
   "15bdbc33ebd7d291": "2026-10-05T15:00:35.641142+00:00",
-  "28006d4b24ec0189": "2026-10-05T15:00:35.641142+00:00"
+  "28006d4b24ec0189": "2026-10-05T15:00:35.641142+00:00",
+  "4fe963018c15b525": "2026-10-05T15:25:56.575164+00:00"
  },
  "week": [
   {
@@ -580,6 +581,18 @@
    "desc": "United Overseas Bank (UOB) strategist Quek Ser Leang notes USD/SGD slipped to 1.2781 on Friday, with the SGD NEER staying well above its midpoint. For the intraday session, he expects the pair to hold within 1.2768–1.2832, aligning with technical levels at 1.2775/1.2815. On a 1–3 week and 1–3 month horizon, he still sees scope for a recovery toward 1.2835 while 1.2765 acts as strong support.",
    "link": "https://www.fxstreet.com/news/singapore-dollar-range-trade-holds-against-us-dollar-uob-202610051434",
    "time": "2026-10-05T14:34:51+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "4fe963018c15b525",
+   "source": "FXStreet",
+   "bank": "Commerzbank",
+   "title": "South Korean Won: Strong exports and policy support KRW – Commerzbank",
+   "desc": "Commerzbank’s Moses Lim notes that USD/KRW declined on Friday and over the week as robust South Korean exports and supportive policy actions bolstered the Korean Won. Elevated but easing inflation allows the Bank of Korea to stay hawkish while likely holding rates in October.",
+   "link": "https://www.fxstreet.com/news/south-korean-won-strong-exports-and-policy-support-krw-commerzbank-202610051525",
+   "time": "2026-10-05T15:25:01+00:00",
    "assets": [
     "fx"
    ]
