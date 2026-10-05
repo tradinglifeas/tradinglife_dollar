@@ -53,7 +53,8 @@
   "4fe963018c15b525": "2026-10-05T15:25:56.575164+00:00",
   "96bbb0a4dfef5c4e": "2026-10-05T16:00:36.710176+00:00",
   "f370531b4d4e50ae": "2026-10-05T17:14:23.541091+00:00",
-  "2a67eccf18e36a7a": "2026-10-05T18:00:36.960177+00:00"
+  "2a67eccf18e36a7a": "2026-10-05T18:00:36.960177+00:00",
+  "da330bc21f4bbbdb": "2026-10-05T18:19:26.743479+00:00"
  },
  "week": [
   {
@@ -632,6 +633,18 @@
    "desc": "Wells Fargo received a bold upgrade just over a week before the bank reports earnings next Tuesday.",
    "link": "https://www.cnbc.com/investingclub/2026/10/05/wells-fargo-gets-a-bold-upgrade-ahead-of-earnings-why-the-stock-can-play-catch-up.html",
    "time": "2026-10-05T17:45:34+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "da330bc21f4bbbdb",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "United States: Domestic rare earth production push – ING",
+   "desc": "ING’s report by Coco Zhang and Ewa Manthey explains how the United States is enhancing domestic Rare earth production. Federal support now includes grants, loans, equity stakes, purchase agreements and price floors for key products like NdPr oxide and magnets.",
+   "link": "https://www.fxstreet.com/news/united-states-domestic-rare-earth-production-push-ing-202610051818",
+   "time": "2026-10-05T18:18:57+00:00",
    "assets": [
     "stocks"
    ]
