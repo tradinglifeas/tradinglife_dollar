@@ -36,7 +36,8 @@
   "d20473169152a627": "2026-10-05T08:02:39.316536+00:00",
   "8938d26931c43e22": "2026-10-05T08:12:24.202379+00:00",
   "bccf1596acd4a942": "2026-10-05T09:00:40.484532+00:00",
-  "2c4ddbd99ed1adf1": "2026-10-05T09:09:39.657235+00:00"
+  "2c4ddbd99ed1adf1": "2026-10-05T09:09:39.657235+00:00",
+  "e07291fade948afb": "2026-10-05T09:27:24.053316+00:00"
  },
  "week": [
   {
@@ -424,6 +425,18 @@
    "time": "2026-10-05T09:09:03+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "e07291fade948afb",
+   "source": "MarketWatch",
+   "bank": "Morgan Stanley",
+   "title": "The average U.S. stock is quietly getting crushed. Morgan Stanley says these ones are worth buying now.",
+   "desc": "Investors have fallen out of love with a large chunk of stocks, such as industrials, and Morgan Stanley sees an opportunity to pick up some names on the cheap.",
+   "link": "https://www.marketwatch.com/story/the-average-u-s-stock-is-quietly-getting-crushed-morgan-stanley-says-these-ones-are-worth-buying-now-61e04eaa?mod=mw_rss_topstories",
+   "time": "2026-10-05T09:26:00+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
