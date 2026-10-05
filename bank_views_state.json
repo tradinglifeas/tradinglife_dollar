@@ -35,7 +35,8 @@
   "7f785a72bef55201": "2026-10-05T07:27:48.272648+00:00",
   "d20473169152a627": "2026-10-05T08:02:39.316536+00:00",
   "8938d26931c43e22": "2026-10-05T08:12:24.202379+00:00",
-  "bccf1596acd4a942": "2026-10-05T09:00:40.484532+00:00"
+  "bccf1596acd4a942": "2026-10-05T09:00:40.484532+00:00",
+  "2c4ddbd99ed1adf1": "2026-10-05T09:09:39.657235+00:00"
  },
  "week": [
   {
@@ -409,6 +410,18 @@
    "desc": "ING’s Chris Turner notes the US Dollar (USD) remains supported as investors focus on French fiscal risks and repricing of European Central Bank (ECB) tightening versus a more resilient Fed path.",
    "link": "https://www.fxstreet.com/news/us-dollar-holds-gains-as-fed-pricing-stays-firm-ing-202610050841",
    "time": "2026-10-05T08:41:53+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "2c4ddbd99ed1adf1",
+   "source": "FXStreet",
+   "bank": "Rabobank",
+   "title": "Euro: Fiscal risks cap upside against British Pound – Rabobank",
+   "desc": "Rabobank's Senior FX Strategist Jane Foley discusses EUR/GBP in light of divergent fiscal and political risks in Europe and the United Kingdom (UK).",
+   "link": "https://www.fxstreet.com/news/euro-fiscal-risks-cap-upside-against-british-pound-rabobank-202610050909",
+   "time": "2026-10-05T09:09:03+00:00",
    "assets": [
     "fx"
    ]
