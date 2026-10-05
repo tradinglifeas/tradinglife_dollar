@@ -43,7 +43,8 @@
   "9d2e9fb8073ba473": "2026-10-05T10:03:20.565190+00:00",
   "b215b8d21a8b8da7": "2026-10-05T10:20:29.229473+00:00",
   "e14913e505eccc64": "2026-10-05T12:00:33.683733+00:00",
-  "005c52a9d2ece247": "2026-10-05T12:15:26.675332+00:00"
+  "005c52a9d2ece247": "2026-10-05T12:15:26.675332+00:00",
+  "dfa22765b6e1e256": "2026-10-05T13:15:27.567938+00:00"
  },
  "week": [
   {
@@ -515,6 +516,18 @@
    "time": "2026-10-05T12:14:04+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "dfa22765b6e1e256",
+   "source": "CNBC",
+   "bank": "Wells Fargo",
+   "title": "Jim Cramer's top 10 things to watch in the stock market Monday",
+   "desc": "Microsoft and Wells Fargo landed upgrades, and there's some encouraging M&A activity.",
+   "link": "https://www.cnbc.com/investingclub/2026/10/05/jim-cramers-top-10-things-to-watch-in-the-stock-market-monday.html",
+   "time": "2026-10-05T12:59:40+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
