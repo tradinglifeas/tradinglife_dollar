@@ -39,7 +39,8 @@
   "2c4ddbd99ed1adf1": "2026-10-05T09:09:39.657235+00:00",
   "e07291fade948afb": "2026-10-05T09:27:24.053316+00:00",
   "de380041072afbd7": "2026-10-05T10:00:32.694196+00:00",
-  "04e184e04a04e7a4": "2026-10-05T10:00:32.694196+00:00"
+  "04e184e04a04e7a4": "2026-10-05T10:00:32.694196+00:00",
+  "9d2e9fb8073ba473": "2026-10-05T10:03:20.565190+00:00"
  },
  "week": [
   {
@@ -461,6 +462,18 @@
    "desc": "United Overseas Bank (UOB) strategist Quek Ser Leang notes USD/CHF reversed sharply from 0.8382 to close at 0.8286, with intraday price action expected to edge lower toward 0.8245 while staying above 0.8225.",
    "link": "https://www.fxstreet.com/news/swiss-franc-tight-range-expected-against-us-dollar-uob-202610050943",
    "time": "2026-10-05T09:43:58+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "9d2e9fb8073ba473",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "Brazilian Real: Election surprise supports BRL against US Dollar – ING",
+   "desc": "ING’s Chris Turner says Brazilian assets are set to rally after Sunday’s presidential vote, where Flavio Bolsonaro secured 47% versus President Lula’s 45%. He expects markets to assume remaining votes lean Bolsonaro, sees currency and bonds benefiting from his fiscal austerity and deregulation agenda, and projects USD/BRL opening near 5.10, with a return to 4.90 seen as too aggressive.",
+   "link": "https://www.fxstreet.com/news/brazilian-real-election-surprise-supports-brl-against-us-dollar-ing-202610051002",
+   "time": "2026-10-05T10:02:47+00:00",
    "assets": [
     "fx"
    ]
