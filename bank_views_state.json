@@ -50,7 +50,8 @@
   "76e6f51fad1ff50c": "2026-10-05T14:10:27.954266+00:00",
   "15bdbc33ebd7d291": "2026-10-05T15:00:35.641142+00:00",
   "28006d4b24ec0189": "2026-10-05T15:00:35.641142+00:00",
-  "4fe963018c15b525": "2026-10-05T15:25:56.575164+00:00"
+  "4fe963018c15b525": "2026-10-05T15:25:56.575164+00:00",
+  "96bbb0a4dfef5c4e": "2026-10-05T16:00:36.710176+00:00"
  },
  "week": [
   {
@@ -593,6 +594,18 @@
    "desc": "Commerzbank’s Moses Lim notes that USD/KRW declined on Friday and over the week as robust South Korean exports and supportive policy actions bolstered the Korean Won. Elevated but easing inflation allows the Bank of Korea to stay hawkish while likely holding rates in October.",
    "link": "https://www.fxstreet.com/news/south-korean-won-strong-exports-and-policy-support-krw-commerzbank-202610051525",
    "time": "2026-10-05T15:25:01+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "96bbb0a4dfef5c4e",
+   "source": "FXStreet",
+   "bank": "BBH",
+   "title": "Euro: Fiscal stress and fewer ECB hikes weigh against US Dollar – BBH",
+   "desc": "Brown Brothers Harriman’s (BBH) Elias Haddad reports the Euro (EUR) is underperforming major currencies, with EUR/USD briefly hitting 1.1161, its lowest since May 2025. Elias Haddad flags France’s budget crisis spilling into wider Eurozone bond markets and complicating potential European Central Bank (ECB) Transmission Protection Instrument activation, leaving the Euro pressured by rising fiscal risk and expectations of a shallower ECB hiking cycle.",
+   "link": "https://www.fxstreet.com/news/euro-fiscal-stress-and-fewer-ecb-hikes-weigh-against-us-dollar-bbh-202610051555",
+   "time": "2026-10-05T15:55:42+00:00",
    "assets": [
     "fx"
    ]
