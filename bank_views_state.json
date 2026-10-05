@@ -42,7 +42,8 @@
   "04e184e04a04e7a4": "2026-10-05T10:00:32.694196+00:00",
   "9d2e9fb8073ba473": "2026-10-05T10:03:20.565190+00:00",
   "b215b8d21a8b8da7": "2026-10-05T10:20:29.229473+00:00",
-  "e14913e505eccc64": "2026-10-05T12:00:33.683733+00:00"
+  "e14913e505eccc64": "2026-10-05T12:00:33.683733+00:00",
+  "005c52a9d2ece247": "2026-10-05T12:15:26.675332+00:00"
  },
  "week": [
   {
@@ -500,6 +501,18 @@
    "desc": "United Overseas Bank (UOB) strategist Quek Ser Leang reports AUD/USD closed at 0.6951 after a brief spike to 0.6976, with intraday price action expected to stay between 0.6930 and 0.6975.",
    "link": "https://www.fxstreet.com/news/australian-dollar-downside-limited-against-us-dollar-uob-202610051143",
    "time": "2026-10-05T11:43:26+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "005c52a9d2ece247",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "European Central Bank: Contagion risk reshapes rate expectations – MUFG",
+   "desc": "MUFG’s Lee Hardman notes that unwanted tightening in Euro-zone financial conditions is prompting markets to pare back expectations for further ECB rate hikes.",
+   "link": "https://www.fxstreet.com/news/european-central-bank-contagion-risk-reshapes-rate-expectations-mufg-202610051214",
+   "time": "2026-10-05T12:14:04+00:00",
    "assets": [
     "fx"
    ]
