@@ -34,7 +34,8 @@
   "5624c124ad69a9eb": "2026-10-05T07:09:18.890444+00:00",
   "7f785a72bef55201": "2026-10-05T07:27:48.272648+00:00",
   "d20473169152a627": "2026-10-05T08:02:39.316536+00:00",
-  "8938d26931c43e22": "2026-10-05T08:12:24.202379+00:00"
+  "8938d26931c43e22": "2026-10-05T08:12:24.202379+00:00",
+  "bccf1596acd4a942": "2026-10-05T09:00:40.484532+00:00"
  },
  "week": [
   {
@@ -396,6 +397,18 @@
    "desc": "United Overseas Bank (UOB) strategist Quek Ser Leang observes USD/JPY fluctuated between 156.94 and 158.21, closing at 157.83, with intraday trading expected inside 157.10–158.10. Over 1–3 weeks, he now favours a broad consolidation between 156.35 and 158.70 rather than deeper pullbacks. On a 1–3 month horizon, however, he still flags rapid downside momentum that could drive further weakness toward the January low at 152.08.",
    "link": "https://www.fxstreet.com/news/japanese-yen-broad-range-holds-despite-weak-momentum-against-us-dollar-uob-202610050812",
    "time": "2026-10-05T08:12:10+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "bccf1596acd4a942",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "US Dollar: Holds gains as Fed pricing stays firm – ING",
+   "desc": "ING’s Chris Turner notes the US Dollar (USD) remains supported as investors focus on French fiscal risks and repricing of European Central Bank (ECB) tightening versus a more resilient Fed path.",
+   "link": "https://www.fxstreet.com/news/us-dollar-holds-gains-as-fed-pricing-stays-firm-ing-202610050841",
+   "time": "2026-10-05T08:41:53+00:00",
    "assets": [
     "fx"
    ]
