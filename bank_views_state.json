@@ -47,7 +47,9 @@
   "dfa22765b6e1e256": "2026-10-05T13:15:27.567938+00:00",
   "e2191d7e395caf00": "2026-10-05T14:00:40.999448+00:00",
   "74d22f148dafc66d": "2026-10-05T14:00:40.999448+00:00",
-  "76e6f51fad1ff50c": "2026-10-05T14:10:27.954266+00:00"
+  "76e6f51fad1ff50c": "2026-10-05T14:10:27.954266+00:00",
+  "15bdbc33ebd7d291": "2026-10-05T15:00:35.641142+00:00",
+  "28006d4b24ec0189": "2026-10-05T15:00:35.641142+00:00"
  },
  "week": [
   {
@@ -553,6 +555,31 @@
    "desc": "Brown Brothers Harriman’s Elias Haddad notes the Dollar rallied broadly last week as DXY hit new cyclical highs alongside widening US-G6 rate differentials and a deepening global bond selloff.",
    "link": "https://www.fxstreet.com/news/us-dollar-upside-risks-persist-as-data-watched-bbh-202610051410",
    "time": "2026-10-05T14:10:03+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "15bdbc33ebd7d291",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "Stocks Rise as Oil Drop Offsets Europe Debt Worry",
+   "desc": "A drop in oil prices brought some relief to Wall Street, tempering concerns over Europe’s public finances that sent the euro to its weakest level since May 2025. Jack Manley, Global Market Strategist at JPMorgan Asset Management, discusses Euro contagion risk, the Fed, and outlook for US equities and bonds. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-05/stocks-rise-as-oil-drop-offsets-europe-debt-worry-video",
+   "time": "2026-10-05T14:32:36+00:00",
+   "assets": [
+    "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "28006d4b24ec0189",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Singapore Dollar: Range trade holds against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategist Quek Ser Leang notes USD/SGD slipped to 1.2781 on Friday, with the SGD NEER staying well above its midpoint. For the intraday session, he expects the pair to hold within 1.2768–1.2832, aligning with technical levels at 1.2775/1.2815. On a 1–3 week and 1–3 month horizon, he still sees scope for a recovery toward 1.2835 while 1.2765 acts as strong support.",
+   "link": "https://www.fxstreet.com/news/singapore-dollar-range-trade-holds-against-us-dollar-uob-202610051434",
+   "time": "2026-10-05T14:34:51+00:00",
    "assets": [
     "fx"
    ]
