@@ -52,7 +52,8 @@
   "28006d4b24ec0189": "2026-10-05T15:00:35.641142+00:00",
   "4fe963018c15b525": "2026-10-05T15:25:56.575164+00:00",
   "96bbb0a4dfef5c4e": "2026-10-05T16:00:36.710176+00:00",
-  "f370531b4d4e50ae": "2026-10-05T17:14:23.541091+00:00"
+  "f370531b4d4e50ae": "2026-10-05T17:14:23.541091+00:00",
+  "2a67eccf18e36a7a": "2026-10-05T18:00:36.960177+00:00"
  },
  "week": [
   {
@@ -619,6 +620,18 @@
    "desc": "JPMorgan Chase & Co. strategists see US investment-grade corporate bonds outperforming Treasuries in the fourth quarter, citing factors including slowing sales from big tech companies and strong corporate earnings.",
    "link": "https://www.bloomberg.com/news/articles/2026-10-05/jpmorgan-sees-us-high-grade-credit-rallying-as-supply-falls",
    "time": "2026-10-05T17:08:15+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "2a67eccf18e36a7a",
+   "source": "CNBC",
+   "bank": "Wells Fargo",
+   "title": "Wells Fargo gets a bold upgrade ahead of earnings. Why the stock can play catch-up",
+   "desc": "Wells Fargo received a bold upgrade just over a week before the bank reports earnings next Tuesday.",
+   "link": "https://www.cnbc.com/investingclub/2026/10/05/wells-fargo-gets-a-bold-upgrade-ahead-of-earnings-why-the-stock-can-play-catch-up.html",
+   "time": "2026-10-05T17:45:34+00:00",
    "assets": [
     "stocks"
    ]
