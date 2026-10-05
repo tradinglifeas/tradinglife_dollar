@@ -41,7 +41,8 @@
   "de380041072afbd7": "2026-10-05T10:00:32.694196+00:00",
   "04e184e04a04e7a4": "2026-10-05T10:00:32.694196+00:00",
   "9d2e9fb8073ba473": "2026-10-05T10:03:20.565190+00:00",
-  "b215b8d21a8b8da7": "2026-10-05T10:20:29.229473+00:00"
+  "b215b8d21a8b8da7": "2026-10-05T10:20:29.229473+00:00",
+  "e14913e505eccc64": "2026-10-05T12:00:33.683733+00:00"
  },
  "week": [
   {
@@ -489,6 +490,18 @@
    "time": "2026-10-05T10:16:09+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "e14913e505eccc64",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Australian Dollar: Downside limited against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategist Quek Ser Leang reports AUD/USD closed at 0.6951 after a brief spike to 0.6976, with intraday price action expected to stay between 0.6930 and 0.6975.",
+   "link": "https://www.fxstreet.com/news/australian-dollar-downside-limited-against-us-dollar-uob-202610051143",
+   "time": "2026-10-05T11:43:26+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
