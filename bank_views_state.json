@@ -40,7 +40,8 @@
   "e07291fade948afb": "2026-10-05T09:27:24.053316+00:00",
   "de380041072afbd7": "2026-10-05T10:00:32.694196+00:00",
   "04e184e04a04e7a4": "2026-10-05T10:00:32.694196+00:00",
-  "9d2e9fb8073ba473": "2026-10-05T10:03:20.565190+00:00"
+  "9d2e9fb8073ba473": "2026-10-05T10:03:20.565190+00:00",
+  "b215b8d21a8b8da7": "2026-10-05T10:20:29.229473+00:00"
  },
  "week": [
   {
@@ -476,6 +477,18 @@
    "time": "2026-10-05T10:02:47+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "b215b8d21a8b8da7",
+   "source": "Bloomberg",
+   "bank": "Morgan Stanley",
+   "title": "Morgan Stanley’s Wilson Sees Earnings-Led Upturn in Industrials",
+   "desc": "A steep drop in US stock valuations since early summer has left some areas of the market looking attractive as earnings growth shows few signs of waning, according to Morgan Stanley strategists.",
+   "link": "https://www.bloomberg.com/news/articles/2026-10-05/morgan-stanley-s-wilson-sees-earnings-led-upturn-in-industrials",
+   "time": "2026-10-05T10:16:09+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
