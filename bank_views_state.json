@@ -63,7 +63,9 @@
   "e4791c1b07b447ea": "2026-10-06T08:00:35.977560+00:00",
   "f3fe8e41c926218b": "2026-10-06T08:03:23.622070+00:00",
   "51fd78463cfef3e7": "2026-10-06T09:00:36.572870+00:00",
-  "afe0fb7958a11655": "2026-10-06T09:00:36.572870+00:00"
+  "afe0fb7958a11655": "2026-10-06T09:00:36.572870+00:00",
+  "3e051984b219d3b4": "2026-10-06T09:22:20.759341+00:00",
+  "65fa5f6d1bcac5cf": "2026-10-06T09:22:20.759341+00:00"
  },
  "week": [
   {
@@ -764,6 +766,31 @@
    "time": "2026-10-06T08:56:27+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "3e051984b219d3b4",
+   "source": "MarketWatch",
+   "bank": "Goldman Sachs",
+   "title": "The S&P 500 is facing rate chaos and narrow breadth. Why one Goldman Sachs insider is still bullish on stocks.",
+   "desc": "Stocks are not expensive in an historical context, seasonal factors are supportive and Goldman Sachs hedge fund research forecasts a record high for the S&P 500 before year-end.",
+   "link": "https://www.marketwatch.com/story/the-s-p-500-is-facing-rate-chaos-and-narrow-breadth-why-one-goldman-sachs-insider-is-still-bullish-on-stocks-84a20206?mod=mw_rss_topstories",
+   "time": "2026-10-06T09:20:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "65fa5f6d1bcac5cf",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "US Dollar: Staying supported as Fed hike base case – ING",
+   "desc": "ING’s Francesco Pesole notes that the Dollar remains supported early in the week, helped by Euro-specific weakness and higher global bond yields, even as strong equities cap gains. The ISM services data were slightly hawkish but not enough to shift expectations for an October Federal Reserve hold.",
+   "link": "https://www.fxstreet.com/news/us-dollar-staying-supported-as-fed-hike-base-case-ing-202610060921",
+   "time": "2026-10-06T09:21:43+00:00",
+   "assets": [
+    "fx",
+    "stocks"
    ]
   }
  ],
