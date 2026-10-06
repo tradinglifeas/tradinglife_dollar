@@ -68,7 +68,8 @@
   "65fa5f6d1bcac5cf": "2026-10-06T09:22:20.759341+00:00",
   "49c232e76ce48664": "2026-10-06T10:00:35.954971+00:00",
   "71193717c561f5cd": "2026-10-06T10:01:19.855550+00:00",
-  "d0f56b2237042211": "2026-10-06T11:00:32.097177+00:00"
+  "d0f56b2237042211": "2026-10-06T11:00:32.097177+00:00",
+  "fa6bc61cb3c1fd21": "2026-10-06T11:15:27.657362+00:00"
  },
  "week": [
   {
@@ -830,6 +831,18 @@
    "time": "2026-10-06T10:33:50+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "fa6bc61cb3c1fd21",
+   "source": "FXStreet",
+   "bank": "BBH",
+   "title": "US Dollar: Supported by ISM and Fed pricing – BBH",
+   "desc": "Elias Haddad at Brown Brothers Harriman highlights that the Dollar has trimmed some recent gains but retains support from strong US data and Fed expectations. September ISM services and manufacturing indexes point to resilient growth, while Prices Paid suggest intensifying inflation.",
+   "link": "https://www.fxstreet.com/news/us-dollar-supported-by-ism-and-fed-pricing-bbh-202610061115",
+   "time": "2026-10-06T11:15:16+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
