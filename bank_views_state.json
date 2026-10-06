@@ -70,7 +70,8 @@
   "71193717c561f5cd": "2026-10-06T10:01:19.855550+00:00",
   "d0f56b2237042211": "2026-10-06T11:00:32.097177+00:00",
   "fa6bc61cb3c1fd21": "2026-10-06T11:15:27.657362+00:00",
-  "d23e06de7e40dbaf": "2026-10-06T11:25:23.079009+00:00"
+  "d23e06de7e40dbaf": "2026-10-06T11:25:23.079009+00:00",
+  "b209d972962119d5": "2026-10-06T12:00:35.792313+00:00"
  },
  "week": [
   {
@@ -854,6 +855,18 @@
    "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann highlight that GBP/USD traded sideways on Monday, closing slightly lower near 1.3225, with intraday price action lacking clear momentum. They expect near-term range trading to persist.",
    "link": "https://www.fxstreet.com/news/british-pound-downside-bias-points-to-13140-against-us-dollar-uob-202610061124",
    "time": "2026-10-06T11:24:33+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "b209d972962119d5",
+   "source": "FXStreet",
+   "bank": "Société Générale",
+   "title": "Czech Koruna: Hawkish CNB keeps CZK supported against Euro - Societe Generale",
+   "desc": "Societe Generale’s Kenneth Broux flags that a surprise upside in Czech inflation to 2.5% has reinforced the Czech National Bank’s hawkish stance. With policymakers signalling a possible hold or hike, attention turns to core and services inflation data that could justify a November rate increase.",
+   "link": "https://www.fxstreet.com/news/czech-koruna-hawkish-cnb-keeps-czk-supported-against-euro-societe-generale-202610061153",
+   "time": "2026-10-06T11:53:12+00:00",
    "assets": [
     "fx"
    ]
