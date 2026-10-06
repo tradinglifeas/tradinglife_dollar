@@ -66,7 +66,8 @@
   "afe0fb7958a11655": "2026-10-06T09:00:36.572870+00:00",
   "3e051984b219d3b4": "2026-10-06T09:22:20.759341+00:00",
   "65fa5f6d1bcac5cf": "2026-10-06T09:22:20.759341+00:00",
-  "49c232e76ce48664": "2026-10-06T10:00:35.954971+00:00"
+  "49c232e76ce48664": "2026-10-06T10:00:35.954971+00:00",
+  "71193717c561f5cd": "2026-10-06T10:01:19.855550+00:00"
  },
  "week": [
   {
@@ -804,6 +805,18 @@
    "time": "2026-10-06T09:41:30+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "71193717c561f5cd",
+   "source": "FXStreet",
+   "bank": "Deutsche Bank",
+   "title": "Equities: Resilience persists versus rates stress – Deutsche Bank",
+   "desc": "Deutsche Bank strategists highlight broad resilience across global equities, led by record-setting US tech stocks and steady gains in Europe.",
+   "link": "https://www.fxstreet.com/news/equities-resilience-persists-versus-rates-stress-deutsche-bank-202610061001",
+   "time": "2026-10-06T10:01:00+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
