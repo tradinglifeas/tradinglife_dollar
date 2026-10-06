@@ -69,7 +69,8 @@
   "49c232e76ce48664": "2026-10-06T10:00:35.954971+00:00",
   "71193717c561f5cd": "2026-10-06T10:01:19.855550+00:00",
   "d0f56b2237042211": "2026-10-06T11:00:32.097177+00:00",
-  "fa6bc61cb3c1fd21": "2026-10-06T11:15:27.657362+00:00"
+  "fa6bc61cb3c1fd21": "2026-10-06T11:15:27.657362+00:00",
+  "d23e06de7e40dbaf": "2026-10-06T11:25:23.079009+00:00"
  },
  "week": [
   {
@@ -841,6 +842,18 @@
    "desc": "Elias Haddad at Brown Brothers Harriman highlights that the Dollar has trimmed some recent gains but retains support from strong US data and Fed expectations. September ISM services and manufacturing indexes point to resilient growth, while Prices Paid suggest intensifying inflation.",
    "link": "https://www.fxstreet.com/news/us-dollar-supported-by-ism-and-fed-pricing-bbh-202610061115",
    "time": "2026-10-06T11:15:16+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "d23e06de7e40dbaf",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "British Pound: Downside bias points to 1.3140 against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann highlight that GBP/USD traded sideways on Monday, closing slightly lower near 1.3225, with intraday price action lacking clear momentum. They expect near-term range trading to persist.",
+   "link": "https://www.fxstreet.com/news/british-pound-downside-bias-points-to-13140-against-us-dollar-uob-202610061124",
+   "time": "2026-10-06T11:24:33+00:00",
    "assets": [
     "fx"
    ]
