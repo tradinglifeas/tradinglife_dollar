@@ -56,7 +56,9 @@
   "2a67eccf18e36a7a": "2026-10-05T18:00:36.960177+00:00",
   "da330bc21f4bbbdb": "2026-10-05T18:19:26.743479+00:00",
   "b798ebcb61524959": "2026-10-05T19:11:45.106978+00:00",
-  "4b5b6a9113597740": "2026-10-06T06:29:10.059754+00:00"
+  "4b5b6a9113597740": "2026-10-06T06:29:10.059754+00:00",
+  "871e41a9863e1d96": "2026-10-06T07:00:39.768978+00:00",
+  "751677f353c2afe7": "2026-10-06T07:00:39.768978+00:00"
  },
  "week": [
   {
@@ -673,6 +675,30 @@
    "time": "2026-10-06T06:28:13+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "871e41a9863e1d96",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: French risk keeps harming ECB hawks",
+   "desc": "Alongside a direct – albeit so far relatively contained – build-up of fiscal premium, the euro continues to suffer from an unwinding of ECB rate hike expectations due to French bond turbulence. Risks remain firmly on the downside for EUR/USD. Elsewhere, markets will seek clarity on a November hike from Bank of England speakers this week",
+   "link": "https://think.ing.com/articles/fx-daily-french-risk-keeps-harming-ecb-hawks/",
+   "time": "2026-10-06T06:45:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "751677f353c2afe7",
+   "source": "FXStreet",
+   "bank": "Danske Bank",
+   "title": "Equities: Broad catch-up as yields back up – Danske Bank",
+   "desc": "Danske Research Team report that Equities moved higher on Monday, with the Nasdaq hitting a fresh record and the S&P 500 just 0.3% below its own peak. Gains occurred despite another backup in long‑term yields, with positive market breadth and an unusual sector mix. The move is described as a broader catch‑up session rather than classic risk‑on or inflation‑relief buying.",
+   "link": "https://www.fxstreet.com/news/equities-broad-catch-up-as-yields-back-up-danske-bank-202610060656",
+   "time": "2026-10-06T06:56:06+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
