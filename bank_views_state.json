@@ -65,7 +65,8 @@
   "51fd78463cfef3e7": "2026-10-06T09:00:36.572870+00:00",
   "afe0fb7958a11655": "2026-10-06T09:00:36.572870+00:00",
   "3e051984b219d3b4": "2026-10-06T09:22:20.759341+00:00",
-  "65fa5f6d1bcac5cf": "2026-10-06T09:22:20.759341+00:00"
+  "65fa5f6d1bcac5cf": "2026-10-06T09:22:20.759341+00:00",
+  "49c232e76ce48664": "2026-10-06T10:00:35.954971+00:00"
  },
  "week": [
   {
@@ -791,6 +792,18 @@
    "assets": [
     "fx",
     "stocks"
+   ]
+  },
+  {
+   "id": "49c232e76ce48664",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "Euro: Political risks keep EUR under pressure against US Dollar – MUFG",
+   "desc": "MUFG’s Lee Hardman highlights that the Euro remains under selling pressure, with EUR/USD testing support at 1.1200 as Spanish Prime Minister Pedro Sanchez calls an early election for November 29. Opinion polls point to gains for the People’s Party, potentially in coalition with VoX.",
+   "link": "https://www.fxstreet.com/news/euro-political-risks-keep-eur-under-pressure-against-us-dollar-mufg-202610060941",
+   "time": "2026-10-06T09:41:30+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
