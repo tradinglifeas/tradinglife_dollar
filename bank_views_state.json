@@ -73,7 +73,8 @@
   "d23e06de7e40dbaf": "2026-10-06T11:25:23.079009+00:00",
   "b209d972962119d5": "2026-10-06T12:00:35.792313+00:00",
   "116cf5efad853f52": "2026-10-06T12:12:26.809108+00:00",
-  "332c144d2e6da19f": "2026-10-06T12:23:21.945937+00:00"
+  "332c144d2e6da19f": "2026-10-06T12:23:21.945937+00:00",
+  "00eb6ebea9e157bc": "2026-10-06T13:00:36.499607+00:00"
  },
  "week": [
   {
@@ -893,6 +894,18 @@
    "desc": "Morgan Stanley's FX and Emerging Markets Strategy Head James Lord said the euro could fall further toward $1.10 as risks mount. He joins Bloomberg's Anna Edwards, Tom Mackenzie, and Guy Johnson on \"The Opening Trade\" discussing France, Europe as a whole, and the election in Brazil. (Source: Bloomberg)",
    "link": "https://www.bloomberg.com/news/videos/2026-10-06/morgan-stanley-s-lord-sees-more-room-for-euro-to-fall-video",
    "time": "2026-10-06T12:18:58+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "00eb6ebea9e157bc",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Japanese Yen: Range-bound trade persists against US Dollar – UOB",
+   "desc": "United Overseas Bank strategists Quek Ser Leang and Lee Sue Ann note that USD/JPY lacks clear directional cues in the short term, with intraday price action expected to remain confined between 157.55 and 158.45. Over the next one to three weeks, they see the pair trading in a broader 156.35–158.70 range. On a one to three month horizon, they highlight building downward momentum and potential further USD/JPY weakness.",
+   "link": "https://www.fxstreet.com/news/japanese-yen-range-bound-trade-persists-against-us-dollar-uob-202610061235",
+   "time": "2026-10-06T12:35:03+00:00",
    "assets": [
     "fx"
    ]
