@@ -71,7 +71,8 @@
   "d0f56b2237042211": "2026-10-06T11:00:32.097177+00:00",
   "fa6bc61cb3c1fd21": "2026-10-06T11:15:27.657362+00:00",
   "d23e06de7e40dbaf": "2026-10-06T11:25:23.079009+00:00",
-  "b209d972962119d5": "2026-10-06T12:00:35.792313+00:00"
+  "b209d972962119d5": "2026-10-06T12:00:35.792313+00:00",
+  "116cf5efad853f52": "2026-10-06T12:12:26.809108+00:00"
  },
  "week": [
   {
@@ -869,6 +870,18 @@
    "time": "2026-10-06T11:53:12+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "116cf5efad853f52",
+   "source": "FXStreet",
+   "bank": "Commerzbank",
+   "title": "Romanian Leu: S&P reprieve leaves downgrade risks – Commerzbank",
+   "desc": "Commerzbank’s Tatha Ghose says S&P’s affirmation of Romania at BBB-/A-3 with negative outlook gave the Leu short-term relief but did not remove downgrade risk. Fiscal consolidation is progressing, yet political paralysis and wide external imbalances persist.",
+   "link": "https://www.fxstreet.com/news/romanian-leu-sp-reprieve-leaves-downgrade-risks-commerzbank-202610061211",
+   "time": "2026-10-06T12:11:45+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
