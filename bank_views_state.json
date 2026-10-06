@@ -58,7 +58,8 @@
   "b798ebcb61524959": "2026-10-05T19:11:45.106978+00:00",
   "4b5b6a9113597740": "2026-10-06T06:29:10.059754+00:00",
   "871e41a9863e1d96": "2026-10-06T07:00:39.768978+00:00",
-  "751677f353c2afe7": "2026-10-06T07:00:39.768978+00:00"
+  "751677f353c2afe7": "2026-10-06T07:00:39.768978+00:00",
+  "16c45547d4e9688c": "2026-10-06T07:28:20.430582+00:00"
  },
  "week": [
   {
@@ -699,6 +700,18 @@
    "time": "2026-10-06T06:56:06+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "16c45547d4e9688c",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Swiss Franc: Range-bound within 0.8245–0.8365 band against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann describe USD/CHF as consolidating after failing to extend lower, with Monday’s session confined to a narrow range around 0.8310. Intraday, they expect further sideways trading between nearby support and resistance.",
+   "link": "https://www.fxstreet.com/news/swiss-franc-range-bound-within-08245-08365-band-against-us-dollar-uob-202610060727",
+   "time": "2026-10-06T07:27:49+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
