@@ -61,7 +61,9 @@
   "751677f353c2afe7": "2026-10-06T07:00:39.768978+00:00",
   "16c45547d4e9688c": "2026-10-06T07:28:20.430582+00:00",
   "e4791c1b07b447ea": "2026-10-06T08:00:35.977560+00:00",
-  "f3fe8e41c926218b": "2026-10-06T08:03:23.622070+00:00"
+  "f3fe8e41c926218b": "2026-10-06T08:03:23.622070+00:00",
+  "51fd78463cfef3e7": "2026-10-06T09:00:36.572870+00:00",
+  "afe0fb7958a11655": "2026-10-06T09:00:36.572870+00:00"
  },
  "week": [
   {
@@ -736,6 +738,30 @@
    "desc": "MUFG’s Lee Hardman notes that the Japanese Yen has softened after a Bloomberg report on the GPIF’s September meeting, lifting USD/JPY back above 158.00.",
    "link": "https://www.fxstreet.com/news/japanese-yen-pares-gains-against-us-dollar-but-boj-outlook-supportive-mufg-202610060801",
    "time": "2026-10-06T08:01:44+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "51fd78463cfef3e7",
+   "source": "FXStreet",
+   "bank": "Commerzbank",
+   "title": "Brazilian Real: Bolsonaro boost faces parliamentary constraints – Commerzbank",
+   "desc": "Commerzbank’s Norman Liebke notes the Brazilian Real (BRL) strengthened about 4% as USD/BRL fell from 5.2 to 5 on F. Bolsonaro’s election lead. He cautions that despite gains by Partido Liberal and other conservatives, Bolsonaro would still lack outright majorities and remain reliant on alliances.",
+   "link": "https://www.fxstreet.com/news/brazilian-real-bolsonaro-boost-faces-parliamentary-constraints-commerzbank-202610060832",
+   "time": "2026-10-06T08:32:19+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "afe0fb7958a11655",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Australian Dollar: Oversold conditions limit losses against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann note that AUD/USD outperformed on Monday, closing near 0.6970 after a modest rebound. Intraday, they see scope for slight gains but expect the pair to stay capped below 0.6985.",
+   "link": "https://www.fxstreet.com/news/australian-dollar-oversold-conditions-limit-losses-against-us-dollar-uob-202610060856",
+   "time": "2026-10-06T08:56:27+00:00",
    "assets": [
     "fx"
    ]
