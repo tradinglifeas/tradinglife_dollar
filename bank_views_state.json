@@ -60,7 +60,8 @@
   "871e41a9863e1d96": "2026-10-06T07:00:39.768978+00:00",
   "751677f353c2afe7": "2026-10-06T07:00:39.768978+00:00",
   "16c45547d4e9688c": "2026-10-06T07:28:20.430582+00:00",
-  "e4791c1b07b447ea": "2026-10-06T08:00:35.977560+00:00"
+  "e4791c1b07b447ea": "2026-10-06T08:00:35.977560+00:00",
+  "f3fe8e41c926218b": "2026-10-06T08:03:23.622070+00:00"
  },
  "week": [
   {
@@ -723,6 +724,18 @@
    "desc": "Francesco Pesole at ING highlights that the Euro (EUR) is under pressure from French bond market turbulence, which is adding a fiscal risk premium and driving a repricing lower in European Central Bank (ECB) rate expectations.",
    "link": "https://www.fxstreet.com/news/euro-downside-risks-with-11100-in-sight-against-us-dollar-ing-202610060749",
    "time": "2026-10-06T07:49:32+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "f3fe8e41c926218b",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "Japanese Yen: Pares gains against US Dollar but BoJ outlook supportive - MUFG",
+   "desc": "MUFG’s Lee Hardman notes that the Japanese Yen has softened after a Bloomberg report on the GPIF’s September meeting, lifting USD/JPY back above 158.00.",
+   "link": "https://www.fxstreet.com/news/japanese-yen-pares-gains-against-us-dollar-but-boj-outlook-supportive-mufg-202610060801",
+   "time": "2026-10-06T08:01:44+00:00",
    "assets": [
     "fx"
    ]
