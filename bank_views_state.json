@@ -74,7 +74,8 @@
   "b209d972962119d5": "2026-10-06T12:00:35.792313+00:00",
   "116cf5efad853f52": "2026-10-06T12:12:26.809108+00:00",
   "332c144d2e6da19f": "2026-10-06T12:23:21.945937+00:00",
-  "00eb6ebea9e157bc": "2026-10-06T13:00:36.499607+00:00"
+  "00eb6ebea9e157bc": "2026-10-06T13:00:36.499607+00:00",
+  "4aaf313a1d68c3c2": "2026-10-06T13:25:25.348184+00:00"
  },
  "week": [
   {
@@ -908,6 +909,18 @@
    "time": "2026-10-06T12:35:03+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "4aaf313a1d68c3c2",
+   "source": "FXStreet",
+   "bank": "Société Générale",
+   "title": "Gold: Downtrend eyes $4,000 support zone – Societe Generale",
+   "desc": "Societe Generale strategists note that Gold has extended its pullback after failing to hold above the 200-day moving average near $4,510–$4,540. Prices are drifting toward an interim projection around $4,095, with a break of this level seen opening downside toward $4,000 and the June/July troughs at $3,960–$3,940, which mark the lower boundary of a critical multi-month support range.",
+   "link": "https://www.fxstreet.com/news/gold-downtrend-eyes-4-000-support-zone-societe-generale-202610061325",
+   "time": "2026-10-06T13:25:10+00:00",
+   "assets": [
+    "metals"
    ]
   }
  ],
