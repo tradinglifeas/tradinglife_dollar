@@ -78,7 +78,9 @@
   "4aaf313a1d68c3c2": "2026-10-06T13:25:25.348184+00:00",
   "e76ec43b067068c3": "2026-10-06T14:00:33.228326+00:00",
   "82c68f248f55e9d6": "2026-10-06T14:21:22.950978+00:00",
-  "2b29defc934f9aad": "2026-10-06T14:30:02.126803+00:00"
+  "2b29defc934f9aad": "2026-10-06T14:30:02.126803+00:00",
+  "42d4dd691e064f02": "2026-10-06T15:00:37.740462+00:00",
+  "8e6f8a3f33ca5e6f": "2026-10-06T15:00:37.740462+00:00"
  },
  "week": [
   {
@@ -960,6 +962,31 @@
    "time": "2026-10-06T14:16:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "42d4dd691e064f02",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Euro Credit Supply: Issuance surges in September",
+   "desc": "The corporate primary market opened up in September with TMT being the largest contributor. Bank bond supply surged in September",
+   "link": "https://think.ing.com/reports/euro-credit-supply-issuance-surges-in-september/",
+   "time": "2026-10-06T14:43:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "8e6f8a3f33ca5e6f",
+   "source": "Bloomberg",
+   "bank": "Deutsche Bank",
+   "title": "French Fiscal Concerns Bring Home Painful Risk Premium",
+   "desc": "After decades of budget deficits and steadily rising debt, markets are putting a new price on French risk. Investors are charging much more to hold government bonds, the stock market is under pressure and the cost of insuring bank bonds against default has jumped. The euro fell to its weakest level since May 2025 on Monday, reflecting fears that upheaval will spill beyond France’s border. Ozan Tarman, Vice Chair: Global Macro at Deutsche Bank, discusses the growing debt pressures across Europe and contagion risks. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-06/french-fiscal-concerns-bring-home-painful-risk-premium-video",
+   "time": "2026-10-06T14:47:20+00:00",
+   "assets": [
+    "fx",
+    "stocks"
    ]
   }
  ],
