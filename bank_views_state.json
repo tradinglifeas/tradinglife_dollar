@@ -72,7 +72,8 @@
   "fa6bc61cb3c1fd21": "2026-10-06T11:15:27.657362+00:00",
   "d23e06de7e40dbaf": "2026-10-06T11:25:23.079009+00:00",
   "b209d972962119d5": "2026-10-06T12:00:35.792313+00:00",
-  "116cf5efad853f52": "2026-10-06T12:12:26.809108+00:00"
+  "116cf5efad853f52": "2026-10-06T12:12:26.809108+00:00",
+  "332c144d2e6da19f": "2026-10-06T12:23:21.945937+00:00"
  },
  "week": [
   {
@@ -882,6 +883,18 @@
    "time": "2026-10-06T12:11:45+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "332c144d2e6da19f",
+   "source": "Bloomberg",
+   "bank": "Morgan Stanley",
+   "title": "Morgan Stanley's Lord Sees More Room for Euro to Fall",
+   "desc": "Morgan Stanley's FX and Emerging Markets Strategy Head James Lord said the euro could fall further toward $1.10 as risks mount. He joins Bloomberg's Anna Edwards, Tom Mackenzie, and Guy Johnson on \"The Opening Trade\" discussing France, Europe as a whole, and the election in Brazil. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-06/morgan-stanley-s-lord-sees-more-room-for-euro-to-fall-video",
+   "time": "2026-10-06T12:18:58+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
