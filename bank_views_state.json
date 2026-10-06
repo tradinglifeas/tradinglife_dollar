@@ -55,7 +55,8 @@
   "f370531b4d4e50ae": "2026-10-05T17:14:23.541091+00:00",
   "2a67eccf18e36a7a": "2026-10-05T18:00:36.960177+00:00",
   "da330bc21f4bbbdb": "2026-10-05T18:19:26.743479+00:00",
-  "b798ebcb61524959": "2026-10-05T19:11:45.106978+00:00"
+  "b798ebcb61524959": "2026-10-05T19:11:45.106978+00:00",
+  "4b5b6a9113597740": "2026-10-06T06:29:10.059754+00:00"
  },
  "week": [
   {
@@ -658,6 +659,18 @@
    "desc": "United Overseas Bank (UOB) strategist Quek Ser Leang reports USD/CNH slipped to 6.7008 before closing at 6.7041, with intraday price action expected to stay between 6.7000 and 6.7105. For the coming 1–3 weeks, he continues to see the pair confined to a 6.6950–6.7270 range.",
    "link": "https://www.fxstreet.com/news/chinese-yuan-sideways-with-firmer-bias-against-us-dollar-uob-202610051908",
    "time": "2026-10-05T19:08:42+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "4b5b6a9113597740",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Euro: Downtrend slows but further lows possible against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann note that EUR/USD briefly broke below 1.1180 to a 17‑month low before rebounding to close around 1.1220. Intraday, they expect consolidation inside a defined range.",
+   "link": "https://www.fxstreet.com/news/euro-downtrend-slows-but-further-lows-possible-against-us-dollar-uob-202610060628",
+   "time": "2026-10-06T06:28:13+00:00",
    "assets": [
     "fx"
    ]
