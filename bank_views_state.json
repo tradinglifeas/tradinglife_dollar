@@ -67,7 +67,8 @@
   "3e051984b219d3b4": "2026-10-06T09:22:20.759341+00:00",
   "65fa5f6d1bcac5cf": "2026-10-06T09:22:20.759341+00:00",
   "49c232e76ce48664": "2026-10-06T10:00:35.954971+00:00",
-  "71193717c561f5cd": "2026-10-06T10:01:19.855550+00:00"
+  "71193717c561f5cd": "2026-10-06T10:01:19.855550+00:00",
+  "d0f56b2237042211": "2026-10-06T11:00:32.097177+00:00"
  },
  "week": [
   {
@@ -815,6 +816,18 @@
    "desc": "Deutsche Bank strategists highlight broad resilience across global equities, led by record-setting US tech stocks and steady gains in Europe.",
    "link": "https://www.fxstreet.com/news/equities-resilience-persists-versus-rates-stress-deutsche-bank-202610061001",
    "time": "2026-10-06T10:01:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "d0f56b2237042211",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "OpenAI, DeepSeek & Moonshot Chase Billions in New AI Funding",
+   "desc": "\"The Pulse With Francine Lacqua\" is all about conversations with high profile guests in the beating heart of global business, economics, finance and politics. Based in London, we go wherever the story is, bringing you exclusive interviews and market-moving scoops. Today's guests: Isik Guven Toktamis, JPMorgan EMEA Head of Private Equity Investment Banking; Sergio Marullo di Condojanni, Angelini Industries & Angelini Pharma CEO; Sadek Wahba, I Squared Capital Chairman & Managing Partner; Amber Venz Box, LTK President & Co-founder (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-06/the-pulse-10-62026-video",
+   "time": "2026-10-06T10:33:50+00:00",
    "assets": [
     "stocks"
    ]
