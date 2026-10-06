@@ -59,7 +59,8 @@
   "4b5b6a9113597740": "2026-10-06T06:29:10.059754+00:00",
   "871e41a9863e1d96": "2026-10-06T07:00:39.768978+00:00",
   "751677f353c2afe7": "2026-10-06T07:00:39.768978+00:00",
-  "16c45547d4e9688c": "2026-10-06T07:28:20.430582+00:00"
+  "16c45547d4e9688c": "2026-10-06T07:28:20.430582+00:00",
+  "e4791c1b07b447ea": "2026-10-06T08:00:35.977560+00:00"
  },
  "week": [
   {
@@ -710,6 +711,18 @@
    "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann describe USD/CHF as consolidating after failing to extend lower, with Monday’s session confined to a narrow range around 0.8310. Intraday, they expect further sideways trading between nearby support and resistance.",
    "link": "https://www.fxstreet.com/news/swiss-franc-range-bound-within-08245-08365-band-against-us-dollar-uob-202610060727",
    "time": "2026-10-06T07:27:49+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "e4791c1b07b447ea",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "Euro: Downside risks with 1.1100 in sight against US Dollar – ING",
+   "desc": "Francesco Pesole at ING highlights that the Euro (EUR) is under pressure from French bond market turbulence, which is adding a fiscal risk premium and driving a repricing lower in European Central Bank (ECB) rate expectations.",
+   "link": "https://www.fxstreet.com/news/euro-downside-risks-with-11100-in-sight-against-us-dollar-ing-202610060749",
+   "time": "2026-10-06T07:49:32+00:00",
    "assets": [
     "fx"
    ]
