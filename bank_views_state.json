@@ -80,7 +80,8 @@
   "82c68f248f55e9d6": "2026-10-06T14:21:22.950978+00:00",
   "2b29defc934f9aad": "2026-10-06T14:30:02.126803+00:00",
   "42d4dd691e064f02": "2026-10-06T15:00:37.740462+00:00",
-  "8e6f8a3f33ca5e6f": "2026-10-06T15:00:37.740462+00:00"
+  "8e6f8a3f33ca5e6f": "2026-10-06T15:00:37.740462+00:00",
+  "b02878ac067f0d49": "2026-10-06T15:06:25.390241+00:00"
  },
  "week": [
   {
@@ -987,6 +988,18 @@
    "assets": [
     "fx",
     "stocks"
+   ]
+  },
+  {
+   "id": "b02878ac067f0d49",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "Asia FX: Tech-linked FX could outperform against US Dollar - MUFG",
+   "desc": "Michael Wan at MUFG argues that Asian currencies have been more resilient than others, supported by strong AI-related exports and a less acute Oil and diesel supply situation in the region.",
+   "link": "https://www.fxstreet.com/news/asia-fx-tech-linked-fx-could-outperform-against-us-dollar-mufg-202610061504",
+   "time": "2026-10-06T15:04:27+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
