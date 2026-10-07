@@ -94,7 +94,9 @@
   "841ee0a80bec81a2": "2026-10-07T07:00:41.549037+00:00",
   "11986181d988d50f": "2026-10-07T07:00:41.549037+00:00",
   "994b82ed0cc616ae": "2026-10-07T07:07:23.558130+00:00",
-  "0d841dfd9493298a": "2026-10-07T07:18:20.691473+00:00"
+  "0d841dfd9493298a": "2026-10-07T07:18:20.691473+00:00",
+  "604636e23ffa8603": "2026-10-07T08:00:35.559887+00:00",
+  "4e386cb573978d44": "2026-10-07T08:00:35.559887+00:00"
  },
  "week": [
   {
@@ -1167,6 +1169,30 @@
    "desc": "Commerzbank’s Antje Praefcke notes that concerns over France’s national debt have recently weighed on the Euro, reviving memories of the earlier sovereign debt crisis.",
    "link": "https://www.fxstreet.com/news/euro-fiscal-concerns-limit-recovery-against-us-dollar-commerzbank-202610070718",
    "time": "2026-10-07T07:18:05+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "604636e23ffa8603",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "Gold: Central banks keep buying – ING",
+   "desc": "ING’s commodities team, led by Warren Patterson and Ewa Manthey, reports that Gold edged higher on Tuesday as lower Oil prices and stronger bond markets eased inflation concerns and reduced expectations of further rate hikes. They emphasize persistent central bank demand, with World Gold Council data showing continued net buying driven by long-term reserve diversification.",
+   "link": "https://www.fxstreet.com/news/gold-central-banks-keep-buying-ing-202610070730",
+   "time": "2026-10-07T07:30:52+00:00",
+   "assets": [
+    "metals"
+   ]
+  },
+  {
+   "id": "4e386cb573978d44",
+   "source": "FXStreet",
+   "bank": "Rabobank",
+   "title": "US Dollar: Lower yields pressure USD as December hike looms - Rabobank",
+   "desc": "Rabobank strategist Molly Schwartz notes US Treasury yields fell across the curve, pressuring the US Dollar (USD) even as the US Dollar Index (DXY) stays close to 102. She highlights evolving Fed communication and multiple officials stressing inflation risks from AI, tariffs and energy.",
+   "link": "https://www.fxstreet.com/news/us-dollar-lower-yields-pressure-usd-as-december-hike-looms-rabobank-202610070746",
+   "time": "2026-10-07T07:46:58+00:00",
    "assets": [
     "fx"
    ]
