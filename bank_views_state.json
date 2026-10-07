@@ -102,7 +102,8 @@
   "a811c34f0d89acf6": "2026-10-07T09:17:22.741848+00:00",
   "9a0d4d3aabe57181": "2026-10-07T09:28:21.500292+00:00",
   "a290d2e52024fa16": "2026-10-07T10:00:31.908580+00:00",
-  "c64f7da63b8d6cde": "2026-10-07T10:00:31.908580+00:00"
+  "c64f7da63b8d6cde": "2026-10-07T10:00:31.908580+00:00",
+  "c5b7d939643bdaa0": "2026-10-07T10:08:24.160419+00:00"
  },
  "week": [
   {
@@ -1271,6 +1272,18 @@
    "desc": "Societe Generale notes USD/SEK broke out of a large base in September, extending its rebound and recently posting an interim high near 10.10 before a brief pullback.",
    "link": "https://www.fxstreet.com/news/swedish-krona-technical-setup-points-to-further-weakness-societe-generale-202610070944",
    "time": "2026-10-07T09:44:48+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "c5b7d939643bdaa0",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "Japanese Yen: Downside risks build against US Dollar near 158.50 – MUFG",
+   "desc": "MUFG’s Derek Halpenny highlights growing downside risks for the Japanese Yen versus the US Dollar as USD/JPY tests its 200-day moving average near 158.50.",
+   "link": "https://www.fxstreet.com/news/japanese-yen-downside-risks-build-against-us-dollar-near-15850-mufg-202610071007",
+   "time": "2026-10-07T10:07:51+00:00",
    "assets": [
     "fx"
    ]
