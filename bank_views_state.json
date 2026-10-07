@@ -108,7 +108,8 @@
   "3298b4f117702d91": "2026-10-07T13:00:41.215798+00:00",
   "76017d63140ea559": "2026-10-07T13:00:41.215798+00:00",
   "559d4eaf11274590": "2026-10-07T13:11:19.858587+00:00",
-  "46ad5e68e5060ef0": "2026-10-07T13:19:37.387296+00:00"
+  "46ad5e68e5060ef0": "2026-10-07T13:19:37.387296+00:00",
+  "657eac33557ac90d": "2026-10-07T14:00:36.736793+00:00"
  },
  "week": [
   {
@@ -1351,6 +1352,18 @@
    "time": "2026-10-07T13:18:51+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "657eac33557ac90d",
+   "source": "Bloomberg",
+   "bank": "Société Générale",
+   "title": "European Bank Stocks Sink Toward Lowest Since July as Bonds Fall",
+   "desc": "A selloff in shares of European banks resumed on Wednesday, with the likes of Societe Generale SA and Deutsche Bank AG tumbling more than 5%, as mounting fears over political turmoil sent bond yields higher.",
+   "link": "https://www.bloomberg.com/news/articles/2026-10-07/european-bank-stocks-sink-toward-lowest-since-july-as-bonds-fall",
+   "time": "2026-10-07T13:32:32+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
