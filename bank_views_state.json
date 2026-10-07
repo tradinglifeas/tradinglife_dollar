@@ -114,7 +114,8 @@
   "29dcf254a95ce498": "2026-10-07T15:18:21.279405+00:00",
   "a1bfe0a7234e5829": "2026-10-07T15:18:21.279405+00:00",
   "2f21908945dd6e7b": "2026-10-07T18:00:39.201644+00:00",
-  "52fb9471380ce844": "2026-10-07T19:09:21.566186+00:00"
+  "52fb9471380ce844": "2026-10-07T19:09:21.566186+00:00",
+  "841b68767729d2bd": "2026-10-07T19:18:25.630473+00:00"
  },
  "week": [
   {
@@ -1429,6 +1430,18 @@
    "time": "2026-10-07T19:05:15+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "841b68767729d2bd",
+   "source": "FXStreet",
+   "bank": "Commerzbank",
+   "title": "Thai Baht: Inflation rise and THB downside risks – Commerzbank",
+   "desc": "Commerzbank economists note Thailand’s September CPI rose 2.8% year-on-year, below consensus but the highest since April, bringing headline inflation close to the upper end of the Bank of Thailand’s target range. They expect headline inflation to rise further on persistent supply-side pressures, yet see demand-side forces as benign. USD/THB fell to 33.62, though downside risks to the Baht remain elevated.",
+   "link": "https://www.fxstreet.com/news/thai-baht-inflation-rise-and-thb-downside-risks-commerzbank-202610071912",
+   "time": "2026-10-07T19:12:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
