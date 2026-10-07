@@ -106,7 +106,8 @@
   "c5b7d939643bdaa0": "2026-10-07T10:08:24.160419+00:00",
   "b8e0b263153e7d1e": "2026-10-07T12:00:35.552797+00:00",
   "3298b4f117702d91": "2026-10-07T13:00:41.215798+00:00",
-  "76017d63140ea559": "2026-10-07T13:00:41.215798+00:00"
+  "76017d63140ea559": "2026-10-07T13:00:41.215798+00:00",
+  "559d4eaf11274590": "2026-10-07T13:11:19.858587+00:00"
  },
  "week": [
   {
@@ -1323,6 +1324,18 @@
    "desc": "Brown Brothers Harriman’s (BBH) Elias Haddad notes USD/SEK is firmer on broad US Dollar (USD) strength, while Sweden’s September Consumer Price Index (CPI) data were mixed.",
    "link": "https://www.fxstreet.com/news/swedish-krona-riksbank-tightening-supports-sek-against-us-dollar-bbh-202610071259",
    "time": "2026-10-07T12:59:42+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "559d4eaf11274590",
+   "source": "FXStreet",
+   "bank": "Société Générale",
+   "title": "Hungarian Forint: HUF strength and euro adoption outlook – Societe Generale",
+   "desc": "Societe Generale notes EUR/HUF rebounded from its 50-day moving average after a downside surprise in Hungarian CPI. Inflation remains below the MNB target, with the stronger Forint helping to curb price pressures and keep underlying trends subdued.",
+   "link": "https://www.fxstreet.com/news/hungarian-forint-huf-strength-and-euro-adoption-outlook-societe-generale-202610071310",
+   "time": "2026-10-07T13:10:34+00:00",
    "assets": [
     "fx"
    ]
