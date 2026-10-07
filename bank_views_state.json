@@ -110,7 +110,9 @@
   "559d4eaf11274590": "2026-10-07T13:11:19.858587+00:00",
   "46ad5e68e5060ef0": "2026-10-07T13:19:37.387296+00:00",
   "657eac33557ac90d": "2026-10-07T14:00:36.736793+00:00",
-  "cada1a3ed2aa6612": "2026-10-07T14:08:21.972612+00:00"
+  "cada1a3ed2aa6612": "2026-10-07T14:08:21.972612+00:00",
+  "29dcf254a95ce498": "2026-10-07T15:18:21.279405+00:00",
+  "a1bfe0a7234e5829": "2026-10-07T15:18:21.279405+00:00"
  },
  "week": [
   {
@@ -1375,6 +1377,30 @@
    "desc": "Scotiabank strategists Shaun Osborne and Eric Theoret note USD/CAD around 1.4227 with the Canadian Dollar (CAD) flat versus the US Dollar (USD) but outperforming most G10 peers. CAD retains much of Tuesday’s 0.4% gain, helped by a stronger August trade balance.",
    "link": "https://www.fxstreet.com/news/canadian-dollar-political-risks-weigh-against-us-dollar-scotiabank-202610071403",
    "time": "2026-10-07T14:03:49+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "29dcf254a95ce498",
+   "source": "FXStreet",
+   "bank": "BBH",
+   "title": "US Dollar: Energy risks support USD strength – BBH",
+   "desc": "Brown Brothers Harriman’s (BBH) Elias Haddad notes the US Dollar (USD) is stronger against major currencies, with the Euro (EUR) lagging as French and Italian bonds lead a renewed global bond sell-off.",
+   "link": "https://www.fxstreet.com/news/us-dollar-energy-risks-support-usd-strength-bbh-202610071423",
+   "time": "2026-10-07T14:23:19+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "a1bfe0a7234e5829",
+   "source": "FXStreet",
+   "bank": "Rabobank",
+   "title": "Swiss Franc: Safe haven status versus funding role – Rabobank",
+   "desc": "Rabobank’s Senior FX Strategist Jane Foley highlights Switzerland’s strong current account and budget positions, credible central bank and governance, and high liquidity as underpinning the Swiss Franc’s safe haven status.",
+   "link": "https://www.fxstreet.com/news/swiss-franc-safe-haven-status-versus-funding-role-rabobank-202610071447",
+   "time": "2026-10-07T14:47:16+00:00",
    "assets": [
     "fx"
    ]
