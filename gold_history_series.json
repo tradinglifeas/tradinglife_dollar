@@ -97,5 +97,16 @@
       "quarter_coin": 77080000,
       "global_gold_ounce": 4131
     }
+  },
+  {
+    "date": "2026-10-07",
+    "prices": {
+      "gold_18": 26738300,
+      "bahar_azadi": 264220000,
+      "emami": 271910000,
+      "half_coin": 143460000,
+      "quarter_coin": 77230000,
+      "global_gold_ounce": 4130
+    }
   }
 ]
