@@ -112,7 +112,8 @@
   "657eac33557ac90d": "2026-10-07T14:00:36.736793+00:00",
   "cada1a3ed2aa6612": "2026-10-07T14:08:21.972612+00:00",
   "29dcf254a95ce498": "2026-10-07T15:18:21.279405+00:00",
-  "a1bfe0a7234e5829": "2026-10-07T15:18:21.279405+00:00"
+  "a1bfe0a7234e5829": "2026-10-07T15:18:21.279405+00:00",
+  "2f21908945dd6e7b": "2026-10-07T18:00:39.201644+00:00"
  },
  "week": [
   {
@@ -1403,6 +1404,18 @@
    "time": "2026-10-07T14:47:16+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "2f21908945dd6e7b",
+   "source": "Bloomberg",
+   "bank": "Citi",
+   "title": "Citi Says Private Equity Hasn’t Slowed Poaching of Bankers",
+   "desc": "David Friedland, co-head of North America investment banking at Citi, says private equity firms are still aggressively poaching young bankers from Wall Street banks. He talks about Citi’s plan to accelerate promotions and provide higher pay to its junior bankers. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-07/citi-private-equity-hasn-t-slowed-poaching-of-bankers-video",
+   "time": "2026-10-07T17:51:13+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
