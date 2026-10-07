@@ -93,7 +93,8 @@
   "dd5033190683db8d": "2026-10-07T07:00:41.549037+00:00",
   "841ee0a80bec81a2": "2026-10-07T07:00:41.549037+00:00",
   "11986181d988d50f": "2026-10-07T07:00:41.549037+00:00",
-  "994b82ed0cc616ae": "2026-10-07T07:07:23.558130+00:00"
+  "994b82ed0cc616ae": "2026-10-07T07:07:23.558130+00:00",
+  "0d841dfd9493298a": "2026-10-07T07:18:20.691473+00:00"
  },
  "week": [
   {
@@ -1154,6 +1155,18 @@
    "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann report that GBP/USD broke above their prior resistance level as the British Pound (GBP) outperformed on Tuesday, invalidating an earlier mildly bearish view.",
    "link": "https://www.fxstreet.com/news/british-pound-upside-capped-near-13315-against-us-dollar-uob-202610070706",
    "time": "2026-10-07T07:06:06+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "0d841dfd9493298a",
+   "source": "FXStreet",
+   "bank": "Commerzbank",
+   "title": "Euro: Fiscal concerns limit recovery against US Dollar - Commerzbank",
+   "desc": "Commerzbank’s Antje Praefcke notes that concerns over France’s national debt have recently weighed on the Euro, reviving memories of the earlier sovereign debt crisis.",
+   "link": "https://www.fxstreet.com/news/euro-fiscal-concerns-limit-recovery-against-us-dollar-commerzbank-202610070718",
+   "time": "2026-10-07T07:18:05+00:00",
    "assets": [
     "fx"
    ]
