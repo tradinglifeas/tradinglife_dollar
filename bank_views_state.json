@@ -107,7 +107,8 @@
   "b8e0b263153e7d1e": "2026-10-07T12:00:35.552797+00:00",
   "3298b4f117702d91": "2026-10-07T13:00:41.215798+00:00",
   "76017d63140ea559": "2026-10-07T13:00:41.215798+00:00",
-  "559d4eaf11274590": "2026-10-07T13:11:19.858587+00:00"
+  "559d4eaf11274590": "2026-10-07T13:11:19.858587+00:00",
+  "46ad5e68e5060ef0": "2026-10-07T13:19:37.387296+00:00"
  },
  "week": [
   {
@@ -1336,6 +1337,18 @@
    "desc": "Societe Generale notes EUR/HUF rebounded from its 50-day moving average after a downside surprise in Hungarian CPI. Inflation remains below the MNB target, with the stronger Forint helping to curb price pressures and keep underlying trends subdued.",
    "link": "https://www.fxstreet.com/news/hungarian-forint-huf-strength-and-euro-adoption-outlook-societe-generale-202610071310",
    "time": "2026-10-07T13:10:34+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "46ad5e68e5060ef0",
+   "source": "FXStreet",
+   "bank": "Rabobank",
+   "title": "Japanese Yen: Funding appeal eroded by BoJ hikes – Rabobank",
+   "desc": "Rabobank’s Senior FX Strategist Jane Foley reviews the sharp USD/JPY declines in July and September, initially driven by joint Ministry of Finance (MoF)–US Treasury intervention and later without official action. The report notes that the Bank of Japan’s gradual rate hikes are eroding the Japanese Yen’s appeal as a funding currency for carry trades, even though recent price action has reduced urgency around finding alternatives.",
+   "link": "https://www.fxstreet.com/news/japanese-yen-funding-appeal-eroded-by-boj-hikes-rabobank-202610071318",
+   "time": "2026-10-07T13:18:51+00:00",
    "assets": [
     "fx"
    ]
