@@ -92,7 +92,8 @@
   "8cfc00d7132c3d5d": "2026-10-07T07:00:41.549037+00:00",
   "dd5033190683db8d": "2026-10-07T07:00:41.549037+00:00",
   "841ee0a80bec81a2": "2026-10-07T07:00:41.549037+00:00",
-  "11986181d988d50f": "2026-10-07T07:00:41.549037+00:00"
+  "11986181d988d50f": "2026-10-07T07:00:41.549037+00:00",
+  "994b82ed0cc616ae": "2026-10-07T07:07:23.558130+00:00"
  },
  "week": [
   {
@@ -1141,6 +1142,18 @@
    "desc": "MUFG’s Michael Wan highlights that USD/JPY is still trading above 158, but Governor Ueda’s comments point to further Bank of Japan (BoJ) policy normalisation. Ueda stressed anchoring inflation around 2% and noted upside risks from imports, AI demand and JPY weakness.",
    "link": "https://www.fxstreet.com/news/japanese-yen-boj-normalisation-supports-gains-against-us-dollar-mufg-202610070656",
    "time": "2026-10-07T06:56:21+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "994b82ed0cc616ae",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "British Pound: Upside capped near 1.3315 against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann report that GBP/USD broke above their prior resistance level as the British Pound (GBP) outperformed on Tuesday, invalidating an earlier mildly bearish view.",
+   "link": "https://www.fxstreet.com/news/british-pound-upside-capped-near-13315-against-us-dollar-uob-202610070706",
+   "time": "2026-10-07T07:06:06+00:00",
    "assets": [
     "fx"
    ]
