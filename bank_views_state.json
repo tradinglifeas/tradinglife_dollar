@@ -87,7 +87,8 @@
   "1d7feaaa1926cc6c": "2026-10-06T18:00:36.462275+00:00",
   "be4935789934d18a": "2026-10-06T18:21:21.392052+00:00",
   "dcc7e79069b359c9": "2026-10-06T19:00:32.590517+00:00",
-  "2153b188081a6573": "2026-10-06T20:26:23.119121+00:00"
+  "2153b188081a6573": "2026-10-06T20:26:23.119121+00:00",
+  "658aafa24bbb4bc2": "2026-10-07T06:15:26.819651+00:00"
  },
  "week": [
   {
@@ -1076,6 +1077,18 @@
    "desc": "United Overseas Bank strategists Quek Ser Leang and Lee Sue Ann expect USD/CNH to edge lower intraday while staying confined to a narrow 6.7000–6.7100 band. Over the coming one to three weeks, they maintain a range-trading view between 6.6950 and 6.7270. On a one to three month basis, they see USD/CNH continuing to drift lower as long as it remains below the cloud resistance near 6.7815.",
    "link": "https://www.fxstreet.com/news/chinese-yuan-gradual-upside-within-defined-bands-uob-202610062026",
    "time": "2026-10-06T20:26:06+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "658aafa24bbb4bc2",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Euro: Rebound capped by resistance against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann highlight that EUR/USD bounced on Tuesday as the US Dollar Index (DXY) slipped, but they still see the broader Euro (EUR) downtrend intact.",
+   "link": "https://www.fxstreet.com/news/euro-rebound-capped-by-resistance-against-us-dollar-uob-202610070614",
+   "time": "2026-10-07T06:14:58+00:00",
    "assets": [
     "fx"
    ]
