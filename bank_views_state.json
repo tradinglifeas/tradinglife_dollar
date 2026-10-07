@@ -88,7 +88,11 @@
   "be4935789934d18a": "2026-10-06T18:21:21.392052+00:00",
   "dcc7e79069b359c9": "2026-10-06T19:00:32.590517+00:00",
   "2153b188081a6573": "2026-10-06T20:26:23.119121+00:00",
-  "658aafa24bbb4bc2": "2026-10-07T06:15:26.819651+00:00"
+  "658aafa24bbb4bc2": "2026-10-07T06:15:26.819651+00:00",
+  "8cfc00d7132c3d5d": "2026-10-07T07:00:41.549037+00:00",
+  "dd5033190683db8d": "2026-10-07T07:00:41.549037+00:00",
+  "841ee0a80bec81a2": "2026-10-07T07:00:41.549037+00:00",
+  "11986181d988d50f": "2026-10-07T07:00:41.549037+00:00"
  },
  "week": [
   {
@@ -1089,6 +1093,54 @@
    "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann highlight that EUR/USD bounced on Tuesday as the US Dollar Index (DXY) slipped, but they still see the broader Euro (EUR) downtrend intact.",
    "link": "https://www.fxstreet.com/news/euro-rebound-capped-by-resistance-against-us-dollar-uob-202610070614",
    "time": "2026-10-07T06:14:58+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "8cfc00d7132c3d5d",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Rates Spark: Bifurcated risk sentiment",
+   "desc": "Risk sentiment is improving as equities rise, oil trends lower and volatility eases, but financial conditions remain uneven. Marine Le Pen’s fiscal plan may briefly support OATs, but a lack of credibility and the election uncertainty ahead still point to spread widening risks",
+   "link": "https://think.ing.com/articles/rates-spark-bifurcated-risk-sentiment/",
+   "time": "2026-10-07T06:35:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "dd5033190683db8d",
+   "source": "FXStreet",
+   "bank": "Danske Bank",
+   "title": "Equities: Valuation reset underpins new highs – Danske Bank",
+   "desc": "Danske Research Team observes US equities extending their rebound, with the S&P 500 and Nasdaq posting fresh record highs and cyclical laggards leading gains. The team argues markets are not excessively optimistic, noting valuation multiples have compressed over the past year and quarter.",
+   "link": "https://www.fxstreet.com/news/equities-valuation-reset-underpins-new-highs-danske-bank-202610070641",
+   "time": "2026-10-07T06:41:42+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "841ee0a80bec81a2",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Fed minutes shouldn’t rock the boat",
+   "desc": "A hawkish dot plot in September suggests today's FOMC minutes shouldn’t surprise on the dovish side. At the same time, softish post-meeting data probably raise the bar for a positive dollar reaction today. Eyes should remain on oil, which is back on the rise this morning, and France, which is enjoying some relief in sovereign spreads",
+   "link": "https://think.ing.com/articles/fx-daily-fed-minutes-shouldnt-rock-the-boat/",
+   "time": "2026-10-07T06:55:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "11986181d988d50f",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "Japanese Yen: BoJ normalisation supports gains against US Dollar – MUFG",
+   "desc": "MUFG’s Michael Wan highlights that USD/JPY is still trading above 158, but Governor Ueda’s comments point to further Bank of Japan (BoJ) policy normalisation. Ueda stressed anchoring inflation around 2% and noted upside risks from imports, AI demand and JPY weakness.",
+   "link": "https://www.fxstreet.com/news/japanese-yen-boj-normalisation-supports-gains-against-us-dollar-mufg-202610070656",
+   "time": "2026-10-07T06:56:21+00:00",
    "assets": [
     "fx"
    ]
