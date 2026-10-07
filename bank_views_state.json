@@ -104,7 +104,9 @@
   "a290d2e52024fa16": "2026-10-07T10:00:31.908580+00:00",
   "c64f7da63b8d6cde": "2026-10-07T10:00:31.908580+00:00",
   "c5b7d939643bdaa0": "2026-10-07T10:08:24.160419+00:00",
-  "b8e0b263153e7d1e": "2026-10-07T12:00:35.552797+00:00"
+  "b8e0b263153e7d1e": "2026-10-07T12:00:35.552797+00:00",
+  "3298b4f117702d91": "2026-10-07T13:00:41.215798+00:00",
+  "76017d63140ea559": "2026-10-07T13:00:41.215798+00:00"
  },
  "week": [
   {
@@ -1297,6 +1299,30 @@
    "desc": "Rabobank expects EUR/CHF to remain close to the 0.93 area in the coming weeks as Eurozone fiscal tensions continue to support safe-haven demand for the Swiss Franc.",
    "link": "https://www.fxstreet.com/news/swiss-franc-safe-haven-demand-keeps-chf-firm-against-euro-rabobank-202610071145",
    "time": "2026-10-07T11:45:13+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "3298b4f117702d91",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Swiss Franc: Range trading persists against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann note that USD/CHF remains in a tight range in the short term, with intraday levels clustered around 0.8300. Their 1–3 week view maintains a broader consolidation band, while the 1–3 month outlook suggests the pair could continue rebounding but lacks momentum to revisit its July peak.",
+   "link": "https://www.fxstreet.com/news/swiss-franc-range-trading-persists-against-us-dollar-uob-202610071241",
+   "time": "2026-10-07T12:41:19+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "76017d63140ea559",
+   "source": "FXStreet",
+   "bank": "BBH",
+   "title": "Swedish Krona: Riksbank tightening supports SEK against US Dollar - BBH",
+   "desc": "Brown Brothers Harriman’s (BBH) Elias Haddad notes USD/SEK is firmer on broad US Dollar (USD) strength, while Sweden’s September Consumer Price Index (CPI) data were mixed.",
+   "link": "https://www.fxstreet.com/news/swedish-krona-riksbank-tightening-supports-sek-against-us-dollar-bbh-202610071259",
+   "time": "2026-10-07T12:59:42+00:00",
    "assets": [
     "fx"
    ]
