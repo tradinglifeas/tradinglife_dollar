@@ -115,21 +115,20 @@
   "a1bfe0a7234e5829": "2026-10-07T15:18:21.279405+00:00",
   "2f21908945dd6e7b": "2026-10-07T18:00:39.201644+00:00",
   "52fb9471380ce844": "2026-10-07T19:09:21.566186+00:00",
-  "841b68767729d2bd": "2026-10-07T19:18:25.630473+00:00"
+  "841b68767729d2bd": "2026-10-07T19:18:25.630473+00:00",
+  "aeb18f4c93256301": "2026-10-08T14:22:25.884397+00:00",
+  "3c5d408c452906df": "2026-10-08T14:22:25.884397+00:00",
+  "d25f4b483c17fead": "2026-10-08T14:22:25.884397+00:00",
+  "23de38946568df7b": "2026-10-08T14:22:25.884397+00:00",
+  "2e0024fdb81bbf67": "2026-10-08T14:22:25.884397+00:00",
+  "59937e0329c20d5a": "2026-10-08T14:22:25.884397+00:00",
+  "154b44543115fe01": "2026-10-08T14:22:25.884397+00:00",
+  "4ad1245cdb15f7d5": "2026-10-08T14:22:25.884397+00:00",
+  "8c08443ab9dbc3dd": "2026-10-08T14:22:25.884397+00:00",
+  "04d0cb2fdc5040b3": "2026-10-08T14:22:25.884397+00:00",
+  "acd60b9726f0d263": "2026-10-08T14:22:25.884397+00:00"
  },
  "week": [
-  {
-   "id": "b93bbccc8877ab7b",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "Trump Rejects Iranian Offer to Open the Strait of Hormuz",
-   "desc": "In focus today The data calendar for today is empty, so we will focus on the ECB President Lagarde’s speech at the European parliament in the afternoon. With the turmoil in the bond markets in recent weeks, markets will be listening to Lagarde’s speech for any comments on the euro area bond market or inflation […] The post Trump Rejects Iranian Offer to Open the Strait of Hormuz appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/contributors/fundamental-analysis/655571-trump-rejects-iranian-offer-to-open-the-strait-of-hormuz/",
-   "time": "2026-09-28T05:46:50+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
   {
    "id": "5be09608a6d9183a",
    "source": "ActionForex (Danske)",
@@ -1442,6 +1441,139 @@
    "time": "2026-10-07T19:12:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "aeb18f4c93256301",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Hawkish Fed minutes keep dollar supported",
+   "desc": "The dollar remains supported as September FOMC minutes showed a Fed firmly expecting to hike the policy rate again later in the year. French debt markets are still unsettled and EUR/USD remains fragile. Expect more focus on political events in Paris today and also on Bank of England speakers, where centrists could turn more hawkish",
+   "link": "https://think.ing.com/articles/fx-daily-hawkish-fed-minutes-keep-dollar-supported/",
+   "time": "2026-10-08T06:50:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "3c5d408c452906df",
+   "source": "FXStreet",
+   "bank": "Danske Bank",
+   "title": "Oil: Prices supported by supply risks and Iran tensions – Danske Bank",
+   "desc": "Danske Research Team highlights that European diesel prices surged after IEA members accelerated previously announced oil stock releases, prioritising diesel amid tight markets and Iran-related disruptions.",
+   "link": "https://www.fxstreet.com/news/oil-prices-supported-by-supply-risks-and-iran-tensions-danske-bank-202610080914",
+   "time": "2026-10-08T09:14:24+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "d25f4b483c17fead",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Australian Dollar: Neutral outlook inside tight range against US Dollar – UOB",
+   "desc": "UOB strategists Quek Ser Leang and Lee Sue Ann note AUD/USD slipped to 0.6943 after previously expecting modest upside, but the move has not generated strong bearish momentum. Intraday, the Australian Dollar (AUD) is seen consolidating between 0.6935 and 0.6975. On a one to three week view, they have shifted to a neutral stance, looking for range trading between 0.6935 and 0.7020 despite longer-term downside risks.",
+   "link": "https://www.fxstreet.com/news/australian-dollar-neutral-outlook-inside-tight-range-against-us-dollar-uob-202610080924",
+   "time": "2026-10-08T09:24:24+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "23de38946568df7b",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "British Pound: BoE hawkish shift could support gains against Euro – ING",
+   "desc": "ING’s Chris Turner writes that EUR/GBP has been pressured by French-related Euro risk but Sterling may gain further support if the Bank of England aligns with other central banks and hikes rates. Markets will watch centrist policymakers Andrew Bailey and Claire Lombardelli for any hint of backing a hike. ING sees strong support at 0.8455/0.8465, with potential tests of 0.8400 if a November hike looks likely.",
+   "link": "https://www.fxstreet.com/news/british-pound-boe-hawkish-shift-could-support-gains-against-euro-ing-202610080933",
+   "time": "2026-10-08T09:33:19+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "2e0024fdb81bbf67",
+   "source": "FXStreet",
+   "bank": "BBH",
+   "title": "US Dollar: Rising oil prices and Fed outlook boost USD – BBH",
+   "desc": "Brown Brothers Harriman’s (BBH) Elias Haddad notes that higher Oil prices are pressuring stocks and bonds while supporting a firmer Dollar. The FOMC minutes showed most participants backing another rate increase by year-end, with futures fully pricing a 25 bps hike to 4.00–4.25%.",
+   "link": "https://www.fxstreet.com/news/us-dollar-rising-oil-prices-and-fed-outlook-boost-usd-bbh-202610080944",
+   "time": "2026-10-08T09:44:18+00:00",
+   "assets": [
+    "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "59937e0329c20d5a",
+   "source": "FXStreet",
+   "bank": "Société Générale",
+   "title": "Japanese Yen: Breakout to set direction against US Dollar - Societe Generale",
+   "desc": "Societe Generale strategists Morning Briefing highlight USD/JPY’s sharp rebound from a September low near 152.90, with the pair now capped by key moving averages. They note a sideways pattern between 156.35 and 159, with a break of this range set to confirm direction.",
+   "link": "https://www.fxstreet.com/news/japanese-yen-breakout-to-set-direction-against-us-dollar-societe-generale-202610080952",
+   "time": "2026-10-08T09:52:33+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "154b44543115fe01",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Swiss Franc: Range trading holds for now against US Dollar – UOB",
+   "desc": "UOB strategists Quek Ser Leang and Lee Sue Ann note that USD/CHF price action has been quiet, with the pair expected to stay confined intraday between 0.8310 and 0.8345. Over a 1–3 week horizon, they reiterate that USD/CHF has likely entered a range-trading phase between 0.8245 and 0.8365. On a 1–3 month view, they see scope for further rebound but limited momentum to revisit the July peak.",
+   "link": "https://www.fxstreet.com/news/swiss-franc-range-trading-holds-for-now-against-us-dollar-uob-202610081000",
+   "time": "2026-10-08T10:00:51+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "4ad1245cdb15f7d5",
+   "source": "FXStreet",
+   "bank": "BBH",
+   "title": "Euro: ECB Account seen reinforcing hike case – BBH",
+   "desc": "Brown Brothers Harriman’s (BBH) Elias Haddad highlights that EUR/USD trades heavy below 1.1200 ahead of the ECB Account release. Above-target Eurozone inflation and a firmer growth outlook give the ECB scope for further tightening, limiting divergence with the Fed.",
+   "link": "https://www.fxstreet.com/news/euro-ecb-account-seen-reinforcing-hike-case-bbh-202610081115",
+   "time": "2026-10-08T11:15:17+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "8c08443ab9dbc3dd",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "British Pound: Euro weakness drives Sterling gains - MUFG",
+   "desc": "Lee Hardman at MUFG highlights that the Pound has rallied sharply against the Euro as Euro-zone fiscal concerns intensify, driving EUR/GBP to fresh year-to-date lows.",
+   "link": "https://www.fxstreet.com/news/british-pound-euro-weakness-drives-sterling-gains-mufg-202610081125",
+   "time": "2026-10-08T11:25:39+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "04d0cb2fdc5040b3",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "Euro: French debt risk weighs on EUR against US Dollar – ING",
+   "desc": "Chris Turner at ING highlights that EUR/USD remains fragile as French sovereign debt volatility drives the pair. A report suggesting the French Treasury may shorten issuance duration unsettled investors, who fear reduced pressure on politicians to deliver fiscal consolidation. ING continues to favor a dip in EUR/USD towards the 1.1100/1.1120 area, where stronger technical support may emerge, with French fiscal debates only starting mid-October.",
+   "link": "https://www.fxstreet.com/news/euro-french-debt-risk-weighs-on-eur-against-us-dollar-ing-202610081243",
+   "time": "2026-10-08T12:43:19+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "acd60b9726f0d263",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Special Bonus Pool for Goldman Executives to Top $500 Million",
+   "desc": "Goldman Sachs executives including CEO David Solomon and President John Waldron are set to take in a special bonus. Equity awards could top $500 million based on the current share price. Solomon could get $100 million alone. Bloomberg's Sridhar Natarajan reports. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-08/goldman-executives-set-to-receive-special-bonus-video",
+   "time": "2026-10-08T13:52:18+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
