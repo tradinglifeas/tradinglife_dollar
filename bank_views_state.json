@@ -130,7 +130,8 @@
   "bcd048078e3a1273": "2026-10-13T14:25:28.798762+00:00",
   "e1a0b57bd8abf1e1": "2026-10-13T14:26:21.682952+00:00",
   "9f50473e77128be3": "2026-10-13T14:28:28.103266+00:00",
-  "d1cdf12308a929d8": "2026-10-13T15:00:35.278487+00:00"
+  "d1cdf12308a929d8": "2026-10-13T15:00:35.278487+00:00",
+  "d49fc1151e74430b": "2026-10-13T15:18:21.307800+00:00"
  },
  "week": [
   {
@@ -1611,6 +1612,18 @@
    "time": "2026-10-13T14:33:46+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "d49fc1151e74430b",
+   "source": "FXStreet",
+   "bank": "Société Générale",
+   "title": "British Pound: Upside momentum builds against Euro – Societe Generale",
+   "desc": "Societe Generale strategists note EUR/GBP has continued its pullback after failing at the 0.8610 graphical hurdle linked to the February and March troughs. The cross has slipped below the July lows, reinforcing prevailing downside momentum.",
+   "link": "https://www.fxstreet.com/news/british-pound-upside-momentum-builds-against-euro-societe-generale-202610131459",
+   "time": "2026-10-13T14:59:20+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
