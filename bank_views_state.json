@@ -1,33 +1,5 @@
 {
  "seen": {
-  "5d4223b2424cd972": "2026-10-02T12:38:30.300804+00:00",
-  "eefeb48999385031": "2026-10-02T12:38:30.300804+00:00",
-  "9d5f2d6f5f614a9e": "2026-10-02T12:38:30.300804+00:00",
-  "48cd1c075f889853": "2026-10-02T12:38:30.300804+00:00",
-  "2595f54512ce3e1f": "2026-10-02T12:38:30.300804+00:00",
-  "d253a613e1f77a40": "2026-10-02T12:38:30.300804+00:00",
-  "b93bbccc8877ab7b": "2026-10-02T12:38:30.300804+00:00",
-  "5be09608a6d9183a": "2026-10-02T12:38:30.300804+00:00",
-  "cd0fb5d82d44839c": "2026-10-02T12:38:30.300804+00:00",
-  "2a00c3b8a49ac9be": "2026-10-02T12:38:30.300804+00:00",
-  "8fa435e581435bdf": "2026-10-02T12:38:30.300804+00:00",
-  "3ee8341512fa0525": "2026-10-02T12:38:30.300804+00:00",
-  "815b3f89b6f6ac6c": "2026-10-02T12:38:30.300804+00:00",
-  "35a1770271821612": "2026-10-02T12:38:30.300804+00:00",
-  "e2c7c3649f5e12a5": "2026-10-02T12:38:30.300804+00:00",
-  "6881610eaf875fe6": "2026-10-02T12:38:30.300804+00:00",
-  "7078088366d49d2b": "2026-10-02T12:38:30.300804+00:00",
-  "e3ecb5255b1c5d48": "2026-10-02T12:38:30.300804+00:00",
-  "9f4a3c5fac281dbd": "2026-10-02T12:38:30.300804+00:00",
-  "7ff5f1e366a6d5b1": "2026-10-02T12:38:30.300804+00:00",
-  "5ba265d914b40952": "2026-10-02T12:38:30.300804+00:00",
-  "3cc80066503f084a": "2026-10-02T12:38:30.300804+00:00",
-  "75c7215601df4351": "2026-10-02T12:38:30.300804+00:00",
-  "9c396ff60c1969a9": "2026-10-02T14:01:12.677294+00:00",
-  "78a4cb9c75653f8a": "2026-10-02T14:28:22.844613+00:00",
-  "bb6f8e0652c0fa89": "2026-10-02T17:00:32.373109+00:00",
-  "87d461f018b82fdb": "2026-10-02T19:24:22.271111+00:00",
-  "b920c9f0aeeefaed": "2026-10-02T22:00:34.628087+00:00",
   "aba70ab3a2ec3a18": "2026-10-05T07:00:33.024005+00:00",
   "9bc360e27d18b4a1": "2026-10-05T07:00:33.024005+00:00",
   "d3ad43abf65f3e77": "2026-10-05T07:00:33.024005+00:00",
@@ -126,264 +98,29 @@
   "4ad1245cdb15f7d5": "2026-10-08T14:22:25.884397+00:00",
   "8c08443ab9dbc3dd": "2026-10-08T14:22:25.884397+00:00",
   "04d0cb2fdc5040b3": "2026-10-08T14:22:25.884397+00:00",
-  "acd60b9726f0d263": "2026-10-08T14:22:25.884397+00:00"
+  "acd60b9726f0d263": "2026-10-08T14:22:25.884397+00:00",
+  "c9f26c02a485c7ee": "2026-10-13T14:24:26.368646+00:00",
+  "91f37443fa018c79": "2026-10-13T14:24:26.368646+00:00",
+  "20e7d768be91a1bc": "2026-10-13T14:24:26.368646+00:00",
+  "598efa48cb3d5bc1": "2026-10-13T14:24:26.368646+00:00",
+  "2660f6238c514404": "2026-10-13T14:24:26.368646+00:00",
+  "d816efb96442f5f2": "2026-10-13T14:24:26.368646+00:00",
+  "4914475903697ae9": "2026-10-13T14:24:26.368646+00:00",
+  "095ec24c807e637f": "2026-10-13T14:24:26.368646+00:00",
+  "0553c4d87d425be7": "2026-10-13T14:24:26.368646+00:00",
+  "03462d24eba9b155": "2026-10-13T14:24:26.368646+00:00",
+  "f08d1cfb535cafbc": "2026-10-13T14:24:26.368646+00:00",
+  "47e3e86629761bd7": "2026-10-13T14:24:26.368646+00:00",
+  "39f04437074b68b6": "2026-10-13T14:24:26.368646+00:00",
+  "f2c9a825b8128142": "2026-10-13T14:24:26.368646+00:00",
+  "44a54fd96ba424cf": "2026-10-13T14:24:26.368646+00:00",
+  "c2a1f2aa5d40cf70": "2026-10-13T14:24:26.368646+00:00",
+  "0eec0338369125d1": "2026-10-13T14:24:26.368646+00:00",
+  "f3e55c7bbda57bc6": "2026-10-13T14:24:26.368646+00:00",
+  "c14c2664e9e565b8": "2026-10-13T14:24:26.368646+00:00",
+  "9643ca208a46c1ca": "2026-10-13T14:24:26.368646+00:00"
  },
  "week": [
-  {
-   "id": "5be09608a6d9183a",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "Focus Turns to US Job Openings",
-   "desc": "In focus today In the euro area, focus turns to the September flash inflation print for Spain which will give the first indication of where the euro area data on Friday lands. We expect a modest rise in headline due to higher energy costs and a small increase in core inflation. We also receive the […] The post Focus Turns to US Job Openings appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/contributors/fundamental-analysis/655692-focus-turns-to-us-job-openings/",
-   "time": "2026-09-29T05:57:13+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "cd0fb5d82d44839c",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "Focus Today on Inflation Prints From Europe and the US",
-   "desc": "In focus today In the euro area, September flash inflation prints for Germany, France, and Italy will be released. The data will give hints to where the data for the whole euro area will land on Friday. In the US, August PCE inflation will be released in the afternoon. Headline inflation likely rose from July […] The post Focus Today on Inflation Prints From Europe and the US appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/contributors/fundamental-analysis/655823-focus-today-on-inflation-prints-from-europe-and-the-us/",
-   "time": "2026-09-30T06:22:30+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "2a00c3b8a49ac9be",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "Fiscal troubles for the euro may only be starting",
-   "desc": "History suggests that the euro’s correlation with eurozone spread widening can pick up rapidly. Today’s budget announcement in France leaves OATs at risk of further underperformance, and a so far resilient EUR/USD may be looking at material downside risks if things don’t improve. EUR/CHF is facing similar depreciation potential",
-   "link": "https://think.ing.com/articles/fiscal-troubles-for-the-euro-may-only-be-starting/",
-   "time": "2026-10-01T14:04:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "8fa435e581435bdf",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "US Jobs Report Is Due: We Expect a Hot One",
-   "desc": "In focus today In the euro area, the September flash inflation print will be released. We expect the headline HICP inflation to rise to 3.6% y/y (prior: 3.2% y/y) and the core to rise slightly to 2.5% y/y (prior: 2.4% y/y). Headline HICP inflation prints from France, Italy and Germany on Wednesday were above expectations […] The post US Jobs Report Is Due: We Expect a Hot One appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/contributors/fundamental-analysis/656129-us-jobs-report-is-due-we-expect-a-hot-one/",
-   "time": "2026-10-02T06:03:16+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "3ee8341512fa0525",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: Tipping point",
-   "desc": "Markets reached a point of inflection yesterday, where the sell-off in French debt broke the narrative of ever-higher short-term market interest rates. This questions whether central banks are about to extend into policy error territory with tightening cycles. If that is the case, the ECB has less cause to tighten than the Fed, and EUR/USD can stay offered",
-   "link": "https://think.ing.com/articles/fx-daily-tipping-point/",
-   "time": "2026-10-02T06:40:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "815b3f89b6f6ac6c",
-   "source": "FXStreet",
-   "bank": "Deutsche Bank",
-   "title": "Gold: Modest gains in risk-off backdrop – Deutsche Bank",
-   "desc": "Deutsche Bank notes that Gold prices edged higher alongside broader risk-off moves and rising financial stress in Europe. While the report focuses more on bonds, equities and energy, Gold’s advance came as volatility ticked up and investors digested geopolitical risks and shifting central bank expectations ahead of key US and Euro Area data releases.",
-   "link": "https://www.fxstreet.com/news/gold-modest-gains-in-risk-off-backdrop-deutsche-bank-202610020732",
-   "time": "2026-10-02T07:32:54+00:00",
-   "assets": [
-    "metals",
-    "fx",
-    "stocks"
-   ]
-  },
-  {
-   "id": "35a1770271821612",
-   "source": "FXStreet",
-   "bank": "Commerzbank",
-   "title": "Japanese Yen: Safe-haven status questioned – Commerzbank",
-   "desc": "Commerzbank’s Michael Pfister and Volkmar Baur highlight that the Japanese Yen is struggling as a safe haven despite risk-off conditions. Rising Japanese debt concerns and the Bank of Japan’s (BoJ) rate hikes are seen eroding its traditional crisis appeal.",
-   "link": "https://www.fxstreet.com/news/japanese-yen-safe-haven-status-questioned-commerzbank-202610020734",
-   "time": "2026-10-02T07:34:12+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "e2c7c3649f5e12a5",
-   "source": "FXStreet",
-   "bank": "Deutsche Bank",
-   "title": "EUR/USD: Under pressure on Euro stress – Deutsche Bank",
-   "desc": "Deutsche Bank analysts describe EUR/USD weakness as European spreads widened and bank stocks sold off. The Euro fell sharply against the Dollar, while markets questioned whether the European Central Bank could deliver another rate hike this year.",
-   "link": "https://www.fxstreet.com/news/eur-usd-under-pressure-on-euro-stress-deutsche-bank-202610020735",
-   "time": "2026-10-02T07:35:39+00:00",
-   "assets": [
-    "fx",
-    "stocks"
-   ]
-  },
-  {
-   "id": "6881610eaf875fe6",
-   "source": "FXStreet",
-   "bank": "Commerzbank",
-   "title": "Swiss Franc: Safe-haven appeal strengthens – Commerzbank",
-   "desc": "Commerzbank’s Michael Pfister argues that rising global bond yields and mounting government debt concerns are increasingly supporting the Swiss Franc over the Euro. He notes Switzerland’s debt brake and relatively sound public finances as key advantages.",
-   "link": "https://www.fxstreet.com/news/swiss-franc-safe-haven-appeal-strengthens-commerzbank-202610020828",
-   "time": "2026-10-02T08:28:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "7078088366d49d2b",
-   "source": "FXStreet",
-   "bank": "ING",
-   "title": "US Dollar: Fed pricing supports Dollar resilience – ING",
-   "desc": "ING’s Chris Turner notes that the French debt sell-off triggered a reassessment of global rate expectations, but US short-dated yields only corrected modestly.",
-   "link": "https://www.fxstreet.com/news/us-dollar-fed-pricing-supports-dollar-resilience-ing-202610020830",
-   "time": "2026-10-02T08:30:17+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "e3ecb5255b1c5d48",
-   "source": "FXStreet",
-   "bank": "Deutsche Bank",
-   "title": "S&P 500: Resilient as Fed tone turns dovish – Deutsche Bank",
-   "desc": "Deutsche Bank’s Early Morning Reid team reports that the S&P 500 broke a three-day losing streak, helped by a pullback in US Treasury yields and more dovish FOMC commentary. Despite strong US data and earlier upward pressure on yields, markets now price a much lower probability of an October Fed hike, supporting US equities into the upcoming jobs report.",
-   "link": "https://www.fxstreet.com/news/sp-500-resilient-as-fed-tone-turns-dovish-deutsche-bank-202610020831",
-   "time": "2026-10-02T08:31:34+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "9f4a3c5fac281dbd",
-   "source": "FXStreet",
-   "bank": "ING",
-   "title": "EUR/USD: French risk premium weighs on Euro – ING",
-   "desc": "ING’s Chris Turner argues that the French debt sell-off has broken the narrative of ever-higher short-term rates and raised doubts about further European Central Bank (ECB) tightening.",
-   "link": "https://www.fxstreet.com/news/eur-usd-french-risk-premium-weighs-on-euro-ing-202610020912",
-   "time": "2026-10-02T09:12:44+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "7ff5f1e366a6d5b1",
-   "source": "FXStreet",
-   "bank": "MUFG",
-   "title": "Mexican Peso: Carry liquidation pressures LatAm currencies – MUFG",
-   "desc": "MUFG’s Derek Halpenny notes that rising rates volatility is driving a broader unwind of EM FX carry trades, with LatAm currencies under particular pressure. USD/MXN has surged and MXN long leveraged positions are being squeezed as implied volatility jumps.",
-   "link": "https://www.fxstreet.com/news/mexican-peso-carry-liquidation-pressures-latam-currencies-mufg-202610021003",
-   "time": "2026-10-02T10:03:41+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "5ba265d914b40952",
-   "source": "FXStreet",
-   "bank": "BBH",
-   "title": "US Dollar: Uptrend intact as NFP looms – BBH",
-   "desc": "Brown Brothers Harriman’s Elias Haddad notes the recent US Dollar rally and bond selloff have stalled as FOMC officials temper expectations for an October rate hike.",
-   "link": "https://www.fxstreet.com/news/us-dollar-uptrend-intact-as-nfp-looms-bbh-202610021012",
-   "time": "2026-10-02T10:12:18+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "3cc80066503f084a",
-   "source": "FXStreet",
-   "bank": "BBH",
-   "title": "Euro: Downside risks despite ECB scope – BBH",
-   "desc": "Brown Brothers Harriman’s Elias Haddad reports EUR/USD has slightly recovered after hitting fresh cyclical lows, with support at 1.1200 and 1.1111.",
-   "link": "https://www.fxstreet.com/news/euro-downside-risks-despite-ecb-scope-bbh-202610021107",
-   "time": "2026-10-02T11:07:52+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "75c7215601df4351",
-   "source": "Bloomberg",
-   "bank": "Citi",
-   "title": "Stocks Climb Ahead of Payrolls Report, Anthropic Eyes November IPO",
-   "desc": "US equity futures rise after a week of sharp swings in yields, with the US payrolls report still to come. Anthropic is seeking to go public as soon as mid-November, with formal marketing for its IPO potentially starting the week of November 9. Veronica Clark of Citi joins \"Bloomberg Brief\" to look ahead to the US jobs report. (Source: Bloomberg)",
-   "link": "https://www.bloomberg.com/news/videos/2026-10-02/bloomberg-brief-10-02-2026-video",
-   "time": "2026-10-02T12:05:45+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "9c396ff60c1969a9",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "Weekly Focus – French Budget Sets Off Turmoil in European Bonds",
-   "desc": "Bond market swings continue to be at centre stage in world markets. On Thursday the French government presented its 2027 budget bill that aims to curb the booming deficit back to 5% of GDP. Following the announcement the spread between French and German 10Y yields rose to a new post euro crisis high. Uncertainty around […] The post Weekly Focus – French Budget Sets Off Turmoil in European Bonds appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/action-insight/market-overview/656221-weekly-focus-french-budget-sets-off-turmoil-in-european-bonds/",
-   "time": "2026-10-02T13:36:15+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "78a4cb9c75653f8a",
-   "source": "FXStreet",
-   "bank": "MUFG",
-   "title": "RBI to keep tightening risks alive – MUFG",
-   "desc": "MUFG analysts Lin Li, Michael Wan, Lloyd Chan and Khang Sek Lee highlight that Asia FX will be driven by the Reserve Bank of India’s (RBI) finely balanced decision on 7 October.",
-   "link": "https://www.fxstreet.com/news/rbi-to-keep-tightening-risks-alive-mufg-202610021428",
-   "time": "2026-10-02T14:28:05+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "bb6f8e0652c0fa89",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "Weekly Focus – French Budget Sets Off Turmoil in European Bonds",
-   "desc": "Bond market swings continue to be at centre stage in world markets. On Thursday the French government presented its 2027 budget bill that aims to curb the booming deficit back to 5% of GDP. Following the announcement the spread between French and German 10Y yields rose to a new post euro crisis high. Uncertainty around […] The post Weekly Focus – French Budget Sets Off Turmoil in European Bonds appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/contributors/fundamental-analysis/656221-weekly-focus-french-budget-sets-off-turmoil-in-european-bonds/",
-   "time": "2026-10-02T13:36:15+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "87d461f018b82fdb",
-   "source": "Bloomberg",
-   "bank": "UBS",
-   "title": "Nadia Lovell: Equities Must Earn the Next Leg Up",
-   "desc": "As stocks rise and bond yields pull back ahead of the jobs report, Nadia Lovell of UBS says she remains bullish on equities, but believes the market’s next advance must be earned. She argues that markets are entering a new investment cycle after years of companies prioritizing financial efficiency through measures such as buybacks and lower capital spending. The shift now extends beyond AI to investment in power, supply chains, and defense, broadening corporate profit opportunities. If these investments deliver a productivity boost, Lovell says, they could support a healthier market and further gains over the longer term. (Source: Bloomberg)",
-   "link": "https://www.bloomberg.com/news/videos/2026-10-02/nadia-lovell-equities-must-earn-the-next-leg-up-video",
-   "time": "2026-10-02T19:20:35+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "b920c9f0aeeefaed",
-   "source": "Bloomberg",
-   "bank": "Morgan Stanley",
-   "title": "Morgan Stanley's Nike Analyst on quarterly earnings",
-   "desc": "Morgan Stanley's Alex Straton sees Nike sales and earnings softening as the company deals with inventory gluts in North America and China. She speaks with Romaine Bostick on Bloomberg's \"The Close.\" (Source: Bloomberg)",
-   "link": "https://www.bloomberg.com/news/videos/2026-10-02/morgan-stanley-s-nike-analyst-on-quarterly-earnings-video",
-   "time": "2026-10-02T21:55:08+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "aba70ab3a2ec3a18",
    "source": "FXStreet",
@@ -1574,6 +1311,246 @@
    "time": "2026-10-08T13:52:18+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "c9f26c02a485c7ee",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Talking: Forecast table",
+   "desc": "EUROPE: The latest FX forecasts from our team",
+   "link": "https://think.ing.com/articles/fx-talking-forecast-table-october-2026/",
+   "time": "2026-10-12T10:43:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "91f37443fa018c79",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Asia FX Talking: More two-way risk emerging in USD/CNY",
+   "desc": "ASIA/PACIFIC: Higher Treasury yields and a broadly stronger dollar are starting to inject more two-way risk in USD/CNY, raising questions about whether it needs to drop much further. We suspect 6.67 will mark the lower end of this year's range. Korea's won remains well bid on the broadening export boom, while South Asia FX continues to struggle with high energy",
+   "link": "https://think.ing.com/articles/asia-fx-talking-october-2026/",
+   "time": "2026-10-12T10:43:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "20e7d768be91a1bc",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Latam FX Talking: Brazil and Mexico on diverging paths",
+   "desc": "LATIN AMERICA: Flávio Bolsonaro's surprising success in the first round of Brazil's presidential elections suggests Brazilian assets and the currency remain prone to a re-rating. In contrast, Banxico seems to have little intention of tracking the Fed in its tightening cycle, leaving the peso quite vulnerable. BRL/MXN looks set to continue its powerful advance",
+   "link": "https://think.ing.com/articles/latam-fx-talking-october-2026/",
+   "time": "2026-10-12T10:45:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "598efa48cb3d5bc1",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "EMEA FX Talking: External headwinds up against local stories",
+   "desc": "CENTRAL AND EASTERN EUROPE: Like many emerging market currencies, those in the EMEA region have been hit by higher US Treasury yields and the stronger dollar. Yet the domestic stories look constructive for many, and a combination of some local rate hikes as well as light foreign positioning (ex Hungary) can insulate these currencies from the global bond market sell-off",
+   "link": "https://think.ing.com/articles/emea-fx-talking-october-2026/",
+   "time": "2026-10-12T10:47:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "2660f6238c514404",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "G10 FX Talking: Independent euro weakness in play",
+   "desc": "EUROPE: At a time when US economic growth appears 'solid' and the Fed is intent on tightening policy, French budget unrest has only served to soften an already weak EUR/USD. We now think it can stay pressured at the lower end of a 1.10-15 range over the next three to six months. The biggest threat to the dollar probably comes from any new White House policy post-midterms",
+   "link": "https://think.ing.com/articles/g10-fx-talking-october-2026/",
+   "time": "2026-10-12T10:48:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "d816efb96442f5f2",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: No trigger in sight for a dollar reversal",
+   "desc": "A range of indicators suggests the dollar rally is becoming stretched. But with no clear macro or market catalyst in sight, we see little reason to call for an imminent reversal. We have lowered our EUR forecasts to reflect a more durable fiscal risk premium, while increasing prospects of a BoE hike should keep EUR/GBP under pressure for longer",
+   "link": "https://think.ing.com/articles/fx-daily-no-trigger-in-sight-for-a-dollar-reversal/",
+   "time": "2026-10-13T06:45:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "4914475903697ae9",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Webinar: Is France pushing the eurozone into a new sovereign debt crisis?",
+   "desc": "FRANCE: France's fiscal and political challenges have pushed bond spreads to levels not seen since the sovereign debt crisis. Could France become the eurozone's next major fault line? Join ING experts for a discussion of the risks, the policy options, and the implications for the economy, bond markets and the euro. Sign up here",
+   "link": "https://think.ing.com/articles/webinar-is-france-pushing-the-eurozone-into-a-new-sovereign-debt-crisis/",
+   "time": "2026-10-13T07:25:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "095ec24c807e637f",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "Australian Dollar: High rates support Aussie against US Dollar - MUFG",
+   "desc": "MUFG's Lee Hardman says the Australian Dollar remains supported by the RBA's 4.60% policy rate and resilient global growth. September meeting minutes signal scope for further tightening, although housing weakness remains a concern.",
+   "link": "https://www.fxstreet.com/news/australian-dollar-high-rates-support-aussie-against-us-dollar-mufg-202610130859",
+   "time": "2026-10-13T08:59:21+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "0553c4d87d425be7",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "US Dollar: Overbought signals but no clear catalyst – ING",
+   "desc": "ING strategists Francesco Pesole, Frantisek Taborsky and Chris Turner note that several indicators show the Dollar rally is stretched, with the currency overvalued against most G10 peers and positioning extended. However, they argue that without a clear macro or market catalyst, an imminent reversal is unlikely, as sticky Fed tightening expectations and global bond weakness continue to support demand for the Dollar.",
+   "link": "https://www.fxstreet.com/news/us-dollar-overbought-signals-but-no-clear-catalyst-ing-202610130943",
+   "time": "2026-10-13T09:43:43+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "03462d24eba9b155",
+   "source": "FXStreet",
+   "bank": "Deutsche Bank",
+   "title": "Equities: Earnings beats seen versus consensus – Deutsche Bank",
+   "desc": "Deutsche Bank strategists, highlight the start of the United States (US) Q3 earnings season with major banks reporting.",
+   "link": "https://www.fxstreet.com/news/equities-earnings-beats-seen-versus-consensus-deutsche-bank-202610131000",
+   "time": "2026-10-13T10:00:55+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "f08d1cfb535cafbc",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Swiss Franc: Range consolidation persists against US Dollar – UOB",
+   "desc": "United Overseas Bank (UOB) strategists Quek Ser Leang and Lee Sue Ann note that USD/CHF has rebounded but still lacks strong upside momentum. In the near term, they see the Dollar trading in a slightly higher 0.8320/0.8355 band, while over the next 1–3 weeks they expect a narrower 0.8295/0.8365 range. On a 1–3 month horizon, they see continued rebound but not a retest of the July peak.",
+   "link": "https://www.fxstreet.com/news/swiss-franc-range-consolidation-persists-against-us-dollar-uob-202610131036",
+   "time": "2026-10-13T10:36:15+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "47e3e86629761bd7",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "Japanese Yen: Stronger footing with intervention risk – MUFG",
+   "desc": "MUFG’s Lee Hardman notes that the Japanese Yen has firmed modestly, pulling USD/JPY back toward 158.00 and keeping it below the 200-day moving average near 158.50.",
+   "link": "https://www.fxstreet.com/news/japanese-yen-stronger-footing-with-intervention-risk-mufg-202610131052",
+   "time": "2026-10-13T10:52:55+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "39f04437074b68b6",
+   "source": "FXStreet",
+   "bank": "Commerzbank",
+   "title": "US Dollar: Higher rate expectations support gains - Commerzbank",
+   "desc": "Commerzbank’s Thu Lan Nguyen discusses how the US Dollar (USD) reacted to Federal Reserve Chair Kevin Warsh’s move away from traditional forward guidance.",
+   "link": "https://www.fxstreet.com/news/us-dollar-higher-rate-expectations-support-gains-commerzbank-202610131109",
+   "time": "2026-10-13T11:09:31+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "f2c9a825b8128142",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "British Pound: Firmer ground with BoE hike risk – ING",
+   "desc": "Francesco Pesole at ING highlights a supportive backdrop for the Pound, with EUR/GBP now expected to trade in a 0.84–0.85 range for several months as Euro-specific risks persist and the Bank of England signals readiness to hike. While ING sees BoE expectations as too hawkish for 2027, one or two hikes look increasingly likely, and the budget risk is seen as manageable for Sterling.",
+   "link": "https://www.fxstreet.com/news/british-pound-firmer-ground-with-boe-hike-risk-ing-202610131201",
+   "time": "2026-10-13T12:01:46+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "44a54fd96ba424cf",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "S&P 500 Holds Firm as Banks Report Earnings, Chipmakers Slump",
+   "desc": "US stocks were little changed Tuesday despite a deepening selloff in chipmakers, as traders sorted through generally strong results from JPMorgan Chase & Co., Goldman Sachs Group Inc. and other lenders in the start to third-quarter corporate earnings season.",
+   "link": "https://www.bloomberg.com/news/articles/2026-10-13/s-p-500-futures-little-changed-as-banks-report-chipmakers-fall",
+   "time": "2026-10-13T12:07:12+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "c2a1f2aa5d40cf70",
+   "source": "FXStreet",
+   "bank": "MUFG",
+   "title": "Indian Rupee: RBI measures support near term – MUFG",
+   "desc": "MUFG’s Michael Wan analyses recent Reserve Bank of India actions and their impact on the Indian Rupee. He notes that RBI’s new FX and liquidity measures have sharply strengthened spot USD/INR, but also pushed stress into forwards, offshore NDFs and bonds.",
+   "link": "https://www.fxstreet.com/news/indian-rupee-rbi-measures-support-near-term-mufg-202610131214",
+   "time": "2026-10-13T12:14:26+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "0eec0338369125d1",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Japanese Yen: Weakness may deepen toward 159.05 against US Dollar – UOB",
+   "desc": "United Overseas Bank’s (UOB) Quek Ser Leang and Lee Sue Ann note USD/JPY continues to grind higher as wide US‑Japan yield differentials weigh on the Japanese Yen (JPY). Intraday, the pair is expected to hold within 158.20–158.80.",
+   "link": "https://www.fxstreet.com/news/japanese-yen-weakness-may-deepen-toward-15905-against-us-dollar-uob-202610131241",
+   "time": "2026-10-13T12:41:01+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "f3e55c7bbda57bc6",
+   "source": "FXStreet",
+   "bank": "Commerzbank",
+   "title": "Australian Dollar: RBA inflation focus shapes outlook – Commerzbank",
+   "desc": "Commerzbank’s Volkmar Baur explains that the Reserve Bank of Australia is increasingly focused on high inflation, with trimmed-mean inflation above its 2–3% target band for over a year.",
+   "link": "https://www.fxstreet.com/news/australian-dollar-rba-inflation-focus-shapes-outlook-commerzbank-202610131251",
+   "time": "2026-10-13T12:51:41+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "c14c2664e9e565b8",
+   "source": "CNBC",
+   "bank": "Goldman Sachs",
+   "title": "Jim Cramer's top 10 things to watch in the stock market Tuesday",
+   "desc": "The chip stock rout seems to know no end. But earnings from Club names Goldman Sachs and Wells Fargo are all better than expected.",
+   "link": "https://www.cnbc.com/investingclub/2026/10/13/jim-cramers-top-10-things-to-watch-in-the-stock-market-tuesday.html",
+   "time": "2026-10-13T12:54:50+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "9643ca208a46c1ca",
+   "source": "FXStreet",
+   "bank": "ING",
+   "title": "Euro: Lower year-end target at 1.13 against US Dollar – ING",
+   "desc": "ING’s Francesco Pesole writes that EUR/USD is moderately undervalued versus short-term fundamentals, reflecting a persistent France-related risk premium that could widen if French bonds sell off further. He sees a challenging backdrop for Euro bulls, expects a possible test of 1.110, and notes that ING has revised its EUR/USD forecast down to 1.13 for the fourth quarter of 2026 and first quarter of 2027.",
+   "link": "https://www.fxstreet.com/news/euro-lower-year-end-target-at-113-against-us-dollar-ing-202610131304",
+   "time": "2026-10-13T13:04:42+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
