@@ -129,7 +129,8 @@
   "bb6f8e0652c0fa89": "2026-10-13T14:25:28.798762+00:00",
   "bcd048078e3a1273": "2026-10-13T14:25:28.798762+00:00",
   "e1a0b57bd8abf1e1": "2026-10-13T14:26:21.682952+00:00",
-  "9f50473e77128be3": "2026-10-13T14:28:28.103266+00:00"
+  "9f50473e77128be3": "2026-10-13T14:28:28.103266+00:00",
+  "d1cdf12308a929d8": "2026-10-13T15:00:35.278487+00:00"
  },
  "week": [
   {
@@ -1598,6 +1599,18 @@
    "time": "2026-10-13T14:23:57+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "d1cdf12308a929d8",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "US Bank Earnings Put FICC Sales & Trading in Focus",
+   "desc": "Wall Street banks kicked off earnings season Tuesday with third-quarter results from JPMorgan Chase & Co., Goldman Sachs Group Inc., Citigroup Inc., and Wells Fargo & Co. Christopher McGratty, head of US bank research at KBW, examines the results on \"Bloomberg Open Interest.\" (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-13/us-bank-earnings-put-ficc-sales-trading-in-focus-video",
+   "time": "2026-10-13T14:33:46+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
