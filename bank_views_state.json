@@ -128,7 +128,8 @@
   "8fa435e581435bdf": "2026-10-13T14:25:28.798762+00:00",
   "bb6f8e0652c0fa89": "2026-10-13T14:25:28.798762+00:00",
   "bcd048078e3a1273": "2026-10-13T14:25:28.798762+00:00",
-  "e1a0b57bd8abf1e1": "2026-10-13T14:26:21.682952+00:00"
+  "e1a0b57bd8abf1e1": "2026-10-13T14:26:21.682952+00:00",
+  "9f50473e77128be3": "2026-10-13T14:28:28.103266+00:00"
  },
  "week": [
   {
@@ -1583,6 +1584,18 @@
    "desc": "United Overseas Bank’s (UOB) Quek Ser Leang and Lee Sue Ann report AUD/USD slipping as the stronger US Dollar weighs on commodity currencies. Short‑term momentum has turned lower, with scope for a test of major support at 0.6935, though a sustained break is seen as unlikely.",
    "link": "https://www.fxstreet.com/news/australian-dollar-key-support-at-06935-in-focus-against-us-dollar-uob-202610131404",
    "time": "2026-10-13T14:04:33+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "9f50473e77128be3",
+   "source": "FXStreet",
+   "bank": "Scotiabank",
+   "title": "Canadian Dollar: Modest gains against US Dollar - Scotiabank",
+   "desc": "Scotiabank strategists Shaun Osborne and Eric Theoret reports the Canadian Dollar (CAD) up 0.2% versus the US Dollar (USD) but underperforming other G10 currencies, with markets still pricing Bank of Canada (BoC) tightening into year-end despite weak labour data.",
+   "link": "https://www.fxstreet.com/news/canadian-dollar-modest-gains-against-us-dollar-scotiabank-202610131423",
+   "time": "2026-10-13T14:23:57+00:00",
    "assets": [
     "fx"
    ]
