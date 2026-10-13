@@ -118,7 +118,16 @@
   "0eec0338369125d1": "2026-10-13T14:24:26.368646+00:00",
   "f3e55c7bbda57bc6": "2026-10-13T14:24:26.368646+00:00",
   "c14c2664e9e565b8": "2026-10-13T14:24:26.368646+00:00",
-  "9643ca208a46c1ca": "2026-10-13T14:24:26.368646+00:00"
+  "9643ca208a46c1ca": "2026-10-13T14:24:26.368646+00:00",
+  "48cd1c075f889853": "2026-10-13T14:25:28.798762+00:00",
+  "2595f54512ce3e1f": "2026-10-13T14:25:28.798762+00:00",
+  "d253a613e1f77a40": "2026-10-13T14:25:28.798762+00:00",
+  "b93bbccc8877ab7b": "2026-10-13T14:25:28.798762+00:00",
+  "5be09608a6d9183a": "2026-10-13T14:25:28.798762+00:00",
+  "cd0fb5d82d44839c": "2026-10-13T14:25:28.798762+00:00",
+  "8fa435e581435bdf": "2026-10-13T14:25:28.798762+00:00",
+  "bb6f8e0652c0fa89": "2026-10-13T14:25:28.798762+00:00",
+  "bcd048078e3a1273": "2026-10-13T14:25:28.798762+00:00"
  },
  "week": [
   {
@@ -1549,6 +1558,18 @@
    "desc": "ING’s Francesco Pesole writes that EUR/USD is moderately undervalued versus short-term fundamentals, reflecting a persistent France-related risk premium that could widen if French bonds sell off further. He sees a challenging backdrop for Euro bulls, expects a possible test of 1.110, and notes that ING has revised its EUR/USD forecast down to 1.13 for the fourth quarter of 2026 and first quarter of 2027.",
    "link": "https://www.fxstreet.com/news/euro-lower-year-end-target-at-113-against-us-dollar-ing-202610131304",
    "time": "2026-10-13T13:04:42+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "bcd048078e3a1273",
+   "source": "FXStreet",
+   "bank": "Société Générale",
+   "title": "Indian Rupee: RBI defense limits losses against US Dollar – Societe Generale",
+   "desc": "Societe Generale's strategists note that the INR has rallied further, with USD/INR looking to break below the 95 handle as the RBI intensifies its FX defense. The central bank extended FX curbs to GIFT City and broadened use of risk reserves.",
+   "link": "https://www.fxstreet.com/news/indian-rupee-rbi-defense-limits-losses-against-us-dollar-societe-generale-202610131331",
+   "time": "2026-10-13T13:31:02+00:00",
    "assets": [
     "fx"
    ]
