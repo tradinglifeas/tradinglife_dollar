@@ -127,7 +127,8 @@
   "cd0fb5d82d44839c": "2026-10-13T14:25:28.798762+00:00",
   "8fa435e581435bdf": "2026-10-13T14:25:28.798762+00:00",
   "bb6f8e0652c0fa89": "2026-10-13T14:25:28.798762+00:00",
-  "bcd048078e3a1273": "2026-10-13T14:25:28.798762+00:00"
+  "bcd048078e3a1273": "2026-10-13T14:25:28.798762+00:00",
+  "e1a0b57bd8abf1e1": "2026-10-13T14:26:21.682952+00:00"
  },
  "week": [
   {
@@ -1570,6 +1571,18 @@
    "desc": "Societe Generale's strategists note that the INR has rallied further, with USD/INR looking to break below the 95 handle as the RBI intensifies its FX defense. The central bank extended FX curbs to GIFT City and broadened use of risk reserves.",
    "link": "https://www.fxstreet.com/news/indian-rupee-rbi-defense-limits-losses-against-us-dollar-societe-generale-202610131331",
    "time": "2026-10-13T13:31:02+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "e1a0b57bd8abf1e1",
+   "source": "FXStreet",
+   "bank": "UOB",
+   "title": "Australian Dollar : Key support at 0.6935 in focus against US Dollar – UOB",
+   "desc": "United Overseas Bank’s (UOB) Quek Ser Leang and Lee Sue Ann report AUD/USD slipping as the stronger US Dollar weighs on commodity currencies. Short‑term momentum has turned lower, with scope for a test of major support at 0.6935, though a sustained break is seen as unlikely.",
+   "link": "https://www.fxstreet.com/news/australian-dollar-key-support-at-06935-in-focus-against-us-dollar-uob-202610131404",
+   "time": "2026-10-13T14:04:33+00:00",
    "assets": [
     "fx"
    ]
