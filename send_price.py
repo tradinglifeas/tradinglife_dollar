@@ -45,6 +45,9 @@ ITEMS = [
     ("rob", "🟡 ربع سکه", ["rob"]),
 ]
 
+# نوسان قیمت سکه‌ها رو به «هزار تومان» می‌ده (مثلاً 268000 = ۲۶۸ میلیون تومان)؛ ارز و طلا به تومان‌ان
+THOUSAND_TOMAN = {"bahar", "emami", "nim", "rob"}
+
 # بازه‌ی منطقی قیمت دلار به تومان؛ بیرون از این بازه یعنی داده خرابه یا واحدش عوض شده
 USD_MIN, USD_MAX = 10_000, 10_000_000
 
@@ -93,6 +96,8 @@ def pick(data):
     out = {}
     for key, _, names in ITEMS:
         val = next((to_number(data[n]) for n in names if n in data and to_number(data[n])), None)
+        if val and key in THOUSAND_TOMAN:
+            val *= 1000
         out[key] = val
     return out
 
