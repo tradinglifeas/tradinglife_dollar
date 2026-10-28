@@ -6,7 +6,8 @@
   "8464793eb372e14c": "2026-10-28T12:29:24.148650+00:00",
   "5fb9ec5df0293744": "2026-10-28T12:29:24.148650+00:00",
   "ec69ec22cac49a60": "2026-10-28T12:29:24.148650+00:00",
-  "4148de2a69c02fc2": "2026-10-28T12:29:24.148650+00:00"
+  "4148de2a69c02fc2": "2026-10-28T12:29:24.148650+00:00",
+  "aac1ed992feb54b3": "2026-10-28T14:00:31.938186+00:00"
  },
  "week": [
   {
@@ -65,6 +66,18 @@
    "desc": "Fears of an AI bust have receded slightly, and the AI story has been helped overnight by impressive 3Q results from Korean chipmaker SK Hynix. This has allowed the market to focus on the core story of resilient growth, high inflation and the prospect of higher energy prices – all dollar-positive. Look out for the Fed, the Bank of Canada and the UK budget today",
    "link": "https://think.ing.com/articles/fx-daily-abatement-in-ai-risk-helps-the-dollar/",
    "time": "2026-10-28T07:40:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "aac1ed992feb54b3",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "RBNZ’s huge dovish surprise spells trouble for Kiwi dollar",
+   "desc": "ASIA/PACIFIC: The Reserve Bank of New Zealand surprised with a 4-3 split vote for a hold. While a December hike remains on the cards, the signal was dovish, leaving markets’ tightening expectations vulnerable. That points to further downside risks for NZD vs commodity currency peers, despite potential near-term relief in the undervalued NZD/USD",
+   "link": "https://think.ing.com/articles/rbnzs-huge-dovish-surprise-spells-trouble-for-kiwi-dollar/",
+   "time": "2026-10-28T13:13:00+00:00",
    "assets": [
     "fx"
    ]
