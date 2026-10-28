@@ -174,6 +174,42 @@ NAMES = {"EUR": "euro", "GBP": "pound", "JPY": "yen", "CHF": "Swiss franc",
 
 GROQ_MODELS = ["openai/gpt-oss-120b", "openai/gpt-oss-20b"]
 
+# ---- نسخه‌ی فارسی
+from tl_fa import IS_FA, fa_date, hashtags
+NAMES_FA = {"EUR": "یورو", "GBP": "پوند", "JPY": "ین", "CHF": "فرانک سوئیس", "CAD": "دلار کانادا",
+            "AUD": "دلار استرالیا", "NZD": "دلار نیوزیلند", "NOK": "کرون نروژ", "SEK": "کرون سوئد",
+            "USD": "دلار آمریکا"}
+DRIVER_FA = {
+    "FED_HAWKISH": "انتظار سیاست سخت‌گیرانه‌تر فدرال رزرو",
+    "FED_DOVISH": "انتظار کاهش نرخ بهره‌ی فدرال رزرو",
+    "US_DATA_STRONG": "داده‌های اقتصادی قوی‌تر از انتظار آمریکا",
+    "US_DATA_WEAK": "داده‌های اقتصادی ضعیف‌تر از انتظار آمریکا",
+    "US_YIELDS_UP": "افزایش بازده اوراق خزانه‌ی آمریکا",
+    "US_YIELDS_DOWN": "کاهش بازده اوراق خزانه‌ی آمریکا",
+    "RISK_OFF_SAFE_HAVEN": "تقاضا برای دارایی امن در فضای نگرانی بازار",
+    "RISK_ON": "بهبود ریسک‌پذیری جهانی",
+    "US_FISCAL_POLITICAL": "نااطمینانی مالی یا سیاسی در آمریکا",
+}
+
+
+def facts_sentence_fa(strength, usd_rank):
+    move, up, down = dollar_move(strength)
+    best = [r for r in strength if r["percent"] > 0][:2]
+    worst = [r for r in reversed(strength) if r["percent"] < 0][:2]
+    fmt = lambda rows: " و ".join(f"{NAMES_FA[r['currency']]} ({r['percent']:+.2f}%)" for r in rows)
+    if move == "weakness":
+        s = f"دلار در برابر {up} ارز از 9 ارز G10 ضعیف شد."
+    elif move == "strength":
+        s = f"دلار در برابر {down} ارز از 9 ارز G10 تقویت شد."
+    else:
+        s = f"حرکت دلار مختلط بود: {up} ارز در برابر دلار قوی‌تر و {down} ارز ضعیف‌تر شدند."
+    if best:
+        s += f" بیشترین رشد در برابر دلار: {fmt(best)}."
+    if worst:
+        s += f" بیشترین افت: {fmt(worst)}."
+    s += f" در رتبه‌بندی کلی قدرت، دلار آمریکا رتبه‌ی {usd_rank} از 10 را داشت."
+    return s
+
 
 def dollar_move(strength):
     """strength / weakness / mixed — بر اساس اینکه حداقل ۷ از ۹ ارز هم‌جهت باشن."""
@@ -320,8 +356,11 @@ def find_drivers(strength, prev_date, last_date):
         if not drivers:
             print("دلیل تأییدشده‌ای پیدا نشد - بخش «چرا» منتشر نمی‌شه.")
             return None
-        phrases = [DRIVER_TAGS[d[2]][0] for d in drivers]
         pubs = sorted({d[3] for d in drivers})
+        if IS_FA:
+            return (f"به گزارش رسانه‌ها ({'، '.join(pubs)})، این حرکت به "
+                    + " و ".join(DRIVER_FA[d[2]] for d in drivers) + " نسبت داده شد.")
+        phrases = [DRIVER_TAGS[d[2]][0] for d in drivers]
         return (f"News reports ({', '.join(pubs)}) attributed the move to "
                 + " and ".join(phrases) + ".")
     return None
@@ -383,6 +422,39 @@ def main():
     fix_et = datetime(last_date.year, last_date.month, last_date.day, 14, 15,
                       tzinfo=ZoneInfo("Europe/Berlin")).astimezone(ZoneInfo("America/New_York"))
     fix_txt = fix_et.strftime("%I:%M %p ET").lstrip("0")
+
+    if IS_FA:
+        fix_ir = fix_et.astimezone(ZoneInfo("Asia/Tehran")).strftime("%H:%M")
+        now_ir = datetime.now(ZoneInfo("Asia/Tehran"))
+        lines = [
+            "💱 <b>قدرت ارزهای G10</b>",
+            f"📅 {fa_date(prev_date, weekday=False, year=False)} ← {fa_date(last_date, weekday=False)}"
+            f" · نرخ مرجع ECB ساعت {fix_ir} به وقت تهران",
+            "",
+            "<b>قدرت هر ارز در برابر بقیه‌ی ارزهای G10:</b>",
+        ]
+        for i, r in enumerate(index, 1):
+            emoji = "🟢" if r["percent"] > 0 else ("🔴" if r["percent"] < 0 else "⚪")
+            nm = f"{NAMES_FA[r['currency']]} ({r['currency']})"
+            nm = f"<b>{nm}</b>" if r["currency"] == "USD" else nm
+            lines.append(f"{i}. {emoji} {nm}: {r['percent']:+.2f}%")
+        lines += ["", "<b>تغییر در برابر دلار:</b>",
+                  " · ".join(f"{r['currency']} {r['percent']:+.2f}%" for r in strength)]
+        lines += ["", "📊 <b>خلاصه:</b>", html.escape(facts_sentence_fa(strength, usd_rank))]
+        if drivers:
+            lines += ["", "📰 <b>دلیل حرکت:</b>", html.escape(drivers)]
+        lines += [
+            "",
+            "<i>نرخ‌های مرجع روزانه‌ی بانک مرکزی اروپا (نه قیمت لحظه‌ای). حرکت‌های بعد از این ساعت، "
+            "از جمله واکنش به بیشتر داده‌های آمریکا، در گزارش بعدی دیده می‌شن. "
+            "تفاوت‌های کمتر از حدود 0.05% معنادار نیستن.</i>",
+            f"🕐 به‌روزرسانی: {now_ir.strftime('%H:%M')} به وقت تهران",
+            "",
+            hashtags("فارکس", "دلار", "قدرت_ارزها", NAMES_FA[index[0]["currency"]],
+                     NAMES_FA[index[-1]["currency"]]),
+        ]
+        send_to_telegram("\n".join(lines))
+        return
 
     lines = [
         "💱 <b>G10 Currency Strength</b>",

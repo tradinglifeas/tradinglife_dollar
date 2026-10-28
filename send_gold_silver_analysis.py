@@ -212,6 +212,9 @@ def heat_factors(c, macro_d):
 
 def tally(f):
     n = {k: sum(1 for _, s, _ in f if s == k) for k in (SUP, NEU, HEAD, STR)}
+    if IS_FA:
+        parts = [f"{n[SUP]} حمایتی", f"{n[HEAD]} فشار منفی"] + ([f"{n[STR]} کشیده"] if n[STR] else [])
+        return " · ".join(parts)
     parts = [f"{n[SUP]} supportive", f"{n[HEAD]} headwind{'s' if n[HEAD] != 1 else ''}"]
     if n[STR]:
         parts.append(f"{n[STR]} stretched")
@@ -244,6 +247,17 @@ def summary_sentence(macro_d):
 def cftc_sentence(name, c):
     if not c.get("available"):
         return None
+    if IS_FA:
+        nm = {"Gold": "طلا", "Silver": "نقره"}.get(name, name)
+        side = "خالص خرید" if c["net"] >= 0 else "خالص فروش"
+        s_ = f"صندوق‌های مدیریت‌شده در {nm} {side} {abs(c['net']) / 1000:.1f}K قرارداد بودن"
+        if c.get("net_change") is not None:
+            v = abs(c["net_change"]) / 1000
+            if c["net"] >= 0:
+                s_ += f" و در هفته‌ی اخیر {v:.1f}K قرارداد {'اضافه' if c['net_change'] > 0 else 'کم'} کردن"
+            else:
+                s_ += f" و در هفته‌ی اخیر {v:.1f}K قرارداد از موقعیت فروش {'کم' if c['net_change'] > 0 else 'اضافه'} کردن"
+        return s_ + "."
     side = "net long" if c["net"] >= 0 else "net short"
     ch = ""
     if c.get("net_change") is not None:
@@ -491,6 +505,9 @@ def common_run(a, b):
     return best
 
 
+from tl_fa import IS_FA, fa_check, FA_NEWS_RULES, FA_NEWS_FIELDS
+
+
 def validate(selection, cands):
     ok = []
     for s in selection:
@@ -520,6 +537,11 @@ def validate(selection, cands):
         if re.search(r"\b(reports?|reported|according to|citing|sources say|people familiar)\b", src, re.I) \
                 and not re.search(r"\b(report|reported|reports|according|citing|said|says|told)\b", summ, re.I):
             print(f"  رد شد #{idx}: منبعِ گزارش حذف شده"); continue
+        if IS_FA:
+            fa, lab_fa, why = fa_check(s, summ, src, "فلزات")
+            if why:
+                print(f"  رد شد #{idx}: {why}"); continue
+            label, summ = lab_fa, fa
         ok.append({"id": idx, "label": label, "summary": summ, "source": it["source"]})
         print(f"  قبول شد #{idx} [{it['source']}] {label}: {summ}")
     return ok[:NEWS_MAX]
@@ -565,8 +587,10 @@ def select_news(cands):
         "moves to a person.\n"
         "- Keep time qualifiers attached to numbers (e.g. 'for the week').\n"
         "- label = 1-2 word topic, e.g. Gold, Silver, Central Banks, ETFs, Macro, Supply.\n"
-        'Return ONLY JSON: {"items":[{"id":<number>,"label":"<topic>","summary":"<sentence>"}]}\n\n'
-        f"NEWS ITEMS:\n{listing}")
+        + (FA_NEWS_RULES if IS_FA else "")
+        + ('Return ONLY JSON: {"items":[{"id":<number>,"label":"<topic>","summary":"<sentence>"'
+           + (("," + FA_NEWS_FIELDS) if IS_FA else "") + '}]}\n\n')
+        + f"NEWS ITEMS:\n{listing}")
     for model in GROQ_MODELS:
         for effort in ("low", "medium"):
             data = call_groq({"model": model, "messages": [{"role": "user", "content": prompt}],
@@ -734,7 +758,13 @@ def ratio_panel(d, y, rs):
         where = ("near the top of its 1-year range (silver relatively cheap vs gold)" if rs["pctile"] >= 85 else
                  "near the bottom of its 1-year range (silver relatively rich vs gold)" if rs["pctile"] <= 15 else
                  "within its 1-year range")
-        for k, ln in enumerate(wrap(d, f"{rs['pctile']:.0f}th percentile — {where}", F18, 530)):
+        txt = f"{rs['pctile']:.0f}th percentile — {where}"
+        if IS_FA:
+            where = ("نزدیک سقف بازه‌ی یک‌ساله (نقره نسبت به طلا ارزون‌تره)" if rs["pctile"] >= 85 else
+                     "نزدیک کف بازه‌ی یک‌ساله (نقره نسبت به طلا گرون‌تره)" if rs["pctile"] <= 15 else
+                     "داخل بازه‌ی یک‌ساله")
+            txt = f"صدک {rs['pctile']:.0f} — {where}"
+        for k, ln in enumerate(wrap(d, txt, F18, 530)):
             d.text((470, y + 86 + 22 * k), ln, font=F18, fill=MUTED)
     return y + 120 + 22
 
@@ -776,6 +806,8 @@ def news_panel(d, y, news):
 def render(g, s, cf, md, rs, summary, news, now):
     im = Image.new("RGB", (W, 3400), BG)
     d = ImageDraw.Draw(im)
+    if IS_FA:
+        d = MirrorDraw(d, W, GS_TR)
     d.text((55, 42), "TRADINGLIFE", font=F38B, fill=TEXT)
     d.text((55, 91), "Gold & Silver · Fundamental Analysis", font=F21, fill=MUTED)
     right(d, 1025, 48, "FUNDAMENTALS", F30B, GOLD)
@@ -832,6 +864,112 @@ def send_photo(path, caption):
     print("کارت بنیادی طلا و نقره ارسال شد.")
 
 
+
+# ================================================================ نسخه‌ی فارسی
+from tl_fa import MirrorDraw, Translator, fa_date, hashtags, TEHRAN, FA_MONTHS
+
+
+def month_fa(txt):
+    try:
+        d_ = datetime.strptime(txt, "%b %Y")
+        return f"{FA_MONTHS[d_.month - 1]} {d_.year}"
+    except (ValueError, TypeError):
+        return txt
+
+
+def _updated_fa(m):
+    t = datetime.strptime(m.group(1), "%Y-%m-%d %H:%M").replace(tzinfo=ET_TZ).astimezone(TEHRAN)
+    return f"TradingLife · به‌روزرسانی {t.strftime('%H:%M')} به وقت تهران"
+
+
+def _date_fa(m):
+    return fa_date(datetime.strptime(m.group(0), "%a, %b %d, %Y"))
+
+
+def _asof_fa(m):
+    a = datetime.strptime(m.group(1), "%b %d"); b = datetime.strptime(m.group(2), "%b %d")
+    pc = f" · صدک {m.group(3)} در یک سال اخیر" if m.group(3) else ""
+    return f"وضعیت {fa_date(a, weekday=False, year=False)} (انتشار {fa_date(b, weekday=False, year=False)}){pc}"
+
+
+GS_TR = Translator([
+    (r"Gold & Silver · Fundamental Analysis", "طلا و نقره · تحلیل بنیادی"), (r"FUNDAMENTALS", "تحلیل بنیادی"),
+    (r"(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \w{3} \d{2}, \d{4}", _date_fa),
+    (r"GOLD", "طلا"), (r"SILVER", "نقره"), (r"Gold", "طلا"), (r"Silver", "نقره"),
+    (r"([+\-]?[\d.]+%|—) day", r"\1 روزانه"), (r"([+\-]?[\d.]+%|—) week", r"\1 هفتگی"),
+    (r"FUNDAMENTAL DRIVERS", "عوامل بنیادی"),
+    (r"10-year real yield \(TIPS\)", "بازده واقعی 10 ساله (TIPS)"), (r"U\.S\. dollar index", "شاخص دلار آمریکا"),
+    (r"10-year Treasury yield", "بازده اسمی اوراق 10 ساله"), (r"Inflation expectations \(10Y\)", "تورم مورد انتظار (10 ساله)"),
+    (r"CPI inflation \(y/y\)", "تورم CPI (سالانه)"),
+    (r"(.+) bps 5 days", r"\1 واحد در 5 روز"), (r"(.+) 5 days", r"\1 در 5 روز"),
+    (r"(\w{3} \d{4}) · prior (.+)", lambda m: f"{month_fa(m.group(1))} · قبلی {m.group(2)}"),
+    (r"Typically: lower real yields, a weaker dollar and rising inflation expectations support metals\.",
+     "معمولاً: بازده واقعی پایین‌تر، دلار ضعیف‌تر و تورم مورد انتظار بالاتر به نفع فلزات گران‌بهاست."),
+    (r"FUNDAMENTAL HEAT MAP", "نقشه‌ی حرارتی بنیادی"),
+    (r"Real yield, 10Y \(5 days\)", "بازده واقعی 10 ساله (5 روز)"), (r"U\.S\. dollar \(5 days\)", "دلار آمریکا (5 روز)"),
+    (r"Inflation expectations \(5 days\)", "تورم مورد انتظار (5 روز)"), (r"Speculator flow \(week\)", "جریان سفته‌بازان (هفتگی)"),
+    (r"Positioning vs 1 year", "موقعیت نسبت به یک سال"),
+    (r"SUPPORTIVE", "حمایتی"), (r"NEUTRAL", "خنثی"), (r"HEADWIND", "فشار منفی"), (r"STRETCHED", "کشیده / شلوغ"),
+    (r"(.+) bps", r"\1 واحد"), (r"(.+)K contracts", r"\1K قرارداد"),
+    (r"(\d+)th pct · Crowded long", r"صدک \1 · خرید شلوغ"), (r"(\d+)th pct · Light", r"صدک \1 · سبک"),
+    (r"(\d+)th pct · Mid-range", r"صدک \1 · میانه"),
+    (r"Fixed rules on typical relationships — a snapshot of conditions, not a forecast\.",
+     "قوانین ثابت بر اساس روابط معمول — تصویری از شرایط فعلی، نه پیش‌بینی."),
+    (r"LARGE SPECULATORS \(CFTC · MANAGED MONEY\)", "سفته‌بازان بزرگ (CFTC · صندوق‌های مدیریت‌شده)"),
+    (r"Net long (.+)K contracts", r"خالص خرید \1K قرارداد"), (r"Net short (.+)K contracts", r"خالص فروش \1K قرارداد"),
+    (r"(.+)K vs prior week", r"\1K نسبت به هفته‌ی قبل"),
+    (r"As of (\w{3} \d{2}) \(published (\w{3} \d{2})\)(?: · (\d+)th percentile of past year)?", _asof_fa),
+    (r"GOLD / SILVER RATIO", "نسبت طلا به نقره"),
+    (r"ounces of silver per ounce of gold", "اونس نقره در برابر هر اونس طلا"),
+    (r"1-year average (.+)  ·  range (.+)", r"میانگین یک‌ساله \1 · بازه \2"),
+    (r"SUMMARY", "خلاصه"), (r"METALS NEWS", "اخبار طلا و نقره"),
+    (r"TradingLife  •  Updated (.+) ET", _updated_fa),
+    (r"Sources: U\.S\. Treasury \(yields, TIPS\) • ECB \(dollar index\) • BLS \(CPI\) • CFTC • Alpha Vantage",
+     "منابع: خزانه‌داری آمریکا (بازده و TIPS) · ECB (شاخص دلار) · BLS (تورم) · CFTC · Alpha Vantage"),
+    (r"News summarized from named sources • Not investment advice", "خلاصه‌ی خبر از منابع ذکرشده · توصیه‌ی سرمایه‌گذاری نیست"),
+])
+
+
+def summary_sentence_fa(md):
+    def mv(label, v, unit, small):
+        if v is None:
+            return None
+        if abs(v) < small:
+            return f"{label} تقریباً بدون تغییر بود"
+        amt = f"{abs(v):.1f}%" if unit == "%" else f"{abs(v):.0f} واحد پایه"
+        return f"{label} {amt} {'بالا رفت' if v > 0 else 'پایین اومد'}"
+    bits = [x for x in (mv("بازده واقعی 10 ساله", md.get("r105"), "bps", 1),
+                        mv("شاخص دلار", md.get("usd5"), "%", 0.05),
+                        mv("تورم مورد انتظار بازار", md.get("be5"), "bps", 1)) if x]
+    txt = ("در 5 روز کاری گذشته " + "، ".join(bits[:-1]) + (" و " if len(bits) > 1 else "") + bits[-1] + ".") if bits else ""
+    if md.get("cpi") is not None and md.get("cpi_prev") is not None:
+        d_ = md["cpi"] - md["cpi_prev"]
+        if d_ >= 0.05:
+            txt += f" تورم CPI آمریکا در {month_fa(md['cpi_month'])} از {md['cpi_prev']:.1f}% به {md['cpi']:.1f}% رسید و شتاب گرفت."
+        elif d_ <= -0.05:
+            txt += f" تورم CPI آمریکا در {month_fa(md['cpi_month'])} از {md['cpi_prev']:.1f}% به {md['cpi']:.1f}% کاهش یافت."
+        else:
+            txt += f" تورم CPI آمریکا در {month_fa(md['cpi_month'])} در {md['cpi']:.1f}% ثابت موند."
+    return txt.strip()
+
+
+def caption_fa(g, s, summary, cf, md, now):
+    parts = [f"🥇 تحلیل بنیادی طلا و نقره — {fa_date(now.astimezone(TEHRAN), year=False)}",
+             f"طلا ${g['price']:,.2f} ({fp(g['day'])}) · نقره ${s['price']:,.2f} ({fp(s['day'])})", ""]
+    if summary:
+        parts.append(summary)
+    c = cftc_sentence("Gold", cf["XAU"])
+    if c:
+        parts.append(c)
+    parts.append(f"نقشه‌ی حرارتی — طلا: {tally(heat_factors(cf['XAU'], md))}؛ "
+                 f"نقره: {tally(heat_factors(cf['XAG'], md))}.")
+    parts += ["", hashtags("طلا", "نقره", "تحلیل_بنیادی")]
+    txt = "\n".join(parts)
+    if len(txt) > 1024:
+        txt = txt[:990].rsplit("\n", 1)[0] + "\n\n" + hashtags("طلا", "نقره", "تحلیل_بنیادی")
+    return txt
+
+
 def main():
     now = datetime.now(ET_TZ)
     if now.weekday() >= 5:
@@ -843,13 +981,13 @@ def main():
     cf = {m["symbol"]: cftc(m) for m in METALS}
     md = macro()
     rs = ratio_stats(g, s)
-    summary = summary_sentence(md)
+    summary = summary_sentence_fa(md) if IS_FA else summary_sentence(md)
     print(f"خلاصه: {summary}")
     news = select_news(collect_news())
     if not news:
         print("بخش اخبار حذف شد (خبر معتبر مرتبط با طلا/نقره پیدا نشد).")
     path = render(g, s, cf, md, rs, summary, news, now)
-    send_photo(path, caption_text(g, s, summary, cf, md, now))
+    send_photo(path, (caption_fa if IS_FA else caption_text)(g, s, summary, cf, md, now))
 
 
 if __name__ == "__main__":

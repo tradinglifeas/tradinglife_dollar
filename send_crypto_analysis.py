@@ -276,6 +276,9 @@ def common_run(a, b):
     return best
 
 
+from tl_fa import IS_FA, fa_check, FA_NEWS_RULES, FA_NEWS_FIELDS
+
+
 def validate(selection, cands):
     ok = []
     for s in selection:
@@ -305,6 +308,11 @@ def validate(selection, cands):
         if re.search(r"\b(reports?|reported|according to|citing|sources say|people familiar)\b", src, re.I) \
                 and not re.search(r"\b(report|reported|reports|according|citing|said|says|told)\b", summ, re.I):
             print(f"  رد شد #{idx}: منبعِ گزارش حذف شده"); continue
+        if IS_FA:
+            fa, lab_fa, why = fa_check(s, summ, src, "کریپتو")
+            if why:
+                print(f"  رد شد #{idx}: {why}"); continue
+            label, summ = lab_fa, fa
         ok.append({"id": idx, "label": label, "summary": summ, "source": it["source"]})
         print(f"  قبول شد #{idx} [{it['source']}] {label}: {summ}")
     return ok[:NEWS_MAX]
@@ -351,8 +359,10 @@ def select_news(cands):
         "moves to a person.\n"
         "- Keep time qualifiers attached to numbers (e.g. 'for the week').\n"
         "- label = 1-2 word topic, e.g. ETFs, Regulation, Bitcoin, Ethereum, Exchanges, DeFi, Macro.\n"
-        'Return ONLY JSON: {"items":[{"id":<number>,"label":"<topic>","summary":"<sentence>"}]}\n\n'
-        f"NEWS ITEMS:\n{listing}")
+        + (FA_NEWS_RULES if IS_FA else "")
+        + ('Return ONLY JSON: {"items":[{"id":<number>,"label":"<topic>","summary":"<sentence>"'
+           + (("," + FA_NEWS_FIELDS) if IS_FA else "") + '}]}\n\n')
+        + f"NEWS ITEMS:\n{listing}")
     for model in GROQ_MODELS:
         for effort in ("low", "medium"):
             data = call_groq({"model": model, "messages": [{"role": "user", "content": prompt}],
@@ -445,6 +455,8 @@ def fng_color(v):
 def render(coins, glob, movers, fng, summary, news, now):
     im = Image.new("RGB", (W, 3200), BG)
     d = ImageDraw.Draw(im)
+    if IS_FA:
+        d = MirrorDraw(d, W, CR_TR)
 
     d.text((55, 42), "TRADINGLIFE", font=F38B, fill=TEXT)
     d.text((55, 91), "Crypto Market Update", font=F21, fill=MUTED)
@@ -620,6 +632,95 @@ def send_photo(path, caption=None):
     print("کارت کریپتو ارسال شد.")
 
 
+
+# ================================================================ نسخه‌ی فارسی
+from tl_fa import MirrorDraw, Translator, fa_date, hashtags, TEHRAN
+
+COIN_FA = {"Bitcoin": "بیت‌کوین", "Ethereum": "اتریوم", "Solana": "سولانا", "XRP": "ریپل",
+           "Cardano": "کاردانو", "Dogecoin": "دوج‌کوین"}
+FNG_FA = {"Extreme Fear": "ترس شدید", "Fear": "ترس", "Neutral": "خنثی", "Greed": "طمع", "Extreme Greed": "طمع شدید"}
+
+
+def _date_fa(m):
+    return fa_date(datetime.strptime(m.group(0), "%a, %b %d, %Y"))
+
+
+def _updated_fa(m):
+    t = datetime.strptime(m.group(1), "%Y-%m-%d %H:%M").replace(tzinfo=ET_TZ).astimezone(TEHRAN)
+    return f"TradingLife · به‌روزرسانی {t.strftime('%H:%M')} به وقت تهران"
+
+
+CR_TR = Translator([
+    (r"Crypto Market Update", "گزارش بازار کریپتو"), (r"CRYPTO", "کریپتو"),
+    (r"(Mon|Tue|Wed|Thu|Fri|Sat|Sun), \w{3} \d{2}, \d{4}", _date_fa),
+    (r"TOTAL MARKET CAP", "ارزش کل بازار"), (r"BTC DOMINANCE", "سهم بیت‌کوین"), (r"FEAR & GREED", "ترس و طمع"),
+    (r"(.+) 24h", r"\1 در 24 ساعت"), (r"Yesterday: (.+)", r"دیروز: \1"),
+    (r"COIN", "ارز"), (r"PRICE", "قیمت"), (r"24H", "24 ساعت"), (r"7D", "7 روز"), (r"7-DAY TREND", "روند 7 روزه"),
+    (r"TOP GAINERS · 24H", "بیشترین رشد · 24 ساعت"), (r"TOP LOSERS · 24H", "بیشترین افت · 24 ساعت"),
+    (r"Among the top (\d+) coins by market cap \(excl\. stablecoins & wrapped tokens\)",
+     r"بین \1 ارز برتر از نظر ارزش بازار (بدون استیبل‌کوین‌ها و توکن‌های wrapped)"),
+    (r"MARKET SUMMARY", "خلاصه‌ی بازار"), (r"KEY CRYPTO NEWS", "اخبار مهم کریپتو"),
+    (r"TradingLife  •  Updated (.+) ET", _updated_fa),
+    (r"Prices: OKX \(USDT pairs\) • Market data: CoinGecko • Sentiment: alternative\.me",
+     "قیمت‌ها: OKX (جفت‌های USDT) · داده‌ی بازار: CoinGecko · شاخص احساسات: alternative.me"),
+    (r"24H = rolling 24 hours • News summarized from named sources • Not investment advice",
+     "24 ساعت = 24 ساعت گذشته · خلاصه‌ی خبر از منابع ذکرشده · توصیه‌ی سرمایه‌گذاری نیست"),
+] + [(re.escape(k), v) for k, v in {**COIN_FA, **FNG_FA}.items() if k != "XRP"])   # نماد XRP دست نخوره
+
+
+def summary_sentence_fa(coins, glob):
+    parts = []
+    btc = coins.get("BTC")
+    if btc and btc["ch24"] is not None:
+        if abs(btc["ch24"]) <= 0.05:
+            parts.append("بیت‌کوین در 24 ساعت گذشته تقریباً بدون تغییر بود")
+        else:
+            parts.append(f"بیت‌کوین در 24 ساعت گذشته {abs(btc['ch24']):.1f}% "
+                         f"{'رشد کرد' if btc['ch24'] > 0 else 'افت کرد'}")
+    tracked = [c for c in coins.values() if c["ch24"] is not None]
+    up = sum(1 for c in tracked if c["ch24"] > 0)
+    down = sum(1 for c in tracked if c["ch24"] < 0)
+    parts.append(f"{up} ارز از {len(tracked)} ارز بررسی‌شده مثبت و {down} ارز منفی بودن")
+    s = "؛ ".join(parts) + "."
+    if glob and glob.get("mcap_ch") is not None:
+        s += (f" ارزش کل بازار کریپتو امروز {abs(glob['mcap_ch']):.1f}% "
+              f"{'بالا رفت' if glob['mcap_ch'] >= 0 else 'پایین اومد'}.")
+    return s
+
+
+def caption_fa(coins, glob, movers, fng, summary, news, now):
+    def pr(sym):
+        c = coins.get(sym)
+        return f"{sym} {fmt_price(c['price'])} ({fmt_pct(c['ch24'])})" if c else None
+    lines = [f"₿ گزارش بازار کریپتو — {fa_date(now.astimezone(TEHRAN), year=False)}", ""]
+    lines.append(" · ".join(x for x in (pr("BTC"), pr("ETH")) if x))
+    lines.append(summary)
+    extra = []
+    if glob and glob.get("mcap"):
+        extra.append(f"ارزش کل بازار {fmt_big(glob['mcap'])} · سهم بیت‌کوین {glob['btc_dom']:.1f}%")
+    if fng:
+        prev = f"، دیروز {fng['prev']}" if fng.get("prev") is not None else ""
+        extra.append(f"شاخص ترس و طمع: {fng['value']} ({FNG_FA.get(fng['label'], fng['label'])}){prev}")
+    if movers:
+        u, d_ = movers["up"][0], movers["down"][0]
+        extra.append(f"بیشترین رشد: {u['sym']} {fmt_pct(u['ch'])} · بیشترین افت: {d_['sym']} {fmt_pct(d_['ch'])}")
+    if extra:
+        lines += [""] + extra
+    if news:
+        lines += ["", "اخبار مهم:"] + [f"• {n['label']}: {n['summary']} ({n['source']})" for n in news[:2]]
+    tags = ["کریپتو", "بیت_کوین", "اتریوم"]
+    fa_tag = {"SOL": "سولانا", "XRP": "ریپل", "ADA": "کاردانو", "DOGE": "دوج_کوین"}
+    for sym, c in coins.items():
+        if c.get("ch24") is not None and abs(c["ch24"]) >= 5 and sym in fa_tag:
+            tags.append(fa_tag[sym])
+    lines += ["", "توصیه‌ی سرمایه‌گذاری نیست.", "", hashtags(*tags[:7])]
+    txt = "\n".join(lines)
+    if len(txt) > 1024:
+        cut = lines[:lines.index("اخبار مهم:") - 1] if "اخبار مهم:" in lines else lines[:-4]
+        txt = "\n".join(cut)[:980] + "\n\n" + hashtags(*tags[:7])
+    return txt
+
+
 def main():
     now = datetime.now(ET_TZ)
     coins = get_coins()
@@ -631,13 +732,13 @@ def main():
         glob["mcap_ch"] = movers["mcap_ch_top100"]
     elif glob:
         glob["mcap_ch"] = None   # عدد تأییدنشده نمایش داده نمی‌شه
-    summary = summary_sentence(coins, glob)
+    summary = summary_sentence_fa(coins, glob) if IS_FA else summary_sentence(coins, glob)
     print(f"خلاصه: {summary}")
     news = select_news(collect_news())
     if not news:
         print("بخش اخبار حذف شد (خبر معتبر کافی نبود).")
-    send_photo(render(coins, glob, movers, fng, summary, news, now),
-               caption_text(coins, glob, movers, fng, summary, news, now))
+    cap = (caption_fa if IS_FA else caption_text)(coins, glob, movers, fng, summary, news, now)
+    send_photo(render(coins, glob, movers, fng, summary, news, now), cap)
 
 
 if __name__ == "__main__":

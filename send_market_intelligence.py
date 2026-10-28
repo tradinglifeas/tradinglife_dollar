@@ -1,4 +1,4 @@
-import os, io, csv, json, time, statistics
+import os, io, re, csv, json, time, statistics
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import requests
@@ -780,6 +780,87 @@ def rounded(d,xy,fill=PANEL,outline=None,w=1):d.rounded_rectangle(xy,radius=22,f
 def col(s):return GREEN if s>=60 else RED if s<=40 else AMBER
 def metric(d,x,y,width,label,value,color=TEXT):
     d.text((x,y),label,font=F21,fill=MUTED); bb=d.textbbox((0,0),value,font=F21); d.text((x+width-(bb[2]-bb[0]),y),value,font=F21,fill=color)
+
+# ---------------------------------------------------------------- نسخه‌ی فارسی کارت (آینه‌ای + ترجمه)
+from tl_fa import IS_FA, MirrorDraw, Translator, hashtags, wrap as wrap_fa, fa_date
+
+NAME_FA = {'GOLD': 'طلا', 'SILVER': 'نقره', 'BITCOIN': 'بیت‌کوین', 'ETHEREUM': 'اتریوم', 'SOLANA': 'سولانا',
+           'XRP': 'ریپل (XRP)', 'CARDANO': 'کاردانو', 'DOGECOIN': 'دوج‌کوین'}
+_EX = {
+    'Market Intelligence': 'تحلیل تکنیکال بازار', 'MARKET STRENGTH': 'قدرت بازار',
+    'VERY STRONG': 'خیلی قوی', 'STRONG': 'قوی', 'MODERATELY STRONG': 'نسبتاً قوی', 'NEUTRAL': 'خنثی',
+    'MODERATELY WEAK': 'نسبتاً ضعیف', 'WEAK': 'ضعیف', 'VERY WEAK': 'خیلی ضعیف',
+    '60-DAY PRICE TREND': 'روند قیمت 60 روزه', 'MARKET CONDITION': 'وضعیت بازار',
+    'Momentum (MACD)': 'مومنتوم (MACD)', 'Positive': 'مثبت', 'Negative': 'منفی', '7D / 30D': '7 روز / 30 روز',
+    'INSTITUTIONAL POSITIONING': 'موقعیت معامله‌گران بزرگ', 'Managed Money Net': 'خالص صندوق‌ها (Managed Money)',
+    'CFTC Large Traders Net': 'خالص معامله‌گران بزرگ (CFTC)', 'Weekly Net Change': 'تغییر خالص هفتگی',
+    'Open Interest': 'قراردادهای باز', 'OI Weekly Change': 'تغییر هفتگی قراردادهای باز',
+    'Institutional Flow': 'جریان نهادی', 'STRONG INFLOW PRESSURE': 'فشار ورود قوی',
+    'INFLOW PRESSURE': 'فشار ورود', 'NEUTRAL / MIXED': 'خنثی / مختلط', 'OUTFLOW PRESSURE': 'فشار خروج',
+    'STRONG OUTFLOW PRESSURE': 'فشار خروج قوی', 'NO DIRECT INSTITUTIONAL DATA': 'داده‌ی مستقیم نهادی نیست',
+    'MARKET FLOW PROXY': 'تخمین جریان بازار', 'NO DERIVATIVES DATA': 'داده‌ی مشتقات نیست',
+    'STRONG UPSIDE FLOW PRESSURE': 'فشار صعودی قوی', 'UPSIDE FLOW PRESSURE': 'فشار صعودی',
+    'BALANCED / MIXED': 'متعادل / مختلط', 'DOWNSIDE FLOW PRESSURE': 'فشار نزولی',
+    'STRONG DOWNSIDE FLOW PRESSURE': 'فشار نزولی قوی',
+    'No direct CFTC institutional data.': 'داده‌ی مستقیم CFTC در دسترس نیست.',
+    'Funding Rate': 'نرخ تأمین مالی (Funding)', 'Long / Short': 'نسبت خرید به فروش',
+    'Taker Buy / Sell': 'خرید به فروش تهاجمی', 'Futures 24H': 'تغییر آتی 24 ساعته',
+    'Derivatives Pressure': 'فشار مشتقات',
+    'Public derivatives feed unavailable.': 'داده‌ی عمومی مشتقات در دسترس نیست.',
+    'Market Strength uses price/history only.': 'قدرت بازار فقط از قیمت و تاریخچه حساب شده.',
+    'MACRO CONTEXT': 'زمینه‌ی کلان',
+    'Lower USD/yields are treated as more supportive for precious metals.':
+        'دلار و بازده پایین‌تر معمولاً برای فلزات گران‌بها حمایتی حساب می‌شن.',
+    'FREE CRYPTO DERIVATIVES DATA': 'داده‌های رایگان مشتقات کریپتو',
+    'Exchange derivatives pressure ≠ total-market capital flow or verified institutional flow.':
+        'فشار مشتقات یک صرافی با جریان کل سرمایه‌ی بازار یا جریان نهادی یکی نیست.',
+    'ALERT': 'هشدار', 'NO MAJOR ALERT': 'هشدار مهمی نیست',
+    'MARKET STRENGTH IMPROVING': 'بهبود قدرت بازار', 'MARKET STRENGTH WEAKENING': 'تضعیف قدرت بازار',
+    'UPWARD PRESSURE INCREASING': 'افزایش فشار صعودی', 'DOWNSIDE PRESSURE INCREASING': 'افزایش فشار نزولی',
+    'INSTITUTIONAL INFLOW ALERT': 'هشدار ورود سرمایه‌ی نهادی', 'CAPITAL OUTFLOW ALERT': 'هشدار خروج سرمایه',
+    'DERIVATIVES INFLOW PRESSURE': 'فشار ورود در بازار مشتقات',
+    'DERIVATIVES OUTFLOW PRESSURE': 'فشار خروج در بازار مشتقات', 'FUNDING CROWDING ALERT': 'هشدار شلوغی موقعیت‌ها',
+    'No major threshold change detected.': 'تغییر مهمی از آستانه‌ها دیده نشد.',
+    'Large-trader positioning and participation show stronger inflow pressure.':
+        'موقعیت و مشارکت معامله‌گران بزرگ فشار ورود قوی‌تری نشون می‌ده.',
+    'Large-trader positioning and participation show stronger outflow pressure.':
+        'موقعیت و مشارکت معامله‌گران بزرگ فشار خروج قوی‌تری نشون می‌ده.',
+    'Market strength and derivatives pressure are weakening together.': 'قدرت بازار و فشار مشتقات با هم ضعیف می‌شن.',
+    'Market strength and price momentum are strengthening together.': 'قدرت بازار و مومنتوم قیمت با هم قوی‌تر می‌شن.',
+    'Market strength is weakening while downside pressure increases.': 'قدرت بازار ضعیف می‌شه و فشار نزولی بیشتر می‌شه.',
+    'Market strength, price momentum, and derivatives pressure are strengthening together.':
+        'قدرت بازار، مومنتوم قیمت و فشار مشتقات با هم قوی‌تر می‌شن.',
+    'Market intelligence only • Not investment advice': 'صرفاً تحلیل بازار · توصیه‌ی سرمایه‌گذاری نیست',
+}
+_RX = [
+    (r'(GOLD|SILVER|BITCOIN|ETHEREUM|SOLANA|XRP|CARDANO|DOGECOIN) \| (.+)', lambda m: f"{NAME_FA[m.group(1)]} | {m.group(2)}"),
+    (r'(.+) vs prior daily close', r'\1 نسبت به بسته‌شدن روز قبل'),
+    (r'Change: (.+) pts', r'تغییر: \1 امتیاز'),
+    (r'CFTC report: (.+)', r'گزارش CFTC: \1'),
+    (r'INSTITUTIONAL \+ (.+)', r'نهادی + \1'),
+    (r'DERIVATIVES FLOW — (.+)', r'جریان مشتقات — \1'),
+    (r'OI Change \((.+)\)', 'تغییر قراردادهای باز'),
+    (r'Free source: (.+)', r'منبع رایگان: \1'),
+    (r'USD Index \(5D\): (.+)', r'شاخص دلار (5 روز): \1'),
+    (r'US 10Y \(5D\): (.+) bps', r'بازده 10 ساله (5 روز): \1 واحد'),
+    (r'US 10Y \(5D\): (.+)', r'بازده 10 ساله (5 روز): \1'),
+    (r'CPI YoY: (.+)', r'تورم سالانه: \1'),
+    (r'Macro Support Score: (.+)', r'امتیاز حمایت کلان: \1'),
+    (r'Active source: (.+)', r'منبع فعال: \1'),
+    (r'24H Turnover / Volume: (.+)', r'حجم معاملات 24 ساعته: \1'),
+    (r'Futures 24H: (.+)', r'تغییر آتی 24 ساعته: \1'),
+    (r'Accounts: Long (.+) \| Short (.+)', r'حساب‌ها: خرید \1 · فروش \2'),
+    (r'Funding: (.+)', r'نرخ تأمین مالی: \1'),
+    (r'Strength rose (.+) points since the prior report\.', r'قدرت بازار نسبت به گزارش قبل \1 امتیاز بالا رفت.'),
+    (r'Strength fell (.+) points since the prior report\.', r'قدرت بازار نسبت به گزارش قبل \1 امتیاز پایین اومد.'),
+    (r'(.+) derivatives data show stronger upside flow pressure\.', r'داده‌های مشتقات \1 فشار صعودی قوی‌تری نشون می‌ده.'),
+    (r'(.+) derivatives data show stronger downside flow pressure\.', r'داده‌های مشتقات \1 فشار نزولی قوی‌تری نشون می‌ده.'),
+    (r'Funding is (.+), which can indicate crowded positioning\.', r'نرخ تأمین مالی غیرعادیه (\1)؛ می‌تونه نشونه‌ی شلوغی موقعیت‌ها باشه.'),
+    (r'TradingLife  •  Updated (.+) Iran', r'TradingLife · به‌روزرسانی \1 به وقت تهران'),
+    (r'Sources: (.+)', r'منابع: \1'),
+] + [(re.escape(k), v) for k, v in _EX.items()]
+MI_TR = Translator(_RX)
+
 def spark(d,box,v,accent):
     if len(v)<2:return
     x1,y1,x2,y2=box; mn,mx=min(v),max(v); span=mx-mn or 1; pts=[]
@@ -790,6 +871,8 @@ def spark(d,box,v,accent):
 def render(a):
     accent=GOLD if a['symbol']=='XAU' else SILVER if a['symbol']=='XAG' else BLUE
     im=Image.new('RGB',(W,H),BG);d=ImageDraw.Draw(im)
+    if IS_FA:
+        d=MirrorDraw(d,W,MI_TR)
 
     d.text((55,42),'TRADINGLIFE',font=F38,fill=TEXT)
     d.text((55,91),'Market Intelligence',font=F21,fill=MUTED)
@@ -924,7 +1007,10 @@ def render(a):
     d.text((78,1372),a['alert'],font=F30,fill=ac)
     # Keep alert detail safely inside the box.
     detail=a['alert_detail']
-    if len(detail)>86:
+    if IS_FA:
+        for k,ln in enumerate(wrap_fa(d.d, MI_TR(detail), d._fa(F18), 900)[:2]):
+            d.text((78,1420+25*k),ln,font=F18,fill=TEXT)
+    elif len(detail)>86:
         split=detail.rfind(' ',0,86)
         if split<40: split=86
         d.text((78,1420),detail[:split],font=F18,fill=TEXT)
@@ -1047,11 +1133,62 @@ def caption(a):
     return "\n".join(lines)
 
 
+OI_FA = {
+    "little changed — no strong positioning shift": "تقریباً بدون تغییر؛ جابه‌جایی مهمی در موقعیت‌ها نیست",
+    "rising with flat price — positions building": "افزایش با قیمت ثابت؛ موقعیت‌های جدید در حال ساخته شدن",
+    "falling with flat price — positions closing": "کاهش با قیمت ثابت؛ موقعیت‌ها در حال بسته شدن",
+    "rising with price up → new long positions": "افزایش همراه با رشد قیمت ← موقعیت‌های خرید جدید",
+    "rising with price down → new short positions": "افزایش همراه با افت قیمت ← موقعیت‌های فروش جدید",
+    "falling with price up → shorts covering": "کاهش همراه با رشد قیمت ← بسته شدن موقعیت‌های فروش",
+    "falling with price down → longs closing": "کاهش همراه با افت قیمت ← بسته شدن موقعیت‌های خرید",
+}
+MI_TAGS_FA = {'XAU': ('طلا', 'XAUUSD'), 'XAG': ('نقره', 'XAGUSD'), 'BTC': ('بیت_کوین', 'BTC'),
+              'ETH': ('اتریوم', 'ETH'), 'SOL': ('سولانا', 'SOL'), 'XRP': ('ریپل', 'XRP'),
+              'ADA': ('کاردانو', 'ADA'), 'DOGE': ('دوج_کوین', 'DOGE')}
+
+
+def caption_fa(a):
+    name = NAME_FA.get(a['name'].upper(), a['name'])
+    lines = [f"{name} ({a['symbol']}/USD) — {price(a['price'])} ({a['daily']:+.2f}%)"]
+    if a['kind'] == 'crypto':
+        f = a.get('flow24'); bd = a.get('derivatives') or {}
+        if f and f['buy'] + f['sell'] > 0:
+            bp = 100 * f['buy'] / (f['buy'] + f['sell'])
+            side = "کنترل دست خریداران" if bp >= 52 else "کنترل دست فروشندگان" if bp <= 48 else "متعادل"
+            lines.append(f"فشار بازار آتی (OKX، 24 ساعت): خریداران {bp:.0f}% · فروشندگان {100 - bp:.0f}% — {side}")
+        r = oi_reading(a['daily'], bd.get('oi_change_pct'))
+        if r:
+            lines.append(f"قراردادهای باز {bd['oi_change_pct']:+.1f}% نسبت به دیروز: {OI_FA[r]}")
+        fr = bd.get('funding_rate')
+        if fr is not None and fr * 100 >= 0.03:
+            lines.append(f"نرخ تأمین مالی {fr*100:+.3f}% — خریداران هزینه‌ی اضافه می‌دن (شلوغی خرید)")
+        elif fr is not None and fr * 100 <= -0.01:
+            lines.append(f"نرخ تأمین مالی {fr*100:+.3f}% — فروشندگان هزینه‌ی اضافه می‌دن (شلوغی فروش)")
+        extra = "جریان_سفارش"
+    else:
+        c = a.get('institutional') or {}
+        if c.get('available') and c.get('net_change') is not None:
+            wk = fa_date(datetime.strptime(c['date'][:10], '%Y-%m-%d'), weekday=False, year=False)
+            chg = c['net_change']
+            notional = abs(chg) * OZ_PER_CONTRACT[a['symbol']] * a['price']
+            if c['net'] >= 0:
+                verb = "موقعیت خالص خرید رو افزایش دادن" if chg > 0 else "موقعیت خالص خرید رو کاهش دادن"
+            else:
+                verb = "موقعیت خالص فروش رو کاهش دادن" if chg > 0 else "موقعیت خالص فروش رو افزایش دادن"
+            lines.append(f"معامله‌گران بزرگ (CFTC، هفته‌ی منتهی به {wk}): {abs(chg)/1000:.1f}K قرارداد "
+                         f"{verb} (ارزش اسمی حدود {usd_big(notional)})")
+            lines.append(f"موقعیت کلی همچنان خالص {'خرید' if c['net'] >= 0 else 'فروش'}: {abs(c['net'])/1000:.1f}K قرارداد")
+        extra = "موقعیت_معامله_گران"
+    fa_tag, sym_tag = MI_TAGS_FA.get(a['symbol'], (a['symbol'], ''))
+    lines += ["", hashtags(fa_tag, sym_tag, extra)]
+    return "\n".join(lines)
+
+
 def send(p,a):
     with open(p,'rb') as f:
         r=requests.post(
             f'https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto',
-            data={'chat_id':CHAT_ID,'caption':caption(a)},
+            data={'chat_id':CHAT_ID,'caption':caption_fa(a) if IS_FA else caption(a)},
             files={'photo':f},
             timeout=60
         )

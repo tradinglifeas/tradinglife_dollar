@@ -379,6 +379,159 @@ def send_photo(path, caption=None):
     print("کارت Scenario Watch ارسال شد.")
 
 
+
+# ---------------------------------------------------------------- نسخه‌ی فارسی
+from tl_fa import IS_FA, TEHRAN, fa_font, draw_r, fa_date, event_fa, hashtags
+from tl_fa import wrap as wrap_fa
+
+RULES_FA = {
+    "cpi": ("تورم مصرف‌کننده (CPI)", "تورم داغ‌تر معمولاً انتظار سیاست سخت‌گیرانه‌تر فدرال رزرو رو بالا می‌بره.",
+            "تورم آروم‌تر معمولاً انتظار سخت‌گیری بیشتر فدرال رزرو رو کم می‌کنه."),
+    "pce": ("تورم PCE (شاخص مورد توجه فدرال رزرو)", "تورم PCE بالاتر، که معیار اصلی فدرال رزروه، معمولاً از انتظار سیاست سخت‌گیرانه‌تر حمایت می‌کنه.",
+            "تورم PCE پایین‌تر معمولاً فشار روی فدرال رزرو برای سخت‌گیری رو کم می‌کنه."),
+    "ppi": ("تورم تولیدکننده (PPI)", "قیمت‌های بالاتر تولیدکننده می‌تونه نشونه‌ی فشار تورمی پیش رو باشه.",
+            "قیمت‌های آروم‌تر تولیدکننده می‌تونه نشونه‌ی کاهش فشار تورمی پیش رو باشه."),
+    "nfp": ("گزارش اشتغال (NFP)", "استخدام قوی‌تر معمولاً از انتظار ماندن نرخ‌ها در سطح بالا حمایت می‌کنه.",
+            "استخدام ضعیف‌تر معمولاً انتظار سیاست پولی آسون‌تر رو بالا می‌بره."),
+    "unemp": ("نرخ بیکاری", "نرخ بیکاری پایین‌تر نشونه‌ی بازار کار داغه و از انتظار نرخ‌های بالاتر حمایت می‌کنه.",
+              "نرخ بیکاری بالاتر نشونه‌ی سرد شدن بازار کاره و از انتظار سیاست آسون‌تر حمایت می‌کنه."),
+    "claims": ("مدعیان بیکاری هفتگی", "مدعیان کمتر یعنی بازار کار مقاومه.", "مدعیان بیشتر یعنی بازار کار داره ضعیف می‌شه."),
+    "jolts": ("فرصت‌های شغلی JOLTS", "فرصت‌های شغلی بیشتر یعنی تقاضای قوی برای نیروی کار.",
+              "فرصت‌های شغلی کمتر یعنی تقاضای نیروی کار داره سرد می‌شه."),
+    "adp": ("اشتغال بخش خصوصی ADP", "استخدام قوی‌تر بخش خصوصی می‌تونه انتظار از گزارش اشتغال جمعه رو بالا ببره.",
+            "استخدام ضعیف‌تر بخش خصوصی می‌تونه انتظار از گزارش اشتغال جمعه رو پایین بیاره."),
+    "gdp": ("تولید ناخالص داخلی (GDP)", "رشد سریع‌تر معمولاً دلیل کاهش نرخ بهره رو ضعیف‌تر می‌کنه.",
+            "رشد کندتر معمولاً دلیل سیاست آسون‌تر رو قوی‌تر می‌کنه."),
+    "retail": ("خرده‌فروشی", "خرج قوی‌تر مصرف‌کننده نشونه‌ی اقتصاد مقاومه.", "خرج ضعیف‌تر مصرف‌کننده نشونه‌ی کند شدن اقتصاده."),
+    "ism_m": ("ISM تولیدی", "فعالیت قوی‌تر کارخانه‌ها نشونه‌ی رشد محکم‌تره (بالای 50 یعنی رشد).",
+              "فعالیت ضعیف‌تر کارخانه‌ها نشونه‌ی رشد کندتره (زیر 50 یعنی انقباض)."),
+    "ism_s": ("ISM خدمات", "فعالیت قوی‌تر بخش خدمات نشونه‌ی رشد محکم‌تره (بالای 50 یعنی رشد).",
+              "فعالیت ضعیف‌تر بخش خدمات نشونه‌ی رشد کندتره (زیر 50 یعنی انقباض)."),
+    "conf": ("اعتماد مصرف‌کننده", "اعتماد بالاتر می‌تونه نشونه‌ی خرج بیشتر مصرف‌کننده در آینده باشه.",
+             "اعتماد پایین‌تر می‌تونه نشونه‌ی خرج کمتر مصرف‌کننده در آینده باشه."),
+    "fomc": ("تصمیم نرخ بهره‌ی فدرال رزرو", "افزایش بیشتر از انتظار یا بیانیه‌ی سخت‌گیرانه‌تر معمولاً انتظار نرخ بالاتر رو تقویت می‌کنه.",
+             "تغییر کمتر از انتظار یا بیانیه‌ی ملایم‌تر معمولاً انتظار نرخ پایین‌تر رو تقویت می‌کنه."),
+}
+WATCH_FA = {"10Y yield": "بازده 10 ساله", "U.S. dollar": "دلار", "Gold": "طلا", "Stocks": "سهام", "Bitcoin": "بیت‌کوین"}
+SC_TAGS_FA = {"cpi": "تورم", "pce": "تورم_PCE", "ppi": "تورم_تولیدکننده", "nfp": "گزارش_اشتغال",
+              "unemp": "اشتغال", "claims": "اشتغال", "jolts": "اشتغال", "adp": "اشتغال", "gdp": "رشد_اقتصادی",
+              "retail": "خرده_فروشی", "ism_m": "ISM", "ism_s": "ISM", "conf": "اعتماد_مصرف_کننده",
+              "fomc": "فدرال_رزرو"}
+
+
+def sides(s):
+    rule = s["rule"]
+    hawk = REACTIONS[rule["react"]]
+    up, down = (flip(hawk), hawk) if rule["inverse"] else (hawk, flip(hawk))
+    name, w_up, w_down = RULES_FA[rule["key"]]
+    up_why, down_why = (w_down, w_up) if rule["inverse"] else (w_up, w_down)
+    return name, up, down, up_why, down_why
+
+
+def watch_text(reactions):
+    # فونت فارسی علامت ↑↓ نداره؛ روی کارت از کلمه استفاده می‌شه
+    word = {UP: "بالا", DOWN: "پایین", MIX: "نامشخص"}
+    return " · ".join(f"{WATCH_FA[n]} {word.get(a, a)}" for n, a in reactions)
+
+
+def draw_scenario_fa(d, s, F):
+    R = 1005
+    name, up, down, up_why, down_why = sides(s)
+    p = s["primary"]
+    t_ir = s["time"].astimezone(TEHRAN).strftime("%H:%M")
+    kind = "پیش‌بینی" if s["base_kind"] == "forecast" else "عدد قبلی؛ پیش‌بینی نداره"
+    y = 20
+    draw_r(d, R, y, t_ir, F["h"], TEXT)
+    d.ellipse((R - 105, y + 13, R - 91, y + 27), fill=RED)
+    draw_r(d, R - 120, y, name, F["h"], TEXT)
+    y += 46
+    sub = f"{event_fa(p['title'])} — پیش‌بینی: {p['forecast'] or '—'} · قبلی: {p['previous'] or '—'}"
+    for ln in wrap_fa(d, sub, F["s"], 920):
+        draw_r(d, R, y, ln, F["s"], MUTED); y += 30
+    if s["others"]:
+        also = "هم‌زمان منتشر می‌شه: " + "، ".join(event_fa(e["title"]) for e in s["others"][:4])
+        for ln in wrap_fa(d, also, F["xs"], 920):
+            draw_r(d, R, y, ln, F["xs"], MUTED); y += 28
+    y += 12
+    for color, title, why, react in ((AMBER, f"اگه بالاتر از {s['base']} بود ({kind})", up_why, up),
+                                     (TEAL, f"اگه پایین‌تر از {s['base']} بود ({kind})", down_why, down)):
+        lines = wrap_fa(d, "چرا: " + why, F["b"], 880)
+        h = 54 + 34 * len(lines) + 48
+        d.rounded_rectangle((70, y, 1010, y + h), radius=14, fill=PANEL2)
+        d.rectangle((1004, y + 12, 1010, y + h - 12), fill=color)
+        draw_r(d, 985, y + 12, title, F["bb"], color)
+        yy = y + 52
+        for ln in lines:
+            draw_r(d, 985, yy, ln, F["b"], TEXT); yy += 34
+        draw_r(d, 985, yy + 6, "زیر نظر: " + watch_text(react), F["wb"], MUTED)
+        y += h + 12
+    inline = ("اگه مطابق انتظار بود: واکنش بیشتر به جزئیات گزارش و اصلاح ارقام قبلی بستگی داره."
+              if s["rule"]["key"] != "fomc" else
+              "اگه مطابق انتظار بود: توجه به بیانیه، پیش‌بینی‌ها و کنفرانس خبری منتقل می‌شه.")
+    review_t = (s["time"] + timedelta(hours=1)).astimezone(TEHRAN).strftime("%H:%M")
+    review = (f"بازبینی: اگه تا ساعت {review_t} بازده اوراق و دلار خلاف سناریوی فعال‌شده حرکت کردن، "
+              "احتمالاً بازار روی عوامل دیگه تمرکز داره — فرض اولیه رو بازبینی کنید.")
+    for txt, f, c in ((inline, F["s"], MUTED), (review, F["sb"], BLUE)):
+        for ln in wrap_fa(d, txt, f, 920):
+            draw_r(d, R, y + 4, ln, f, c); y += 32
+        y += 6
+    return y + 16
+
+
+def render_fa(scenarios, now):
+    F = {"title": fa_font(40, True), "brand": fa_font(30, True), "h": fa_font(27, True), "s": fa_font(21),
+         "sb": fa_font(21, True), "xs": fa_font(19), "b": fa_font(22), "bb": fa_font(23, True), "wb": fa_font(21, True)}
+    im = Image.new("RGB", (W, 6000), BG)
+    d = ImageDraw.Draw(im)
+    d.text((55, 48), "TRADINGLIFE", font=F["brand"], fill=TEXT)
+    draw_r(d, 1025, 34, "سناریوهای امروز", F["title"], TEXT)
+    draw_r(d, 1025, 96, f"داده‌های آمریکا · {fa_date(now.astimezone(TEHRAN))}", F["s"], BLUE)
+    y = 145
+    intro = ("سناریوهای قابل پیگیری، نه سیگنال معاملاتی: هر سناریو زمان انتشار، شرط، "
+             "دلیل معمول و زمان بازبینی رو نشون می‌ده.")
+    for ln in wrap_fa(d, intro, F["s"], 960):
+        draw_r(d, 1025, y, ln, F["s"], MUTED); y += 30
+    y += 16
+    for s in scenarios:
+        tmp = Image.new("RGB", (W, 1800), PANEL)
+        h = draw_scenario_fa(ImageDraw.Draw(tmp), s, F)
+        mask = Image.new("L", (W, h), 0)
+        ImageDraw.Draw(mask).rounded_rectangle((50, 0, 1030, h - 1), radius=18, fill=255)
+        im.paste(tmp.crop((0, 0, W, h)), (0, y), mask)
+        y += h + 22
+    rr(d, (50, y, 1030, y + 120), PANEL2)
+    draw_r(d, 1005, y + 18, f"TradingLife · به‌روزرسانی {now.astimezone(TEHRAN).strftime('%H:%M')} به وقت تهران",
+           F["xs"], TEXT)
+    draw_r(d, 1005, y + 50, "زمان‌ها و پیش‌بینی‌ها: تقویم Forex Factory · واکنش‌ها گرایش معمول بازارن، نه پیش‌بینی",
+           F["xs"], MUTED)
+    draw_r(d, 1005, y + 80, "محتوای آموزشی — سیگنال معاملاتی یا توصیه‌ی سرمایه‌گذاری نیست", F["xs"], MUTED)
+    y += 120 + 90
+    im = im.crop((0, 0, W, y))
+    os.makedirs("scenario_cards", exist_ok=True)
+    path = "scenario_cards/scenario_watch_fa.png"
+    im.save(path, "PNG", optimize=True)
+    return path
+
+
+def caption_fa(scenarios, now):
+    short = lambda r: "، ".join(f"{WATCH_FA[n]} {a}" for n, a in r if n in ("10Y yield", "U.S. dollar", "Gold"))
+    lines = [f"🎯 سناریوهای امروز — {fa_date(now.astimezone(TEHRAN), year=False)}", "", "داده‌های مهم آمریکا:"]
+    for s in scenarios:
+        name, up, down, _, _ = sides(s)
+        basis = "پیش‌بینی" if s["base_kind"] == "forecast" else "قبلی"
+        lines.append(f"• {s['time'].astimezone(TEHRAN).strftime('%H:%M')} — {name} ({basis} {s['base']})")
+        lines.append(f"   بالاتر: {short(up)}")
+        lines.append(f"   پایین‌تر: {short(down)}")
+    lines += ["", "اگه بازار تا یک ساعت بعد خلاف سناریو حرکت کرد، فرض رو بازبینی کنید.",
+              "ساعت‌ها به وقت تهران. گرایش‌های معمول بازار، نه سیگنال معاملاتی."]
+    tags = ["سناریو", "دلار"] + [SC_TAGS_FA[s["rule"]["key"]] for s in scenarios]
+    lines += ["", hashtags(*tags)]
+    txt = "\n".join(lines)
+    if len(txt) > 1024:
+        txt = txt[:980].rsplit("\n•", 1)[0] + "\n…بقیه‌ی سناریوها روی کارت.\n\n" + hashtags(*tags)
+    return txt
+
+
 def main():
     now = datetime.now(ET)
     evs = todays_us_events(fetch_calendar(), now.date())
@@ -389,7 +542,10 @@ def main():
     if not scenarios:
         print("امروز رویداد پراهمیت آمریکایی با سناریوی تعریف‌شده نیست — پستی ارسال نشد.")
         return
-    send_photo(render(scenarios, now), caption_text(scenarios, now))
+    if IS_FA:
+        send_photo(render_fa(scenarios, now), caption_fa(scenarios, now))
+    else:
+        send_photo(render(scenarios, now), caption_text(scenarios, now))
 
 
 if __name__ == "__main__":

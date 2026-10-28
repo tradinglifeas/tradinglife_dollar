@@ -372,6 +372,170 @@ def send_photo(path, caption=None):
         raise SystemExit(1)
 
 
+
+# ---------------------------------------------------------------- نسخه‌ی فارسی (راست‌به‌چپ، ساعت تهران)
+from tl_fa import IS_FA, TEHRAN, fa_font, draw_r, draw_l, text_w, fa_date, event_fa, hashtags
+from tl_fa import wrap as wrap_fa
+
+CUR_FA = {"USD": "دلار آمریکا", "EUR": "یورو", "GBP": "پوند", "JPY": "ین", "CAD": "دلار کانادا",
+          "AUD": "دلار استرالیا", "NZD": "دلار نیوزیلند", "CHF": "فرانک سوئیس", "CNY": "یوان چین"}
+
+
+def paginate_fa(events):
+    """گروه‌بندی بر اساس روزِ تهران."""
+    days, cur = [], None
+    for e in events:
+        d = e["when"].astimezone(TEHRAN).date()
+        if d != cur:
+            days.append([]); cur = d
+        days[-1].append(e)
+    pages, page, count = [], [], 0
+    for day in days:
+        if page and count + len(day) > MAX_ROWS_PER_IMAGE:
+            pages.append(page); page, count = [], 0
+        page.append(day); count += len(day)
+    if page:
+        pages.append(page)
+    return pages or [[]]
+
+
+def render_fa(pages_idx, pages_total, days, tag, date_range, empty_text, now):
+    F = {"brand": fa_font(30, True), "title": fa_font(40, True), "sub": fa_font(22), "colh": fa_font(18, True),
+         "day": fa_font(24, True), "time": fa_font(25, True), "ev": fa_font(24), "num": fa_font(23),
+         "foot": fa_font(19), "empty": fa_font(28)}
+    R = 1030                                   # لبه‌ی راست
+    X_TIME_R, X_DOT, X_BADGE_R, X_EV_R, EVW = 1005, 905, 885, 795, 430
+    X_FC, X_PR = 215, 75                       # ستون‌های عددی: پیش‌بینی نزدیک رویداد، قبلی سمت چپ
+    probe = ImageDraw.Draw(Image.new("RGB", (10, 10)))
+    h = 260
+    for day in days:
+        h += DAY_H + 8
+        for e in day:
+            h += ROW_H2 if len(wrap_fa(probe, event_fa(e["title"]), F["ev"], EVW)) > 1 else ROW_H
+        h += 14
+    if not days:
+        h += 170
+    h += 200
+    im = Image.new("RGB", (W, h), BG)
+    d = ImageDraw.Draw(im)
+
+    d.text((55, 48), "TRADINGLIFE", font=F["brand"], fill=TEXT)
+    draw_r(d, R - 5, 34, "تقویم اقتصادی", F["title"], TEXT)
+    rng = f"{tag} · {date_range}" + (f" ({pages_idx}/{pages_total})" if pages_total > 1 else "")
+    draw_r(d, R - 5, 96, rng, F["sub"], BLUE)
+
+    y = 150
+    rrect(d, (50, y, R, y + 46), PANEL2, r=12)
+    draw_r(d, X_TIME_R, y + 11, "ساعت", F["colh"], MUTED)
+    draw_r(d, X_BADGE_R, y + 11, "ارز", F["colh"], MUTED)
+    draw_r(d, X_EV_R, y + 11, "رویداد", F["colh"], MUTED)
+    draw_l(d, X_FC, y + 11, "پیش‌بینی", F["colh"], MUTED)
+    draw_l(d, X_PR, y + 11, "قبلی", F["colh"], MUTED)
+    y += 70
+
+    if not days:
+        rrect(d, (50, y, R, y + 140), PANEL)
+        tw = text_w(d, empty_text, F["empty"])
+        draw_r(d, (W + tw) / 2, y + 50, empty_text, F["empty"], MUTED)
+        y += 170
+
+    for day in days:
+        dt = day[0]["when"].astimezone(TEHRAN).date()
+        rrect(d, (50, y, R, y + DAY_H), PANEL, r=14)
+        d.rectangle((R - 6, y + 12, R, y + DAY_H - 12), fill=BLUE)
+        draw_r(d, R - 24, y + 13, fa_date(dt, year=False), F["day"], TEXT)
+        y += DAY_H + 8
+        for i, e in enumerate(day):
+            lines = wrap_fa(d, event_fa(e["title"]), F["ev"], EVW)[:2]
+            rh = ROW_H2 if len(lines) > 1 else ROW_H
+            if i:
+                d.line((70, y, R - 20, y), fill=LINE, width=1)
+            ty = y + 11
+            hol = e["impact"] == "Holiday"
+            if hol:
+                draw_r(d, X_TIME_R, ty + 2, "تمام روز", F["colh"], AMBER)
+                d.ellipse((X_DOT, ty + 9, X_DOT + 14, ty + 23), fill=AMBER)
+            else:
+                draw_r(d, X_TIME_R, ty, e["when"].astimezone(TEHRAN).strftime("%H:%M"), F["time"], TEXT)
+                d.ellipse((X_DOT, ty + 9, X_DOT + 14, ty + 23), fill=RED if e["impact"] == "High" else AMBER)
+            rrect(d, (X_BADGE_R - 76, ty, X_BADGE_R, ty + 30), BADGE.get(e["cur"], PANEL), r=8)
+            bw = d.textlength(e["cur"], font=F_BADGE)
+            d.text((X_BADGE_R - 76 + (76 - bw) / 2, ty + 5), e["cur"], font=F_BADGE, fill=TEXT)
+            for j, ln in enumerate(lines):
+                draw_r(d, X_EV_R, ty - 2 + j * 32, ln, F["ev"], AMBER if hol else TEXT)
+            if hol:
+                draw_l(d, 75, ty + 2, "بازار بسته یا نیمه‌تعطیل", F["num"], AMBER)
+            else:
+                draw_l(d, X_FC, ty + 1, e["forecast"] or "—", F["num"], TEXT if e["forecast"] else MUTED)
+                draw_l(d, X_PR, ty + 1, e["previous"] or "—", F["num"], MUTED)
+            y += rh
+        y += 14
+
+    y += 6
+    rrect(d, (50, y, R, y + 128), PANEL2)
+    d.ellipse((R - 40, y + 30, R - 26, y + 44), fill=RED)
+    draw_r(d, R - 50, y + 20, "اهمیت زیاد", F["foot"], TEXT)
+    d.ellipse((R - 210, y + 30, R - 196, y + 44), fill=AMBER)
+    draw_r(d, R - 220, y + 20, "اهمیت متوسط", F["foot"], TEXT)
+    draw_l(d, 75, y + 20, f"به‌روزرسانی {now.astimezone(TEHRAN).strftime('%H:%M')} تهران", F["foot"], MUTED)
+    draw_r(d, R - 25, y + 56, "ساعت‌ها به وقت تهران · منبع: تقویم Forex Factory", F["foot"], MUTED)
+    draw_r(d, R - 25, y + 88, "زمان‌ها و پیش‌بینی‌ها ممکنه تغییر کنن · توصیه‌ی سرمایه‌گذاری نیست", F["foot"], MUTED)
+
+    os.makedirs("calendar_cards", exist_ok=True)
+    path = f"calendar_cards/calendar_{MODE}_fa_{pages_idx}.png"
+    im.save(path, "PNG", optimize=True)
+    return path
+
+
+TAG_RULES_FA = [(r"(^|\| )(Non-Farm Employment Change|Unemployment Rate|Average Hourly)", "گزارش_اشتغال"),
+                (r"\bCPI\b", "تورم"), (r"\bPCE\b", "تورم_PCE"), (r"FOMC|Federal Funds|Fed Chair", "فدرال_رزرو"),
+                (r"\bGDP\b", "رشد_اقتصادی"), (r"\bISM\b", "ISM"), (r"Retail Sales", "خرده_فروشی")]
+
+
+def build_caption_fa(events, date_label):
+    usd_high = [e for e in events if e["cur"] == "USD" and e["impact"] == "High"]
+    other_high = [e for e in events if e["cur"] != "USD" and e["impact"] == "High"]
+    holidays = [e for e in events if e["impact"] == "Holiday"]
+    head = "هفته‌ی پیش رو" if MODE == "weekly" else "فردا"
+    lines = [f"🗓 تقویم اقتصادی — {head} ({date_label})", ""]
+    tt = lambda e: ("تمام روز" if e["impact"] == "Holiday" else
+                    (f"{fa_date(e['when'].astimezone(TEHRAN), year=False).split()[0]} " if MODE == "weekly" else "")
+                    + e["when"].astimezone(TEHRAN).strftime("%H:%M"))
+    if not events:
+        lines.append("رویداد مهمی در تقویم نیست." )
+    else:
+        if usd_high:
+            lines.append("مهم‌ترین داده‌های آمریکا:")
+            prio = [r"^Non-Farm Employment Change$", r"^(Core )?CPI m/m", r"Federal Funds|FOMC Statement",
+                    r"^Core PCE", r"GDP q/q", r"Retail Sales m/m", r"^ISM Manufacturing PMI", r"^ISM Services PMI",
+                    r"Unemployment Rate", r"^(Core )?PPI m/m", r"JOLTS", r"Fed Chair"]
+            rank = lambda e: next((i for i, pt in enumerate(prio) if re.search(pt, e["title"], re.I)), len(prio))
+            for e in sorted(sorted(usd_high, key=rank)[:6], key=lambda e: e["when"]):
+                fc = f" (پیش‌بینی {e['forecast']})" if e["forecast"] else ""
+                lines.append(f"• {tt(e)} — {event_fa(e['title'])}{fc}")
+            if len(usd_high) > 6:
+                lines.append(f"• و {len(usd_high) - 6} رویداد دیگه روی کارت")
+        else:
+            lines.append("داده‌ی پراهمیتی از آمریکا نیست؛ بقیه‌ی رویدادها روی کارت.")
+        if other_high:
+            lines += ["", "رویدادهای مهم دیگه:"]
+            for e in other_high[:3]:
+                lines.append(f"• {FLAGS.get(e['cur'], '')} {tt(e)} — {CUR_FA.get(e['cur'], e['cur'])}: {event_fa(e['title'])}")
+        for hday in holidays[:1]:
+            lines += ["", f"🏖 تعطیلی ({fa_date(hday['when'].astimezone(TEHRAN), year=False)}) — بازار آمریکا بسته یا نیمه‌تعطیل."]
+    lines += ["", "ساعت‌ها به وقت تهران. پیش‌بینی‌ها از تقویم Forex Factory؛ زمان‌ها ممکنه تغییر کنن."]
+    tags = ["تقویم_اقتصادی", "دلار"]
+    titles = " | ".join(e["title"] for e in events if e["cur"] == "USD")
+    for pat, tag in TAG_RULES_FA:
+        if re.search(pat, titles, re.I):
+            tags.append(tag)
+    lines += ["", hashtags(*tags[:7])]
+    txt = "\n".join(lines)
+    if len(txt) > 1024:
+        txt = txt[:990].rsplit("\n", 1)[0] + "\n\n" + hashtags(*tags[:7])
+    return txt
+
+
 def main():
     now = datetime.now(ET)
     today = now.date()
@@ -394,6 +558,22 @@ def main():
         tag = "TOMORROW"
         date_range = tomorrow.strftime("%A, %b %d, %Y")
         empty = "No high-impact events scheduled for tomorrow."
+
+    if IS_FA:
+        if MODE == "weekly":
+            tag_fa, rng_fa = "هفته‌ی پیش رو", f"{fa_date(monday, weekday=False, year=False)} تا {fa_date(friday, weekday=False)}"
+            empty_fa = "این هفته رویداد پراهمیتی در تقویم نیست."
+        else:
+            tag_fa, rng_fa = "فردا", fa_date(tomorrow)
+            empty_fa = "فردا رویداد پراهمیتی در تقویم نیست."
+        pages = paginate_fa(events)
+        for i, days in enumerate(pages, 1):
+            path = render_fa(i, len(pages), days, tag_fa, rng_fa, empty_fa, now)
+            send_photo(path, build_caption_fa(events, rng_fa) if i == 1 else None)
+            print(f"ارسال شد: {path}")
+            time.sleep(1)
+        print(f"تمام ({MODE}, fa): {len(events)} رویداد در {len(pages)} تصویر.")
+        return
 
     pages = paginate(events)
     for i, days in enumerate(pages, 1):

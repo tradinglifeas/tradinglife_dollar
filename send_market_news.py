@@ -157,6 +157,31 @@ def longest_common_run(a, b):
     return best
 
 
+from tl_fa import IS_FA, fa_date, hashtags, numbers_in as numbers_in_any, has_rtl
+
+ATTRIB_FA = r"به گزارش|به گفته|گزارش داد|گزارش کرد|گفت|اعلام کرد|طبق|به نقل از|می‌گوید|گفته"
+
+
+def check_fa(sel, summary_en, source_text):
+    """
+    ترجمه‌ی فارسی یک خلاصه‌ی انگلیسیِ تأییدشده رو چک می‌کنه:
+    فارسی باشه، عدد ساختگی نداشته باشه، و اگه خلاصه‌ی انگلیسی منبع گزارش داشت، فارسی هم داشته باشه.
+    """
+    fa = re.sub(r"[【〖][^】〗]*[】〗]", "", str(sel.get("summary_fa", ""))).strip()
+    lab = str(sel.get("label_fa", "")).strip().rstrip(":")
+    if not has_rtl(fa) or not 20 <= len(fa) <= 300:
+        return None, None, "ترجمه‌ی فارسی نامعتبر"
+    extra = numbers_in_any(fa) - numbers_in_any(source_text)
+    if extra:
+        return None, None, f"عدد ساختگی در فارسی {extra}"
+    if re.search(r"\b(report|reported|reports|according|citing|said|says|told)\b", summary_en, re.I) \
+            and not re.search(ATTRIB_FA, fa):
+        return None, None, "منبعِ گزارش در ترجمه‌ی فارسی حذف شده"
+    if not has_rtl(lab) or len(lab) > 20:
+        lab = "بازار"
+    return fa, lab, None
+
+
 def validate(selection, candidates):
     ok = []
     for sel in selection:
@@ -195,6 +220,11 @@ def validate(selection, candidates):
                      source_text, re.I) and not re.search(
                 r"\b(report|reported|reports|according|citing|said|says|told)\b", summary, re.I):
             print(f"  رد شد #{idx}: منبعِ گزارش‌شده در خلاصه حذف شده"); continue
+        if IS_FA:
+            fa, lab_fa, why = check_fa(sel, summary, source_text)
+            if why:
+                print(f"  رد شد #{idx}: {why}"); continue
+            label, summary = lab_fa, fa
         ok.append({"id": idx, "label": label, "summary": summary, "source": item["source"]})
         print(f"  قبول شد #{idx} [{item['source']}] {label}: {summary}")
     return ok[:MAX_ITEMS_TO_POST]
@@ -220,6 +250,16 @@ def call_groq(payload, headers, max_retries=3):
             return None
         return data
     return None
+
+
+FA_RULES = (
+    "- ALSO give a faithful Persian (Farsi) translation of your English sentence as summary_fa, in clear, "
+    "natural, neutral Persian for a general audience. Keep every number exactly as in the English sentence, "
+    "written with Latin digits (e.g. 4.3%, $82). Keep proper names of institutions/companies/indices in their "
+    "common Persian form or in English (e.g. فدرال رزرو، S&P 500، Brent). Keep attributions "
+    "(e.g. 'به گزارش وال‌استریت ژورنال'). Add nothing that is not in the English sentence.\n"
+    "- label_fa = 1-2 word Persian topic, e.g. فدرال رزرو، تورم، اشتغال، نفت، سهام، اوراق، دلار، ژئوپلیتیک.\n"
+)
 
 
 def select_with_groq(candidates):
@@ -249,8 +289,10 @@ def select_with_groq(candidates):
         "- Keep time qualifiers attached to numbers exactly (e.g. 'fell 8% for the week', not 'fell 8%').\n"
         "- No financial advice.\n"
         "- label = 1-2 words topic, e.g. Fed, ECB, Inflation, Jobs, Oil, Stocks, Bonds, Dollar, Geopolitics.\n"
-        'Return ONLY JSON: {"items":[{"id":<number>,"label":"<topic>","summary":"<sentence>"}]}\n\n'
-        f"NEWS ITEMS:\n{listing}"
+        + (FA_RULES + 'Return ONLY JSON: {"items":[{"id":<number>,"label":"<topic>","summary":"<sentence>",'
+           '"label_fa":"<موضوع>","summary_fa":"<ترجمه>"}]}\n\n' if IS_FA else
+           'Return ONLY JSON: {"items":[{"id":<number>,"label":"<topic>","summary":"<sentence>"}]}\n\n')
+        + f"NEWS ITEMS:\n{listing}"
     )
     headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
     # حالت JSON اجباری Groq گاهی خروجی خالی می‌ده (json_validate_failed)،
@@ -319,6 +361,20 @@ def news_tags(items):
     return " ".join(tags[:6])
 
 
+def main_fa(items, hours):
+    ir = datetime.now(ZoneInfo("Asia/Tehran"))
+    lines = ["📰 <b>مهم‌ترین اخبار بازار</b>", f"📅 {fa_date(ir)}", ""]
+    for it in items:
+        lines.append(f"• <b>{html.escape(it['label'])}:</b> {html.escape(it['summary'])} "
+                     f"<i>({html.escape(it['source'])})</i>")
+        lines.append("")
+    window = "72 ساعت" if hours == 72 else "24 ساعت"
+    lines += [f"<i>خلاصه‌ی گزارش‌های منابع ذکرشده در {window} گذشته. توصیه‌ی سرمایه‌گذاری نیست.</i>",
+              hashtags("اخبار_بازار", *[it["label"] for it in items])[:300],
+              f"🕐 به‌روزرسانی: {ir.strftime('%H:%M')} به وقت تهران"]
+    send_to_telegram("\n".join(lines))
+
+
 def main():
     ny = datetime.now(ZoneInfo("America/New_York"))
     candidates, hours = collect_news()
@@ -328,6 +384,8 @@ def main():
     items = select_with_groq(candidates)
     if len(items) < MIN_ITEMS_TO_POST:
         raise SystemExit("خبر معتبر کافی انتخاب نشد. پستی ارسال نشد.")
+    if IS_FA:
+        return main_fa(items, hours)
 
     lines = ["📰 <b>Key Market News</b>", f"📅 {ny.strftime('%b %d, %Y')}", ""]
     for it in items:
