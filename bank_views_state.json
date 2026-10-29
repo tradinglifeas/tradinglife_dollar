@@ -10,7 +10,8 @@
   "aac1ed992feb54b3": "2026-10-28T14:00:31.938186+00:00",
   "76809ab735a28d6e": "2026-10-29T07:26:30.900481+00:00",
   "538310b15269d01b": "2026-10-29T08:00:48.385705+00:00",
-  "cb526e827945cad0": "2026-10-29T08:00:48.385705+00:00"
+  "cb526e827945cad0": "2026-10-29T08:00:48.385705+00:00",
+  "7fd0325d370e4c6a": "2026-10-29T10:00:29.851513+00:00"
  },
  "week": [
   {
@@ -117,6 +118,18 @@
    "desc": "It has been a big week for the AI trade — we've seen wobbles in the market, many of them in response to headlines like the Anthropic S-1 and earnings from the hyperscalers (Oracle, Microsoft, etc.). So what does Wall Street make of all the news, and how are they processing an increasing sense that the laws of the economy barely apply to AI? Today, we speak with Alexander 'Alty' Altmann, global head of equities tactical strategies at Barclays, and he helps us make sense of how Wall Street really",
    "link": "https://www.bloomberg.com/news/audio/2026-10-29/what-wall-street-really-thanks-about-the-ai-trade-podcast",
    "time": "2026-10-29T08:00:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "7fd0325d370e4c6a",
+   "source": "MarketWatch",
+   "bank": "JPMorgan",
+   "title": "ServiceNow stock is on track for its largest drop on record. But JPMorgan sees a bright spot.",
+   "desc": "Shares in the software company declined nearly 18% in premarket trading on Thursday as investors digested its third-quarter earnings.",
+   "link": "https://www.marketwatch.com/story/servicenow-stock-is-on-track-for-its-largest-drop-on-record-but-jpmorgan-sees-a-bright-spot-5e5b05c6?mod=mw_rss_topstories",
+   "time": "2026-10-29T09:52:00+00:00",
    "assets": [
     "stocks"
    ]
