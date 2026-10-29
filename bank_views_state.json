@@ -12,7 +12,8 @@
   "538310b15269d01b": "2026-10-29T08:00:48.385705+00:00",
   "cb526e827945cad0": "2026-10-29T08:00:48.385705+00:00",
   "7fd0325d370e4c6a": "2026-10-29T10:00:29.851513+00:00",
-  "fe6356257b19f30a": "2026-10-29T15:00:36.544836+00:00"
+  "fe6356257b19f30a": "2026-10-29T15:00:36.544836+00:00",
+  "9b0d6fa57fe66acb": "2026-10-29T21:00:30.349079+00:00"
  },
  "week": [
   {
@@ -143,6 +144,18 @@
    "desc": "Could the US 10-year Treasury hit 6% in 2027? And could markets be too relaxed about euro rates? AI-driven growth, stubborn inflation and extraordinary government borrowing could keep global rates under pressure, while France’s debt challenge adds another potential fault line in Europe. Join ING experts to explore what could drive rates in 2027",
    "link": "https://think.ing.com/articles/webinar-the-good-the-bad-and-the-ugly-for-rates-in-2027/",
    "time": "2026-10-29T14:55:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "9b0d6fa57fe66acb",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Moving Down in High-Grade Quality: Goldman's Lynam",
+   "desc": "Amanda Lynam, chief credit strategist at Goldman Sachs, and Winnie Cisar, global head of credit strategy at CreditSights, joins Scarlet Fu on \"Bloomberg Real Yield.\" US investment-grade bond sales set an annual record as a surge in artificial intelligence spending drives companies to borrow hundreds of billions of dollars. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-10-29/moving-down-in-high-grade-quality-goldman-s-lynam-video",
+   "time": "2026-10-29T20:40:57+00:00",
    "assets": [
     "fx"
    ]
