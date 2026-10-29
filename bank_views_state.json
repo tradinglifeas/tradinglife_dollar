@@ -7,7 +7,8 @@
   "5fb9ec5df0293744": "2026-10-28T12:29:24.148650+00:00",
   "ec69ec22cac49a60": "2026-10-28T12:29:24.148650+00:00",
   "4148de2a69c02fc2": "2026-10-28T12:29:24.148650+00:00",
-  "aac1ed992feb54b3": "2026-10-28T14:00:31.938186+00:00"
+  "aac1ed992feb54b3": "2026-10-28T14:00:31.938186+00:00",
+  "76809ab735a28d6e": "2026-10-29T07:26:30.900481+00:00"
  },
  "week": [
   {
@@ -78,6 +79,18 @@
    "desc": "ASIA/PACIFIC: The Reserve Bank of New Zealand surprised with a 4-3 split vote for a hold. While a December hike remains on the cards, the signal was dovish, leaving markets’ tightening expectations vulnerable. That points to further downside risks for NZD vs commodity currency peers, despite potential near-term relief in the undervalued NZD/USD",
    "link": "https://think.ing.com/articles/rbnzs-huge-dovish-surprise-spells-trouble-for-kiwi-dollar/",
    "time": "2026-10-28T13:13:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "76809ab735a28d6e",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "ECB Expected to Stay on Hold",
+   "desc": "In focus today In the euro area, we expect the ECB to keep policy rates unchanged, with the deposit rate at 2.50%, in line with consensus and market pricing. We expect Lagarde to retain full optionality on the future rate path and offer no firm guidance, limiting the market reaction. We will watch for potential […] The post ECB Expected to Stay on Hold appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/659105-ecb-expected-to-stay-on-hold/",
+   "time": "2026-10-29T07:25:43+00:00",
    "assets": [
     "fx"
    ]
