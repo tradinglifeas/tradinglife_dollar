@@ -1,386 +1,172 @@
 """
-اسکریپت ساخت و ارسال تصویر روزانه‌ی قیمت طلا و سکه (بازار ایران) + طلای جهانی به تلگرام.
-مستقل از اسکریپت‌های نقره و بیت‌کوینه.
+کارت تصویری «قیمت طلا و سکه» (بازار ایران + اونس جهانی) برای کانال.
 
-تغییر «امروز» مستقیماً از خود API گرفته می‌شه.
-تغییر «ماه گذشته» و «سال گذشته» از یه تاریخچه‌ی خودساخته (که هر روز
-یه رکورد جدید بهش اضافه می‌شه) محاسبه می‌شه - برای همین، مقایسه‌ی ماه
-از حدود ۳۰ روز دیگه، و مقایسه‌ی سال از حدود یک سال دیگه کامل می‌شه.
-یه نمودار ساده از روند قیمت طلای ۱۸ عیار هم به تصویر اضافه می‌شه.
+منابع:
+  - طلا و سکه‌ی ایران: فایل navasan_cache.json که گزارش قیمت (send_price.py) هر بار
+    از API نوسان می‌سازه → این کارت «هیچ» درخواست اضافه‌ای به نوسان نمی‌زنه (سهمیه‌ی ۱۲۰ در ماه)
+  - اونس جهانی طلا: gold-api.com (رایگان، بدون کلید) + کنترل متقابل با XAUT در OKX
+  - تغییر «روز» طلا و سکه: از خود نوسان؛ «ماه» و «سال»: از تاریخچه‌ی gold_history_series.json
+
+ایمنی:
+  - اگه فایل نوسان قدیمی‌تر از ۶ ساعت یا خراب باشه → عکسی نمی‌ره و اجرا قرمز می‌شه
+  - جمعه (بازار ایران تعطیل) → بی‌صدا رد می‌شه
+  - قیمت نامعتبر هیچ‌وقت نمایش داده یا در تاریخچه ذخیره نمی‌شه
 """
 
-import os
 import json
-import requests
-from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from datetime import datetime
 
-BOT_TOKEN = os.environ["BOT_TOKEN"]
-CHAT_ID = os.environ["CHAT_ID"]
-BRSAPI_KEY = os.environ["BRSAPI_KEY"]
+import price_card_common as pc
 
-TELEGRAM_PHOTO_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
-GOLD_API_URL = "https://Api.BrsApi.ir/Market/Gold_Currency.php"
 HISTORY_FILE = "gold_history_series.json"
-MAX_HISTORY_DAYS = 400  # کمی بیشتر از یک سال، برای امکان مقایسه‌ی سالانه
-
-REQUEST_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                  "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-}
-
-FONT_REGULAR = "Vazirmatn-Regular.ttf"
-FONT_BOLD = "Vazirmatn-Bold.ttf"
-
-UP_COLOR = (80, 200, 120)
-DOWN_COLOR = (230, 90, 90)
-NEUTRAL_COLOR = (170, 170, 180)
+CACHE_FILE = "navasan_cache.json"
+MAX_CACHE_AGE_HOURS = 6
 GOLD_COLOR = (255, 205, 86)
 
-
-def load_font(path, size):
-    return ImageFont.truetype(path, size, layout_engine=ImageFont.Layout.RAQM)
-
-
-def find_item(items, symbol=None, name_contains=None):
-    for item in items:
-        item_symbol = str(item.get("symbol", "")).upper()
-        item_name = str(item.get("name", ""))
-        if symbol and item_symbol == symbol.upper():
-            return item
-        if name_contains and name_contains in item_name:
-            return item
-    return None
+# (کلید تاریخچه، کلید فایل نوسان، برچسب)
+ROWS = [
+    ("gold_18", "gold_18", "طلای ۱۸ عیار (هر گرم)"),
+    ("bahar_azadi", "bahar", "سکه بهار آزادی"),
+    ("emami", "emami", "سکه امامی"),
+    ("half_coin", "nim", "نیم سکه"),
+    ("quarter_coin", "rob", "ربع سکه"),
+]
+COINS = ["bahar_azadi", "emami", "half_coin", "quarter_coin"]
 
 
-def get_gold_prices():
-    params = {"key": BRSAPI_KEY, "section": "gold"}
-    response = requests.get(GOLD_API_URL, params=params, headers=REQUEST_HEADERS, timeout=15)
+def load_iran(now):
     try:
-        data = response.json()
-    except ValueError:
-        print(f"پاسخ طلا JSON نبود. کد وضعیت: {response.status_code}")
-        print(f"متن پاسخ: {response.text[:500]}")
-        return {}
-
-    print(f"داده‌ی طلا: {data}")
-    gold_list = data.get("gold", [])
-    return {
-        "gold_18": find_item(gold_list, symbol="IR_GOLD_18K") or find_item(gold_list, name_contains="طلای 18") or (gold_list[0] if gold_list else None),
-        "bahar_azadi": find_item(gold_list, symbol="IR_COIN_BAHAR") or find_item(gold_list, name_contains="بهار آزادی"),
-        "emami": find_item(gold_list, symbol="IR_COIN_EMAMI") or find_item(gold_list, name_contains="امامی"),
-        "half_coin": find_item(gold_list, symbol="IR_COIN_HALF") or find_item(gold_list, name_contains="نیم"),
-        "quarter_coin": find_item(gold_list, symbol="IR_COIN_QUARTER") or find_item(gold_list, name_contains="ربع"),
-        "global_gold_ounce": find_item(gold_list, symbol="XAUUSD") or find_item(gold_list, name_contains="انس طلا"),
-    }
-
-
-def format_number(value):
+        with open(CACHE_FILE, "r", encoding="utf-8") as f:
+            cache = json.load(f)
+    except (OSError, ValueError):
+        raise SystemExit("فایل navasan_cache.json پیدا نشد یا خراب است. "
+                         "اول گزارش قیمت (send_price) باید اجرا بشه. عکسی ارسال نشد.")
     try:
-        return f"{int(round(float(value))):,}"
-    except (ValueError, TypeError):
-        return str(value)
+        fetched = datetime.fromisoformat(cache["fetched_at"]).astimezone(pc.TEHRAN)
+    except Exception:
+        raise SystemExit("زمان فایل نوسان نامعتبر است. عکسی ارسال نشد.")
+    age_h = (now - fetched).total_seconds() / 3600
+    print(f"فایل نوسان: {fetched:%Y-%m-%d %H:%M} تهران ({age_h:.1f} ساعت پیش)")
+    if age_h > MAX_CACHE_AGE_HOURS or age_h < -0.2:
+        raise SystemExit(f"قیمت‌های نوسان قدیمی است ({age_h:.1f} ساعت). "
+                         "این کارت باید کمی بعد از گزارش قیمت اجرا بشه. عکسی ارسال نشد.")
+
+    items = cache.get("items", {})
+    out = {}
+    for key, ckey, _ in ROWS:
+        it = items.get(ckey) or {}
+        price = pc.num(it.get("price"))
+        ch = None
+        change = pc.signed(it.get("change"))
+        if price and change is not None and price - change > 0:
+            p = change / (price - change) * 100
+            if abs(p) <= 20:
+                ch = (change, p)
+        if price:
+            out[key] = (price, ch)
+
+    g18 = out.get("gold_18", (None,))[0]
+    if not g18 or not 1_000_000 <= g18 <= 1_000_000_000:
+        raise SystemExit(f"قیمت طلای ۱۸ عیار نامعتبر است ({g18}). عکسی ارسال نشد.")
+    full = (out.get("emami") or out.get("bahar_azadi") or (None,))[0]
+    half, quarter = out.get("half_coin", (None,))[0], out.get("quarter_coin", (None,))[0]
+    bad = (full and half and quarter and not full > half > quarter) or (quarter and quarter < g18)
+    if bad:
+        print("ترتیب قیمت سکه‌ها منطقی نیست؛ سکه‌ها نمایش داده نمی‌شن.")
+        for k in COINS:
+            out.pop(k, None)
+    return out
 
 
-def get_daily_change(item):
-    """تغییر امروز رو مستقیماً از فیلدهای خود API می‌خونه"""
-    if not item:
-        return None, None
-    change_percent = item.get("change_percent")
-    change_value = item.get("change_value")
-    if change_percent is None:
-        return None, None
-    try:
-        change_percent = float(change_percent)
-    except (ValueError, TypeError):
-        return None, None
-    try:
-        change_value = float(change_value) if change_value is not None else None
-    except (ValueError, TypeError):
-        change_value = None
-    return change_value, change_percent
-
-
-# ---------- تاریخچه‌ی خودساخته برای مقایسه‌ی ماه/سال ----------
-
-def load_history():
-    if not os.path.exists(HISTORY_FILE):
-        return []
-    try:
-        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (ValueError, OSError):
-        return []
-
-
-def save_history(records):
-    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(records[-MAX_HISTORY_DAYS:], f, ensure_ascii=False, indent=2)
-
-
-def update_history(records, today_str, snapshot):
-    """اگه امروز قبلاً ثبت شده، آپدیتش می‌کنه؛ وگرنه یه رکورد جدید اضافه می‌کنه"""
-    if records and records[-1]["date"] == today_str:
-        records[-1]["prices"] = snapshot
-    else:
-        records.append({"date": today_str, "prices": snapshot})
-    return records
-
-
-def find_record_near(records, target_date, tolerance_days=5):
-    """نزدیک‌ترین رکورد به یه تاریخ هدف رو پیدا می‌کنه (در بازه‌ی مجاز خطا)"""
-    best = None
-    best_diff = None
-    for rec in records:
-        try:
-            rec_date = datetime.strptime(rec["date"], "%Y-%m-%d").date()
-        except ValueError:
-            continue
-        diff = abs((rec_date - target_date).days)
-        if diff <= tolerance_days and (best_diff is None or diff < best_diff):
-            best = rec
-            best_diff = diff
-    return best
-
-
-def get_period_change(records, key, current_price, days_ago):
-    if current_price is None:
-        return None, None
-    today = datetime.now(ZoneInfo("Asia/Tehran")).date()
-    target_date = today - timedelta(days=days_ago)
-    record = find_record_near(records, target_date, tolerance_days=5)
-    if not record:
-        return None, None
-    old_price = record.get("prices", {}).get(key)
-    if old_price is None:
-        return None, None
-    try:
-        old_price = float(old_price)
-        current_price = float(current_price)
-    except (ValueError, TypeError):
-        return None, None
-    if old_price == 0:
-        return None, None
-    diff = current_price - old_price
-    percent = (diff / old_price) * 100
-    return diff, percent
-
-
-def change_line(diff, percent, unit):
-    if percent is None:
-        return "—"
-    sign = "+" if percent > 0 else ("-" if percent < 0 else "")
-    color = UP_COLOR if percent > 0 else (DOWN_COLOR if percent < 0 else NEUTRAL_COLOR)
-    if diff is not None:
-        text = f"{sign}{abs(percent):.1f}% ({sign}{format_number(abs(diff))})"
-    else:
-        text = f"{sign}{abs(percent):.1f}%"
-    return text, color
-
-
-def draw_row(draw, y, margin, width, label, item, unit, records, key,
-             label_font, value_font, change_font, small_font,
-             card_color, text_color, label_color, card_height=130):
-    draw.rounded_rectangle([margin, y, width - margin, y + card_height], radius=16, fill=card_color)
-
-    draw.text((width - margin - 30, y + 16), label, font=label_font, fill=label_color,
-              direction="rtl", anchor="ra")
-
-    price = item.get("price") if item else None
-    value_text = f"{format_number(price)} {unit}" if price else "نامشخص"
-    draw.text((margin + 30, y + 14), value_text, font=value_font, fill=text_color,
-              direction="ltr", anchor="la")
-
-    # تغییر امروز (از خود API)
-    day_diff, day_percent = get_daily_change(item)
-    day_result = change_line(day_diff, day_percent, unit)
-
-    # تغییر ماه و سال (از تاریخچه‌ی خودمون)
-    month_diff, month_percent = get_period_change(records, key, price, 30)
-    month_result = change_line(month_diff, month_percent, unit)
-
-    year_diff, year_percent = get_period_change(records, key, price, 365)
-    year_result = change_line(year_diff, year_percent, unit)
-
-    labels = ["روز:", "ماه:", "سال:"]
-    results = [day_result, month_result, year_result]
-    x = margin + 30
-    row_y = y + 60
-    draw.text((x, row_y), "", font=small_font, fill=label_color)  # placeholder alignment anchor
-
-    cursor_x = width - margin - 30
-    for lbl, res in zip(labels, results):
-        if res == "—":
-            piece = f"{lbl} —"
-            color = NEUTRAL_COLOR
-        else:
-            text, color = res
-            piece = f"{lbl} {text}"
-        bbox = draw.textbbox((0, 0), piece, font=small_font, direction="ltr")
-        piece_width = bbox[2] - bbox[0]
-        draw.text((cursor_x - piece_width, row_y), piece, font=small_font, fill=color, direction="ltr", anchor="la")
-        cursor_x -= piece_width + 25
-
-    return y + card_height + 16
-
-
-def draw_chart(draw, x, y, chart_width, chart_height, records, key, font, color, label_color):
-    """نمودار خط ساده از روند قیمت طی روزهای ثبت‌شده"""
-    points = []
-    for rec in records:
-        price = rec.get("prices", {}).get(key)
-        if price is not None:
-            points.append(float(price))
-
-    draw.text((x + chart_width, y - 40), "روند قیمت (بازه‌ی ثبت‌شده)", font=font, fill=label_color,
-              direction="rtl", anchor="ra")
-
-    if len(points) < 2:
-        draw.text((x + chart_width / 2, y + chart_height / 2), "هنوز داده‌ی کافی برای نمودار نداریم",
-                  font=font, fill=label_color, direction="rtl", anchor="mm")
-        return
-
-    min_p, max_p = min(points), max(points)
-    if min_p == max_p:
-        max_p = min_p + 1
-
-    step_x = chart_width / (len(points) - 1)
-
-    coords = []
-    for i, p in enumerate(points):
-        px = x + i * step_x
-        py = y + chart_height - ((p - min_p) / (max_p - min_p)) * chart_height
-        coords.append((px, py))
-
-    draw.line(coords, fill=color, width=3, joint="curve")
-    for cx, cy in [coords[0], coords[-1]]:
-        r = 4
-        draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=color)
-
-
-def add_gold_glow(bg_color, width, height):
-    """پس‌زمینه‌ی تیره رو با چند لکه‌ی محو طلایی تزیین می‌کنه"""
-    glow_layer = Image.new("RGB", (width, height), bg_color)
-    glow_draw = ImageDraw.Draw(glow_layer)
-
-    blobs = [
-        (width * 0.15, height * 0.04, 260, (255, 205, 86)),
-        (width * 0.92, height * 0.12, 220, (255, 180, 60)),
-        (width * 0.08, height * 0.55, 200, (255, 205, 86)),
-    ]
-    for cx, cy, r, color in blobs:
-        glow_draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=color)
-
-    glow_layer = glow_layer.filter(ImageFilter.GaussianBlur(120))
-
-    base = Image.new("RGB", (width, height), bg_color)
-    return Image.blend(base, glow_layer, alpha=0.22)
-
-
-def build_image(gold, global_gold, records, now_text):
-    width, max_height = 950, 1700
-    bg_color = (18, 18, 24)
-    card_color = (30, 30, 40)
-    text_color = (240, 240, 240)
-    label_color = (170, 170, 180)
-
-    img = add_gold_glow(bg_color, width, max_height)
-    draw = ImageDraw.Draw(img)
-
-    title_font = load_font(FONT_BOLD, 46)
-    section_font = load_font(FONT_BOLD, 32)
-    label_font = load_font(FONT_REGULAR, 28)
-    value_font = load_font(FONT_BOLD, 30)
-    small_font = load_font(FONT_REGULAR, 20)
-    footer_font = load_font(FONT_REGULAR, 22)
-
-    margin = 55
+def build_image(iran, ounce, ounce_ch, records, day, now):
+    W, H = 950, 1700
+    img = pc.glow_background(W, H, [(255, 205, 86), (255, 180, 60), (255, 205, 86)], 0.22)
+    d = pc.ImageDraw.Draw(img)
+    F = pc.standard_fonts()
+    m = 55
     y = 40
-
-    title = "قیمت طلا و سکه"
-    draw.text((width / 2, y), title, font=title_font, fill=GOLD_COLOR,
-              direction="rtl", anchor="ma")
-    y += 75
-
-    section_title = "بازار ایران (تومان)"
-    draw.text((width - margin, y), section_title, font=section_font, fill=label_color,
-              direction="rtl", anchor="ra")
+    d.text((W / 2, y), "قیمت طلا و سکه", font=F["title"], fill=GOLD_COLOR, direction="rtl", anchor="ma")
+    y += 80
+    pc.rtl(d, W - m, y, "بازار ایران (تومان)", F["section"], pc.MUTED)
     y += 50
+    for key, _, label in ROWS:
+        if key not in iran:
+            continue
+        price, day_ch = iran[key]
+        pairs = [("روز:", pc.change_text(day_ch)),
+                 ("ماه:", pc.change_text(pc.period_change(records, key, price, day, 30))),
+                 ("سال:", pc.change_text(pc.period_change(records, key, price, day, 365)))]
+        y = pc.price_card(d, W, m, y, label, pc.fmt(price), pairs, F)
 
-    gold_rows = [
-        ("طلای ۱۸ عیار (هر گرم)", gold.get("gold_18"), "gold_18"),
-        ("سکه بهار آزادی", gold.get("bahar_azadi"), "bahar_azadi"),
-        ("سکه امامی", gold.get("emami"), "emami"),
-        ("نیم سکه", gold.get("half_coin"), "half_coin"),
-        ("ربع سکه", gold.get("quarter_coin"), "quarter_coin"),
-    ]
-    for label, item, key in gold_rows:
-        y = draw_row(draw, y, margin, width, label, item, "تومان", records, key,
-                     label_font, value_font, None, small_font, card_color, text_color, label_color)
+    if ounce:
+        y += 12
+        pc.rtl(d, W - m, y, "بازار جهانی (دلار)", F["section"], pc.MUTED)
+        y += 50
+        pairs = [("روز:", pc.change_text(ounce_ch, "$")),
+                 ("ماه:", pc.change_text(pc.period_change(records, "global_gold_ounce", ounce, day, 30), "$")),
+                 ("سال:", pc.change_text(pc.period_change(records, "global_gold_ounce", ounce, day, 365), "$"))]
+        y = pc.price_card(d, W, m, y, "هر اونس طلا", "$" + pc.fmt(ounce), pairs, F)
 
-    y += 10
-    section_title = "بازار جهانی (دلار)"
-    draw.text((width - margin, y), section_title, font=section_font, fill=label_color,
-              direction="rtl", anchor="ra")
-    y += 50
-    y = draw_row(draw, y, margin, width, "هر اونس طلا", global_gold, "$", records, "global_gold_ounce",
-                 label_font, value_font, None, small_font, card_color, text_color, label_color)
-
-    # نمودار روند طلای ۱۸ عیار
-    y += 30
-    chart_x = margin
-    chart_y = y + 50
-    chart_w = width - margin * 2
-    chart_h = 200
-    draw_chart(draw, chart_x, chart_y, chart_w, chart_h, records, "gold_18",
-               small_font, GOLD_COLOR, label_color)
-    y = chart_y + chart_h + 20
-
-    y += 15
-    draw.text((width / 2, y + 10), now_text, font=footer_font, fill=label_color,
-              direction="rtl", anchor="ma")
-
-    final_height = y + 10 + 60
-    img = img.crop((0, 0, width, min(final_height, max_height)))
-
-    output_path = "gold_price.png"
-    img.save(output_path)
-    return output_path
+    y += 70
+    pc.chart(d, m, y, W - 2 * m, 200, records, "gold_18", GOLD_COLOR, F,
+             lambda v: f"{v / 1_000_000:,.1f}M")
+    pc.rtl(d, W - m, y + 236, "نمودار: طلای ۱۸ عیار (تومان، M = میلیون)", F["tiny"], pc.MUTED)
+    y += 290
+    d.text((W / 2, y), "بروزرسانی: " + pc.date_text(now) + " به وقت ایران",
+           font=F["footer"], fill=pc.MUTED, direction="rtl", anchor="ma")
+    img = img.crop((0, 0, W, min(y + 60, H)))
+    img.save("gold_price.png")
+    return "gold_price.png"
 
 
-def send_photo(image_path):
-    with open(image_path, "rb") as photo:
-        response = requests.post(
-            TELEGRAM_PHOTO_URL, data={"chat_id": CHAT_ID}, files={"photo": photo}, timeout=30,
-        )
-    result = response.json()
-    if not result.get("ok"):
-        print(f"خطا در ارسال عکس: {result}")
-        raise SystemExit(1)
-    print("عکس طلا با موفقیت ارسال شد.")
+def caption(iran, ounce, ounce_ch):
+    g18, ch = iran["gold_18"]
+    lines = ["🟡 قیمت طلا و سکه", ""]
+    t = f"طلای ۱۸ عیار: {pc.fmt(g18)} تومان"
+    if pc.pct_caption(ch):
+        t += f" ({pc.pct_caption(ch)} امروز)"
+    lines.append(t)
+    coin = iran.get("emami")
+    if coin:
+        t = f"سکه امامی: {pc.fmt(coin[0])} تومان"
+        if pc.pct_caption(coin[1]):
+            t += f" ({pc.pct_caption(coin[1])} امروز)"
+        lines.append(t)
+    if ounce:
+        t = f"اونس جهانی طلا: ${pc.fmt(ounce)}"
+        if pc.pct_caption(ounce_ch):
+            t += f" ({pc.pct_caption(ounce_ch)})"
+        lines.append(t)
+    lines += ["", "#طلا #سکه #طلای_۱۸_عیار #انس_طلا"]
+    return "\n".join(lines)
 
 
 def main():
-    iran_time = datetime.now(ZoneInfo("Asia/Tehran"))
-    now_text = "بروزرسانی: " + iran_time.strftime("%Y/%m/%d - %H:%M") + " به وقت ایران"
-    today_str = iran_time.strftime("%Y-%m-%d")
+    now = pc.now_tehran()
+    if now.weekday() == 4:
+        print("جمعه — بازار طلا و سکه‌ی ایران تعطیله؛ کارتی ارسال نمی‌شه.")
+        return
+    day = now.strftime("%Y-%m-%d")
 
-    gold = get_gold_prices()
-    global_gold = gold.get("global_gold_ounce")
-    records = load_history()
+    records = pc.load_history(HISTORY_FILE, multi=True)
+    iran = load_iran(now)
 
-    snapshot = {}
-    for key in ["gold_18", "bahar_azadi", "emami", "half_coin", "quarter_coin", "global_gold_ounce"]:
-        item = gold.get(key)
-        if item and item.get("price") is not None:
-            snapshot[key] = item["price"]
+    ounce = pc.world_metal("XAU", 500, 20000)
+    if ounce and not pc.jump_ok(records, "global_gold_ounce", ounce, day, 15):
+        ounce = None
+    if not ounce:
+        print("اونس جهانی طلا در دسترس نبود؛ کارت بدون بخش جهانی ساخته می‌شه.")
+    prev = pc.last_before(records, "global_gold_ounce", day, 5) if ounce else None
+    ounce_ch = (ounce - prev, (ounce / prev - 1) * 100) if ounce and prev else None
 
-    records = update_history(records, today_str, snapshot)
+    values = {k: v[0] for k, v in iran.items()}
+    if ounce:
+        values["global_gold_ounce"] = ounce
+    records = pc.upsert(records, day, values)
 
-    image_path = build_image(gold, global_gold, records, now_text)
-    save_history(records)
-    send_photo(image_path)
+    path = build_image(iran, ounce, ounce_ch, records, day, now)
+    pc.save_history(HISTORY_FILE, records, multi=True)
+    pc.send_photo(path, caption(iran, ounce, ounce_ch))
 
 
 if __name__ == "__main__":

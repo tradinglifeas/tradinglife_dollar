@@ -12,10 +12,15 @@
   - هر قیمت نامعتبر (صفر، منفی، خالی) حذف می‌شه، نه اینکه «0» نمایش داده بشه
   - ترتیب منطقی قیمت سکه‌ها چک می‌شه (تمام > نیم > ربع)؛ اگه به‌هم ریخته بود، سکه‌ها نمایش داده نمی‌شن
   - جواب کامل API در لاگ چاپ می‌شه (بدون کلید) تا اگه ساختار عوض شد، سریع اصلاح بشه
+
+اشتراک با کارت تصویری طلا و سکه:
+  - قیمت‌های تأییدشده در navasan_cache.json ذخیره و در ریپو commit می‌شن
+  - send_gold_image.py از همین فایل می‌خونه → هیچ درخواست اضافه‌ای به نوسان زده نمی‌شه
 """
 
 import os
 import re
+import json
 import requests
 import jdatetime
 from datetime import datetime
@@ -83,6 +88,41 @@ def get_navasan():
     return data
 
 
+def signed_number(v):
+    """مقدار «change» نوسان (می‌تونه منفی باشه)."""
+    if isinstance(v, dict):
+        v = v.get("change")
+    if v is None:
+        return None
+    s = str(v).translate(str.maketrans("۰۱۲۳۴۵۶۷۸۹", "0123456789")).replace(",", "").replace("−", "-").strip()
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+
+def save_cache(data, prices, iran_time):
+    """
+    قیمت‌های تأییدشده رو در navasan_cache.json ذخیره می‌کنه تا کارت تصویری طلا و سکه
+    بدون درخواست اضافه به نوسان (و بدون مصرف سهمیه) ازشون استفاده کنه.
+    فقط قیمت‌هایی که از بررسی sanity رد شدن ذخیره می‌شن (همه به تومان).
+    """
+    items = {}
+    for key, _, names in ITEMS:
+        price = prices.get(key)
+        if not price:
+            continue
+        raw = next((data[n] for n in names if n in data and to_number(data[n])), None)
+        change = signed_number(raw)
+        if change is not None and key in THOUSAND_TOMAN:
+            change *= 1000
+        items[key] = {"price": round(price), "change": change}
+    with open("navasan_cache.json", "w", encoding="utf-8") as f:
+        json.dump({"fetched_at": iran_time.isoformat(timespec="seconds"), "items": items},
+                  f, ensure_ascii=False, indent=2)
+    print("navasan_cache.json ذخیره شد:", list(items))
+
+
 def get_btc():
     try:
         d = requests.get(OKX_TICKER, params={"instId": "BTC-USDT"}, headers=REQUEST_HEADERS, timeout=20).json()
@@ -138,7 +178,9 @@ def main():
         print(f"ساعت {iran_time.strftime('%H:%M')} به وقت ایران - داخل بازه‌ی سکوت، پیامی ارسال نمی‌شه.")
         return
 
-    prices = sanity(pick(get_navasan()))
+    data = get_navasan()
+    prices = sanity(pick(data))
+    save_cache(data, prices, iran_time)
     btc = get_btc()
 
     shamsi = jdatetime.datetime.fromgregorian(datetime=iran_time).strftime("%Y/%m/%d %H:%M")
