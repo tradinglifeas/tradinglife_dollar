@@ -11,7 +11,8 @@
   "76809ab735a28d6e": "2026-10-29T07:26:30.900481+00:00",
   "538310b15269d01b": "2026-10-29T08:00:48.385705+00:00",
   "cb526e827945cad0": "2026-10-29T08:00:48.385705+00:00",
-  "7fd0325d370e4c6a": "2026-10-29T10:00:29.851513+00:00"
+  "7fd0325d370e4c6a": "2026-10-29T10:00:29.851513+00:00",
+  "fe6356257b19f30a": "2026-10-29T15:00:36.544836+00:00"
  },
  "week": [
   {
@@ -132,6 +133,18 @@
    "time": "2026-10-29T09:52:00+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "fe6356257b19f30a",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Webinar: The Good, the Bad and the Ugly for rates in 2027",
+   "desc": "Could the US 10-year Treasury hit 6% in 2027? And could markets be too relaxed about euro rates? AI-driven growth, stubborn inflation and extraordinary government borrowing could keep global rates under pressure, while France’s debt challenge adds another potential fault line in Europe. Join ING experts to explore what could drive rates in 2027",
+   "link": "https://think.ing.com/articles/webinar-the-good-the-bad-and-the-ugly-for-rates-in-2027/",
+   "time": "2026-10-29T14:55:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
