@@ -132,6 +132,113 @@ def get_global():
         return None
 
 
+# ================================================================ جریان پول (ورود/خروج)
+# چهار نشانه، همه از منابع رایگان و بدون کلید. قانون‌های ثابت؛ تصویر وضعیت فعلیه، نه پیش‌بینی.
+#   ۱) عرضه‌ی کل استیبل‌کوین‌ها (DefiLlama): رشد = دلار تازه وارد کریپتو شده و آماده‌ی خریده
+#   ۲) پرمیوم کوین‌بیس (Coinbase BTC-USD در برابر OKX BTC-USDT): مثبت = تقاضای خریداران آمریکایی/نهادی
+#   ۳) سهم خرید در معاملات اسپات بیت‌کوین (OKX، ۲۴ ساعت): بیشتر از نصف = خریدارها فعال‌ترن
+#   ۴) قراردادهای باز آتی بیت‌کوین (OKX) + نرخ فاندینگ: رشد بدون فاندینگ داغ = پول تازه بدون شلوغی اهرمی
+
+DEFILLAMA_STABLES = "https://stablecoins.llama.fi/stablecoincharts/all"
+COINBASE = "https://api.exchange.coinbase.com"
+
+
+def _stablecoins():
+    rows = get_json(DEFILLAMA_STABLES, timeout=30)
+    pts = []
+    for r in rows:
+        v = sf((r.get("totalCirculatingUSD") or {}).get("peggedUSD"))
+        t = sf(r.get("date"))
+        if v and t:
+            pts.append((int(t), v))
+    pts.sort()
+    if len(pts) < 31:
+        raise ValueError(f"only {len(pts)} rows")
+    last_t, last = pts[-1]
+    if time.time() - last_t > 3 * 86400:
+        raise ValueError("stale data")
+
+    def ago(days):
+        target = last_t - days * 86400
+        return min(pts, key=lambda p: abs(p[0] - target))[1]
+    return {"total": last, "ch7": pct(last, ago(7)), "ch30": pct(last, ago(30))}
+
+
+def _coinbase_premium(okx_btc):
+    cb = sf(get_json(f"{COINBASE}/products/BTC-USD/ticker")["price"])
+    usdt = sf(get_json(f"{COINBASE}/products/USDT-USD/ticker")["price"])
+    if not (cb and usdt and okx_btc) or not 0.97 <= usdt <= 1.03:
+        raise ValueError(f"bad prices cb={cb} usdt={usdt}")
+    prem = (cb / (okx_btc * usdt) - 1) * 100
+    if abs(prem) > 2:
+        raise ValueError(f"implausible premium {prem:.2f}%")
+    return prem
+
+
+def _spot_buy_share():
+    d = get_json(f"{OKX}/api/v5/rubik/stat/taker-volume",
+                 {"ccy": "BTC", "instType": "SPOT", "period": "1D"})["data"]
+    ts, sell, buy = d[0][0], sf(d[0][1]), sf(d[0][2])        # جدیدترین روز اول
+    if not sell or not buy:
+        raise ValueError("empty taker volume")
+    return buy / (buy + sell) * 100
+
+
+def _futures_oi():
+    d = get_json(f"{OKX}/api/v5/rubik/stat/contracts/open-interest-volume",
+                 {"ccy": "BTC", "period": "1D"})["data"]
+    oi_now, oi_prev = sf(d[0][1]), sf(d[1][1])
+    fr = sf(get_json(f"{OKX}/api/v5/public/funding-rate", {"instId": "BTC-USDT-SWAP"})["data"][0]["fundingRate"])
+    if not oi_now or not oi_prev or fr is None:
+        raise ValueError("missing OI/funding")
+    return {"oi": oi_now, "ch": pct(oi_now, oi_prev), "funding": fr * 100}
+
+
+def get_flow(coins):
+    """هر نشانه: (عنوان، مقدار نمایشی، وضعیت 1/0/-1). نشانه‌ای که داده‌اش نیاد، حذف می‌شه."""
+    rows = []
+    try:
+        st = _stablecoins()
+        c = st["ch7"]
+        rows.append(("Stablecoin supply (7D)", f"{fmt_pct(c)} · {fmt_big(st['total'])}",
+                     1 if c > 0.3 else -1 if c < -0.3 else 0))
+        print(f"✓ Stablecoins: {st}")
+    except Exception as e:
+        print(f"✗ Stablecoins (DefiLlama): {e}")
+    try:
+        btc = (coins.get("BTC") or {}).get("price")
+        pr = _coinbase_premium(btc)
+        rows.append(("Coinbase premium (BTC)", f"{pr:+.3f}%", 1 if pr > 0.05 else -1 if pr < -0.05 else 0))
+        print(f"✓ Coinbase premium: {pr:.3f}%")
+    except Exception as e:
+        print(f"✗ Coinbase premium: {e}")
+    try:
+        b = _spot_buy_share()
+        rows.append(("Spot buy share (BTC, 24H)", f"{b:.1f}% buy", 1 if b > 52 else -1 if b < 48 else 0))
+        print(f"✓ Spot buy share: {b:.1f}%")
+    except Exception as e:
+        print(f"✗ Spot buy share (OKX): {e}")
+    try:
+        f = _futures_oi()
+        if f["ch"] > 2 and f["funding"] <= 0.03:
+            sig = 1
+        elif f["ch"] < -2:
+            sig = -1
+        else:
+            sig = 0      # تغییر کم، یا رشد همراه با فاندینگ داغ (شلوغی اهرمی، نه پول سالم)
+        rows.append(("Futures open interest (BTC, 24H)", f"{fmt_pct(f['ch'])} · funding {f['funding']:.3f}%", sig))
+        print(f"✓ Futures OI: {f}")
+    except Exception as e:
+        print(f"✗ Futures OI (OKX): {e}")
+    if len(rows) < 3:
+        print(f"جریان پول: فقط {len(rows)} نشانه در دسترس بود؛ این بخش نمایش داده نمی‌شه.")
+        return None
+    score = sum(r[2] for r in rows)
+    verdict = "Supportive" if score >= 2 else "Unfavorable" if score <= -2 else "Mixed"
+    return {"rows": rows, "verdict": verdict,
+            "pos": sum(1 for r in rows if r[2] > 0), "neg": sum(1 for r in rows if r[2] < 0), "n": len(rows)}
+
+
 def get_movers():
     try:
         rows = get_json(f"{COINGECKO}/coins/markets",
@@ -452,7 +559,7 @@ def fng_color(v):
     return RED if v <= 25 else AMBER if v <= 45 else MUTED if v <= 55 else (130, 210, 110) if v <= 75 else GREEN
 
 
-def render(coins, glob, movers, fng, summary, news, now):
+def render(coins, glob, movers, fng, summary, news, now, flow=None):
     im = Image.new("RGB", (W, 3200), BG)
     d = ImageDraw.Draw(im)
     if IS_FA:
@@ -512,6 +619,25 @@ def render(coins, glob, movers, fng, summary, news, now):
         y += 64
     y += 30
 
+    # --- جریان پول
+    if flow:
+        h = 66 + 52 * len(flow["rows"]) + 44
+        rr(d, (50, y, 1030, y + h), PANEL)
+        d.text((78, y + 22), "MONEY FLOW · IS NEW MONEY COMING IN?", font=F18B, fill=BLUE)
+        vc = {"Supportive": GREEN, "Unfavorable": RED, "Mixed": AMBER}[flow["verdict"]]
+        right(d, 1005, y + 18, flow["verdict"], F24B, vc)
+        yy = y + 66
+        for name, val, sig in flow["rows"]:
+            d.line((75, yy - 8, 1005, yy - 8), fill=LINE)
+            d.text((78, yy + 6), name, font=F21, fill=TEXT)
+            right(d, 820, yy + 6, val, F21, TEXT)
+            word = {1: "Inflow", -1: "Outflow", 0: "Neutral"}[sig]
+            right(d, 1005, yy + 6, word, F21, GREEN if sig > 0 else RED if sig < 0 else MUTED)
+            yy += 52
+        d.text((78, yy + 4), "Fixed rules on current data — a snapshot of conditions, not a forecast.",
+               font=F18, fill=MUTED)
+        y += h + 22
+
     # --- بیشترین رشد و افت
     if movers:
         rr(d, (50, y, 1030, y + 175), PANEL)
@@ -568,7 +694,8 @@ def render(coins, glob, movers, fng, summary, news, now):
     # --- فوتر
     rr(d, (50, y, 1030, y + 120), PANEL2)
     d.text((75, y + 20), f"TradingLife  •  Updated {now.strftime('%Y-%m-%d %H:%M')} ET", font=F18, fill=TEXT)
-    d.text((75, y + 52), "Prices: OKX (USDT pairs) • Market data: CoinGecko • Sentiment: alternative.me",
+    d.text((75, y + 52), "Prices: OKX (USDT pairs) • Market data: CoinGecko • Sentiment: alternative.me"
+           + (" • Flow: DefiLlama, Coinbase, OKX" if flow else ""),
            font=F18, fill=MUTED)
     d.text((75, y + 80), "24H = rolling 24 hours • News summarized from named sources • Not investment advice",
            font=F18, fill=MUTED)
@@ -585,7 +712,10 @@ COIN_TAGS = {"BTC": "#Bitcoin", "ETH": "#Ethereum", "SOL": "#Solana", "XRP": "#X
              "ADA": "#Cardano", "DOGE": "#Dogecoin"}
 
 
-def caption_text(coins, glob, movers, fng, summary, news, now):
+FLOW_FA = {"Supportive": "مساعد", "Unfavorable": "نامساعد", "Mixed": "مختلط"}
+
+
+def caption_text(coins, glob, movers, fng, summary, news, now, flow=None):
     """متن زیر عکس — فقط از روی داده‌ها."""
     def price(sym):
         c = coins.get(sym)
@@ -602,6 +732,9 @@ def caption_text(coins, glob, movers, fng, summary, news, now):
     if movers:
         u, d = movers["up"][0], movers["down"][0]
         extra.append(f"Top gainer: {u['sym']} {fmt_pct(u['ch'])} · Top loser: {d['sym']} {fmt_pct(d['ch'])}")
+    if flow:
+        extra.append(f"Money flow: {flow['verdict']} ({flow['pos']} of {flow['n']} signals show inflow, "
+                     f"{flow['neg']} outflow)")
     if extra:
         lines += [""] + extra
     if news:
@@ -659,10 +792,22 @@ CR_TR = Translator([
     (r"TOP GAINERS · 24H", "بیشترین رشد · 24 ساعت"), (r"TOP LOSERS · 24H", "بیشترین افت · 24 ساعت"),
     (r"Among the top (\d+) coins by market cap \(excl\. stablecoins & wrapped tokens\)",
      r"بین \1 ارز برتر از نظر ارزش بازار (بدون استیبل‌کوین‌ها و توکن‌های wrapped)"),
+    (r"MONEY FLOW · IS NEW MONEY COMING IN\?", "جریان پول · آیا پول تازه وارد بازار می‌شه؟"),
+    (r"Supportive", "مساعد برای ورود پول"), (r"Unfavorable", "نامساعد (خروج پول)"), (r"Mixed", "مختلط / خنثی"),
+    (r"Stablecoin supply \(7D\)", "عرضه‌ی استیبل‌کوین‌ها (7 روز)"),
+    (r"Coinbase premium \(BTC\)", "پرمیوم کوین‌بیس (بیت‌کوین)"),
+    (r"Spot buy share \(BTC, 24H\)", "سهم خرید اسپات (بیت‌کوین، 24 ساعت)"),
+    (r"Futures open interest \(BTC, 24H\)", "قراردادهای باز آتی (بیت‌کوین، 24 ساعت)"),
+    (r"(.+) buy", r"\1 خرید"), (r"(.+) · funding (.+)", r"\1 · فاندینگ \2"),
+    (r"Inflow", "ورود"), (r"Outflow", "خروج"), (r"Neutral", "خنثی"),
+    (r"Fixed rules on current data — a snapshot of conditions, not a forecast\.",
+     "قانون‌های ثابت روی داده‌های فعلی — تصویر وضعیت امروز، نه پیش‌بینی."),
     (r"MARKET SUMMARY", "خلاصه‌ی بازار"), (r"KEY CRYPTO NEWS", "اخبار مهم کریپتو"),
     (r"TradingLife  •  Updated (.+) ET", _updated_fa),
     (r"Prices: OKX \(USDT pairs\) • Market data: CoinGecko • Sentiment: alternative\.me",
      "قیمت‌ها: OKX (جفت‌های USDT) · داده‌ی بازار: CoinGecko · شاخص احساسات: alternative.me"),
+    (r"Prices: OKX \(USDT pairs\) • Market data: CoinGecko • Sentiment: alternative\.me • Flow: DefiLlama, Coinbase, OKX",
+     "قیمت: OKX · بازار: CoinGecko · احساسات: alternative.me · جریان پول: DefiLlama، Coinbase، OKX"),
     (r"24H = rolling 24 hours • News summarized from named sources • Not investment advice",
      "24 ساعت = 24 ساعت گذشته · خلاصه‌ی خبر از منابع ذکرشده · توصیه‌ی سرمایه‌گذاری نیست"),
 ] + [(re.escape(k), v) for k, v in {**COIN_FA, **FNG_FA}.items() if k != "XRP"])   # نماد XRP دست نخوره
@@ -688,7 +833,7 @@ def summary_sentence_fa(coins, glob):
     return s
 
 
-def caption_fa(coins, glob, movers, fng, summary, news, now):
+def caption_fa(coins, glob, movers, fng, summary, news, now, flow=None):
     def pr(sym):
         c = coins.get(sym)
         return f"{sym} {fmt_price(c['price'])} ({fmt_pct(c['ch24'])})" if c else None
@@ -704,11 +849,14 @@ def caption_fa(coins, glob, movers, fng, summary, news, now):
     if movers:
         u, d_ = movers["up"][0], movers["down"][0]
         extra.append(f"بیشترین رشد: {u['sym']} {fmt_pct(u['ch'])} · بیشترین افت: {d_['sym']} {fmt_pct(d_['ch'])}")
+    if flow:
+        extra.append(f"جریان پول: {FLOW_FA[flow['verdict']]} — از {flow['n']} نشانه، {flow['pos']} ورود پول "
+                     f"و {flow['neg']} خروج پول نشون می‌دن")
     if extra:
         lines += [""] + extra
     if news:
         lines += ["", "اخبار مهم:"] + [f"• {n['label']}: {n['summary']} ({n['source']})" for n in news[:2]]
-    tags = ["کریپتو", "بیت_کوین", "اتریوم"]
+    tags = ["کریپتو", "بیت_کوین", "اتریوم"] + (["جریان_پول"] if flow else [])
     fa_tag = {"SOL": "سولانا", "XRP": "ریپل", "ADA": "کاردانو", "DOGE": "دوج_کوین"}
     for sym, c in coins.items():
         if c.get("ch24") is not None and abs(c["ch24"]) >= 5 and sym in fa_tag:
@@ -737,8 +885,9 @@ def main():
     news = select_news(collect_news())
     if not news:
         print("بخش اخبار حذف شد (خبر معتبر کافی نبود).")
-    cap = (caption_fa if IS_FA else caption_text)(coins, glob, movers, fng, summary, news, now)
-    send_photo(render(coins, glob, movers, fng, summary, news, now), cap)
+    flow = get_flow(coins)
+    cap = (caption_fa if IS_FA else caption_text)(coins, glob, movers, fng, summary, news, now, flow)
+    send_photo(render(coins, glob, movers, fng, summary, news, now, flow), cap)
 
 
 if __name__ == "__main__":
