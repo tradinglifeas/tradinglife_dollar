@@ -88,18 +88,39 @@ def call_groq(payload, headers, max_retries=3):
     return None
 
 
+# ساختار پست مفصل (فارسی): هر بخش جدا ساخته و جدا بررسی می‌شه
+FA_FIELDS = {          # کلید: (حداقل، حداکثر طول)
+    "title_fa": (3, 60),
+    "what_fa": (120, 450),       # این چیه؟
+    "example_fa": (120, 450),    # یک صحنه‌ی آشنا از بازار (بدون عدد)
+    "why_fa": (100, 400),        # چرا مغز ما این کار رو می‌کنه؟
+    "steps_fa": None,            # سه راهکار عملی (لیست)
+    "question_fa": (30, 200),    # سؤالی برای خودت
+    "takeaway_fa": (20, 160),    # جمع‌بندی یک‌خطی
+}
+
+
 def build_prompt(topic):
     if IS_FA:
         return (
-            f'Write a short trading-psychology tip for a Persian-language financial Telegram channel, '
-            f'on the topic: "{topic}".\n'
-            "Write it in clear, natural, warm but neutral Persian (Farsi) for a general audience.\n"
+            f'Write an in-depth but easy-to-read trading-psychology lesson for a Persian-language financial '
+            f'Telegram channel, on the topic: "{topic}".\n'
+            "Write in clear, natural, warm but neutral Persian (Farsi) for a general audience of retail traders.\n"
+            "Fields:\n"
             "title_fa: the concept's name in Persian (max 6 words).\n"
-            "body_fa: one short paragraph of 3-4 sentences: what it is, why it affects traders, and one "
-            "practical, general way to manage it.\n"
-            "STRICT RULES: no numbers, percentages or statistics of any kind; no specific trading "
-            "instructions, no buy/sell advice, no promises of results; no quotes or sources; plain text.\n"
-            'Return ONLY JSON: {"title_fa":"...","body_fa":"..."}'
+            "what_fa: 2-3 sentences: what this bias/behavior is, in simple words.\n"
+            "example_fa: 2-3 sentences: a short, relatable, clearly hypothetical scene of a trader falling into it "
+            "(e.g. 'فرض کنید...'). Use a generic asset (gold, dollar, a stock) but NO prices or numbers.\n"
+            "why_fa: 2-3 sentences: why the human mind does this (emotion, fear, ego, habit) and what it costs.\n"
+            "steps_fa: a JSON list of exactly three short, practical, general habits to manage it "
+            "(one sentence each, each starting with a verb).\n"
+            "question_fa: one honest self-reflection question the reader can ask themselves.\n"
+            "takeaway_fa: one memorable closing sentence.\n"
+            "STRICT RULES: no digits, numbers, percentages or statistics anywhere (write no numerals at all); "
+            "no buy/sell advice or trade signals; no promises of results; no quotes, names or sources; "
+            "plain text, no markdown, no emojis.\n"
+            'Return ONLY JSON: {"title_fa":"...","what_fa":"...","example_fa":"...","why_fa":"...",'
+            '"steps_fa":["...","...","..."],"question_fa":"...","takeaway_fa":"..."}'
         )
     return (
         f'Write a short trading-psychology tip for a financial Telegram channel, on the topic: "{topic}".\n'
@@ -110,17 +131,41 @@ def build_prompt(topic):
     )
 
 
+def _clean(x):
+    return re.sub(r"[【〖][^】〗]*[】〗]", "", str(x or "")).strip()
+
+
 def valid(tip):
-    t = re.sub(r"[【〖][^】〗]*[】〗]", "", tip.get("title_fa" if IS_FA else "title", "")).strip()
-    b = re.sub(r"[【〖][^】〗]*[】〗]", "", tip.get("body_fa" if IS_FA else "body", "")).strip()
-    if IS_FA and not (has_rtl(t) and has_rtl(b)):
-        return None, "متن فارسی نیست"
+    if IS_FA:
+        out = {}
+        for k, lim in FA_FIELDS.items():
+            if k == "steps_fa":
+                steps = tip.get(k)
+                if not isinstance(steps, list):
+                    return None, "راهکارها لیست نیستن"
+                steps = [_clean(x).lstrip("-•* ").strip() for x in steps if _clean(x)]
+                if len(steps) != 3 or not all(15 <= len(x) <= 220 for x in steps):
+                    return None, f"راهکارها نامناسب ({len(steps)} مورد)"
+                out[k] = steps
+                continue
+            v = _clean(tip.get(k))
+            if not has_rtl(v):
+                return None, f"{k} فارسی نیست"
+            if not lim[0] <= len(v) <= lim[1]:
+                return None, f"طول نامناسب {k} ({len(v)})"
+            out[k] = v
+        text = " ".join(x if isinstance(x, str) else " ".join(x) for x in out.values())
+        bad = re.search(FORBIDDEN_FA, text, re.I)
+        if bad:
+            return None, f"عبارت ممنوع: {bad.group(0)!r}"
+        return out, None
+    t, b = _clean(tip.get("title")), _clean(tip.get("body"))
     if not (3 <= len(t) <= 60 and 150 <= len(b) <= 900):
         return None, f"طول نامناسب (عنوان {len(t)}، متن {len(b)})"
-    bad = re.search(FORBIDDEN_FA if IS_FA else FORBIDDEN_EN, t + " " + b, re.I)
+    bad = re.search(FORBIDDEN_EN, t + " " + b, re.I)
     if bad:
         return None, f"عبارت ممنوع: {bad.group(0)!r}"
-    return (t, b), None
+    return {"title": t, "body": b}, None
 
 
 def get_tip(topic):
@@ -128,7 +173,7 @@ def get_tip(topic):
     for model in GROQ_MODELS:
         for effort in ("low", "medium"):
             data = call_groq({"model": model, "messages": [{"role": "user", "content": build_prompt(topic)}],
-                              "temperature": 0.6, "max_tokens": 2000, "reasoning_effort": effort}, headers)
+                              "temperature": 0.6, "max_tokens": 4000, "reasoning_effort": effort}, headers)
             if not data:
                 continue
             try:
@@ -140,10 +185,27 @@ def get_tip(topic):
                 continue
             res, why = valid(tip)
             if res:
-                print(f"قبول شد ({model}/{effort}): {res[0]}")
+                print(f"قبول شد ({model}/{effort}): {res.get('title_fa') or res.get('title')}")
                 return res
             print(f"رد شد ({model}/{effort}): {why}")
     return None
+
+
+def format_fa(t, tag_fa):
+    e = html.escape
+    steps = "\n".join(f"{n} {e(x)}" for n, x in zip(("1️⃣", "2️⃣", "3️⃣"), t["steps_fa"]))
+    return "\n".join([
+        "🧠 <b>روانشناسی معامله‌گری</b>", "",
+        f"<b>📌 {e(t['title_fa'])}</b>", "",
+        "<b>این چیه؟</b>", e(t["what_fa"]), "",
+        "<b>🎬 یک صحنه‌ی آشنا</b>", e(t["example_fa"]), "",
+        "<b>🧩 چرا این کار رو می‌کنیم؟</b>", e(t["why_fa"]), "",
+        "<b>✅ چه کار کنیم؟</b>", steps, "",
+        "<b>🪞 از خودت بپرس</b>", f"<i>{e(t['question_fa'])}</i>", "",
+        f"💡 <b>{e(t['takeaway_fa'])}</b>", "",
+        "<i>محتوای آموزشی؛ توصیه‌ی سرمایه‌گذاری نیست.</i>", "",
+        hashtags("روانشناسی_معامله_گری", tag_fa),
+    ])
 
 
 def send_to_telegram(text):
@@ -157,21 +219,26 @@ def send_to_telegram(text):
 
 
 def main():
-    ny = datetime.now(ZoneInfo("America/New_York"))
-    topic, tag_fa = TOPICS[int(ny.strftime("%j")) % len(TOPICS)]
-    print("موضوع امروز:", topic)
+    # هر اجرا موضوع بعدی رو برمی‌داره (شماره‌ی اجرای GitHub هر بار یکی زیاد می‌شه)،
+    # پس دو پست یک روز هیچ‌وقت هم‌موضوع نیستن و همه‌ی ۳۰ موضوع به نوبت می‌چرخن.
+    run_no = os.environ.get("GITHUB_RUN_NUMBER", "")
+    if run_no.isdigit():
+        idx = int(run_no) % len(TOPICS)
+    else:
+        ny = datetime.now(ZoneInfo("America/New_York"))
+        idx = (int(ny.strftime("%j")) * 2 + (ny.hour >= 12)) % len(TOPICS)
+    topic, tag_fa = TOPICS[idx]
+    print(f"موضوع این اجرا ({idx + 1} از {len(TOPICS)}):", topic)
     tip = get_tip(topic)
     if not tip:
         raise SystemExit("نکته‌ی معتبری ساخته نشد. پستی ارسال نشد.")
-    title, body = (html.escape(x) for x in tip)
     if IS_FA:
-        lines = ["🧠 <b>روانشناسی معامله‌گری</b>", "", f"<b>{title}</b>", body, "",
-                 "<i>محتوای آموزشی؛ توصیه‌ی سرمایه‌گذاری نیست.</i>", "",
-                 hashtags("روانشناسی_معامله_گری", tag_fa)]
+        send_to_telegram(format_fa(tip, tag_fa))
     else:
+        title, body = html.escape(tip["title"]), html.escape(tip["body"])
         lines = ["🧠 <b>Trading Psychology Tip of the Day</b>", "", f"<b>{title}</b>", body, "",
                  "<i>Educational content; not investment advice.</i>", "", "#TradingPsychology"]
-    send_to_telegram("\n".join(lines))
+        send_to_telegram("\n".join(lines))
 
 
 if __name__ == "__main__":
