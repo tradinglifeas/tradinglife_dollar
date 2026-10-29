@@ -13,6 +13,9 @@
   - ترتیب منطقی قیمت سکه‌ها چک می‌شه (تمام > نیم > ربع)؛ اگه به‌هم ریخته بود، سکه‌ها نمایش داده نمی‌شن
   - جواب کامل API در لاگ چاپ می‌شه (بدون کلید) تا اگه ساختار عوض شد، سریع اصلاح بشه
 
+پشتیبان: اگه نوسان جواب نده یا عدد نامعتبر بده، قیمت‌ها از nerkh.jahankhahan.shop
+(رایگان، بدون کلید) گرفته می‌شه؛ اگه اون هم نبود، پستی نمی‌ره.
+
 اشتراک با کارت تصویری طلا و سکه:
   - قیمت‌های تأییدشده در navasan_cache.json ذخیره و در ریپو commit می‌شن
   - send_gold_image.py از همین فایل می‌خونه → هیچ درخواست اضافه‌ای به نوسان زده نمی‌شه
@@ -123,6 +126,30 @@ def save_cache(data, prices, iran_time):
     print("navasan_cache.json ذخیره شد:", list(items))
 
 
+NERKH_URL = "https://nerkh.jahankhahan.shop/data/live.json"
+NERKH_KEYS = {"usd": "dollar", "cad": "cad", "gold_18": "gold", "bahar": "bahar",
+              "emami": "coin", "nim": "half", "rob": "quarter"}
+
+
+def get_nerkh():
+    """پشتیبان رایگان (بدون کلید/سهمیه) وقتی نوسان جواب نده. همه‌ی مبالغ به تومان."""
+    try:
+        d = requests.get(NERKH_URL, headers=REQUEST_HEADERS, timeout=20).json()
+        jy, jm, jd = (int(x) for x in str(d["date"]).split("/"))
+        hh, mm = (int(x) for x in str(d.get("time") or "00:00").split(":")[:2])
+        at = jdatetime.datetime(jy, jm, jd, hh, mm).togregorian().replace(tzinfo=ZoneInfo("Asia/Tehran"))
+        age = (datetime.now(ZoneInfo("Asia/Tehran")) - at).total_seconds() / 3600
+        print(f"nerkh: {d['date']} {d.get('time')} ({age:.1f} ساعت پیش)")
+        if age > 30:
+            raise SystemExit("داده‌ی nerkh هم قدیمی است. پستی ارسال نشد.")
+        rates = d.get("rates") or {}
+        return {k: to_number(rates.get(nk)) for k, nk in NERKH_KEYS.items()}
+    except SystemExit:
+        raise
+    except Exception as e:
+        raise SystemExit(f"nerkh هم در دسترس نبود ({e}). پستی ارسال نشد.")
+
+
 def get_btc():
     try:
         d = requests.get(OKX_TICKER, params={"instId": "BTC-USDT"}, headers=REQUEST_HEADERS, timeout=20).json()
@@ -178,9 +205,13 @@ def main():
         print(f"ساعت {iran_time.strftime('%H:%M')} به وقت ایران - داخل بازه‌ی سکوت، پیامی ارسال نمی‌شه.")
         return
 
-    data = get_navasan()
-    prices = sanity(pick(data))
-    save_cache(data, prices, iran_time)
+    try:
+        data = get_navasan()
+        prices = sanity(pick(data))
+        save_cache(data, prices, iran_time)     # فقط داده‌ی نوسان ذخیره می‌شه (برای کنترل متقابل)
+    except SystemExit as e:
+        print(f"نوسان: {e} → استفاده از منبع پشتیبان nerkh")
+        prices = sanity(get_nerkh())
     btc = get_btc()
 
     shamsi = jdatetime.datetime.fromgregorian(datetime=iran_time).strftime("%Y/%m/%d %H:%M")

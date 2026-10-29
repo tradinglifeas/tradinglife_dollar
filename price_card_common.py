@@ -233,19 +233,104 @@ def okx_ticker(inst):
         return None, None
 
 
+def jalali_to_gregorian(jy, jm, jd):
+    """تبدیل تاریخ شمسی به میلادی (بدون نیاز به کتابخونه‌ی اضافه)."""
+    from datetime import date
+    jy += 1595
+    days = -355668 + 365 * jy + (jy // 33) * 8 + ((jy % 33) + 3) // 4 + jd
+    days += (jm - 1) * 31 if jm < 7 else (jm - 7) * 30 + 186
+    gy = 400 * (days // 146097)
+    days %= 146097
+    if days > 36524:
+        days -= 1
+        gy += 100 * (days // 36524)
+        days %= 36524
+        if days >= 365:
+            days += 1
+    gy += 4 * (days // 1461)
+    days %= 1461
+    if days > 365:
+        gy += (days - 1) // 365
+        days = (days - 1) % 365
+    gd = days + 1
+    leap = (gy % 4 == 0 and gy % 100 != 0) or gy % 400 == 0
+    months = [31, 29 if leap else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    gm = 0
+    while gd > months[gm]:
+        gd -= months[gm]
+        gm += 1
+    return date(gy, gm + 1, gd)
+
+
+NERKH_URL = "https://nerkh.jahankhahan.shop/data/live.json"
+NERKH_MAX_AGE_HOURS = 30   # بیرون از ساعت بازار، نرخ پایانی آخرین روز کاری رو نشون می‌ده
+
+_nerkh_cache = {}
+
+
+def nerkh_live():
+    """
+    نرخ لحظه‌ای از nerkh.jahankhahan.shop (رایگان، بدون کلید، بدون سهمیه). همه‌ی مبالغ به تومان.
+    خروجی: {"at": datetime تهران, "rates": {...}, "change": {...}, "ounce": .., "silver_ounce": ..}
+    اگه در دسترس نباشه یا قدیمی باشه → None
+    """
+    if "v" in _nerkh_cache:
+        return _nerkh_cache["v"]
+    out = None
+    try:
+        d = requests.get(NERKH_URL, headers=UA, timeout=20).json()
+        jy, jm, jd = (int(x) for x in str(d["date"]).translate(
+            str.maketrans("۰۱۲۳۴۵۶۷۸۹", "0123456789")).split("/"))
+        hh, mm = (int(x) for x in str(d.get("time") or "00:00").split(":")[:2])
+        g = jalali_to_gregorian(jy, jm, jd)
+        at = datetime(g.year, g.month, g.day, hh, mm, tzinfo=TEHRAN)
+        age = (datetime.now(TEHRAN) - at).total_seconds() / 3600
+        print(f"nerkh: {d['date']} {d.get('time')} ({age:.1f} ساعت پیش)")
+        if age > NERKH_MAX_AGE_HOURS or age < -1:
+            print("nerkh: داده قدیمی است — استفاده نمی‌شه.")
+        else:
+            usd = d.get("usd") or {}
+            out = {"at": at,
+                   "rates": {k: num(v) for k, v in (d.get("rates") or {}).items()},
+                   "change": {k: signed(v) for k, v in (d.get("change") or {}).items()},
+                   "ounce": num(usd.get("ounce") or d.get("ounce")),
+                   "silver_ounce": num(usd.get("silver-ounce"))}
+    except Exception as e:
+        print(f"nerkh error: {e}")
+    _nerkh_cache["v"] = out
+    return out
+
+
+def change_from_pct(price, p):
+    """از درصد تغییر روزانه، (مقدار تغییر، درصد) می‌سازه."""
+    if not price or p is None or abs(p) > 20:
+        return None
+    return price - price / (1 + p / 100), p
+
+
+def agree(a, b, tol=0.03):
+    return a and b and abs(a / b - 1) <= tol
+
+
 def world_metal(symbol, lo, hi):
-    """قیمت اونس طلا (XAU) یا نقره (XAG) با بررسی صحت."""
-    price = gold_api(symbol) or alpha_vantage_spot("GOLD" if symbol == "XAU" else "SILVER")
-    if price and not lo <= price <= hi:
-        print(f"{symbol}: قیمت {price} بیرون از بازه‌ی منطقی {lo}–{hi} — رد شد.")
-        price = None
-    if price and symbol == "XAU":
-        # کنترل متقابل با توکن طلای XAUT در OKX (هر توکن = یک اونس طلا)
-        xaut, _ = okx_ticker("XAUT-USDT")
-        if xaut and abs(price / xaut - 1) > 0.03:
-            print(f"XAU: اختلاف زیاد با XAUT ({price} در برابر {xaut}) — رد شد.")
-            price = None
-    return price
+    """
+    قیمت اونس طلا (XAU) یا نقره (XAG). دو منبع مستقل: gold-api.com و nerkh.
+    اگه هر دو در دسترس باشن و بیش از ۳٪ اختلاف داشته باشن → هیچ‌کدوم استفاده نمی‌شه.
+    """
+    n = nerkh_live()
+    nerkh_val = (n or {}).get("ounce" if symbol == "XAU" else "silver_ounce")
+    cands = [("gold-api", gold_api(symbol)), ("nerkh", nerkh_val)]
+    cands = [(src, v) for src, v in cands if v and lo <= v <= hi]
+    if len(cands) == 2 and not agree(cands[0][1], cands[1][1]):
+        print(f"{symbol}: اختلاف زیاد بین منابع {cands} — رد شد.")
+        return None
+    if cands:
+        print(f"{symbol}: {cands[0][1]} از {cands[0][0]}" + (" (تأییدشده با منبع دوم)" if len(cands) == 2 else ""))
+        return cands[0][1]
+    price = alpha_vantage_spot("GOLD" if symbol == "XAU" else "SILVER")
+    if price and lo <= price <= hi:
+        return price
+    return None
 
 
 # ============================================================ فونت و رسم

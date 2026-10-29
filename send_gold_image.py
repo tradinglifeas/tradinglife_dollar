@@ -2,13 +2,14 @@
 کارت تصویری «قیمت طلا و سکه» (بازار ایران + اونس جهانی) برای کانال.
 
 منابع:
-  - طلا و سکه‌ی ایران: فایل navasan_cache.json که گزارش قیمت (send_price.py) هر بار
-    از API نوسان می‌سازه → این کارت «هیچ» درخواست اضافه‌ای به نوسان نمی‌زنه (سهمیه‌ی ۱۲۰ در ماه)
-  - اونس جهانی طلا: gold-api.com (رایگان، بدون کلید) + کنترل متقابل با XAUT در OKX
-  - تغییر «روز» طلا و سکه: از خود نوسان؛ «ماه» و «سال»: از تاریخچه‌ی gold_history_series.json
+  - طلا و سکه‌ی ایران: nerkh.jahankhahan.shop (رایگان، بدون کلید و سهمیه)،
+    کنترل‌شده با آخرین قیمت نوسان (navasan_cache.json که گزارش قیمت می‌سازه)؛
+    اگه nerkh در دسترس نبود → همون فایل نوسان. هیچ درخواست اضافه‌ای به نوسان زده نمی‌شه.
+  - اونس جهانی طلا: gold-api.com و nerkh (دو منبع؛ اختلاف بیش از ۳٪ = رد)
+  - تغییر «روز»: از خود منبع؛ «ماه» و «سال»: از تاریخچه‌ی gold_history_series.json
 
 ایمنی:
-  - اگه فایل نوسان قدیمی‌تر از ۶ ساعت یا خراب باشه → عکسی نمی‌ره و اجرا قرمز می‌شه
+  - اگه هیچ منبع معتبری نباشه → عکسی نمی‌ره و اجرا قرمز می‌شه
   - جمعه (بازار ایران تعطیل) → بی‌صدا رد می‌شه
   - قیمت نامعتبر هیچ‌وقت نمایش داده یا در تاریخچه ذخیره نمی‌شه
 """
@@ -34,48 +35,86 @@ ROWS = [
 COINS = ["bahar_azadi", "emami", "half_coin", "quarter_coin"]
 
 
-def load_iran(now):
+# کلیدهای nerkh برای هر ردیف
+NERKH_KEYS = {"gold_18": "gold", "bahar_azadi": "bahar", "emami": "coin",
+              "half_coin": "half", "quarter_coin": "quarter"}
+
+
+def read_navasan_cache(now, max_age_h):
+    """قیمت‌های نوسان از فایلی که گزارش قیمت می‌سازه (اگه به اندازه‌ی کافی تازه باشه)."""
     try:
         with open(CACHE_FILE, "r", encoding="utf-8") as f:
             cache = json.load(f)
-    except (OSError, ValueError):
-        raise SystemExit("فایل navasan_cache.json پیدا نشد یا خراب است. "
-                         "اول گزارش قیمت (send_price) باید اجرا بشه. عکسی ارسال نشد.")
-    try:
         fetched = datetime.fromisoformat(cache["fetched_at"]).astimezone(pc.TEHRAN)
     except Exception:
-        raise SystemExit("زمان فایل نوسان نامعتبر است. عکسی ارسال نشد.")
+        print("فایل navasan_cache.json پیدا نشد یا خراب است.")
+        return None
     age_h = (now - fetched).total_seconds() / 3600
-    print(f"فایل نوسان: {fetched:%Y-%m-%d %H:%M} تهران ({age_h:.1f} ساعت پیش)")
-    if age_h > MAX_CACHE_AGE_HOURS or age_h < -0.2:
-        raise SystemExit(f"قیمت‌های نوسان قدیمی است ({age_h:.1f} ساعت). "
-                         "این کارت باید کمی بعد از گزارش قیمت اجرا بشه. عکسی ارسال نشد.")
-
-    items = cache.get("items", {})
+    if age_h > max_age_h or age_h < -0.2:
+        print(f"فایل نوسان {age_h:.1f} ساعت قدیمیه (حداکثر {max_age_h}).")
+        return None
     out = {}
+    items = cache.get("items", {})
     for key, ckey, _ in ROWS:
         it = items.get(ckey) or {}
         price = pc.num(it.get("price"))
-        ch = None
         change = pc.signed(it.get("change"))
+        ch = None
         if price and change is not None and price - change > 0:
-            p = change / (price - change) * 100
-            if abs(p) <= 20:
-                ch = (change, p)
+            ch = pc.change_from_pct(price, change / (price - change) * 100)
         if price:
             out[key] = (price, ch)
+    return out
 
+
+def from_nerkh():
+    n = pc.nerkh_live()
+    if not n:
+        return None
+    out = {}
+    for key, nk in NERKH_KEYS.items():
+        price = n["rates"].get(nk)
+        if price:
+            out[key] = (price, pc.change_from_pct(price, n["change"].get(nk)))
+    return out
+
+
+def check(out):
+    """بررسی منطقی؛ اگه طلای ۱۸ نامعتبر باشه None، اگه سکه‌ها به‌هم‌ریخته باشن حذفشون می‌کنه."""
+    if not out:
+        return None
     g18 = out.get("gold_18", (None,))[0]
     if not g18 or not 1_000_000 <= g18 <= 1_000_000_000:
-        raise SystemExit(f"قیمت طلای ۱۸ عیار نامعتبر است ({g18}). عکسی ارسال نشد.")
+        print(f"قیمت طلای ۱۸ عیار نامعتبر است ({g18}).")
+        return None
     full = (out.get("emami") or out.get("bahar_azadi") or (None,))[0]
     half, quarter = out.get("half_coin", (None,))[0], out.get("quarter_coin", (None,))[0]
-    bad = (full and half and quarter and not full > half > quarter) or (quarter and quarter < g18)
-    if bad:
+    if (full and half and quarter and not full > half > quarter) or (quarter and quarter < g18):
         print("ترتیب قیمت سکه‌ها منطقی نیست؛ سکه‌ها نمایش داده نمی‌شن.")
         for k in COINS:
             out.pop(k, None)
     return out
+
+
+def load_iran(now):
+    """
+    منبع اصلی: nerkh (رایگان، بدون سهمیه، لحظه‌ای).
+    کنترل: اگه قیمت نوسانِ ۲۴ ساعت اخیر هست، طلای ۱۸ دو منبع نباید بیش از ۳٪ فرق داشته باشه.
+    پشتیبان: اگه nerkh در دسترس/معتبر نبود → فایل نوسان (حداکثر ۶ ساعت).
+    """
+    nerkh = check(from_nerkh())
+    navasan = check(read_navasan_cache(now, 24))
+    if nerkh:
+        if navasan and not pc.agree(nerkh["gold_18"][0], navasan["gold_18"][0]):
+            print(f"اختلاف زیاد nerkh و نوسان: {nerkh['gold_18'][0]} در برابر {navasan['gold_18'][0]} — nerkh رد شد.")
+        else:
+            print("قیمت ایران از nerkh" + (" (تأییدشده با نوسان)" if navasan else ""))
+            return nerkh
+    fresh = check(read_navasan_cache(now, MAX_CACHE_AGE_HOURS))
+    if fresh:
+        print("قیمت ایران از فایل نوسان (پشتیبان)")
+        return fresh
+    raise SystemExit("هیچ منبع معتبری برای قیمت طلا و سکه‌ی ایران نبود. عکسی ارسال نشد.")
 
 
 def build_image(iran, ounce, ounce_ch, records, day, now):
