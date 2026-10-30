@@ -15,7 +15,8 @@
   "fe6356257b19f30a": "2026-10-29T15:00:36.544836+00:00",
   "9b0d6fa57fe66acb": "2026-10-29T21:00:30.349079+00:00",
   "773cae7ba49a7d27": "2026-10-30T08:00:30.311734+00:00",
-  "e57509e1fee9e8b0": "2026-10-30T08:00:30.311734+00:00"
+  "e57509e1fee9e8b0": "2026-10-30T08:00:30.311734+00:00",
+  "5924dfb380ddb74e": "2026-10-30T08:23:21.108554+00:00"
  },
  "week": [
   {
@@ -182,6 +183,18 @@
    "desc": "The ECB sent a clear message yesterday: a December hike is likely. That is providing a more supportive backdrop for the euro ahead of today’s 3Q GDP release. Meanwhile, resurgent AI-related jitters and the upcoming US midterms are increasing downside risks for the dollar, in our view, although a still-hawkish Fed argues against major corrections",
    "link": "https://think.ing.com/articles/fx-daily-time-to-think-about-the-midterms/",
    "time": "2026-10-30T07:39:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "5924dfb380ddb74e",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Bank of Japan hits 2% price target",
+   "desc": "ASIA/PACIFIC: In a big day for monetary policy in Japan, the Bank of Japan finally announced it had hit its 2% price target – a target set in 2013. The question now for markets is how quickly the BoJ takes the policy rate to neutral. We now think it will hike in December and March. A hawkish BoJ can help keep a lid on USD/JPY at 160",
+   "link": "https://think.ing.com/articles/bank-of-japan-2-price-target-hit/",
+   "time": "2026-10-30T08:02:00+00:00",
    "assets": [
     "fx"
    ]
