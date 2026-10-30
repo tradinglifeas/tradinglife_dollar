@@ -1,74 +1,74 @@
 {
   "XAU": {
-    "strength": 36.898,
-    "flow_score": 74.329,
-    "alert": "INSTITUTIONAL INFLOW ALERT",
-    "price": 4032.4922092251,
+    "strength": 28.678,
+    "flow_score": 54.329,
+    "alert": "DOWNSIDE PRESSURE INCREASING",
+    "price": 3973.9104828977,
     "deriv_source": "None",
     "deriv_oi_value": null,
-    "updated": "2026-10-29T11:31:01.424220Z"
+    "updated": "2026-10-30T11:31:14.612082Z"
   },
   "XAG": {
-    "strength": 23.179,
+    "strength": 24.045,
     "flow_score": 35.508,
     "alert": "NO MAJOR ALERT",
-    "price": 52.8193151954,
+    "price": 50.4412863503,
     "deriv_source": "None",
     "deriv_oi_value": null,
-    "updated": "2026-10-29T11:31:16.022473Z"
+    "updated": "2026-10-30T11:31:17.687452Z"
   },
   "BTC": {
-    "strength": 42.085,
-    "flow_score": 42.263,
-    "alert": "MARKET STRENGTH WEAKENING",
-    "price": 80157.9,
+    "strength": 42.317,
+    "flow_score": 45.832,
+    "alert": "NO MAJOR ALERT",
+    "price": 77722.1,
     "deriv_source": "OKX",
-    "deriv_oi_value": 2608754522.1308813,
-    "updated": "2026-10-29T11:31:20.071124Z"
+    "deriv_oi_value": 2592783362.3806944,
+    "updated": "2026-10-30T11:31:20.140797Z"
   },
   "ETH": {
-    "strength": 34.48,
-    "flow_score": 42.95,
-    "alert": "MARKET STRENGTH WEAKENING",
-    "price": 2323.9,
+    "strength": 32.518,
+    "flow_score": 41.968,
+    "alert": "NO MAJOR ALERT",
+    "price": 2247.05,
     "deriv_source": "OKX",
-    "deriv_oi_value": 1542404574.4371743,
-    "updated": "2026-10-29T11:31:22.365196Z"
+    "deriv_oi_value": 1458279609.901984,
+    "updated": "2026-10-30T11:31:22.213426Z"
   },
   "SOL": {
-    "strength": 33.583,
-    "flow_score": 45.754,
-    "alert": "MARKET STRENGTH WEAKENING",
-    "price": 100.43,
+    "strength": 39.381,
+    "flow_score": 61.846,
+    "alert": "NO MAJOR ALERT",
+    "price": 96.96,
     "deriv_source": "OKX",
-    "deriv_oi_value": 330853309.1388004,
-    "updated": "2026-10-29T11:31:24.985978Z"
+    "deriv_oi_value": 339373070.6500003,
+    "updated": "2026-10-30T11:31:24.628887Z"
   },
   "XRP": {
-    "strength": 34.014,
-    "flow_score": 46.24,
-    "alert": "MARKET STRENGTH WEAKENING",
-    "price": 1.2907,
+    "strength": 26.138,
+    "flow_score": 49.179,
+    "alert": "NO MAJOR ALERT",
+    "price": 1.2514,
     "deriv_source": "OKX",
-    "deriv_oi_value": 94011118.64759997,
-    "updated": "2026-10-29T11:31:27.282822Z"
+    "deriv_oi_value": 85733692.42879997,
+    "updated": "2026-10-30T11:31:26.727693Z"
   },
   "ADA": {
-    "strength": 21.96,
-    "flow_score": 42.69,
-    "alert": "MARKET STRENGTH WEAKENING",
-    "price": 0.2008,
+    "strength": 26.055,
+    "flow_score": 51.788,
+    "alert": "NO MAJOR ALERT",
+    "price": 0.1939,
     "deriv_source": "OKX",
-    "deriv_oi_value": 27575969.265000008,
-    "updated": "2026-10-29T11:31:31.950193Z"
+    "deriv_oi_value": 24932441.706000008,
+    "updated": "2026-10-30T11:31:28.787424Z"
   },
   "DOGE": {
-    "strength": 34.883,
-    "flow_score": 46.282,
-    "alert": "NO MAJOR ALERT",
-    "price": 0.07859,
+    "strength": 26.841,
+    "flow_score": 51.007,
+    "alert": "MARKET STRENGTH WEAKENING",
+    "price": 0.07587,
     "deriv_source": "OKX",
-    "deriv_oi_value": 94541249.4736,
-    "updated": "2026-10-29T11:31:34.289188Z"
+    "deriv_oi_value": 88299943.77800006,
+    "updated": "2026-10-30T11:31:31.220626Z"
   }
 }
