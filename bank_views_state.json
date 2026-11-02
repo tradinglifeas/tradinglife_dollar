@@ -25,7 +25,8 @@
   "3a158e8d11035a59": "2026-11-02T11:00:32.271896+00:00",
   "7b6e42208899c1eb": "2026-11-02T13:00:36.869553+00:00",
   "ca736d7c9fbe6697": "2026-11-02T15:00:42.714229+00:00",
-  "f485d3b461d82cca": "2026-11-02T17:07:37.683185+00:00"
+  "f485d3b461d82cca": "2026-11-02T17:07:37.683185+00:00",
+  "16aa85ff0b89d9da": "2026-11-02T17:20:36.385793+00:00"
  },
  "week": [
   {
@@ -290,6 +291,18 @@
    "time": "2026-11-02T17:00:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "16aa85ff0b89d9da",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "Tech Sell-Off Marks 'Crisis of Confidence,' Says Jordan Jackson",
+   "desc": "Disappointing US megacap earnings accelerated a rotation out of AI-related tech last week, triggering a sharp selloff as investors shifted toward smaller-cap and more defensive areas. Jordan Jackson, Global Market Strategist at JPMorgan Asset Management, discusses the overblown AI selloff and how he expects to see markets move after midterms. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-02/tech-sell-off-a-crisis-of-confidence-says-jackson-video",
+   "time": "2026-11-02T17:12:31+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
