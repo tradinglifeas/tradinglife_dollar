@@ -19,7 +19,8 @@
   "5924dfb380ddb74e": "2026-10-30T08:23:21.108554+00:00",
   "fe9d3c18b4bb986f": "2026-10-30T14:00:32.669200+00:00",
   "715ab15920db2aac": "2026-11-02T08:00:33.325510+00:00",
-  "168f7696a1652eda": "2026-11-02T09:17:45.623008+00:00"
+  "168f7696a1652eda": "2026-11-02T09:17:45.623008+00:00",
+  "b025b27896852d56": "2026-11-02T10:00:31.269494+00:00"
  },
  "week": [
   {
@@ -210,6 +211,18 @@
    "desc": "Morgan Stanley’s chief stock-market strategist, Mike Wilson, said the midterm elections are a classic “clearing event” whose outcome at this point doesn’t really matter.",
    "link": "https://www.marketwatch.com/story/the-election-will-be-good-news-regardless-of-outcome-says-morgan-stanleys-chief-stock-market-strategist-ffa320ed?mod=mw_rss_topstories",
    "time": "2026-11-02T09:15:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "b025b27896852d56",
+   "source": "MarketWatch",
+   "bank": "Deutsche Bank",
+   "title": "Tech stocks have made big V-shaped rebounds five times in 30 months — and now Deutsche Bank forecasts another bounce",
+   "desc": "Positioning among equity investors in tech stocks is consistent with much slower earnings growth than the sector is achieving. Deutsche Bank thinks it’s time to go overweight once again as the risk-reward profile favors a sector that is suddenly out of fashion.",
+   "link": "https://www.marketwatch.com/story/tech-stocks-have-made-big-v-shaped-rebounds-five-times-in-30-months-and-now-deutsche-bank-forecasts-another-bounce-0a552a62?mod=mw_rss_topstories",
+   "time": "2026-11-02T09:47:00+00:00",
    "assets": [
     "stocks"
    ]
