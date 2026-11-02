@@ -21,30 +21,6 @@
  },
  "week": [
   {
-   "id": "ede60000a86e4746",
-   "source": "CNBC",
-   "bank": "Goldman Sachs",
-   "title": "Goldman Sachs, JPMorgan and Morgan Stanley are dominating the AI stock boom. Here's their edge",
-   "desc": "Wall Street’s Big Three have generated $52 billion in equity trading revenue this year, capturing about 80% of the market on rising margin lending to hedge funds.",
-   "link": "https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html",
-   "time": "2026-10-21T15:30:50+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "8464793eb372e14c",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "Markets Await PMIs as Oil Price Climbs",
-   "desc": "In focus today In the euro area, the flash PMIs for October are released, which are set to be important for markets. Following a positive trend in the latest months, the PMIs are expected to show stabilisation with small declines. The composite PMI is expected to fall to 52.7 from 53.1 which is still a […] The post Markets Await PMIs as Oil Price Climbs appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/contributors/fundamental-analysis/658447-markets-await-pmis-as-oil-price-climbs/",
-   "time": "2026-10-23T06:21:08+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
    "id": "5fb9ec5df0293744",
    "source": "ING THINK",
    "bank": "ING",
