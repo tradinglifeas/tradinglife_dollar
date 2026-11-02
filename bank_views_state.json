@@ -17,7 +17,8 @@
   "773cae7ba49a7d27": "2026-10-30T08:00:30.311734+00:00",
   "e57509e1fee9e8b0": "2026-10-30T08:00:30.311734+00:00",
   "5924dfb380ddb74e": "2026-10-30T08:23:21.108554+00:00",
-  "fe9d3c18b4bb986f": "2026-10-30T14:00:32.669200+00:00"
+  "fe9d3c18b4bb986f": "2026-10-30T14:00:32.669200+00:00",
+  "715ab15920db2aac": "2026-11-02T08:00:33.325510+00:00"
  },
  "week": [
   {
@@ -184,6 +185,18 @@
    "desc": "As expected, major central banks from the US to Europe and Japan, kept rates on hold this week. Oil prices fluctuated in the range of USD 113-118 as markets speculate with the possibility of a renewed US attack on Iran after the midterms, and European gas futures broke the EUR 100/MWh level for the first […] The post Weekly Focus – Time for US Midterms – and Democratic Sweep? appeared first on ActionForex .",
    "link": "https://www.actionforex.com/contributors/fundamental-analysis/659333-weekly-focus-time-for-us-midterms-and-democratic-sweep/",
    "time": "2026-10-30T13:54:28+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "715ab15920db2aac",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Dollar holds gains into midterms",
+   "desc": "At the start of a very busy week for FX markets, the dollar is largely holding onto recent gains. In focus are the US midterms, where betting markets attach a 70% probability to a clean sweep for the Democrats. Away from politics, we'll receive updates on the US jobs market this week and are expecting rate hikes in the UK, Australia and Sweden",
+   "link": "https://think.ing.com/articles/fx-daily-dollar-holds-gains-into-midterms/",
+   "time": "2026-11-02T07:51:00+00:00",
    "assets": [
     "fx"
    ]
