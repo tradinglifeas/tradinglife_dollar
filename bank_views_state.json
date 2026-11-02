@@ -20,7 +20,8 @@
   "fe9d3c18b4bb986f": "2026-10-30T14:00:32.669200+00:00",
   "715ab15920db2aac": "2026-11-02T08:00:33.325510+00:00",
   "168f7696a1652eda": "2026-11-02T09:17:45.623008+00:00",
-  "b025b27896852d56": "2026-11-02T10:00:31.269494+00:00"
+  "b025b27896852d56": "2026-11-02T10:00:31.269494+00:00",
+  "eb2ff11a896430c7": "2026-11-02T10:20:25.401152+00:00"
  },
  "week": [
   {
@@ -223,6 +224,18 @@
    "desc": "Positioning among equity investors in tech stocks is consistent with much slower earnings growth than the sector is achieving. Deutsche Bank thinks it’s time to go overweight once again as the risk-reward profile favors a sector that is suddenly out of fashion.",
    "link": "https://www.marketwatch.com/story/tech-stocks-have-made-big-v-shaped-rebounds-five-times-in-30-months-and-now-deutsche-bank-forecasts-another-bounce-0a552a62?mod=mw_rss_topstories",
    "time": "2026-11-02T09:47:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "eb2ff11a896430c7",
+   "source": "Bloomberg",
+   "bank": "UBS",
+   "title": "UBS’s Fowler Says Market Is Underpricing the Length of AI Cycle",
+   "desc": "Hyperscaler valuations look attractive after the recent AI unwind as the market prices in a shorter AI cycle than is likely to play out, according to Gerry Fowler, chief European equity strategist and head of derivatives at UBS AG.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-02/ubs-s-fowler-says-market-is-underpricing-the-length-of-ai-cycle",
+   "time": "2026-11-02T10:04:33+00:00",
    "assets": [
     "stocks"
    ]
