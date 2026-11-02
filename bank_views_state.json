@@ -21,7 +21,8 @@
   "715ab15920db2aac": "2026-11-02T08:00:33.325510+00:00",
   "168f7696a1652eda": "2026-11-02T09:17:45.623008+00:00",
   "b025b27896852d56": "2026-11-02T10:00:31.269494+00:00",
-  "eb2ff11a896430c7": "2026-11-02T10:20:25.401152+00:00"
+  "eb2ff11a896430c7": "2026-11-02T10:20:25.401152+00:00",
+  "3a158e8d11035a59": "2026-11-02T11:00:32.271896+00:00"
  },
  "week": [
   {
@@ -236,6 +237,18 @@
    "desc": "Hyperscaler valuations look attractive after the recent AI unwind as the market prices in a shorter AI cycle than is likely to play out, according to Gerry Fowler, chief European equity strategist and head of derivatives at UBS AG.",
    "link": "https://www.bloomberg.com/news/articles/2026-11-02/ubs-s-fowler-says-market-is-underpricing-the-length-of-ai-cycle",
    "time": "2026-11-02T10:04:33+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "3a158e8d11035a59",
+   "source": "Bloomberg",
+   "bank": "Morgan Stanley",
+   "title": "Stock Bulls Are Betting on a Bounce After the Midterms",
+   "desc": "Any post-vote selloff is likely to be short-lived, Morgan Stanley’s Wilson says.",
+   "link": "https://www.bloomberg.com/news/newsletters/2026-11-02/stock-bulls-are-betting-on-a-bounce-after-the-midterms",
+   "time": "2026-11-02T10:56:15+00:00",
    "assets": [
     "stocks"
    ]
