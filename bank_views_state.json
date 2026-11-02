@@ -23,7 +23,8 @@
   "b025b27896852d56": "2026-11-02T10:00:31.269494+00:00",
   "eb2ff11a896430c7": "2026-11-02T10:20:25.401152+00:00",
   "3a158e8d11035a59": "2026-11-02T11:00:32.271896+00:00",
-  "7b6e42208899c1eb": "2026-11-02T13:00:36.869553+00:00"
+  "7b6e42208899c1eb": "2026-11-02T13:00:36.869553+00:00",
+  "ca736d7c9fbe6697": "2026-11-02T15:00:42.714229+00:00"
  },
  "week": [
   {
@@ -262,6 +263,18 @@
    "desc": "Hyperscalers and growth plays have underperformed amid a sharp rotation.",
    "link": "https://www.marketwatch.com/story/the-latest-market-wobble-sees-citi-giving-up-on-this-big-tech-trade-181b0dea?mod=mw_rss_topstories",
    "time": "2026-11-02T11:08:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "ca736d7c9fbe6697",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "Greek Stocks to Suffer Outflows on MSCI Upgrade, JPMorgan Says",
+   "desc": "Greek stocks will suffer outflows as MSCI Inc.’s upgrade of the country to developed-market status forces emerging-market trackers to sell, according to JPMorgan Chase & Co. strategists.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-02/greek-stocks-to-suffer-outflows-on-msci-upgrade-jpmorgan-says",
+   "time": "2026-11-02T14:26:26+00:00",
    "assets": [
     "stocks"
    ]
