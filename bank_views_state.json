@@ -28,7 +28,8 @@
   "f485d3b461d82cca": "2026-11-02T17:07:37.683185+00:00",
   "16aa85ff0b89d9da": "2026-11-02T17:20:36.385793+00:00",
   "59cf6feb4ffbfd90": "2026-11-03T08:00:41.006566+00:00",
-  "099e1045fcfa592f": "2026-11-03T12:00:30.988806+00:00"
+  "099e1045fcfa592f": "2026-11-03T12:00:30.988806+00:00",
+  "9772041c6948544d": "2026-11-03T12:08:20.143737+00:00"
  },
  "week": [
   {
@@ -327,6 +328,18 @@
    "desc": "Bob Michele, global head of fixed income at JPMorgan Asset Management, offers guidance to the US Treasury ahead of the November 2026 quarterly refunding announcement. He says the equity market “is going to go through some of its demons” to the benefit of the bond market and provides his outlook for bond yields. He speaks on “Bloomberg Surveillance.” (Source: Bloomberg)",
    "link": "https://www.bloomberg.com/news/videos/2026-11-03/jpm-s-michele-tells-us-treasury-get-rid-of-the-20-year-video",
    "time": "2026-11-03T11:40:52+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "9772041c6948544d",
+   "source": "MarketWatch",
+   "bank": "Morgan Stanley",
+   "title": "Palantir stock is down 8%. Analysts say bookings growth is to blame.",
+   "desc": "Analysts at Morgan Stanley pointed to a slowdown in a number of bookings metrics in the third quarter as worth picking at.",
+   "link": "https://www.marketwatch.com/story/palantir-stock-is-down-8-analysts-say-bookings-growth-is-to-blame-0492921b?mod=mw_rss_topstories",
+   "time": "2026-11-03T12:06:00+00:00",
    "assets": [
     "stocks"
    ]
