@@ -30,7 +30,8 @@
   "59cf6feb4ffbfd90": "2026-11-03T08:00:41.006566+00:00",
   "099e1045fcfa592f": "2026-11-03T12:00:30.988806+00:00",
   "9772041c6948544d": "2026-11-03T12:08:20.143737+00:00",
-  "3a4e3249e1d0b9dc": "2026-11-03T13:00:31.651234+00:00"
+  "3a4e3249e1d0b9dc": "2026-11-03T13:00:31.651234+00:00",
+  "14508287f8d0223c": "2026-11-03T20:00:45.332900+00:00"
  },
  "week": [
   {
@@ -353,6 +354,18 @@
    "desc": "US stocks may be poised for a year-end rebound as favorable seasonality and low hedge fund positioning set the stage for a potential rally after Tuesday’s midterm elections, according to UBS Securities.",
    "link": "https://www.bloomberg.com/news/articles/2026-11-03/ubs-traders-see-combustible-setup-for-s-p-500-rally-after-vote",
    "time": "2026-11-03T12:47:08+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "14508287f8d0223c",
+   "source": "MarketWatch",
+   "bank": "Morgan Stanley",
+   "title": "An overlooked energy source could solve AI’s power crunch — and these 2 stocks are prime plays",
+   "desc": "Geothermal technology is in the early stages of its own shale revolution, Morgan Stanley says.",
+   "link": "https://www.marketwatch.com/story/an-overlooked-energy-source-could-solve-ais-power-crunch-and-these-2-stocks-are-prime-plays-bc5d988a?mod=mw_rss_topstories",
+   "time": "2026-11-03T19:57:00+00:00",
    "assets": [
     "stocks"
    ]
