@@ -26,7 +26,8 @@
   "7b6e42208899c1eb": "2026-11-02T13:00:36.869553+00:00",
   "ca736d7c9fbe6697": "2026-11-02T15:00:42.714229+00:00",
   "f485d3b461d82cca": "2026-11-02T17:07:37.683185+00:00",
-  "16aa85ff0b89d9da": "2026-11-02T17:20:36.385793+00:00"
+  "16aa85ff0b89d9da": "2026-11-02T17:20:36.385793+00:00",
+  "59cf6feb4ffbfd90": "2026-11-03T08:00:41.006566+00:00"
  },
  "week": [
   {
@@ -303,6 +304,18 @@
    "time": "2026-11-02T17:12:31+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "59cf6feb4ffbfd90",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Democratic sweep can weigh on the dollar",
+   "desc": "We don’t expect today’s US midterm results to cause structural shifts in FX, but the dollar may face some short-term pressure should the Democrats secure both the House (widely expected) and the Senate (close call). Elsewhere, a dovish hike by the RBA has hit AUD, but we remain optimistic on the outlook for the currency beyond the near term",
+   "link": "https://think.ing.com/articles/fx-daily-democratic-sweep-can-weigh-on-the-dollar/",
+   "time": "2026-11-03T07:45:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
