@@ -27,7 +27,8 @@
   "ca736d7c9fbe6697": "2026-11-02T15:00:42.714229+00:00",
   "f485d3b461d82cca": "2026-11-02T17:07:37.683185+00:00",
   "16aa85ff0b89d9da": "2026-11-02T17:20:36.385793+00:00",
-  "59cf6feb4ffbfd90": "2026-11-03T08:00:41.006566+00:00"
+  "59cf6feb4ffbfd90": "2026-11-03T08:00:41.006566+00:00",
+  "099e1045fcfa592f": "2026-11-03T12:00:30.988806+00:00"
  },
  "week": [
   {
@@ -316,6 +317,18 @@
    "time": "2026-11-03T07:45:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "099e1045fcfa592f",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "JPM’s Michele Tells US Treasury ‘Get Rid of the 20-Year’",
+   "desc": "Bob Michele, global head of fixed income at JPMorgan Asset Management, offers guidance to the US Treasury ahead of the November 2026 quarterly refunding announcement. He says the equity market “is going to go through some of its demons” to the benefit of the bond market and provides his outlook for bond yields. He speaks on “Bloomberg Surveillance.” (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-03/jpm-s-michele-tells-us-treasury-get-rid-of-the-20-year-video",
+   "time": "2026-11-03T11:40:52+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
