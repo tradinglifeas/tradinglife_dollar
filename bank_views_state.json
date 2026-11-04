@@ -37,7 +37,8 @@
   "3f95cba45b90d001": "2026-11-04T08:05:26.242173+00:00",
   "f89cb3382e99d107": "2026-11-04T11:01:20.499111+00:00",
   "db52dc7ecaa5d2f4": "2026-11-04T11:01:20.499111+00:00",
-  "24a533f9e83043b0": "2026-11-04T11:12:24.097973+00:00"
+  "24a533f9e83043b0": "2026-11-04T11:12:24.097973+00:00",
+  "cccb13aff75bfce8": "2026-11-04T11:28:25.270452+00:00"
  },
  "week": [
   {
@@ -447,6 +448,18 @@
    "time": "2026-11-04T11:10:00+00:00",
    "assets": [
     "metals"
+   ]
+  },
+  {
+   "id": "cccb13aff75bfce8",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Uzbekistan rates stay on hold, but hopes for 2027 cuts remain",
+   "desc": "COMMONWEALTH OF INDEPENDENT STATES: The Central Bank of Uzbekistan kept its policy rate unchanged at 14.00%, as expected, but delivered a more hawkish message than in September. Higher inflation and GDP forecasts suggest that easing in 2026 is now less likely. But we still see scope for cuts in 2027, assuming continued fiscal restraint and potential FX strength",
+   "link": "https://think.ing.com/snaps/uzbekistan-hold-extended-but-hopes-for-2027-cuts-remain/",
+   "time": "2026-11-04T11:25:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
