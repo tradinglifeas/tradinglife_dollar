@@ -32,7 +32,8 @@
   "9772041c6948544d": "2026-11-03T12:08:20.143737+00:00",
   "3a4e3249e1d0b9dc": "2026-11-03T13:00:31.651234+00:00",
   "14508287f8d0223c": "2026-11-03T20:00:45.332900+00:00",
-  "735b1de03b0124fa": "2026-11-03T22:00:32.826245+00:00"
+  "735b1de03b0124fa": "2026-11-03T22:00:32.826245+00:00",
+  "03f212b643e91d95": "2026-11-04T08:00:32.012090+00:00"
  },
  "week": [
   {
@@ -380,6 +381,19 @@
    "link": "https://www.marketwatch.com/story/s-p-500-is-looking-over-the-edge-of-a-technical-cliff-what-happens-if-it-falls-off-be97ebd9?mod=mw_rss_topstories",
    "time": "2026-11-03T21:30:00+00:00",
    "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "03f212b643e91d95",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Blue wave price action a preview of what’s to come",
+   "desc": "For a change, opinion polls proved correct, and the Democrats delivered a stunning victory in the US midterm elections. Short-dated US rates and the dollar are a little weaker, while equity futures are busy reclaiming some of their 2-3% losses seen overnight on fears that the AI data centre build-out would slow. Price action previews what could come in 2027",
+   "link": "https://think.ing.com/articles/fx-daily-blue-wave-price-action-a-preview-of-whats-to-come/",
+   "time": "2026-11-04T07:45:00+00:00",
+   "assets": [
+    "fx",
     "stocks"
    ]
   }
