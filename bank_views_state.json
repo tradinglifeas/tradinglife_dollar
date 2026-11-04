@@ -33,7 +33,8 @@
   "3a4e3249e1d0b9dc": "2026-11-03T13:00:31.651234+00:00",
   "14508287f8d0223c": "2026-11-03T20:00:45.332900+00:00",
   "735b1de03b0124fa": "2026-11-03T22:00:32.826245+00:00",
-  "03f212b643e91d95": "2026-11-04T08:00:32.012090+00:00"
+  "03f212b643e91d95": "2026-11-04T08:00:32.012090+00:00",
+  "3f95cba45b90d001": "2026-11-04T08:05:26.242173+00:00"
  },
  "week": [
   {
@@ -395,6 +396,18 @@
    "assets": [
     "fx",
     "stocks"
+   ]
+  },
+  {
+   "id": "3f95cba45b90d001",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Rates Spark: A blue wave in the US and euro inflation",
+   "desc": "A decisive election result supports immediate sentiment, but the prospect of tighter AI regulation could add to jitters about the tech sector. A president now potentially focusing more on foreign policy leaves oil and tariff risks in focus as sources of rate volatility. Eurozone headline inflation is expected to rise to 4%",
+   "link": "https://think.ing.com/articles/rates-spark-a-blue-wave-in-the-us-and-euro-inflation/",
+   "time": "2026-11-04T08:00:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
