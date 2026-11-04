@@ -36,7 +36,8 @@
   "03f212b643e91d95": "2026-11-04T08:00:32.012090+00:00",
   "3f95cba45b90d001": "2026-11-04T08:05:26.242173+00:00",
   "f89cb3382e99d107": "2026-11-04T11:01:20.499111+00:00",
-  "db52dc7ecaa5d2f4": "2026-11-04T11:01:20.499111+00:00"
+  "db52dc7ecaa5d2f4": "2026-11-04T11:01:20.499111+00:00",
+  "24a533f9e83043b0": "2026-11-04T11:12:24.097973+00:00"
  },
  "week": [
   {
@@ -434,6 +435,18 @@
    "time": "2026-11-04T10:29:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "24a533f9e83043b0",
+   "source": "MarketWatch",
+   "bank": "Goldman Sachs",
+   "title": "The AI trade has been ‘sold to death’ but Goldman strategist highlights silver lining from Democratic sweep",
+   "desc": "Corporate decision makers may decide to accelerate their plans to expand compute capacity and take advantage of the status quo rather than risk a new administration and different rules in 2029",
+   "link": "https://www.marketwatch.com/story/the-ai-trade-has-been-sold-to-death-but-goldman-strategist-highlights-silver-lining-from-democratic-sweep-3d1d6f07?mod=mw_rss_topstories",
+   "time": "2026-11-04T11:10:00+00:00",
+   "assets": [
+    "metals"
    ]
   }
  ],
