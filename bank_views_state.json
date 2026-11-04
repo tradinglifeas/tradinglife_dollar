@@ -38,7 +38,8 @@
   "f89cb3382e99d107": "2026-11-04T11:01:20.499111+00:00",
   "db52dc7ecaa5d2f4": "2026-11-04T11:01:20.499111+00:00",
   "24a533f9e83043b0": "2026-11-04T11:12:24.097973+00:00",
-  "cccb13aff75bfce8": "2026-11-04T11:28:25.270452+00:00"
+  "cccb13aff75bfce8": "2026-11-04T11:28:25.270452+00:00",
+  "a806aaf1579ff97b": "2026-11-04T12:00:30.262530+00:00"
  },
  "week": [
   {
@@ -460,6 +461,18 @@
    "time": "2026-11-04T11:25:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "a806aaf1579ff97b",
+   "source": "Bloomberg",
+   "bank": "Barclays",
+   "title": "Democrats Sweep House and Senate in Midterm Rebuke of Trump",
+   "desc": "\"The Pulse With Francine Lacqua\" is all about conversations with high profile guests in the beating heart of global business, economics, finance and politics. Based in London, we go wherever the story is, bringing you exclusive interviews and market-moving scoops. Today's guests: Emmanuel Cau, Barclays Head of European and APAC Equity Strategy, Negah Angha, King's College London Visiting Fellow; Mike Doustdar, Novo Nordisk CEO; Morris Reid, Actum Partner (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-04/the-pulse-11-4-2026-video",
+   "time": "2026-11-04T11:40:24+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
