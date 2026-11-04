@@ -34,7 +34,9 @@
   "14508287f8d0223c": "2026-11-03T20:00:45.332900+00:00",
   "735b1de03b0124fa": "2026-11-03T22:00:32.826245+00:00",
   "03f212b643e91d95": "2026-11-04T08:00:32.012090+00:00",
-  "3f95cba45b90d001": "2026-11-04T08:05:26.242173+00:00"
+  "3f95cba45b90d001": "2026-11-04T08:05:26.242173+00:00",
+  "f89cb3382e99d107": "2026-11-04T11:01:20.499111+00:00",
+  "db52dc7ecaa5d2f4": "2026-11-04T11:01:20.499111+00:00"
  },
  "week": [
   {
@@ -406,6 +408,30 @@
    "desc": "A decisive election result supports immediate sentiment, but the prospect of tighter AI regulation could add to jitters about the tech sector. A president now potentially focusing more on foreign policy leaves oil and tariff risks in focus as sources of rate volatility. Eurozone headline inflation is expected to rise to 4%",
    "link": "https://think.ing.com/articles/rates-spark-a-blue-wave-in-the-us-and-euro-inflation/",
    "time": "2026-11-04T08:00:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "f89cb3382e99d107",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "A delayed landing for GBP rates",
+   "desc": "EUROPE: GBP rates seem to have drifted too high versus Bank of England expectations, which we attribute to a significant risk premium stemming from prior trading trauma. We therefore see rates lower across the curve, but only once inflation risks settle and US rates ease lower. Meanwhile, structural supply factors will keep the sterling curve steeper",
+   "link": "https://think.ing.com/articles/a-delayed-landing-for-gbp-rates/",
+   "time": "2026-11-04T10:26:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "db52dc7ecaa5d2f4",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Euro rates have good reason to be nervous",
+   "desc": "EUROPE: Easing inflation fears should bring euro rates down by mid-2027, but the path lower will be bumpy. We shift our attention from oil to inflation data and expect markets to react anxiously to upside surprises. Rising bond issuance outside the US government and AI could catch markets by surprise, but that is not our base case",
+   "link": "https://think.ing.com/articles/euro-rates-have-good-reason-to-be-nervous/",
+   "time": "2026-11-04T10:29:00+00:00",
    "assets": [
     "fx"
    ]
