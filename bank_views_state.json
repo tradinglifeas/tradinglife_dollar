@@ -40,7 +40,8 @@
   "24a533f9e83043b0": "2026-11-04T11:12:24.097973+00:00",
   "cccb13aff75bfce8": "2026-11-04T11:28:25.270452+00:00",
   "a806aaf1579ff97b": "2026-11-04T12:00:30.262530+00:00",
-  "6975400b34e8b98a": "2026-11-05T08:00:30.806656+00:00"
+  "6975400b34e8b98a": "2026-11-05T08:00:30.806656+00:00",
+  "83fb7e9edb80f12a": "2026-11-05T11:16:20.118139+00:00"
  },
  "week": [
   {
@@ -486,6 +487,18 @@
    "time": "2026-11-05T07:45:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "83fb7e9edb80f12a",
+   "source": "Bloomberg",
+   "bank": "UBS",
+   "title": "UBS Cuts London Jobs, European Stocks Hit Fresh Record",
+   "desc": "UBS has slashed about two hundred positions in London in recent weeks as the integration of Credit Suisse nears its end. The cuts were announced internally in recent weeks, according to people familiar with the matter. The reductions were carried out across the bank’s units, including wealth management and investment banking, they said. European stocks surpassed their prior closing record high as the region extended an outperformance driven by a rotation out of the artificial intelligence trade and a strong earnings season. The Opening Trade has everything you need to know as markets open across Europe. With analysis you won't find anywhere else, we break down the biggest stories of the day ",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-05/the-opening-trade-11-05-2026-video",
+   "time": "2026-11-05T10:39:39+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
