@@ -39,7 +39,8 @@
   "db52dc7ecaa5d2f4": "2026-11-04T11:01:20.499111+00:00",
   "24a533f9e83043b0": "2026-11-04T11:12:24.097973+00:00",
   "cccb13aff75bfce8": "2026-11-04T11:28:25.270452+00:00",
-  "a806aaf1579ff97b": "2026-11-04T12:00:30.262530+00:00"
+  "a806aaf1579ff97b": "2026-11-04T12:00:30.262530+00:00",
+  "6975400b34e8b98a": "2026-11-05T08:00:30.806656+00:00"
  },
  "week": [
   {
@@ -473,6 +474,18 @@
    "time": "2026-11-04T11:40:24+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "6975400b34e8b98a",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: A dollar downturn lacks the rate ingredient",
+   "desc": "The post-midterm dollar correction requires a worsening of USD rate differentials to turn into a downturn. But as oil prices fall, other central banks are facing similar or even larger dovish repricing than the Fed. Data is key now, but indications are that they won’t turn USD-negative soon. Today, expect a hike in the UK and rate holds in Norway and Mexico",
+   "link": "https://think.ing.com/articles/fx-daily-a-dollar-downturn-lacks-the-rate-ingredient/",
+   "time": "2026-11-05T07:45:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
