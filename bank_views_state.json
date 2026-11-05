@@ -42,7 +42,8 @@
   "a806aaf1579ff97b": "2026-11-04T12:00:30.262530+00:00",
   "6975400b34e8b98a": "2026-11-05T08:00:30.806656+00:00",
   "83fb7e9edb80f12a": "2026-11-05T11:16:20.118139+00:00",
-  "21b1cdf5d8880aac": "2026-11-05T19:00:31.139769+00:00"
+  "21b1cdf5d8880aac": "2026-11-05T19:00:31.139769+00:00",
+  "5e011b57c8527762": "2026-11-05T22:20:27.915883+00:00"
  },
  "week": [
   {
@@ -510,6 +511,18 @@
    "desc": "The stock-market trading desk at Goldman Sachs Group Inc. is being flooded with calls from investors trying to get a sense of how much deeper Thursday’s technology selloff can go.",
    "link": "https://www.bloomberg.com/news/articles/2026-11-05/goldman-traders-say-phones-are-exploding-as-ai-selloff-worsens",
    "time": "2026-11-05T18:40:06+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "5e011b57c8527762",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Rates Spark: Treasury heat from tech flight - but for how long?",
+   "desc": "A creeping move lower in equities would eventually be ignored by Treasuries. But a large dump in equities would not. Treasuries are so far very much in vogue. In Europe, bond spreads are widening again as we head into another weekend of street unrest. Friday sees US jobs data competing for the spotlight, although Thursday's low claims were broadly ignored",
+   "link": "https://think.ing.com/articles/rates-spark-treasury-heat-from-tech-flight-but-for-how-long/",
+   "time": "2026-11-05T18:30:00+00:00",
    "assets": [
     "stocks"
    ]
