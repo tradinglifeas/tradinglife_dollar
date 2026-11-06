@@ -53,7 +53,8 @@
   "9504b028d3110c40": "2026-11-06T14:00:36.037831+00:00",
   "fa7ecf714f4a5a68": "2026-11-06T15:28:20.635864+00:00",
   "a4c887acfc8e72fa": "2026-11-06T16:00:33.400748+00:00",
-  "8f7bd736afdc5fa7": "2026-11-06T17:00:31.299706+00:00"
+  "8f7bd736afdc5fa7": "2026-11-06T17:00:31.299706+00:00",
+  "bcf6cde0fc06355d": "2026-11-06T22:06:18.653265+00:00"
  },
  "week": [
   {
@@ -631,6 +632,18 @@
    "desc": "A rebound in chipmakers buoyed Wall Street as dip buyers emerged despite solid economic readings that reinforced speculation the Federal Reserve will boost rates in December. Max Kettner, Chief Multi-Asset Strategist at HSBC, discusses the AI trade and why it's following market narratives and not market fundamentals. (Source: Bloomberg)",
    "link": "https://www.bloomberg.com/news/videos/2026-11-06/chip-stocks-roar-back-as-strong-data-sink-bonds-video",
    "time": "2026-11-06T16:34:18+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "bcf6cde0fc06355d",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Ann Berry on the Importance of Learning AI",
+   "desc": "Barry speaks with Ann Berry, founder and managing partner of Threadneedle. They discuss her path from Goldman Sachs M&A and private equity to running a hospitality services company through the pandemic. They also discuss Ann's early-stage bets on AI and deepfake detection, and surveying the expanding IPO landscape. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-06/ann-berry-on-the-importance-of-learning-ai-video",
+   "time": "2026-11-06T22:01:25+00:00",
    "assets": [
     "stocks"
    ]
