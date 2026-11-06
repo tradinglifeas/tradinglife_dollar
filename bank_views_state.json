@@ -44,7 +44,8 @@
   "83fb7e9edb80f12a": "2026-11-05T11:16:20.118139+00:00",
   "21b1cdf5d8880aac": "2026-11-05T19:00:31.139769+00:00",
   "5e011b57c8527762": "2026-11-05T22:20:27.915883+00:00",
-  "57ee203e019aeade": "2026-11-06T07:00:31.120079+00:00"
+  "57ee203e019aeade": "2026-11-06T07:00:31.120079+00:00",
+  "a382545926e64338": "2026-11-06T07:02:18.479071+00:00"
  },
  "week": [
   {
@@ -538,6 +539,18 @@
    "time": "2026-11-06T06:41:28+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "a382545926e64338",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "Risk-Off Puts All Eyes on US Jobs Report",
+   "desc": "In focus today Today’s focus will be on volatile markets following yesterday’s pronounced risk-off move, as concerns over the sustainability of the AI boom continue to weigh on investor confidence. Further details in the equities section below. From the US, the main event today will be the October jobs report. We expect employment growth of […] The post Risk-Off Puts All Eyes on US Jobs Report appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/660048-risk-off-puts-all-eyes-on-us-jobs-report/",
+   "time": "2026-11-06T07:02:08+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
