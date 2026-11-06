@@ -47,7 +47,8 @@
   "57ee203e019aeade": "2026-11-06T07:00:31.120079+00:00",
   "a382545926e64338": "2026-11-06T07:02:18.479071+00:00",
   "f6488c3155233cf3": "2026-11-06T08:03:18.994976+00:00",
-  "db19adf32562a378": "2026-11-06T12:00:31.928209+00:00"
+  "db19adf32562a378": "2026-11-06T12:00:31.928209+00:00",
+  "36624868186d0751": "2026-11-06T13:00:36.832099+00:00"
  },
  "week": [
   {
@@ -555,6 +556,18 @@
    "assets": [
     "fx",
     "stocks"
+   ]
+  },
+  {
+   "id": "36624868186d0751",
+   "source": "MarketWatch",
+   "bank": "Goldman Sachs",
+   "title": "Goldman’s new gold target: Why the Wall Street bank is saying it’s early to buy the yellow metal",
+   "desc": "Strategists at the investment bank said the change in expectations is down to the Federal Reserve’s hawkish shift.",
+   "link": "https://www.marketwatch.com/story/goldmans-new-gold-target-why-the-wall-street-bank-is-saying-its-early-to-buy-the-yellow-metal-d8ae35e0?mod=mw_rss_topstories",
+   "time": "2026-11-06T12:47:00+00:00",
+   "assets": [
+    "metals"
    ]
   }
  ],
