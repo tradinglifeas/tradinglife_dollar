@@ -54,7 +54,8 @@
   "fa7ecf714f4a5a68": "2026-11-06T15:28:20.635864+00:00",
   "a4c887acfc8e72fa": "2026-11-06T16:00:33.400748+00:00",
   "8f7bd736afdc5fa7": "2026-11-06T17:00:31.299706+00:00",
-  "bcf6cde0fc06355d": "2026-11-06T22:06:18.653265+00:00"
+  "bcf6cde0fc06355d": "2026-11-06T22:06:18.653265+00:00",
+  "ef2f546a7e0242bd": "2026-11-06T23:00:30.704912+00:00"
  },
  "week": [
   {
@@ -644,6 +645,18 @@
    "desc": "Barry speaks with Ann Berry, founder and managing partner of Threadneedle. They discuss her path from Goldman Sachs M&A and private equity to running a hospitality services company through the pandemic. They also discuss Ann's early-stage bets on AI and deepfake detection, and surveying the expanding IPO landscape. (Source: Bloomberg)",
    "link": "https://www.bloomberg.com/news/videos/2026-11-06/ann-berry-on-the-importance-of-learning-ai-video",
    "time": "2026-11-06T22:01:25+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "ef2f546a7e0242bd",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Providing Capital to Tech Companies: Masters In Business with Ann Berry",
+   "desc": "Barry speaks with Ann Berry, founder and managing partner of Threadneedle. They discuss her path from Goldman Sachs M&A and private equity to running a hospitality services company through the pandemic. They also discuss Ann's early-stage bets on AI and deepfake detection, and surveying the expanding IPO landscape. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-06/masters-in-business-with-ann-berry-video",
+   "time": "2026-11-06T22:15:53+00:00",
    "assets": [
     "stocks"
    ]
