@@ -49,7 +49,8 @@
   "f6488c3155233cf3": "2026-11-06T08:03:18.994976+00:00",
   "db19adf32562a378": "2026-11-06T12:00:31.928209+00:00",
   "36624868186d0751": "2026-11-06T13:00:36.832099+00:00",
-  "fd66cd53c9d0cc6d": "2026-11-06T13:24:20.742679+00:00"
+  "fd66cd53c9d0cc6d": "2026-11-06T13:24:20.742679+00:00",
+  "9504b028d3110c40": "2026-11-06T14:00:36.037831+00:00"
  },
  "week": [
   {
@@ -579,6 +580,18 @@
    "desc": "\"The Pulse With Francine Lacqua\" is all about conversations with high profile guests in the beating heart of global business, economics, finance and politics. Based in London, we go wherever the story is, bringing you exclusive interviews and market-moving scoops. Today's guests: Isabelle Mateos y Lago, BNP Paribas, Group Chief Economist; Lindsay Newman, King’s College London, Visiting Research Fellow; Kristrún Frostadóttir, Icelandic Prime Minister (Source: Bloomberg)",
    "link": "https://www.bloomberg.com/news/videos/2026-11-06/the-pulse-11-6-2026-video",
    "time": "2026-11-06T13:13:21+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "9504b028d3110c40",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "THINK Ahead: Markets get a fright, but central banks won’t spook that easily",
+   "desc": "Tumbling oil prices and a brutal sell-off in tech stocks are making investors think twice about the direction of interest rates. But even after a roller coaster week, James Smith argues central banks will take more convincing",
+   "link": "https://think.ing.com/opinions/think-ahead-markets-get-a-fright-but-central-banks-wont-spook-that-easily/",
+   "time": "2026-11-06T09:21:00+00:00",
    "assets": [
     "stocks"
    ]
