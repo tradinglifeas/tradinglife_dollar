@@ -45,7 +45,8 @@
   "21b1cdf5d8880aac": "2026-11-05T19:00:31.139769+00:00",
   "5e011b57c8527762": "2026-11-05T22:20:27.915883+00:00",
   "57ee203e019aeade": "2026-11-06T07:00:31.120079+00:00",
-  "a382545926e64338": "2026-11-06T07:02:18.479071+00:00"
+  "a382545926e64338": "2026-11-06T07:02:18.479071+00:00",
+  "f6488c3155233cf3": "2026-11-06T08:03:18.994976+00:00"
  },
  "week": [
   {
@@ -538,6 +539,19 @@
    "link": "https://www.actionforex.com/contributors/fundamental-analysis/660048-risk-off-puts-all-eyes-on-us-jobs-report/",
    "time": "2026-11-06T07:02:08+00:00",
    "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "f6488c3155233cf3",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Tech collapses, FX shrugs",
+   "desc": "A delayed reaction to the Democrat blue wave has seen some powerful selling of tech stocks. A little surprisingly, the reaction in FX markets has remained very muted. FX participants so far see this as an idiosyncratic re-pricing of the tech sector, rather than a harbinger of recession. Expect defensive FX to outperform, rather than a broad dollar decline",
+   "link": "https://think.ing.com/articles/fx-daily-tech-collapses-fx-shrugs/",
+   "time": "2026-11-06T08:00:00+00:00",
+   "assets": [
+    "fx",
     "stocks"
    ]
   }
