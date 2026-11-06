@@ -43,7 +43,8 @@
   "6975400b34e8b98a": "2026-11-05T08:00:30.806656+00:00",
   "83fb7e9edb80f12a": "2026-11-05T11:16:20.118139+00:00",
   "21b1cdf5d8880aac": "2026-11-05T19:00:31.139769+00:00",
-  "5e011b57c8527762": "2026-11-05T22:20:27.915883+00:00"
+  "5e011b57c8527762": "2026-11-05T22:20:27.915883+00:00",
+  "57ee203e019aeade": "2026-11-06T07:00:31.120079+00:00"
  },
  "week": [
   {
@@ -525,6 +526,18 @@
    "time": "2026-11-05T18:30:00+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "57ee203e019aeade",
+   "source": "Bloomberg",
+   "bank": "Bank of America",
+   "title": "BofA’s Piron Says Won, Taiwan Dollar Offer Opportunity",
+   "desc": "BofA Global Research Head of Asia FX & Rates Strategy Claudio Piron sees opportunities to go long the Korean won and Taiwan dollar after the AI-driven selloff, arguing that strong current-account surpluses and continued export flows should provide support. He speaks with Haslinda Amin on \"Insight with Haslinda Amin.\" (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-06/bofa-s-piron-says-won-taiwan-dollar-offer-opportunity-video",
+   "time": "2026-11-06T06:41:28+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
