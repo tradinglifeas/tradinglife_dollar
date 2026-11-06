@@ -52,7 +52,8 @@
   "fd66cd53c9d0cc6d": "2026-11-06T13:24:20.742679+00:00",
   "9504b028d3110c40": "2026-11-06T14:00:36.037831+00:00",
   "fa7ecf714f4a5a68": "2026-11-06T15:28:20.635864+00:00",
-  "a4c887acfc8e72fa": "2026-11-06T16:00:33.400748+00:00"
+  "a4c887acfc8e72fa": "2026-11-06T16:00:33.400748+00:00",
+  "8f7bd736afdc5fa7": "2026-11-06T17:00:31.299706+00:00"
  },
  "week": [
   {
@@ -618,6 +619,18 @@
    "desc": "Goldman Sachs Group Inc. traders said the violent selloff in US equities has pushed market panic to an extreme level that historically signals a strong rebound over the medium term.",
    "link": "https://www.bloomberg.com/news/articles/2026-11-06/goldman-s-us-stock-panic-gauge-hits-extreme-signaling-rebound",
    "time": "2026-11-06T15:28:07+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "8f7bd736afdc5fa7",
+   "source": "Bloomberg",
+   "bank": "HSBC",
+   "title": "Chip Stocks Roar Back as Strong Data Sink Bonds",
+   "desc": "A rebound in chipmakers buoyed Wall Street as dip buyers emerged despite solid economic readings that reinforced speculation the Federal Reserve will boost rates in December. Max Kettner, Chief Multi-Asset Strategist at HSBC, discusses the AI trade and why it's following market narratives and not market fundamentals. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-06/chip-stocks-roar-back-as-strong-data-sink-bonds-video",
+   "time": "2026-11-06T16:34:18+00:00",
    "assets": [
     "stocks"
    ]
