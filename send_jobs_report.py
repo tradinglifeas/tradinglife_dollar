@@ -5,15 +5,13 @@
 صبح به وقت شرقی) واقعاً پیام می‌فرسته؛ بقیه‌ی روزها که این اسکریپت اجرا بشه
 (چون هر جمعه صدا زده می‌شه)، بدون ارسال پیام خارج می‌شه.
 
-داده‌ی «واقعی» (NFP، نرخ بیکاری، رشد سالانه‌ی دستمزد، نرخ مشارکت): از FRED
-(رسمی و رایگان، بدون نیاز به کلید).
+داده‌ی «واقعی» (NFP، نرخ بیکاری، رشد سالانه‌ی دستمزد، نرخ مشارکت): از API رسمی
+FRED (api.stlouisfed.org) که نیاز به یه کلید رایگان داره (سکرت FRED_API_KEY).
 داده‌ی «انتظار بازار»، بازنگری دو ماه قبل، و تحلیل اثرات احتمالی روی هر بازار:
 از Groq با قابلیت browser_search.
 """
 
 import os
-import io
-import csv
 import re
 import time
 import requests
@@ -24,21 +22,17 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
 GROQ_API_KEY = os.environ["GROQ_API_KEY"]
+FRED_API_KEY = os.environ.get("FRED_API_KEY", "")
 
 # برای تست دستی (اجرای اجباری حتی اگر امروز جمعه‌ی اول ماه نباشه)
 FORCE_RUN = os.getenv("FORCE_RUN", "false").lower() == "true"
 
 TELEGRAM_PHOTO_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-FRED_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv"
+FRED_API_URL = "https://api.stlouisfed.org/fred/series/observations"
 
 FONT_REGULAR = "Vazirmatn-Regular.ttf"
 FONT_BOLD = "Vazirmatn-Bold.ttf"
-
-REQUEST_HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                  "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-}
 
 BG = (12, 16, 24)
 CARD = (22, 27, 38)
@@ -66,27 +60,50 @@ def is_first_friday(dt):
     return dt.weekday() == 4 and dt.day <= 7
 
 
-def fred_series(series_id, max_retries=4):
+def fred_series(series_id, limit=20, max_retries=4):
+    """
+    از API رسمی FRED (api.stlouisfed.org) آخرین {limit} مشاهده‌ی یک سری رو
+    می‌گیره، از قدیم به جدید مرتب می‌کنه (مثل قبل)، تا تمام محاسبات دیگه
+    (pct, تغییر ماه به ماه و...) بدون تغییر کار کنن.
+    """
+    if not FRED_API_KEY:
+        raise RuntimeError(
+            "سکرت FRED_API_KEY تنظیم نشده. اول باید یک کلید رایگان از "
+            "fredaccount.stlouisfed.org/apikeys بگیری و به‌عنوان سکرت "
+            "FRED_API_KEY توی گیت‌هاب اضافه کنی."
+        )
     last_error = None
     for attempt in range(max_retries):
         try:
             response = requests.get(
-                FRED_URL, params={"id": series_id}, headers=REQUEST_HEADERS, timeout=60
+                FRED_API_URL,
+                params={
+                    "series_id": series_id,
+                    "api_key": FRED_API_KEY,
+                    "file_type": "json",
+                    "sort_order": "desc",
+                    "limit": limit,
+                },
+                timeout=30,
             )
             response.raise_for_status()
+            payload = response.json()
+            if "error_message" in payload:
+                raise RuntimeError(f"خطای API: {payload['error_message']}")
             rows = []
-            for row in csv.DictReader(io.StringIO(response.text)):
+            for obs in payload.get("observations", []):
+                value = obs.get("value")
+                if value in (".", "", None):
+                    continue
                 try:
-                    value = row[series_id]
-                    if value in (".", "", None):
-                        continue
-                    rows.append((row["DATE"], float(value)))
+                    rows.append((obs["date"], float(value)))
                 except (ValueError, KeyError):
                     pass
             if not rows:
                 raise RuntimeError(f"FRED پاسخ خالی برای {series_id} برگردوند.")
+            rows.reverse()  # از قدیم به جدید
             return rows
-        except (requests.exceptions.RequestException, RuntimeError) as e:
+        except (requests.exceptions.RequestException, RuntimeError, ValueError) as e:
             last_error = e
             wait_seconds = 5 * (attempt + 1)
             print(f"خطا در گرفتن {series_id} از FRED (تلاش {attempt + 1}/{max_retries}): {e}")
