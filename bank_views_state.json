@@ -51,7 +51,8 @@
   "36624868186d0751": "2026-11-06T13:00:36.832099+00:00",
   "fd66cd53c9d0cc6d": "2026-11-06T13:24:20.742679+00:00",
   "9504b028d3110c40": "2026-11-06T14:00:36.037831+00:00",
-  "fa7ecf714f4a5a68": "2026-11-06T15:28:20.635864+00:00"
+  "fa7ecf714f4a5a68": "2026-11-06T15:28:20.635864+00:00",
+  "a4c887acfc8e72fa": "2026-11-06T16:00:33.400748+00:00"
  },
  "week": [
   {
@@ -605,6 +606,18 @@
    "desc": "Despite the steep drop in equity markets this week, investors should wait for several developments in other asset markets before rushing back into stocks, Michael Hartnett said.",
    "link": "https://www.marketwatch.com/story/these-three-stars-need-to-align-before-investors-rush-back-into-stocks-bank-of-america-strategist-says-52879caa?mod=mw_rss_topstories",
    "time": "2026-11-06T15:27:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "a4c887acfc8e72fa",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Goldman’s US Stock Panic Gauge Hits Extreme, Signaling Rebound",
+   "desc": "Goldman Sachs Group Inc. traders said the violent selloff in US equities has pushed market panic to an extreme level that historically signals a strong rebound over the medium term.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-06/goldman-s-us-stock-panic-gauge-hits-extreme-signaling-rebound",
+   "time": "2026-11-06T15:28:07+00:00",
    "assets": [
     "stocks"
    ]
