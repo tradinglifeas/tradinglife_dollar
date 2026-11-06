@@ -48,7 +48,8 @@
   "a382545926e64338": "2026-11-06T07:02:18.479071+00:00",
   "f6488c3155233cf3": "2026-11-06T08:03:18.994976+00:00",
   "db19adf32562a378": "2026-11-06T12:00:31.928209+00:00",
-  "36624868186d0751": "2026-11-06T13:00:36.832099+00:00"
+  "36624868186d0751": "2026-11-06T13:00:36.832099+00:00",
+  "fd66cd53c9d0cc6d": "2026-11-06T13:24:20.742679+00:00"
  },
  "week": [
   {
@@ -568,6 +569,18 @@
    "time": "2026-11-06T12:47:00+00:00",
    "assets": [
     "metals"
+   ]
+  },
+  {
+   "id": "fd66cd53c9d0cc6d",
+   "source": "Bloomberg",
+   "bank": "BNP Paribas",
+   "title": "UK & Europe Avoid Worst of Stock Rout",
+   "desc": "\"The Pulse With Francine Lacqua\" is all about conversations with high profile guests in the beating heart of global business, economics, finance and politics. Based in London, we go wherever the story is, bringing you exclusive interviews and market-moving scoops. Today's guests: Isabelle Mateos y Lago, BNP Paribas, Group Chief Economist; Lindsay Newman, King’s College London, Visiting Research Fellow; Kristrún Frostadóttir, Icelandic Prime Minister (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-06/the-pulse-11-6-2026-video",
+   "time": "2026-11-06T13:13:21+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
