@@ -46,7 +46,8 @@
   "5e011b57c8527762": "2026-11-05T22:20:27.915883+00:00",
   "57ee203e019aeade": "2026-11-06T07:00:31.120079+00:00",
   "a382545926e64338": "2026-11-06T07:02:18.479071+00:00",
-  "f6488c3155233cf3": "2026-11-06T08:03:18.994976+00:00"
+  "f6488c3155233cf3": "2026-11-06T08:03:18.994976+00:00",
+  "db19adf32562a378": "2026-11-06T12:00:31.928209+00:00"
  },
  "week": [
   {
@@ -538,6 +539,19 @@
    "desc": "A delayed reaction to the Democrat blue wave has seen some powerful selling of tech stocks. A little surprisingly, the reaction in FX markets has remained very muted. FX participants so far see this as an idiosyncratic re-pricing of the tech sector, rather than a harbinger of recession. Expect defensive FX to outperform, rather than a broad dollar decline",
    "link": "https://think.ing.com/articles/fx-daily-tech-collapses-fx-shrugs/",
    "time": "2026-11-06T08:00:00+00:00",
+   "assets": [
+    "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "db19adf32562a378",
+   "source": "Bloomberg",
+   "bank": "Morgan Stanley",
+   "title": "Coinbase Bear Morgan Stanley Says Earnings Recovery Less Certain",
+   "desc": "Coinbase Global Inc.’s list of bears is growing long. Morgan Stanley came out swinging against the cryptocurrency exchange this week, slashing revenue estimates and saying confidence in the earnings recovery has deteriorated.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-06/coinbase-bear-morgan-stanley-says-earnings-recovery-less-certain",
+   "time": "2026-11-06T11:42:31+00:00",
    "assets": [
     "fx",
     "stocks"
