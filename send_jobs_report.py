@@ -66,19 +66,34 @@ def is_first_friday(dt):
     return dt.weekday() == 4 and dt.day <= 7
 
 
-def fred_series(series_id):
-    response = requests.get(FRED_URL, params={"id": series_id}, headers=REQUEST_HEADERS, timeout=30)
-    response.raise_for_status()
-    rows = []
-    for row in csv.DictReader(io.StringIO(response.text)):
+def fred_series(series_id, max_retries=4):
+    last_error = None
+    for attempt in range(max_retries):
         try:
-            value = row[series_id]
-            if value in (".", "", None):
-                continue
-            rows.append((row["DATE"], float(value)))
-        except (ValueError, KeyError):
-            pass
-    return rows
+            response = requests.get(
+                FRED_URL, params={"id": series_id}, headers=REQUEST_HEADERS, timeout=60
+            )
+            response.raise_for_status()
+            rows = []
+            for row in csv.DictReader(io.StringIO(response.text)):
+                try:
+                    value = row[series_id]
+                    if value in (".", "", None):
+                        continue
+                    rows.append((row["DATE"], float(value)))
+                except (ValueError, KeyError):
+                    pass
+            if not rows:
+                raise RuntimeError(f"FRED پاسخ خالی برای {series_id} برگردوند.")
+            return rows
+        except (requests.exceptions.RequestException, RuntimeError) as e:
+            last_error = e
+            wait_seconds = 5 * (attempt + 1)
+            print(f"خطا در گرفتن {series_id} از FRED (تلاش {attempt + 1}/{max_retries}): {e}")
+            if attempt < max_retries - 1:
+                print(f"{wait_seconds} ثانیه صبر می‌کنیم و دوباره تلاش می‌کنیم...")
+                time.sleep(wait_seconds)
+    raise RuntimeError(f"گرفتن {series_id} از FRED بعد از {max_retries} بار تلاش شکست خورد: {last_error}")
 
 
 def pct(a, b):
