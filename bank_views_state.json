@@ -50,7 +50,8 @@
   "db19adf32562a378": "2026-11-06T12:00:31.928209+00:00",
   "36624868186d0751": "2026-11-06T13:00:36.832099+00:00",
   "fd66cd53c9d0cc6d": "2026-11-06T13:24:20.742679+00:00",
-  "9504b028d3110c40": "2026-11-06T14:00:36.037831+00:00"
+  "9504b028d3110c40": "2026-11-06T14:00:36.037831+00:00",
+  "fa7ecf714f4a5a68": "2026-11-06T15:28:20.635864+00:00"
  },
  "week": [
   {
@@ -592,6 +593,18 @@
    "desc": "Tumbling oil prices and a brutal sell-off in tech stocks are making investors think twice about the direction of interest rates. But even after a roller coaster week, James Smith argues central banks will take more convincing",
    "link": "https://think.ing.com/opinions/think-ahead-markets-get-a-fright-but-central-banks-wont-spook-that-easily/",
    "time": "2026-11-06T09:21:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "fa7ecf714f4a5a68",
+   "source": "MarketWatch",
+   "bank": "Bank of America",
+   "title": "These three stars need to align before investors rush back into stocks, Bank of America strategist says",
+   "desc": "Despite the steep drop in equity markets this week, investors should wait for several developments in other asset markets before rushing back into stocks, Michael Hartnett said.",
+   "link": "https://www.marketwatch.com/story/these-three-stars-need-to-align-before-investors-rush-back-into-stocks-bank-of-america-strategist-says-52879caa?mod=mw_rss_topstories",
+   "time": "2026-11-06T15:27:00+00:00",
    "assets": [
     "stocks"
    ]
