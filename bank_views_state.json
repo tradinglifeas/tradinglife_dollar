@@ -47,7 +47,8 @@
   "773cae7ba49a7d27": "2026-11-09T08:01:25.703686+00:00",
   "5a9a9bc294c2523f": "2026-11-09T10:09:19.954788+00:00",
   "3999a80c0b7cc455": "2026-11-09T10:28:19.830717+00:00",
-  "8662a4c5da4d38d7": "2026-11-09T11:09:21.798064+00:00"
+  "8662a4c5da4d38d7": "2026-11-09T11:09:21.798064+00:00",
+  "0a94fff49da841ea": "2026-11-09T13:26:23.020875+00:00"
  },
  "week": [
   {
@@ -593,6 +594,18 @@
    "time": "2026-11-09T10:48:31+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "0a94fff49da841ea",
+   "source": "Bloomberg",
+   "bank": "Société Générale",
+   "title": "SocGen’s Juckes Sees ‘Less Dollar-Friendly’ Year in 2027",
+   "desc": "Kit Juckes, chief FX strategist at Societe Generale, says he expects a weaker year for the dollar in 2027, \"but I'd be really nervous about shorting the dollar until we can get past this energy crisis.\" He speaks on “Bloomberg Surveillance.” (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-09/socgen-s-juckes-sees-less-dollar-friendly-year-in-2027-video",
+   "time": "2026-11-09T13:23:06+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
