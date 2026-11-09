@@ -1,7 +1,5 @@
 {
  "seen": {
-  "773cae7ba49a7d27": "2026-10-30T08:00:30.311734+00:00",
-  "e57509e1fee9e8b0": "2026-10-30T08:00:30.311734+00:00",
   "5924dfb380ddb74e": "2026-10-30T08:23:21.108554+00:00",
   "fe9d3c18b4bb986f": "2026-10-30T14:00:32.669200+00:00",
   "715ab15920db2aac": "2026-11-02T08:00:33.325510+00:00",
@@ -45,33 +43,10 @@
   "e2e347a6978d8976": "2026-11-09T07:00:30.037526+00:00",
   "8464793eb372e14c": "2026-11-09T07:01:22.195784+00:00",
   "76809ab735a28d6e": "2026-11-09T07:01:22.195784+00:00",
-  "722ca38ebd3cb890": "2026-11-09T07:09:17.718985+00:00"
+  "722ca38ebd3cb890": "2026-11-09T07:09:17.718985+00:00",
+  "fdec13627b5a4fd8": "2026-11-09T08:00:31.450586+00:00"
  },
  "week": [
-  {
-   "id": "773cae7ba49a7d27",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "ECB on Hold as Lagarde to Leave Early",
-   "desc": "In focus today and this weekend In the euro area, focus will be on the first Q3 GDP estimate. Following Ireland’s strong 5.5% q/q GDP print, we now expect aggregate euro area GDP growth of 0.5% q/q in Q3, above consensus. However, Ireland’s economy is volatile and not representative of the euro area, so focus […] The post ECB on Hold as Lagarde to Leave Early appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/contributors/fundamental-analysis/659225-ecb-on-hold-as-lagarde-to-leave-early/",
-   "time": "2026-10-30T07:36:40+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "e57509e1fee9e8b0",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: Time to think about the midterms?",
-   "desc": "The ECB sent a clear message yesterday: a December hike is likely. That is providing a more supportive backdrop for the euro ahead of today’s 3Q GDP release. Meanwhile, resurgent AI-related jitters and the upcoming US midterms are increasing downside risks for the dollar, in our view, although a still-hawkish Fed argues against major corrections",
-   "link": "https://think.ing.com/articles/fx-daily-time-to-think-about-the-midterms/",
-   "time": "2026-10-30T07:39:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
   {
    "id": "5924dfb380ddb74e",
    "source": "ING THINK",
@@ -575,6 +550,19 @@
    "desc": "In focus this week In the euro area, the Eurozone’s group of finance ministers will take stock of the two candidates to succeed Lagarde as ECB President. Spaniard De Cos and Dutchman Knot were the only two candidates nominated before Friday’s deadline. The official decision will be taken by European heads of state later and […] The post Eurogroup Discusses Lagarde’s Successor appeared first on ActionForex .",
    "link": "https://www.actionforex.com/contributors/fundamental-analysis/660251-eurogroup-discusses-lagardes-successor/",
    "time": "2026-11-09T07:08:17+00:00",
+   "assets": [
+    "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "fdec13627b5a4fd8",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Dollar rally needs more risk-off fuel",
+   "desc": "Contagion from AI to defensive stocks in the US and worldwide allowed the dollar to rally even before the strong US jobs market report. But unless risk sentiment remains poor this week, lower front-end US rates should favour a weaker dollar, even if inflation tomorrow comes in slightly hotter than expected",
+   "link": "https://think.ing.com/articles/fx-daily-dollar-rally-needs-more-risk-off-fuel/",
+   "time": "2026-11-09T07:56:00+00:00",
    "assets": [
     "fx",
     "stocks"
