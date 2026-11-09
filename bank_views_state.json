@@ -1,19 +1,5 @@
 {
  "seen": {
-  "3ca96ac041961964": "2026-10-28T12:29:24.148650+00:00",
-  "20551d30cac02008": "2026-10-28T12:29:24.148650+00:00",
-  "ede60000a86e4746": "2026-10-28T12:29:24.148650+00:00",
-  "8464793eb372e14c": "2026-10-28T12:29:24.148650+00:00",
-  "5fb9ec5df0293744": "2026-10-28T12:29:24.148650+00:00",
-  "ec69ec22cac49a60": "2026-10-28T12:29:24.148650+00:00",
-  "4148de2a69c02fc2": "2026-10-28T12:29:24.148650+00:00",
-  "aac1ed992feb54b3": "2026-10-28T14:00:31.938186+00:00",
-  "76809ab735a28d6e": "2026-10-29T07:26:30.900481+00:00",
-  "538310b15269d01b": "2026-10-29T08:00:48.385705+00:00",
-  "cb526e827945cad0": "2026-10-29T08:00:48.385705+00:00",
-  "7fd0325d370e4c6a": "2026-10-29T10:00:29.851513+00:00",
-  "fe6356257b19f30a": "2026-10-29T15:00:36.544836+00:00",
-  "9b0d6fa57fe66acb": "2026-10-29T21:00:30.349079+00:00",
   "773cae7ba49a7d27": "2026-10-30T08:00:30.311734+00:00",
   "e57509e1fee9e8b0": "2026-10-30T08:00:30.311734+00:00",
   "5924dfb380ddb74e": "2026-10-30T08:23:21.108554+00:00",
@@ -55,105 +41,10 @@
   "a4c887acfc8e72fa": "2026-11-06T16:00:33.400748+00:00",
   "8f7bd736afdc5fa7": "2026-11-06T17:00:31.299706+00:00",
   "bcf6cde0fc06355d": "2026-11-06T22:06:18.653265+00:00",
-  "ef2f546a7e0242bd": "2026-11-06T23:00:30.704912+00:00"
+  "ef2f546a7e0242bd": "2026-11-06T23:00:30.704912+00:00",
+  "e2e347a6978d8976": "2026-11-09T07:00:30.037526+00:00"
  },
  "week": [
-  {
-   "id": "4148de2a69c02fc2",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: Abatement in AI risk helps the dollar",
-   "desc": "Fears of an AI bust have receded slightly, and the AI story has been helped overnight by impressive 3Q results from Korean chipmaker SK Hynix. This has allowed the market to focus on the core story of resilient growth, high inflation and the prospect of higher energy prices – all dollar-positive. Look out for the Fed, the Bank of Canada and the UK budget today",
-   "link": "https://think.ing.com/articles/fx-daily-abatement-in-ai-risk-helps-the-dollar/",
-   "time": "2026-10-28T07:40:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "aac1ed992feb54b3",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "RBNZ’s huge dovish surprise spells trouble for Kiwi dollar",
-   "desc": "ASIA/PACIFIC: The Reserve Bank of New Zealand surprised with a 4-3 split vote for a hold. While a December hike remains on the cards, the signal was dovish, leaving markets’ tightening expectations vulnerable. That points to further downside risks for NZD vs commodity currency peers, despite potential near-term relief in the undervalued NZD/USD",
-   "link": "https://think.ing.com/articles/rbnzs-huge-dovish-surprise-spells-trouble-for-kiwi-dollar/",
-   "time": "2026-10-28T13:13:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "76809ab735a28d6e",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "ECB Expected to Stay on Hold",
-   "desc": "In focus today In the euro area, we expect the ECB to keep policy rates unchanged, with the deposit rate at 2.50%, in line with consensus and market pricing. We expect Lagarde to retain full optionality on the future rate path and offer no firm guidance, limiting the market reaction. We will watch for potential […] The post ECB Expected to Stay on Hold appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/contributors/fundamental-analysis/659105-ecb-expected-to-stay-on-hold/",
-   "time": "2026-10-29T07:25:43+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "538310b15269d01b",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: Can France wake up the ECB doves?",
-   "desc": "The ECB will likely keep rates on hold today, but we don’t think French-related risk is enough to drive a material dovish shift yet, especially with energy prices running so high. We expect a contained euro impact. After a slightly negative reaction to yesterday’s FOMC, we see the dollar finding some support from today’s US PCE and GDP data",
-   "link": "https://think.ing.com/articles/fx-daily-can-france-wake-up-ecb-doves/",
-   "time": "2026-10-29T07:40:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "cb526e827945cad0",
-   "source": "Bloomberg",
-   "bank": "Barclays",
-   "title": "What Wall Street Really Thanks About the AI Trade (Podcast)",
-   "desc": "It has been a big week for the AI trade — we've seen wobbles in the market, many of them in response to headlines like the Anthropic S-1 and earnings from the hyperscalers (Oracle, Microsoft, etc.). So what does Wall Street make of all the news, and how are they processing an increasing sense that the laws of the economy barely apply to AI? Today, we speak with Alexander 'Alty' Altmann, global head of equities tactical strategies at Barclays, and he helps us make sense of how Wall Street really",
-   "link": "https://www.bloomberg.com/news/audio/2026-10-29/what-wall-street-really-thanks-about-the-ai-trade-podcast",
-   "time": "2026-10-29T08:00:00+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "7fd0325d370e4c6a",
-   "source": "MarketWatch",
-   "bank": "JPMorgan",
-   "title": "ServiceNow stock is on track for its largest drop on record. But JPMorgan sees a bright spot.",
-   "desc": "Shares in the software company declined nearly 18% in premarket trading on Thursday as investors digested its third-quarter earnings.",
-   "link": "https://www.marketwatch.com/story/servicenow-stock-is-on-track-for-its-largest-drop-on-record-but-jpmorgan-sees-a-bright-spot-5e5b05c6?mod=mw_rss_topstories",
-   "time": "2026-10-29T09:52:00+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "fe6356257b19f30a",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "Webinar: The Good, the Bad and the Ugly for rates in 2027",
-   "desc": "Could the US 10-year Treasury hit 6% in 2027? And could markets be too relaxed about euro rates? AI-driven growth, stubborn inflation and extraordinary government borrowing could keep global rates under pressure, while France’s debt challenge adds another potential fault line in Europe. Join ING experts to explore what could drive rates in 2027",
-   "link": "https://think.ing.com/articles/webinar-the-good-the-bad-and-the-ugly-for-rates-in-2027/",
-   "time": "2026-10-29T14:55:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "9b0d6fa57fe66acb",
-   "source": "Bloomberg",
-   "bank": "Goldman Sachs",
-   "title": "Moving Down in High-Grade Quality: Goldman's Lynam",
-   "desc": "Amanda Lynam, chief credit strategist at Goldman Sachs, and Winnie Cisar, global head of credit strategy at CreditSights, joins Scarlet Fu on \"Bloomberg Real Yield.\" US investment-grade bond sales set an annual record as a surge in artificial intelligence spending drives companies to borrow hundreds of billions of dollars. (Source: Bloomberg)",
-   "link": "https://www.bloomberg.com/news/videos/2026-10-29/moving-down-in-high-grade-quality-goldman-s-lynam-video",
-   "time": "2026-10-29T20:40:57+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
   {
    "id": "773cae7ba49a7d27",
    "source": "ActionForex (Danske)",
@@ -657,6 +548,18 @@
    "desc": "Barry speaks with Ann Berry, founder and managing partner of Threadneedle. They discuss her path from Goldman Sachs M&A and private equity to running a hospitality services company through the pandemic. They also discuss Ann's early-stage bets on AI and deepfake detection, and surveying the expanding IPO landscape. (Source: Bloomberg)",
    "link": "https://www.bloomberg.com/news/videos/2026-11-06/masters-in-business-with-ann-berry-video",
    "time": "2026-11-06T22:15:53+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "e2e347a6978d8976",
+   "source": "Bloomberg",
+   "bank": "Citi",
+   "title": "HSBC, Citi Turn Bullish as Indian Stocks Draw Record Inflows",
+   "desc": "Global banks are turning more bullish on Indian stocks as the market’s sharpest rally in more than four years draws record foreign inflows.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-09/hsbc-citi-turn-bullish-as-indian-stocks-draw-record-inflows",
+   "time": "2026-11-09T05:53:46+00:00",
    "assets": [
     "stocks"
    ]
