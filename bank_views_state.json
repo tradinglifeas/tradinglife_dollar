@@ -46,7 +46,8 @@
   "fdec13627b5a4fd8": "2026-11-09T08:00:31.450586+00:00",
   "773cae7ba49a7d27": "2026-11-09T08:01:25.703686+00:00",
   "5a9a9bc294c2523f": "2026-11-09T10:09:19.954788+00:00",
-  "3999a80c0b7cc455": "2026-11-09T10:28:19.830717+00:00"
+  "3999a80c0b7cc455": "2026-11-09T10:28:19.830717+00:00",
+  "8662a4c5da4d38d7": "2026-11-09T11:09:21.798064+00:00"
  },
  "week": [
   {
@@ -578,6 +579,18 @@
    "desc": "The S&P 500 could decline to the investment bank’s lower end of its downside target in the coming weeks, which would provide a good opportunity to add risk.",
    "link": "https://www.marketwatch.com/story/the-markets-correction-is-entering-its-final-phase-but-wait-before-buying-the-dip-says-morgan-stanley-chief-strategist-2c1be13e?mod=mw_rss_topstories",
    "time": "2026-11-09T10:26:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "8662a4c5da4d38d7",
+   "source": "Bloomberg",
+   "bank": "Citi",
+   "title": "Nvidia CEO Jensen Huang Admits Affair With Suspected Chinese Spy",
+   "desc": "\"The Pulse With Francine Lacqua\" is all about conversations with high profile guests in the beating heart of global business, economics, finance and politics. Based in London, we go wherever the story is, bringing you exclusive interviews and market-moving scoops. Today's guests: Beata Manthey, Citi Head of European Equity Strategy; Leslie Vinjamuri, Chicago Council on Global Affairs CEO; Peter Trubowitz, London School of Economics Professor of International Relations; Alexander Sagel, RENK CEO (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-09/the-pulse-11-9-2026-video",
+   "time": "2026-11-09T10:48:31+00:00",
    "assets": [
     "stocks"
    ]
