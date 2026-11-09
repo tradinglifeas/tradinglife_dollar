@@ -51,7 +51,8 @@
   "fe9d3c18b4bb986f": "2026-11-09T14:02:18.734042+00:00",
   "0028e353798833b0": "2026-11-09T14:18:21.159906+00:00",
   "3de5dc6a7d8ccce6": "2026-11-09T15:00:33.323959+00:00",
-  "0241d37b99ea4ded": "2026-11-09T18:16:13.435349+00:00"
+  "0241d37b99ea4ded": "2026-11-09T18:16:13.435349+00:00",
+  "2f74281a77064951": "2026-11-09T18:21:22.631578+00:00"
  },
  "week": [
   {
@@ -633,6 +634,18 @@
    "time": "2026-11-09T18:08:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "2f74281a77064951",
+   "source": "CNBC",
+   "bank": "Goldman Sachs",
+   "title": "Goldman CEO Solomon says AI financing remains strong despite market jitters",
+   "desc": "Goldman CEO David Solomon says investor appetite for AI infrastructure remains strong despite a reset in AI stocks and political uncertainty around data centers.",
+   "link": "https://www.cnbc.com/2026/11/09/goldman-ceo-ai-financing-market.html",
+   "time": "2026-11-09T18:14:47+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
