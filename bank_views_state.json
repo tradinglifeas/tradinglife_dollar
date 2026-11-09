@@ -50,7 +50,8 @@
   "0a94fff49da841ea": "2026-11-09T13:26:23.020875+00:00",
   "fe9d3c18b4bb986f": "2026-11-09T14:02:18.734042+00:00",
   "0028e353798833b0": "2026-11-09T14:18:21.159906+00:00",
-  "3de5dc6a7d8ccce6": "2026-11-09T15:00:33.323959+00:00"
+  "3de5dc6a7d8ccce6": "2026-11-09T15:00:33.323959+00:00",
+  "0241d37b99ea4ded": "2026-11-09T18:16:13.435349+00:00"
  },
  "week": [
   {
@@ -618,6 +619,18 @@
    "desc": "Euro corporate issuance slowed sharply in October, but YTD supply remains historically strong at €426bn",
    "link": "https://think.ing.com/reports/euro-credit-supply-supply-slowdown-in-october/",
    "time": "2026-11-09T14:40:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "0241d37b99ea4ded",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "US Dollar Credit Supply: October slowdown",
+   "desc": "October supply drops, but Reverse Yankees continue to impress",
+   "link": "https://think.ing.com/reports/us-dollar-credit-supply-october-slowdown/",
+   "time": "2026-11-09T18:08:00+00:00",
    "assets": [
     "fx"
    ]
