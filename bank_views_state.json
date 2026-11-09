@@ -48,7 +48,8 @@
   "3999a80c0b7cc455": "2026-11-09T10:28:19.830717+00:00",
   "8662a4c5da4d38d7": "2026-11-09T11:09:21.798064+00:00",
   "0a94fff49da841ea": "2026-11-09T13:26:23.020875+00:00",
-  "fe9d3c18b4bb986f": "2026-11-09T14:02:18.734042+00:00"
+  "fe9d3c18b4bb986f": "2026-11-09T14:02:18.734042+00:00",
+  "0028e353798833b0": "2026-11-09T14:18:21.159906+00:00"
  },
  "week": [
   {
@@ -594,6 +595,18 @@
    "time": "2026-11-09T13:23:06+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "0028e353798833b0",
+   "source": "MarketWatch",
+   "bank": "Goldman Sachs",
+   "title": "As AI trade falters, Goldman Sachs says this lagging region is now positioned to outperform",
+   "desc": "Precisely because it has long been hamstrung by rigid labor markets and overregulation, European stocks may paradoxically be bigger beneficiaries of the AI revolution in terms of enhanced productivity and cost-cutting than its U.S. counterparts",
+   "link": "https://www.marketwatch.com/story/as-ai-trade-falters-goldman-sachs-says-this-lagging-region-is-now-positioned-to-outperform-589805c6?mod=mw_rss_topstories",
+   "time": "2026-11-09T14:16:00+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
