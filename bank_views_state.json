@@ -53,7 +53,8 @@
   "3de5dc6a7d8ccce6": "2026-11-09T15:00:33.323959+00:00",
   "0241d37b99ea4ded": "2026-11-09T18:16:13.435349+00:00",
   "2f74281a77064951": "2026-11-09T18:21:22.631578+00:00",
-  "ef9202c2bf949cc6": "2026-11-10T08:00:33.158558+00:00"
+  "ef9202c2bf949cc6": "2026-11-10T08:00:33.158558+00:00",
+  "bf1df8d5787a0978": "2026-11-10T09:16:20.230937+00:00"
  },
  "week": [
   {
@@ -659,6 +660,18 @@
    "time": "2026-11-10T07:50:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "bf1df8d5787a0978",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Carsten’s view of 2027",
+   "desc": "Underneath a thick layer of risk and fear, 2027 could turn out to be a surprisingly benign year for the global economy. At least if politics, (AI) investment, stock markets and central banks fall into place at the right time",
+   "link": "https://think.ing.com/articles/carstens-view-of-2027/",
+   "time": "2026-11-10T09:12:00+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
