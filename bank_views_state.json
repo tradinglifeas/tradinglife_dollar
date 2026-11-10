@@ -55,7 +55,8 @@
   "2f74281a77064951": "2026-11-09T18:21:22.631578+00:00",
   "ef9202c2bf949cc6": "2026-11-10T08:00:33.158558+00:00",
   "bf1df8d5787a0978": "2026-11-10T09:16:20.230937+00:00",
-  "fade4ea2741f7fb7": "2026-11-10T13:00:33.158055+00:00"
+  "fade4ea2741f7fb7": "2026-11-10T13:00:33.158055+00:00",
+  "85bc5e84146dea61": "2026-11-10T16:12:22.859765+00:00"
  },
  "week": [
   {
@@ -683,6 +684,18 @@
    "desc": "European stocks are set for double-digit gains by the end of next year as a broadening industrial cycle fuels profit growth, according to UBS Group AG strategists whose separate 2026 target is already the most bullish among forecasters tracked by Bloomberg.",
    "link": "https://www.bloomberg.com/news/articles/2026-11-10/ubs-europe-s-biggest-stock-bull-sees-13-gain-by-end-of-2027",
    "time": "2026-11-10T12:30:12+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "85bc5e84146dea61",
+   "source": "Bloomberg",
+   "bank": "Barclays",
+   "title": "Treasury Yields Jump as Inflation Fuels Fed Wagers",
+   "desc": "A faster-than-estimated increase in inflation spurred a rout in bonds on bets the Federal Reserve will keep lifting rates, but stocks trimmed losses amid a rebound in chipmakers. Phil Neuhart, Director of Market and Economic Research at First Citizens Bank and Ajay Rajadhyaksha, Global Chairman of Research at Barclays, react to October inflation data and its impact on the market. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-10/treasury-yields-jump-as-inflation-fuels-fed-wagers-video",
+   "time": "2026-11-10T16:01:48+00:00",
    "assets": [
     "stocks"
    ]
