@@ -52,7 +52,8 @@
   "0028e353798833b0": "2026-11-09T14:18:21.159906+00:00",
   "3de5dc6a7d8ccce6": "2026-11-09T15:00:33.323959+00:00",
   "0241d37b99ea4ded": "2026-11-09T18:16:13.435349+00:00",
-  "2f74281a77064951": "2026-11-09T18:21:22.631578+00:00"
+  "2f74281a77064951": "2026-11-09T18:21:22.631578+00:00",
+  "ef9202c2bf949cc6": "2026-11-10T08:00:33.158558+00:00"
  },
  "week": [
   {
@@ -646,6 +647,18 @@
    "time": "2026-11-09T18:14:47+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "ef9202c2bf949cc6",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: US inflation to offer some support to USD today",
+   "desc": "The dollar has handed back most of last week’s gains on the back of a rebound in risk sentiment, also helped by further declines in energy prices. But we expect a slightly hotter-than-expected 0.3% MoM US core CPI print today to offer the dollar some support. We see some stabilisation in EUR/USD for the remainder of this week",
+   "link": "https://think.ing.com/articles/fx-daily-us-inflation-to-offer-some-support-to-usd-today/",
+   "time": "2026-11-10T07:50:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
