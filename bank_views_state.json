@@ -54,7 +54,8 @@
   "0241d37b99ea4ded": "2026-11-09T18:16:13.435349+00:00",
   "2f74281a77064951": "2026-11-09T18:21:22.631578+00:00",
   "ef9202c2bf949cc6": "2026-11-10T08:00:33.158558+00:00",
-  "bf1df8d5787a0978": "2026-11-10T09:16:20.230937+00:00"
+  "bf1df8d5787a0978": "2026-11-10T09:16:20.230937+00:00",
+  "fade4ea2741f7fb7": "2026-11-10T13:00:33.158055+00:00"
  },
  "week": [
   {
@@ -670,6 +671,18 @@
    "desc": "Underneath a thick layer of risk and fear, 2027 could turn out to be a surprisingly benign year for the global economy. At least if politics, (AI) investment, stock markets and central banks fall into place at the right time",
    "link": "https://think.ing.com/articles/carstens-view-of-2027/",
    "time": "2026-11-10T09:12:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "fade4ea2741f7fb7",
+   "source": "Bloomberg",
+   "bank": "UBS",
+   "title": "UBS, Europe’s Biggest Stock Bull, Sees 13% Gain By End of 2027",
+   "desc": "European stocks are set for double-digit gains by the end of next year as a broadening industrial cycle fuels profit growth, according to UBS Group AG strategists whose separate 2026 target is already the most bullish among forecasters tracked by Bloomberg.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-10/ubs-europe-s-biggest-stock-bull-sees-13-gain-by-end-of-2027",
+   "time": "2026-11-10T12:30:12+00:00",
    "assets": [
     "stocks"
    ]
