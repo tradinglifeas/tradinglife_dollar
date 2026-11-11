@@ -58,7 +58,8 @@
   "fade4ea2741f7fb7": "2026-11-10T13:00:33.158055+00:00",
   "85bc5e84146dea61": "2026-11-10T16:12:22.859765+00:00",
   "57a4ee0396129026": "2026-11-11T07:00:32.082013+00:00",
-  "1a647f3b40075c81": "2026-11-11T08:00:31.170554+00:00"
+  "1a647f3b40075c81": "2026-11-11T08:00:31.170554+00:00",
+  "d18e2e635cc01313": "2026-11-11T12:12:25.221560+00:00"
  },
  "week": [
   {
@@ -722,6 +723,18 @@
    "desc": "The dollar is trading close to the year's highs after US inflation came in hot for the third month in a row and the Fed's Chris Waller threatened to vote for a 50bp rate hike in December. Bearish yield curve flattening is typically good for the dollar and bad for procyclical currencies, as the monetary brakes are applied. Expect the dollar to hold gains today",
    "link": "https://think.ing.com/articles/fx-daily-bearish-yield-curve-flattening-lifts-dollar/",
    "time": "2026-11-11T07:50:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "d18e2e635cc01313",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Webinar: The G10 FX winners and losers in 2027",
+   "desc": "Join Chris Turner, ING's Global Head of Markets, and FX Strategist Francesco Pesole on 16 November as they reveal their G10 FX winners and losers for 2027 and explore the key themes driving currency markets in the year ahead. Sign up here",
+   "link": "https://think.ing.com/articles/webinar-the-g10-fx-winners-and-losers-in-2027/",
+   "time": "2026-11-11T12:00:00+00:00",
    "assets": [
     "fx"
    ]
