@@ -59,7 +59,8 @@
   "85bc5e84146dea61": "2026-11-10T16:12:22.859765+00:00",
   "57a4ee0396129026": "2026-11-11T07:00:32.082013+00:00",
   "1a647f3b40075c81": "2026-11-11T08:00:31.170554+00:00",
-  "d18e2e635cc01313": "2026-11-11T12:12:25.221560+00:00"
+  "d18e2e635cc01313": "2026-11-11T12:12:25.221560+00:00",
+  "c478ff3abf247a42": "2026-11-11T13:00:33.398046+00:00"
  },
  "week": [
   {
@@ -737,6 +738,18 @@
    "time": "2026-11-11T12:00:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "c478ff3abf247a42",
+   "source": "Bloomberg",
+   "bank": "Citi",
+   "title": "AI Stocks Rally After Coreweave's Results; Treasury Market Closed",
+   "desc": "US equity futures rise after Coreweave's strong results and robust demand for Anthropic's IPO. US Treasury futures fall after a hot inflation print fueled Fed rate-hike bets and fueled a spike in yields. Cash Treasury market is closed for Veterans Day holiday. Olaolu Aganga of Citi discusses the sustainability of the AI-driven tech rally. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-11/bloomberg-brief-11-11-2026-video",
+   "time": "2026-11-11T12:19:50+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
