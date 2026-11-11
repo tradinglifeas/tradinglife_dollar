@@ -56,7 +56,8 @@
   "ef9202c2bf949cc6": "2026-11-10T08:00:33.158558+00:00",
   "bf1df8d5787a0978": "2026-11-10T09:16:20.230937+00:00",
   "fade4ea2741f7fb7": "2026-11-10T13:00:33.158055+00:00",
-  "85bc5e84146dea61": "2026-11-10T16:12:22.859765+00:00"
+  "85bc5e84146dea61": "2026-11-10T16:12:22.859765+00:00",
+  "57a4ee0396129026": "2026-11-11T07:00:32.082013+00:00"
  },
  "week": [
   {
@@ -698,6 +699,18 @@
    "time": "2026-11-10T16:01:48+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "57a4ee0396129026",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "US CPI Hotter Than Expected",
+   "desc": "In focus today In the euro area, ECB President Christine Lagarde will be speaking at the Paris Peace Forum. Otherwise, Wednesday lacks a clear market moving data release or an event. In Japan, PPI print for October will be released overnight. Consensus is expecting a 0.3% m/m (prior: -0.3%) and a 6.5% y/y (prior: 6.8%) […] The post US CPI Hotter Than Expected appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/660510-us-cpi-hotter-than-expected/",
+   "time": "2026-11-11T06:43:08+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
