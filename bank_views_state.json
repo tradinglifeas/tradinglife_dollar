@@ -61,7 +61,8 @@
   "d18e2e635cc01313": "2026-11-11T12:12:25.221560+00:00",
   "c478ff3abf247a42": "2026-11-11T13:00:33.398046+00:00",
   "fdf937413dc04474": "2026-11-12T08:00:31.720089+00:00",
-  "3a8d585e8ba34c1e": "2026-11-12T08:00:31.720089+00:00"
+  "3a8d585e8ba34c1e": "2026-11-12T08:00:31.720089+00:00",
+  "8c86609ec5a17626": "2026-11-12T08:03:18.384446+00:00"
  },
  "week": [
   {
@@ -762,6 +763,19 @@
    "link": "https://think.ing.com/articles/fx-daily-eur-usd-gears-up-for-a-110-test/",
    "time": "2026-11-12T07:40:00+00:00",
    "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "8c86609ec5a17626",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "The Commodities Feed: Stronger dollar weighs on commodities",
+   "desc": "A firmer dollar and higher US yields have weighed on metals, pushing copper and gold lower. Iron ore has also weakened, while oil slipped as Middle East supply recovered",
+   "link": "https://think.ing.com/articles/the-commodities-feed-stronger-dollar-weighs-on-commodities/",
+   "time": "2026-11-12T08:00:00+00:00",
+   "assets": [
+    "metals",
     "fx"
    ]
   }
