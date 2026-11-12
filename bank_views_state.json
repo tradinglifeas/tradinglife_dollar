@@ -62,18 +62,6 @@
  },
  "week": [
   {
-   "id": "ca736d7c9fbe6697",
-   "source": "Bloomberg",
-   "bank": "JPMorgan",
-   "title": "Greek Stocks to Suffer Outflows on MSCI Upgrade, JPMorgan Says",
-   "desc": "Greek stocks will suffer outflows as MSCI Inc.’s upgrade of the country to developed-market status forces emerging-market trackers to sell, according to JPMorgan Chase & Co. strategists.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-02/greek-stocks-to-suffer-outflows-on-msci-upgrade-jpmorgan-says",
-   "time": "2026-11-02T14:26:26+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
    "id": "f485d3b461d82cca",
    "source": "Bloomberg",
    "bank": "Citi",
