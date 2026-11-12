@@ -64,7 +64,8 @@
   "93e54d99e39572a9": "2026-11-12T18:06:20.075394+00:00",
   "19d3bb2f80a846a7": "2026-11-12T18:06:20.075394+00:00",
   "735f1cbea99d42ba": "2026-11-12T18:07:19.202305+00:00",
-  "2ff3fbe550ad9ed3": "2026-11-12T18:09:20.841763+00:00"
+  "2ff3fbe550ad9ed3": "2026-11-12T18:09:20.841763+00:00",
+  "fd8b213f5819a947": "2026-11-12T20:06:27.025657+00:00"
  },
  "week": [
   {
@@ -804,6 +805,18 @@
    "time": "2026-11-12T18:08:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "fd8b213f5819a947",
+   "source": "Bloomberg",
+   "bank": "Bank of America",
+   "title": "BofA Traders See Short Sellers Pile Into Rate-Sensitive Stocks",
+   "desc": "Hedge funds are reloading their bets that equities most exposed to interest-rate movements will fall after being forced to back down during the recent rally, Bank of America Corp.’s trading desk said.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-12/bofa-traders-see-short-sellers-pile-into-rate-sensitive-stocks",
+   "time": "2026-11-12T20:00:15+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
