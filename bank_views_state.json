@@ -63,18 +63,6 @@
  },
  "week": [
   {
-   "id": "7b6e42208899c1eb",
-   "source": "MarketWatch",
-   "bank": "Citi",
-   "title": "Citi throws in the towel on hyperscalers after a key stock-market bet misfires",
-   "desc": "Hyperscalers and growth plays have underperformed amid a sharp rotation.",
-   "link": "https://www.marketwatch.com/story/the-latest-market-wobble-sees-citi-giving-up-on-this-big-tech-trade-181b0dea?mod=mw_rss_topstories",
-   "time": "2026-11-02T11:08:00+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
    "id": "ca736d7c9fbe6697",
    "source": "Bloomberg",
    "bank": "JPMorgan",
