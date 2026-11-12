@@ -57,7 +57,8 @@
   "8c86609ec5a17626": "2026-11-12T08:03:18.384446+00:00",
   "71d5195db16f3d51": "2026-11-12T10:00:40.577010+00:00",
   "8efc8aa342cd3eac": "2026-11-12T18:01:23.285183+00:00",
-  "8cc7993c37ea8a72": "2026-11-12T18:02:19.860345+00:00"
+  "8cc7993c37ea8a72": "2026-11-12T18:02:19.860345+00:00",
+  "e61d7bebb3f8dbe0": "2026-11-12T18:03:20.536075+00:00"
  },
  "week": [
   {
@@ -710,6 +711,18 @@
    "desc": "EUROPE: The latest FX forecasts from our team",
    "link": "https://think.ing.com/articles/fx-outlook-2027-our-latest-forecasts/",
    "time": "2026-11-12T18:01:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "e61d7bebb3f8dbe0",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Asia FX Outlook 2027: Rotation underway but tech currencies should lead",
+   "desc": "ASIA/PACIFIC: The recent sell-off in oil prices has provided some much-needed relief to South Asian currencies. Looking into 2027, and assuming the dollar does start to soften, we prefer to back the tech-linked currencies of North Asia. These currencies are backed by large current account surpluses – surpluses which could be coming home",
+   "link": "https://think.ing.com/articles/asia-fx-outlook-2027-rotation-underway-but-tech-currencies-should-lead/",
+   "time": "2026-11-12T18:03:00+00:00",
    "assets": [
     "fx"
    ]
