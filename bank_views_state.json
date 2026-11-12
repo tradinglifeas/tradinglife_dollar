@@ -60,21 +60,11 @@
   "57a4ee0396129026": "2026-11-11T07:00:32.082013+00:00",
   "1a647f3b40075c81": "2026-11-11T08:00:31.170554+00:00",
   "d18e2e635cc01313": "2026-11-11T12:12:25.221560+00:00",
-  "c478ff3abf247a42": "2026-11-11T13:00:33.398046+00:00"
+  "c478ff3abf247a42": "2026-11-11T13:00:33.398046+00:00",
+  "fdf937413dc04474": "2026-11-12T08:00:31.720089+00:00",
+  "3a8d585e8ba34c1e": "2026-11-12T08:00:31.720089+00:00"
  },
  "week": [
-  {
-   "id": "715ab15920db2aac",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: Dollar holds gains into midterms",
-   "desc": "At the start of a very busy week for FX markets, the dollar is largely holding onto recent gains. In focus are the US midterms, where betting markets attach a 70% probability to a clean sweep for the Democrats. Away from politics, we'll receive updates on the US jobs market this week and are expecting rate hikes in the UK, Australia and Sweden",
-   "link": "https://think.ing.com/articles/fx-daily-dollar-holds-gains-into-midterms/",
-   "time": "2026-11-02T07:51:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
   {
    "id": "168f7696a1652eda",
    "source": "MarketWatch",
@@ -750,6 +740,30 @@
    "time": "2026-11-11T12:19:50+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "fdf937413dc04474",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "UK GDP and Swedish Inflation in Focus",
+   "desc": "In focus today In equity markets, Nvidia’s board is meeting on Thursday morning to decide whether to oust CEO Jensen Huang following a revealed affair with a suspected Chinese spy. Overnight multiple media reported on another affair involving Huang and Kimberly Powell, the chipmaker’s vice-president of healthcare. Nvidia’s shares dropped over 8% in after-hours trading. […] The post UK GDP and Swedish Inflation in Focus appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/660618-uk-gdp-and-swedish-inflation-in-focus/",
+   "time": "2026-11-12T07:30:58+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "3a8d585e8ba34c1e",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: EUR/USD gears up for a 1.10 test",
+   "desc": "The dollar’s strong rally this week is firmly rooted in a shift in short-term rate dynamics, driven by hawkish Fed rhetoric and hotter inflation. That makes it harder to argue for a material rebound in EUR/USD, which may instead test 1.10 should upcoming data releases offer the dollar extra support. For now, we don’t see the conditions for a break below 1.10",
+   "link": "https://think.ing.com/articles/fx-daily-eur-usd-gears-up-for-a-110-test/",
+   "time": "2026-11-12T07:40:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
