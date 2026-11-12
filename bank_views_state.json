@@ -59,7 +59,8 @@
   "8efc8aa342cd3eac": "2026-11-12T18:01:23.285183+00:00",
   "8cc7993c37ea8a72": "2026-11-12T18:02:19.860345+00:00",
   "e61d7bebb3f8dbe0": "2026-11-12T18:03:20.536075+00:00",
-  "5d90b3b734b49b1d": "2026-11-12T18:04:28.959890+00:00"
+  "5d90b3b734b49b1d": "2026-11-12T18:04:28.959890+00:00",
+  "2f490341ac169b6b": "2026-11-12T18:05:26.342197+00:00"
  },
  "week": [
   {
@@ -736,6 +737,18 @@
    "desc": "LATIN AMERICA: It has been a mixed year for Latam FX, where only the higher yields of the Brazilian real and Mexican peso have allowed those currencies to deliver a net total positive return against the dollar. In 2027, we think the real can outperform the forwards, but are worried about Banxico’s neglect of the peso. Chile’s peso might prove a little more resilient, too",
    "link": "https://think.ing.com/articles/latam-fx-outlook-2027/",
    "time": "2026-11-12T18:03:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "2f490341ac169b6b",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "EMEA FX Outlook 2027: Restrictive policy remains the key FX anchor",
+   "desc": "CENTRAL AND EASTERN EUROPE: EMEA FX should remain supported by restrictive policy and attractive carry, but performance will increasingly diverge. We favour HUF, ZAR and TRY, while CZK remains supported and PLN faces headwinds. Global yields, energy prices, fiscal risks and geopolitics remain key drivers",
+   "link": "https://think.ing.com/articles/emea-fx-outlook-2027/",
+   "time": "2026-11-12T18:04:00+00:00",
    "assets": [
     "fx"
    ]
