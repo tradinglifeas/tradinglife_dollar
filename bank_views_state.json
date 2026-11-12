@@ -1,6 +1,5 @@
 {
  "seen": {
-  "3a158e8d11035a59": "2026-11-02T11:00:32.271896+00:00",
   "7b6e42208899c1eb": "2026-11-02T13:00:36.869553+00:00",
   "ca736d7c9fbe6697": "2026-11-02T15:00:42.714229+00:00",
   "f485d3b461d82cca": "2026-11-02T17:07:37.683185+00:00",
@@ -63,18 +62,6 @@
   "71d5195db16f3d51": "2026-11-12T10:00:40.577010+00:00"
  },
  "week": [
-  {
-   "id": "3a158e8d11035a59",
-   "source": "Bloomberg",
-   "bank": "Morgan Stanley",
-   "title": "Stock Bulls Are Betting on a Bounce After the Midterms",
-   "desc": "Any post-vote selloff is likely to be short-lived, Morgan Stanley’s Wilson says.",
-   "link": "https://www.bloomberg.com/news/newsletters/2026-11-02/stock-bulls-are-betting-on-a-bounce-after-the-midterms",
-   "time": "2026-11-02T10:56:15+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "7b6e42208899c1eb",
    "source": "MarketWatch",
