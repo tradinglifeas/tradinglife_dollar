@@ -56,7 +56,8 @@
   "3a8d585e8ba34c1e": "2026-11-12T08:00:31.720089+00:00",
   "8c86609ec5a17626": "2026-11-12T08:03:18.384446+00:00",
   "71d5195db16f3d51": "2026-11-12T10:00:40.577010+00:00",
-  "8efc8aa342cd3eac": "2026-11-12T18:01:23.285183+00:00"
+  "8efc8aa342cd3eac": "2026-11-12T18:01:23.285183+00:00",
+  "8cc7993c37ea8a72": "2026-11-12T18:02:19.860345+00:00"
  },
  "week": [
   {
@@ -697,6 +698,18 @@
    "desc": "We’ve all heard of black swans or ‘unknown unknowns’, which can come out of the blue and destroy the best laid plans. In 2027, however, there are enough ‘known unknowns’ to raise the risk of fat tail events: low-probability, high-impact shocks that could drive FX markets out of otherwise well-worn ranges",
    "link": "https://think.ing.com/reports/fx-outlook-2027-fat-tails-slim-ranges/",
    "time": "2026-11-12T18:00:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "8cc7993c37ea8a72",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Outlook 2027: Our latest forecasts",
+   "desc": "EUROPE: The latest FX forecasts from our team",
+   "link": "https://think.ing.com/articles/fx-outlook-2027-our-latest-forecasts/",
+   "time": "2026-11-12T18:01:00+00:00",
    "assets": [
     "fx"
    ]
