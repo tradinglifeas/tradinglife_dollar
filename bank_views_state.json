@@ -58,7 +58,8 @@
   "71d5195db16f3d51": "2026-11-12T10:00:40.577010+00:00",
   "8efc8aa342cd3eac": "2026-11-12T18:01:23.285183+00:00",
   "8cc7993c37ea8a72": "2026-11-12T18:02:19.860345+00:00",
-  "e61d7bebb3f8dbe0": "2026-11-12T18:03:20.536075+00:00"
+  "e61d7bebb3f8dbe0": "2026-11-12T18:03:20.536075+00:00",
+  "5d90b3b734b49b1d": "2026-11-12T18:04:28.959890+00:00"
  },
  "week": [
   {
@@ -722,6 +723,18 @@
    "title": "Asia FX Outlook 2027: Rotation underway but tech currencies should lead",
    "desc": "ASIA/PACIFIC: The recent sell-off in oil prices has provided some much-needed relief to South Asian currencies. Looking into 2027, and assuming the dollar does start to soften, we prefer to back the tech-linked currencies of North Asia. These currencies are backed by large current account surpluses – surpluses which could be coming home",
    "link": "https://think.ing.com/articles/asia-fx-outlook-2027-rotation-underway-but-tech-currencies-should-lead/",
+   "time": "2026-11-12T18:03:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "5d90b3b734b49b1d",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Latam FX Outlook 2027: Banxico abandons the peso",
+   "desc": "LATIN AMERICA: It has been a mixed year for Latam FX, where only the higher yields of the Brazilian real and Mexican peso have allowed those currencies to deliver a net total positive return against the dollar. In 2027, we think the real can outperform the forwards, but are worried about Banxico’s neglect of the peso. Chile’s peso might prove a little more resilient, too",
+   "link": "https://think.ing.com/articles/latam-fx-outlook-2027/",
    "time": "2026-11-12T18:03:00+00:00",
    "assets": [
     "fx"
