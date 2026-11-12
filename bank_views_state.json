@@ -60,7 +60,9 @@
   "8cc7993c37ea8a72": "2026-11-12T18:02:19.860345+00:00",
   "e61d7bebb3f8dbe0": "2026-11-12T18:03:20.536075+00:00",
   "5d90b3b734b49b1d": "2026-11-12T18:04:28.959890+00:00",
-  "2f490341ac169b6b": "2026-11-12T18:05:26.342197+00:00"
+  "2f490341ac169b6b": "2026-11-12T18:05:26.342197+00:00",
+  "93e54d99e39572a9": "2026-11-12T18:06:20.075394+00:00",
+  "19d3bb2f80a846a7": "2026-11-12T18:06:20.075394+00:00"
  },
  "week": [
   {
@@ -749,6 +751,31 @@
    "desc": "CENTRAL AND EASTERN EUROPE: EMEA FX should remain supported by restrictive policy and attractive carry, but performance will increasingly diverge. We favour HUF, ZAR and TRY, while CZK remains supported and PLN faces headwinds. Global yields, energy prices, fiscal risks and geopolitics remain key drivers",
    "link": "https://think.ing.com/articles/emea-fx-outlook-2027/",
    "time": "2026-11-12T18:04:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "93e54d99e39572a9",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX volatility in 2027: In need of shock therapy",
+   "desc": "EUROPE: Why is FX volatility so low? Even a 6% fall in the Nasdaq barely budges USD/JPY these days. Have FX markets found a general equilibrium, or is there some kind of separation between geopolitics and macro? We think the answer lies more in the structure of FX trading and do not rule out jump risk if the shock is big enough",
+   "link": "https://think.ing.com/articles/fx-volatility-in-2027-in-need-of-shock-therapy/",
+   "time": "2026-11-12T18:05:00+00:00",
+   "assets": [
+    "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "19d3bb2f80a846a7",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "G10 FX Outlook 2027: It’s hard to look beyond the Fed",
+   "desc": "EUROPE: In a very uncertain world, this year’s more hawkish steer from the Federal Reserve has provided a constant and supportive anchor for the dollar. While the immediate picture for the dollar looks quite constructive, a turn in the inflation cycle by the second half of 2027 should usher in a modest downtrend",
+   "link": "https://think.ing.com/articles/g10-fx-outlook-2027/",
+   "time": "2026-11-12T18:05:00+00:00",
    "assets": [
     "fx"
    ]
