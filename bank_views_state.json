@@ -1,6 +1,5 @@
 {
  "seen": {
-  "b025b27896852d56": "2026-11-02T10:00:31.269494+00:00",
   "eb2ff11a896430c7": "2026-11-02T10:20:25.401152+00:00",
   "3a158e8d11035a59": "2026-11-02T11:00:32.271896+00:00",
   "7b6e42208899c1eb": "2026-11-02T13:00:36.869553+00:00",
@@ -61,21 +60,10 @@
   "c478ff3abf247a42": "2026-11-11T13:00:33.398046+00:00",
   "fdf937413dc04474": "2026-11-12T08:00:31.720089+00:00",
   "3a8d585e8ba34c1e": "2026-11-12T08:00:31.720089+00:00",
-  "8c86609ec5a17626": "2026-11-12T08:03:18.384446+00:00"
+  "8c86609ec5a17626": "2026-11-12T08:03:18.384446+00:00",
+  "71d5195db16f3d51": "2026-11-12T10:00:40.577010+00:00"
  },
  "week": [
-  {
-   "id": "b025b27896852d56",
-   "source": "MarketWatch",
-   "bank": "Deutsche Bank",
-   "title": "Tech stocks have made big V-shaped rebounds five times in 30 months — and now Deutsche Bank forecasts another bounce",
-   "desc": "Positioning among equity investors in tech stocks is consistent with much slower earnings growth than the sector is achieving. Deutsche Bank thinks it’s time to go overweight once again as the risk-reward profile favors a sector that is suddenly out of fashion.",
-   "link": "https://www.marketwatch.com/story/tech-stocks-have-made-big-v-shaped-rebounds-five-times-in-30-months-and-now-deutsche-bank-forecasts-another-bounce-0a552a62?mod=mw_rss_topstories",
-   "time": "2026-11-02T09:47:00+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "eb2ff11a896430c7",
    "source": "Bloomberg",
@@ -764,6 +752,18 @@
    "assets": [
     "metals",
     "fx"
+   ]
+  },
+  {
+   "id": "71d5195db16f3d51",
+   "source": "Bloomberg",
+   "bank": "Bank of America",
+   "title": "BofA Says India’s Foreign Inflow Revival Has Further Room to Run",
+   "desc": "The strong momentum in foreign inflows into Indian stocks may continue given a combination of improving earnings, cheaper valuations and light positioning, according to BofA Global Research.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-12/bofa-says-india-s-foreign-inflow-revival-has-further-room-to-run",
+   "time": "2026-11-12T08:44:28+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
