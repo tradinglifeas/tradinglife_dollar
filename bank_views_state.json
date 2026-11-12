@@ -63,7 +63,8 @@
   "2f490341ac169b6b": "2026-11-12T18:05:26.342197+00:00",
   "93e54d99e39572a9": "2026-11-12T18:06:20.075394+00:00",
   "19d3bb2f80a846a7": "2026-11-12T18:06:20.075394+00:00",
-  "735f1cbea99d42ba": "2026-11-12T18:07:19.202305+00:00"
+  "735f1cbea99d42ba": "2026-11-12T18:07:19.202305+00:00",
+  "2ff3fbe550ad9ed3": "2026-11-12T18:09:20.841763+00:00"
  },
  "week": [
   {
@@ -789,6 +790,18 @@
    "desc": "EUROPE: Low volatility masks a wide range of tail risks for 2027. AI stress, another inflation shock, fiscal concerns, elections and geopolitical escalation could all trigger sharp FX moves, while financial repression and a carry unwind add further asymmetric risks",
    "link": "https://think.ing.com/articles/fx-outlook-2027-seven-key-risks/",
    "time": "2026-11-12T18:06:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "2ff3fbe550ad9ed3",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Outlook 2027: Seven key calls",
+   "desc": "We expect 2027 to be a low-volatility year in FX, with central banks and rate differentials firmly in the driving seat. We see a dollar decline resuming from 2Q27, while diverging monetary, growth and external dynamics create opportunities across regions",
+   "link": "https://think.ing.com/articles/fx-outlook-2027-seven-key-calls/",
+   "time": "2026-11-12T18:08:00+00:00",
    "assets": [
     "fx"
    ]
