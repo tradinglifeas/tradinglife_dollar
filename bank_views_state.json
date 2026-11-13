@@ -67,7 +67,8 @@
   "fd8b213f5819a947": "2026-11-12T20:06:27.025657+00:00",
   "7688f454e48f3f7b": "2026-11-13T07:13:17.832185+00:00",
   "af351857f314b5b8": "2026-11-13T08:00:33.711027+00:00",
-  "0edeb5ddc623dad4": "2026-11-13T10:00:32.790706+00:00"
+  "0edeb5ddc623dad4": "2026-11-13T10:00:32.790706+00:00",
+  "560fe5c6f043f1ae": "2026-11-13T10:18:18.150967+00:00"
  },
  "week": [
   {
@@ -843,6 +844,18 @@
    "time": "2026-11-13T09:58:00+00:00",
    "assets": [
     "metals"
+   ]
+  },
+  {
+   "id": "560fe5c6f043f1ae",
+   "source": "MarketWatch",
+   "bank": "Goldman Sachs",
+   "title": "Earnings growth is set to peter out — but not the bull market, says Goldman Sachs. Here’s what the firm recommends.",
+   "desc": "Earnings growth is almost halving across major indices in 2027 but stocks have already discounted much of that deceleration. Goldman recommends investors focus closely on those companies still delivering strong growth – as strong growth becomes a scarce commodity.",
+   "link": "https://www.marketwatch.com/story/earnings-growth-is-set-to-peter-out-but-not-the-bull-market-says-goldman-sachs-heres-what-the-firm-recommends-bf409a6d?mod=mw_rss_topstories",
+   "time": "2026-11-13T10:14:00+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
