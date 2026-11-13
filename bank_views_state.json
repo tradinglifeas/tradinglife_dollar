@@ -67,7 +67,8 @@
   "0edeb5ddc623dad4": "2026-11-13T10:00:32.790706+00:00",
   "560fe5c6f043f1ae": "2026-11-13T10:18:18.150967+00:00",
   "d4641f7243528452": "2026-11-13T12:00:39.096956+00:00",
-  "a902cca4cbf924b0": "2026-11-13T13:00:34.652410+00:00"
+  "a902cca4cbf924b0": "2026-11-13T13:00:34.652410+00:00",
+  "1fc64452bed4bf98": "2026-11-13T15:26:23.146427+00:00"
  },
  "week": [
   {
@@ -843,6 +844,18 @@
    "time": "2026-11-13T12:34:12+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "1fc64452bed4bf98",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "Weekly Focus – US CPI Shakes Bond Markets",
+   "desc": "A 22bp intra-day rise in US 2-year yields is not something you see every day. But Tuesday’s US CPI report coupled with hawkish comments from the Fed triggered a sharp sell-off in bond markets sending yields higher and EUR/USD to the lowest level in more than a year below 1.11. The CPI report showed core […] The post Weekly Focus – US CPI Shakes Bond Markets appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/660833-weekly-focus-us-cpi-shakes-bond-markets/",
+   "time": "2026-11-13T15:25:33+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
