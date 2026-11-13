@@ -68,7 +68,8 @@
   "560fe5c6f043f1ae": "2026-11-13T10:18:18.150967+00:00",
   "d4641f7243528452": "2026-11-13T12:00:39.096956+00:00",
   "a902cca4cbf924b0": "2026-11-13T13:00:34.652410+00:00",
-  "1fc64452bed4bf98": "2026-11-13T15:26:23.146427+00:00"
+  "1fc64452bed4bf98": "2026-11-13T15:26:23.146427+00:00",
+  "651952f48421cd88": "2026-11-13T19:00:48.454312+00:00"
  },
  "week": [
   {
@@ -854,6 +855,18 @@
    "desc": "A 22bp intra-day rise in US 2-year yields is not something you see every day. But Tuesday’s US CPI report coupled with hawkish comments from the Fed triggered a sharp sell-off in bond markets sending yields higher and EUR/USD to the lowest level in more than a year below 1.11. The CPI report showed core […] The post Weekly Focus – US CPI Shakes Bond Markets appeared first on ActionForex .",
    "link": "https://www.actionforex.com/contributors/fundamental-analysis/660833-weekly-focus-us-cpi-shakes-bond-markets/",
    "time": "2026-11-13T15:25:33+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "651952f48421cd88",
+   "source": "CNBC",
+   "bank": "Goldman Sachs",
+   "title": "Goldman Sachs looks to cash in on Anthropic's IPO, twice. Here's how and who else wants to",
+   "desc": "While co-leading the offering, Goldman also wants a shot at managing the billions of dollars in new wealth that the deal creates. It's not the only one.",
+   "link": "https://www.cnbc.com/investingclub/2026/11/13/goldman-sachs-looks-to-cash-in-on-anthropics-ipo-twice-heres-how-and-who-else-wants-to.html",
+   "time": "2026-11-13T18:44:05+00:00",
    "assets": [
     "fx"
    ]
