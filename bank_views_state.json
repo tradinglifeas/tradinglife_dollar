@@ -1,6 +1,5 @@
 {
  "seen": {
-  "099e1045fcfa592f": "2026-11-03T12:00:30.988806+00:00",
   "9772041c6948544d": "2026-11-03T12:08:20.143737+00:00",
   "3a4e3249e1d0b9dc": "2026-11-03T13:00:31.651234+00:00",
   "14508287f8d0223c": "2026-11-03T20:00:45.332900+00:00",
@@ -68,21 +67,10 @@
   "7688f454e48f3f7b": "2026-11-13T07:13:17.832185+00:00",
   "af351857f314b5b8": "2026-11-13T08:00:33.711027+00:00",
   "0edeb5ddc623dad4": "2026-11-13T10:00:32.790706+00:00",
-  "560fe5c6f043f1ae": "2026-11-13T10:18:18.150967+00:00"
+  "560fe5c6f043f1ae": "2026-11-13T10:18:18.150967+00:00",
+  "d4641f7243528452": "2026-11-13T12:00:39.096956+00:00"
  },
  "week": [
-  {
-   "id": "099e1045fcfa592f",
-   "source": "Bloomberg",
-   "bank": "JPMorgan",
-   "title": "JPM’s Michele Tells US Treasury ‘Get Rid of the 20-Year’",
-   "desc": "Bob Michele, global head of fixed income at JPMorgan Asset Management, offers guidance to the US Treasury ahead of the November 2026 quarterly refunding announcement. He says the equity market “is going to go through some of its demons” to the benefit of the bond market and provides his outlook for bond yields. He speaks on “Bloomberg Surveillance.” (Source: Bloomberg)",
-   "link": "https://www.bloomberg.com/news/videos/2026-11-03/jpm-s-michele-tells-us-treasury-get-rid-of-the-20-year-video",
-   "time": "2026-11-03T11:40:52+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "9772041c6948544d",
    "source": "MarketWatch",
@@ -854,6 +842,18 @@
    "desc": "Earnings growth is almost halving across major indices in 2027 but stocks have already discounted much of that deceleration. Goldman recommends investors focus closely on those companies still delivering strong growth – as strong growth becomes a scarce commodity.",
    "link": "https://www.marketwatch.com/story/earnings-growth-is-set-to-peter-out-but-not-the-bull-market-says-goldman-sachs-heres-what-the-firm-recommends-bf409a6d?mod=mw_rss_topstories",
    "time": "2026-11-13T10:14:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "d4641f7243528452",
+   "source": "MarketWatch",
+   "bank": "Citi",
+   "title": "Profit surprises are normalizing — and that may signal a healthier stock market, say Citi strategists",
+   "desc": "Although the majority of S&P 500 companies reported earnings above analysts’ expectations, the beats were significantly lower than in more recent quarters.",
+   "link": "https://www.marketwatch.com/story/profit-surprises-are-normalizing-and-that-may-signal-a-healthier-stock-market-say-citi-strategists-d8cce7c2?mod=mw_rss_topstories",
+   "time": "2026-11-13T11:41:00+00:00",
    "assets": [
     "stocks"
    ]
