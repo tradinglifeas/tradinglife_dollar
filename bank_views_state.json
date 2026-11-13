@@ -66,7 +66,8 @@
   "2ff3fbe550ad9ed3": "2026-11-12T18:09:20.841763+00:00",
   "fd8b213f5819a947": "2026-11-12T20:06:27.025657+00:00",
   "7688f454e48f3f7b": "2026-11-13T07:13:17.832185+00:00",
-  "af351857f314b5b8": "2026-11-13T08:00:33.711027+00:00"
+  "af351857f314b5b8": "2026-11-13T08:00:33.711027+00:00",
+  "0edeb5ddc623dad4": "2026-11-13T10:00:32.790706+00:00"
  },
  "week": [
   {
@@ -830,6 +831,18 @@
    "time": "2026-11-13T07:56:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "0edeb5ddc623dad4",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Turkey’s annual current account deficit narrows sharply",
+   "desc": "CENTRAL AND EASTERN EUROPE: September data shows that Turkey's large current account surplus is attributable to a moderation in domestic demand and lower net gold imports. Its capital account, on the other hand, saw outflows amid volatility in investment funds",
+   "link": "https://think.ing.com/articles/turkeys-annual-c-a-deficit-narrowed-sharply/",
+   "time": "2026-11-13T09:58:00+00:00",
+   "assets": [
+    "metals"
    ]
   }
  ],
