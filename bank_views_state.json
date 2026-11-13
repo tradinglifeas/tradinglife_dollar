@@ -1,6 +1,5 @@
 {
  "seen": {
-  "3a4e3249e1d0b9dc": "2026-11-03T13:00:31.651234+00:00",
   "14508287f8d0223c": "2026-11-03T20:00:45.332900+00:00",
   "735b1de03b0124fa": "2026-11-03T22:00:32.826245+00:00",
   "03f212b643e91d95": "2026-11-04T08:00:32.012090+00:00",
@@ -67,21 +66,10 @@
   "af351857f314b5b8": "2026-11-13T08:00:33.711027+00:00",
   "0edeb5ddc623dad4": "2026-11-13T10:00:32.790706+00:00",
   "560fe5c6f043f1ae": "2026-11-13T10:18:18.150967+00:00",
-  "d4641f7243528452": "2026-11-13T12:00:39.096956+00:00"
+  "d4641f7243528452": "2026-11-13T12:00:39.096956+00:00",
+  "a902cca4cbf924b0": "2026-11-13T13:00:34.652410+00:00"
  },
  "week": [
-  {
-   "id": "3a4e3249e1d0b9dc",
-   "source": "Bloomberg",
-   "bank": "UBS",
-   "title": "UBS Traders See ‘Combustible Setup’ for S&P 500 Rally After Vote",
-   "desc": "US stocks may be poised for a year-end rebound as favorable seasonality and low hedge fund positioning set the stage for a potential rally after Tuesday’s midterm elections, according to UBS Securities.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-03/ubs-traders-see-combustible-setup-for-s-p-500-rally-after-vote",
-   "time": "2026-11-03T12:47:08+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "14508287f8d0223c",
    "source": "MarketWatch",
@@ -841,6 +829,18 @@
    "desc": "Although the majority of S&P 500 companies reported earnings above analysts’ expectations, the beats were significantly lower than in more recent quarters.",
    "link": "https://www.marketwatch.com/story/profit-surprises-are-normalizing-and-that-may-signal-a-healthier-stock-market-say-citi-strategists-d8cce7c2?mod=mw_rss_topstories",
    "time": "2026-11-13T11:41:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "a902cca4cbf924b0",
+   "source": "Bloomberg",
+   "bank": "Bank of America",
+   "title": "Global Equity Funds Draw Record Inflows, BofA Strategists Say",
+   "desc": "Global equity funds are attracting record inflows this year, with few investors willing to make bearish bets, according to Bank of America Corp. strategists.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-13/global-equity-funds-draw-record-inflows-bofa-strategists-say",
+   "time": "2026-11-13T12:34:12+00:00",
    "assets": [
     "stocks"
    ]
