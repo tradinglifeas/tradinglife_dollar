@@ -65,7 +65,8 @@
   "19d3bb2f80a846a7": "2026-11-12T18:06:20.075394+00:00",
   "735f1cbea99d42ba": "2026-11-12T18:07:19.202305+00:00",
   "2ff3fbe550ad9ed3": "2026-11-12T18:09:20.841763+00:00",
-  "fd8b213f5819a947": "2026-11-12T20:06:27.025657+00:00"
+  "fd8b213f5819a947": "2026-11-12T20:06:27.025657+00:00",
+  "7688f454e48f3f7b": "2026-11-13T07:13:17.832185+00:00"
  },
  "week": [
   {
@@ -817,6 +818,18 @@
    "time": "2026-11-12T20:00:15+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "7688f454e48f3f7b",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "US PPI Data in Focus",
+   "desc": "In focus today and this weekend In the euro area, we get the first estimate of employment growth in Q3 and the second estimate of GDP. We expect that employment growth remained marginally positive at 0.1% q/q driven by gains in Spain and Italy. We expect the GDP estimate to confirm the prior release 0.4% […] The post US PPI Data in Focus appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/660725-us-ppi-data-in-focus/",
+   "time": "2026-11-13T07:11:29+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
