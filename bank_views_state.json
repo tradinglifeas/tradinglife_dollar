@@ -55,7 +55,8 @@
   "f932233d6315aea7": "2026-11-16T12:47:52.887809+00:00",
   "ecff86a41a1e3739": "2026-11-16T16:00:34.284843+00:00",
   "a132648dd2218e86": "2026-11-16T16:00:34.284843+00:00",
-  "3bc0907720e1d37e": "2026-11-16T20:23:28.260269+00:00"
+  "3bc0907720e1d37e": "2026-11-16T20:23:28.260269+00:00",
+  "d4b42d61aacf1789": "2026-11-16T22:00:36.801239+00:00"
  },
  "week": [
   {
@@ -673,6 +674,19 @@
    "time": "2026-11-16T20:15:45+00:00",
    "assets": [
     "metals"
+   ]
+  },
+  {
+   "id": "d4b42d61aacf1789",
+   "source": "Bloomberg",
+   "bank": "Deutsche Bank",
+   "title": "Deutsche Sees Asia Chip Boom Supporting Dollar Through Equities",
+   "desc": "Deutsche Bank sees growing Asian chip surpluses as a source of support for the US dollar as the proceeds are increasingly recycled into US equities.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-16/deutsche-sees-asia-chip-boom-supporting-dollar-through-equities",
+   "time": "2026-11-16T21:42:04+00:00",
+   "assets": [
+    "fx",
+    "stocks"
    ]
   }
  ],
