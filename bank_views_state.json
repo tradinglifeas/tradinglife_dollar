@@ -1,6 +1,5 @@
 {
  "seen": {
-  "db19adf32562a378": "2026-11-06T12:00:31.928209+00:00",
   "36624868186d0751": "2026-11-06T13:00:36.832099+00:00",
   "fd66cd53c9d0cc6d": "2026-11-06T13:24:20.742679+00:00",
   "9504b028d3110c40": "2026-11-06T14:00:36.037831+00:00",
@@ -57,22 +56,10 @@
   "c7029ae1bcf37aa7": "2026-11-13T20:00:34.361734+00:00",
   "a382545926e64338": "2026-11-16T07:03:18.524784+00:00",
   "9c288c33546c111b": "2026-11-16T08:00:41.132206+00:00",
-  "ef4a644ffb23148d": "2026-11-16T10:23:19.982091+00:00"
+  "ef4a644ffb23148d": "2026-11-16T10:23:19.982091+00:00",
+  "3685097b43ce36e9": "2026-11-16T12:00:33.058397+00:00"
  },
  "week": [
-  {
-   "id": "db19adf32562a378",
-   "source": "Bloomberg",
-   "bank": "Morgan Stanley",
-   "title": "Coinbase Bear Morgan Stanley Says Earnings Recovery Less Certain",
-   "desc": "Coinbase Global Inc.’s list of bears is growing long. Morgan Stanley came out swinging against the cryptocurrency exchange this week, slashing revenue estimates and saying confidence in the earnings recovery has deteriorated.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-06/coinbase-bear-morgan-stanley-says-earnings-recovery-less-certain",
-   "time": "2026-11-06T11:42:31+00:00",
-   "assets": [
-    "fx",
-    "stocks"
-   ]
-  },
   {
    "id": "36624868186d0751",
    "source": "MarketWatch",
@@ -686,6 +673,18 @@
    "desc": "Take your allocation to stocks to the highest possible amount, say Morgan Stanley strategists in one of the most bullish year-ahead outlooks so far published.",
    "link": "https://www.marketwatch.com/story/why-morgan-stanley-says-its-time-to-go-max-overweight-on-stocks-bd33b103?mod=mw_rss_topstories",
    "time": "2026-11-16T10:20:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "3685097b43ce36e9",
+   "source": "Bloomberg",
+   "bank": "Morgan Stanley",
+   "title": "Nvidia’s CEO Search Draws Fire; ‘Max Overweight’ on Stocks",
+   "desc": "Pressure is mounting on Nvidia Corp. days after it ousted Jensen Huang as chief executive officer, with Treasury Secretary Scott Bessent urging the company to make a “dramatic” leadership shakeup and come clean about its compliance with export controls on its prized AI chips. Morgan Stanley strategists recommended a “max overweight” position in global stocks, citing an intact AI capital spending cycle that will extend resilient economic and earnings growth into next year. The Opening Trade has everything you need to know as markets open across Europe. With analysis you won't find anywhere else, we break down the biggest stories of the day and speak to top guests who have skin in the game. Ho",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-16/the-opening-trade-11-16-2026-video",
+   "time": "2026-11-16T11:07:06+00:00",
    "assets": [
     "stocks"
    ]
