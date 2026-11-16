@@ -54,7 +54,8 @@
   "3685097b43ce36e9": "2026-11-16T12:00:33.058397+00:00",
   "f932233d6315aea7": "2026-11-16T12:47:52.887809+00:00",
   "ecff86a41a1e3739": "2026-11-16T16:00:34.284843+00:00",
-  "a132648dd2218e86": "2026-11-16T16:00:34.284843+00:00"
+  "a132648dd2218e86": "2026-11-16T16:00:34.284843+00:00",
+  "3bc0907720e1d37e": "2026-11-16T20:23:28.260269+00:00"
  },
  "week": [
   {
@@ -660,6 +661,18 @@
    "time": "2026-11-16T15:29:48+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "3bc0907720e1d37e",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Goldman Forecasts Gold to Take Two Years to Recapture All-Time Highs",
+   "desc": "It took gold just one month to climb more than 30% to a record, but its likely to take another two years before the precious metal takes out a new peak, according to Goldman Sachs.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-16/goldman-forecasts-gold-to-take-two-years-to-recapture-all-time-highs",
+   "time": "2026-11-16T20:15:45+00:00",
+   "assets": [
+    "metals"
    ]
   }
  ],
