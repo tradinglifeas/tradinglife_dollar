@@ -1,6 +1,5 @@
 {
  "seen": {
-  "a4c887acfc8e72fa": "2026-11-06T16:00:33.400748+00:00",
   "8f7bd736afdc5fa7": "2026-11-06T17:00:31.299706+00:00",
   "bcf6cde0fc06355d": "2026-11-06T22:06:18.653265+00:00",
   "ef2f546a7e0242bd": "2026-11-06T23:00:30.704912+00:00",
@@ -54,7 +53,9 @@
   "9c288c33546c111b": "2026-11-16T08:00:41.132206+00:00",
   "ef4a644ffb23148d": "2026-11-16T10:23:19.982091+00:00",
   "3685097b43ce36e9": "2026-11-16T12:00:33.058397+00:00",
-  "f932233d6315aea7": "2026-11-16T12:47:52.887809+00:00"
+  "f932233d6315aea7": "2026-11-16T12:47:52.887809+00:00",
+  "ecff86a41a1e3739": "2026-11-16T16:00:34.284843+00:00",
+  "a132648dd2218e86": "2026-11-16T16:00:34.284843+00:00"
  },
  "week": [
   {
@@ -648,6 +649,30 @@
    "time": "2026-11-16T11:07:00+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "ecff86a41a1e3739",
+   "source": "Bloomberg",
+   "bank": "BNP Paribas",
+   "title": "Stocks Fall Ahead of Nvidia, Trump-Xi-Putin Summit; Huang’s Potential Return to Nvidia",
+   "desc": "US equity futures fall ahead of a busy week for markets, including Nvidia earnings, Anthropic’s IPO, and a trilateral meeting between Presidents Trump, Xi and Putin. Jensen Huang is reportedly discussing a possible return as CEO. Airlines scramble to recover from the longest nationwide grounding in more than two decades. Isabelle Mateos Y Lago of BNP Paribas joins “Bloomberg Brief” to discuss the risks around persistent inflation and the pressure on global central banks. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-16/bloomberg-brief-11-16-2026-video",
+   "time": "2026-11-16T15:22:56+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "a132648dd2218e86",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Pentagon’s Feinberg Said to Have Steered Companies to Goldman Banker",
+   "desc": "US Deputy Defense Secretary Steve Feinberg reportedly steered companies, including Lockheed Martin Corp. and RTX Corp., negotiating multibillion-dollar weapons deals with the federal government to his longtime Goldman Sachs banker, according to people familiar with the matter. Todd Gillespie reports on Bloomberg Television. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-16/dod-s-feinberg-said-to-steer-firms-to-goldman-banker-video",
+   "time": "2026-11-16T15:29:48+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
