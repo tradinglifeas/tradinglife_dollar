@@ -56,7 +56,8 @@
   "651952f48421cd88": "2026-11-13T19:00:48.454312+00:00",
   "c7029ae1bcf37aa7": "2026-11-13T20:00:34.361734+00:00",
   "a382545926e64338": "2026-11-16T07:03:18.524784+00:00",
-  "9c288c33546c111b": "2026-11-16T08:00:41.132206+00:00"
+  "9c288c33546c111b": "2026-11-16T08:00:41.132206+00:00",
+  "ef4a644ffb23148d": "2026-11-16T10:23:19.982091+00:00"
  },
  "week": [
   {
@@ -674,6 +675,18 @@
    "time": "2026-11-16T07:51:00+00:00",
    "assets": [
     "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "ef4a644ffb23148d",
+   "source": "MarketWatch",
+   "bank": "Morgan Stanley",
+   "title": "Why Morgan Stanley says it’s time to go ‘max’ overweight on stocks",
+   "desc": "Take your allocation to stocks to the highest possible amount, say Morgan Stanley strategists in one of the most bullish year-ahead outlooks so far published.",
+   "link": "https://www.marketwatch.com/story/why-morgan-stanley-says-its-time-to-go-max-overweight-on-stocks-bd33b103?mod=mw_rss_topstories",
+   "time": "2026-11-16T10:20:00+00:00",
+   "assets": [
     "stocks"
    ]
   }
