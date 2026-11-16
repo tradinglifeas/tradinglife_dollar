@@ -57,21 +57,10 @@
   "a382545926e64338": "2026-11-16T07:03:18.524784+00:00",
   "9c288c33546c111b": "2026-11-16T08:00:41.132206+00:00",
   "ef4a644ffb23148d": "2026-11-16T10:23:19.982091+00:00",
-  "3685097b43ce36e9": "2026-11-16T12:00:33.058397+00:00"
+  "3685097b43ce36e9": "2026-11-16T12:00:33.058397+00:00",
+  "f932233d6315aea7": "2026-11-16T12:47:52.887809+00:00"
  },
  "week": [
-  {
-   "id": "36624868186d0751",
-   "source": "MarketWatch",
-   "bank": "Goldman Sachs",
-   "title": "Goldman’s new gold target: Why the Wall Street bank is saying it’s early to buy the yellow metal",
-   "desc": "Strategists at the investment bank said the change in expectations is down to the Federal Reserve’s hawkish shift.",
-   "link": "https://www.marketwatch.com/story/goldmans-new-gold-target-why-the-wall-street-bank-is-saying-its-early-to-buy-the-yellow-metal-d8ae35e0?mod=mw_rss_topstories",
-   "time": "2026-11-06T12:47:00+00:00",
-   "assets": [
-    "metals"
-   ]
-  },
   {
    "id": "fd66cd53c9d0cc6d",
    "source": "Bloomberg",
@@ -685,6 +674,18 @@
    "desc": "Pressure is mounting on Nvidia Corp. days after it ousted Jensen Huang as chief executive officer, with Treasury Secretary Scott Bessent urging the company to make a “dramatic” leadership shakeup and come clean about its compliance with export controls on its prized AI chips. Morgan Stanley strategists recommended a “max overweight” position in global stocks, citing an intact AI capital spending cycle that will extend resilient economic and earnings growth into next year. The Opening Trade has everything you need to know as markets open across Europe. With analysis you won't find anywhere else, we break down the biggest stories of the day and speak to top guests who have skin in the game. Ho",
    "link": "https://www.bloomberg.com/news/videos/2026-11-16/the-opening-trade-11-16-2026-video",
    "time": "2026-11-16T11:07:06+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "f932233d6315aea7",
+   "source": "MarketWatch",
+   "bank": "JPMorgan",
+   "title": "Why Nvidia can avoid the fate of most stocks that reached the market-cap apex, according to one strategist",
+   "desc": "Despite many analysts slashing their forecasts, the median target price for Nvidia remains way above the current share price at $280. Its cash flow and debt profile are the envy of all AI companies and long term, and the stock is attractive, says J.P. Morgan Asset Management.",
+   "link": "https://www.marketwatch.com/story/why-nvidia-can-avoid-the-fate-of-most-stocks-that-reached-the-apex-by-market-cap-according-to-one-strategist-461e33be?mod=mw_rss_topstories",
+   "time": "2026-11-16T11:07:00+00:00",
    "assets": [
     "stocks"
    ]
