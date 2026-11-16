@@ -1,6 +1,5 @@
 {
  "seen": {
-  "ef2f546a7e0242bd": "2026-11-06T23:00:30.704912+00:00",
   "e2e347a6978d8976": "2026-11-09T07:00:30.037526+00:00",
   "8464793eb372e14c": "2026-11-09T07:01:22.195784+00:00",
   "76809ab735a28d6e": "2026-11-09T07:01:22.195784+00:00",
@@ -56,7 +55,8 @@
   "a132648dd2218e86": "2026-11-16T16:00:34.284843+00:00",
   "3bc0907720e1d37e": "2026-11-16T20:23:28.260269+00:00",
   "d4b42d61aacf1789": "2026-11-16T22:00:36.801239+00:00",
-  "6757fc86f70bf46c": "2026-11-16T22:25:22.443417+00:00"
+  "6757fc86f70bf46c": "2026-11-16T22:25:22.443417+00:00",
+  "71ed7db7886fd957": "2026-11-16T23:00:37.551533+00:00"
  },
  "week": [
   {
@@ -673,6 +673,18 @@
    "desc": "Berkshire Hathaway added to several stock positions in the third quarter while trimming others, including Bank of America.",
    "link": "https://www.cnbc.com/2026/11/16/berkshire-hathaway-raised-its-stake-in-delta-air-in-the-third-quarter.html",
    "time": "2026-11-16T22:22:52+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "71ed7db7886fd957",
+   "source": "Bloomberg",
+   "bank": "Wells Fargo",
+   "title": "Wells Fargo Sees S&P 500 at 8,200 By End of 2027 as Profits Slow",
+   "desc": "Wells Fargo & Co.’s Ohsung Kwon set a year-end 2027 target of 8,200 for the S&P 500 Index, the lowest among Wall Street strategists who have published forecasts so far.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-16/wells-fargo-sees-s-p-500-at-8-200-by-end-of-2027-as-profits-slow",
+   "time": "2026-11-16T22:32:15+00:00",
    "assets": [
     "stocks"
    ]
