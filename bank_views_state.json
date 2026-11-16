@@ -55,7 +55,8 @@
   "ecff86a41a1e3739": "2026-11-16T16:00:34.284843+00:00",
   "a132648dd2218e86": "2026-11-16T16:00:34.284843+00:00",
   "3bc0907720e1d37e": "2026-11-16T20:23:28.260269+00:00",
-  "d4b42d61aacf1789": "2026-11-16T22:00:36.801239+00:00"
+  "d4b42d61aacf1789": "2026-11-16T22:00:36.801239+00:00",
+  "6757fc86f70bf46c": "2026-11-16T22:25:22.443417+00:00"
  },
  "week": [
   {
@@ -661,6 +662,18 @@
    "time": "2026-11-16T21:42:04+00:00",
    "assets": [
     "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "6757fc86f70bf46c",
+   "source": "CNBC",
+   "bank": "Bank of America",
+   "title": "Berkshire Hathaway raised its stake in Delta in the third quarter. It also trimmed a key bank holding",
+   "desc": "Berkshire Hathaway added to several stock positions in the third quarter while trimming others, including Bank of America.",
+   "link": "https://www.cnbc.com/2026/11/16/berkshire-hathaway-raised-its-stake-in-delta-air-in-the-third-quarter.html",
+   "time": "2026-11-16T22:22:52+00:00",
+   "assets": [
     "stocks"
    ]
   }
