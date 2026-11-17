@@ -58,7 +58,8 @@
   "6757fc86f70bf46c": "2026-11-16T22:25:22.443417+00:00",
   "71ed7db7886fd957": "2026-11-16T23:00:37.551533+00:00",
   "8d0b3ca37049a074": "2026-11-17T07:00:33.518550+00:00",
-  "1389770229ecdd64": "2026-11-17T07:00:33.518550+00:00"
+  "1389770229ecdd64": "2026-11-17T07:00:33.518550+00:00",
+  "2a9b42bedb688aea": "2026-11-17T08:00:35.744469+00:00"
  },
  "week": [
   {
@@ -712,6 +713,19 @@
    "link": "https://www.bloomberg.com/news/articles/2026-11-17/china-stock-bull-ubs-sees-upside-msci-china-index-earnings-valuation",
    "time": "2026-11-17T06:06:52+00:00",
    "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "2a9b42bedb688aea",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Dollar showing resilience to tech stock instability",
+   "desc": "A poor start to the week for tech stocks has caused some dovish repricing in the USD curve, but the dollar has retained its good momentum. We still feel the AI story has the best potential to hit the dollar at this stage. Nvidia’s earnings will drive market sentiment today. EUR/USD may hold up around 1.100 despite a brief dip lower yesterday",
+   "link": "https://think.ing.com/articles/fx-daily-dollar-showing-resilience-to-tech-stock-instability/",
+   "time": "2026-11-17T07:55:00+00:00",
+   "assets": [
+    "fx",
     "stocks"
    ]
   }
