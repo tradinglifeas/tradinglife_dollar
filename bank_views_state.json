@@ -59,7 +59,8 @@
   "71ed7db7886fd957": "2026-11-16T23:00:37.551533+00:00",
   "8d0b3ca37049a074": "2026-11-17T07:00:33.518550+00:00",
   "1389770229ecdd64": "2026-11-17T07:00:33.518550+00:00",
-  "2a9b42bedb688aea": "2026-11-17T08:00:35.744469+00:00"
+  "2a9b42bedb688aea": "2026-11-17T08:00:35.744469+00:00",
+  "56877f374c991041": "2026-11-17T08:10:24.054949+00:00"
  },
  "week": [
   {
@@ -724,6 +725,19 @@
    "desc": "A poor start to the week for tech stocks has caused some dovish repricing in the USD curve, but the dollar has retained its good momentum. We still feel the AI story has the best potential to hit the dollar at this stage. Nvidia’s earnings will drive market sentiment today. EUR/USD may hold up around 1.100 despite a brief dip lower yesterday",
    "link": "https://think.ing.com/articles/fx-daily-dollar-showing-resilience-to-tech-stock-instability/",
    "time": "2026-11-17T07:55:00+00:00",
+   "assets": [
+    "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "56877f374c991041",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Rates Spark: Can AI confidence bring rates back up?",
+   "desc": "Nvidia will announce its quarterly earnings today, followed a day later by Anthropic's IPO, two major AI events. Macro has become closely intertwined with AI sentiment and therefore positive and negative surprises should not be ignored by the bond market. Having said that, we think fading spillovers to euro rates will often make sense",
+   "link": "https://think.ing.com/articles/rates-spark-ai-earnings-and-new-highs-for-rates/",
+   "time": "2026-11-17T08:10:00+00:00",
    "assets": [
     "fx",
     "stocks"
