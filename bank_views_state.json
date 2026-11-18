@@ -66,7 +66,8 @@
   "a5a5435c2cbd9877": "2026-11-17T15:00:35.987938+00:00",
   "f84dd48128237ffe": "2026-11-17T15:00:35.987938+00:00",
   "7675e0f7f0dee015": "2026-11-18T08:00:33.790843+00:00",
-  "053760b3599eb31e": "2026-11-18T08:07:17.581439+00:00"
+  "053760b3599eb31e": "2026-11-18T08:07:17.581439+00:00",
+  "91cd4c560115e302": "2026-11-18T09:11:19.401220+00:00"
  },
  "week": [
   {
@@ -817,6 +818,18 @@
    "desc": "Base metals remained under pressure this morning as a firmer dollar and concerns over Chinese demand weighed on sentiment. Oil also edged lower, with recovering supply and rising US inventories outweighing renewed geopolitical tensions",
    "link": "https://think.ing.com/articles/the-commodities-feed-copper-hits-five-month-low-improving-supply-weighs-on-oil/",
    "time": "2026-11-18T08:00:00+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "91cd4c560115e302",
+   "source": "Bloomberg",
+   "bank": "MUFG",
+   "title": "MUFG: Reverse Yankees Are About 20% of Europe Corporates",
+   "desc": "MUFG EMEA Capital Markets Co-Head Fabianna del Canto says the percentage of reverse yankees, or debt issued by US companies in foreign currencies, has ballooned to around 20% of the European corporate market, with clients now looking to issue further afield markets like Australia's. She joins Bloomberg's Anna Edwards and Guy Johnson on \"The Opening Trade\" ahead of Bloomberg's annual Global Credit Forum today in London. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-18/mufg-reverse-yankees-are-about-20-of-europe-corporates-video",
+   "time": "2026-11-18T09:06:53+00:00",
    "assets": [
     "fx"
    ]
