@@ -64,7 +64,8 @@
   "bd45f9278800daaf": "2026-11-17T09:00:34.037703+00:00",
   "fc188ff56e176b93": "2026-11-17T11:03:19.644660+00:00",
   "a5a5435c2cbd9877": "2026-11-17T15:00:35.987938+00:00",
-  "f84dd48128237ffe": "2026-11-17T15:00:35.987938+00:00"
+  "f84dd48128237ffe": "2026-11-17T15:00:35.987938+00:00",
+  "7675e0f7f0dee015": "2026-11-18T08:00:33.790843+00:00"
  },
  "week": [
   {
@@ -793,6 +794,18 @@
    "time": "2026-11-17T14:44:08+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "7675e0f7f0dee015",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Commodity complex is having a moment",
+   "desc": "The dollar is bid across the board as a strong US economy and above-target inflation keeps expectations of another 75bp in Fed tightening alive. At the same time, commodity currencies are starting to underperform as industrial metals and energy take a leg lower. Investors are yet to lean into another decent leg higher in the dollar, but that is the risk",
+   "link": "https://think.ing.com/articles/fx-daily-commodity-complex-is-having-a-moment/",
+   "time": "2026-11-18T07:40:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
