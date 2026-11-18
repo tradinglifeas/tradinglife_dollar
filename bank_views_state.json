@@ -69,7 +69,8 @@
   "053760b3599eb31e": "2026-11-18T08:07:17.581439+00:00",
   "91cd4c560115e302": "2026-11-18T09:11:19.401220+00:00",
   "786ee29a69f4cca9": "2026-11-18T10:00:32.901660+00:00",
-  "c17f84ada9125efd": "2026-11-18T14:00:39.972914+00:00"
+  "c17f84ada9125efd": "2026-11-18T14:00:39.972914+00:00",
+  "632c138c40f554d1": "2026-11-18T21:24:23.019985+00:00"
  },
  "week": [
   {
@@ -856,6 +857,18 @@
    "desc": "US equity futures rally after Nvidia's outlook boost helped ease investors' concerns over the durability of the AI trade and the chipmaker's confidence to thrive without Jensen Huang. President Donald Trump meets President Xi Jinping in Shenzhen, China, ahead of a trilateral meeting with President Putin. Frank Lee of HSBC joins \"Bloomberg Brief\" for a closer look in to Nvidia's earnings and guidance. Bill Brundage of Ferguson discusses how rising costs is impacting the plumbing, heating and cooling product distribution business. (Source: Bloomberg)",
    "link": "https://www.bloomberg.com/news/videos/2026-11-18/bloomberg-brief-11-18-2026-video",
    "time": "2026-11-18T13:26:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "632c138c40f554d1",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "Credit Selloff Lures Bargain Hunters to ‘Stock Picker’s Market’",
+   "desc": "MFS Investment Management’s Pilar Gomez-Bravo and J.P. Morgan Asset Management’s Iain Stealey see opportunities in beaten-up credit after the recent selloff, particularly in lower-rated and subordinated debt. Both stressed the need for selectivity, with Gomez-Bravo calling it a “stock picker’s market” and Stealey favoring subordinated debt from strong investment-grade companies over traditional high yield, as heavy supply and higher rates make a return to relentless spread tightening unlikely. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-18/credit-selloff-could-be-a-stock-picker-s-market-video",
+   "time": "2026-11-18T21:11:00+00:00",
    "assets": [
     "stocks"
    ]
