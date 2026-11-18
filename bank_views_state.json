@@ -68,7 +68,8 @@
   "7675e0f7f0dee015": "2026-11-18T08:00:33.790843+00:00",
   "053760b3599eb31e": "2026-11-18T08:07:17.581439+00:00",
   "91cd4c560115e302": "2026-11-18T09:11:19.401220+00:00",
-  "786ee29a69f4cca9": "2026-11-18T10:00:32.901660+00:00"
+  "786ee29a69f4cca9": "2026-11-18T10:00:32.901660+00:00",
+  "c17f84ada9125efd": "2026-11-18T14:00:39.972914+00:00"
  },
  "week": [
   {
@@ -843,6 +844,18 @@
    "desc": "The chip company’s stock rose over 3% in premarket trading on Wednesday. A team at JPMorgan said there is likely more volatility to come in the near-term.",
    "link": "https://www.marketwatch.com/story/what-wall-street-analysts-are-now-saying-after-nvidias-beat-and-raise-quarter-9311c85d?mod=mw_rss_topstories",
    "time": "2026-11-18T09:41:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "c17f84ada9125efd",
+   "source": "Bloomberg",
+   "bank": "HSBC",
+   "title": "Stocks Rise After Nvidia Earnings; Xi Welcomes Trump",
+   "desc": "US equity futures rally after Nvidia's outlook boost helped ease investors' concerns over the durability of the AI trade and the chipmaker's confidence to thrive without Jensen Huang. President Donald Trump meets President Xi Jinping in Shenzhen, China, ahead of a trilateral meeting with President Putin. Frank Lee of HSBC joins \"Bloomberg Brief\" for a closer look in to Nvidia's earnings and guidance. Bill Brundage of Ferguson discusses how rising costs is impacting the plumbing, heating and cooling product distribution business. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-18/bloomberg-brief-11-18-2026-video",
+   "time": "2026-11-18T13:26:00+00:00",
    "assets": [
     "stocks"
    ]
