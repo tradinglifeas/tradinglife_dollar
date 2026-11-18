@@ -67,7 +67,8 @@
   "f84dd48128237ffe": "2026-11-17T15:00:35.987938+00:00",
   "7675e0f7f0dee015": "2026-11-18T08:00:33.790843+00:00",
   "053760b3599eb31e": "2026-11-18T08:07:17.581439+00:00",
-  "91cd4c560115e302": "2026-11-18T09:11:19.401220+00:00"
+  "91cd4c560115e302": "2026-11-18T09:11:19.401220+00:00",
+  "786ee29a69f4cca9": "2026-11-18T10:00:32.901660+00:00"
  },
  "week": [
   {
@@ -832,6 +833,18 @@
    "time": "2026-11-18T09:06:53+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "786ee29a69f4cca9",
+   "source": "MarketWatch",
+   "bank": "JPMorgan",
+   "title": "What Wall Street analysts are now saying after Nvidia’s beat-and-raise quarter",
+   "desc": "The chip company’s stock rose over 3% in premarket trading on Wednesday. A team at JPMorgan said there is likely more volatility to come in the near-term.",
+   "link": "https://www.marketwatch.com/story/what-wall-street-analysts-are-now-saying-after-nvidias-beat-and-raise-quarter-9311c85d?mod=mw_rss_topstories",
+   "time": "2026-11-18T09:41:00+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
