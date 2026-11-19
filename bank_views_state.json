@@ -1,6 +1,5 @@
 {
  "seen": {
-  "fdec13627b5a4fd8": "2026-11-09T08:00:31.450586+00:00",
   "773cae7ba49a7d27": "2026-11-09T08:01:25.703686+00:00",
   "5a9a9bc294c2523f": "2026-11-09T10:09:19.954788+00:00",
   "3999a80c0b7cc455": "2026-11-09T10:28:19.830717+00:00",
@@ -67,22 +66,10 @@
   "786ee29a69f4cca9": "2026-11-18T10:00:32.901660+00:00",
   "c17f84ada9125efd": "2026-11-18T14:00:39.972914+00:00",
   "632c138c40f554d1": "2026-11-18T21:24:23.019985+00:00",
-  "722ca38ebd3cb890": "2026-11-19T07:10:37.956044+00:00"
+  "722ca38ebd3cb890": "2026-11-19T07:10:37.956044+00:00",
+  "2bbbc54bb33ad562": "2026-11-19T08:00:45.091936+00:00"
  },
  "week": [
-  {
-   "id": "fdec13627b5a4fd8",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: Dollar rally needs more risk-off fuel",
-   "desc": "Contagion from AI to defensive stocks in the US and worldwide allowed the dollar to rally even before the strong US jobs market report. But unless risk sentiment remains poor this week, lower front-end US rates should favour a weaker dollar, even if inflation tomorrow comes in slightly hotter than expected",
-   "link": "https://think.ing.com/articles/fx-daily-dollar-rally-needs-more-risk-off-fuel/",
-   "time": "2026-11-09T07:56:00+00:00",
-   "assets": [
-    "fx",
-    "stocks"
-   ]
-  },
   {
    "id": "5a9a9bc294c2523f",
    "source": "Bloomberg",
@@ -843,6 +830,19 @@
    "time": "2026-11-18T21:11:00+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "2bbbc54bb33ad562",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Higher US real rates dominate",
+   "desc": "US short-dated real interest rates are pushing back to their highest levels since 2023 as markets get the message that the Fed is ready to apply the brakes. These high real rates are sucking funds out of asset classes like precious metals and are triggering a broader fallout across emerging market currencies. There is no reason to fight this trend near term",
+   "link": "https://think.ing.com/articles/fx-daily-higher-us-real-rates-dominate/",
+   "time": "2026-11-19T07:40:00+00:00",
+   "assets": [
+    "metals",
+    "fx"
    ]
   }
  ],
