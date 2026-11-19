@@ -1,6 +1,5 @@
 {
  "seen": {
-  "e2e347a6978d8976": "2026-11-09T07:00:30.037526+00:00",
   "8464793eb372e14c": "2026-11-09T07:01:22.195784+00:00",
   "76809ab735a28d6e": "2026-11-09T07:01:22.195784+00:00",
   "722ca38ebd3cb890": "2026-11-09T07:09:17.718985+00:00",
@@ -73,18 +72,6 @@
   "632c138c40f554d1": "2026-11-18T21:24:23.019985+00:00"
  },
  "week": [
-  {
-   "id": "e2e347a6978d8976",
-   "source": "Bloomberg",
-   "bank": "Citi",
-   "title": "HSBC, Citi Turn Bullish as Indian Stocks Draw Record Inflows",
-   "desc": "Global banks are turning more bullish on Indian stocks as the market’s sharpest rally in more than four years draws record foreign inflows.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-09/hsbc-citi-turn-bullish-as-indian-stocks-draw-record-inflows",
-   "time": "2026-11-09T05:53:46+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "722ca38ebd3cb890",
    "source": "ActionForex (Danske)",
