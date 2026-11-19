@@ -70,18 +70,6 @@
  },
  "week": [
   {
-   "id": "5a9a9bc294c2523f",
-   "source": "Bloomberg",
-   "bank": "Citi",
-   "title": "Citi Strategists Cut US Stocks, Upgrade Europe After AI Turmoil",
-   "desc": "Citigroup Inc. strategists downgraded US stocks and the global tech sector, while upgrading European equities because of their lower exposure to AI turbulence.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-09/citi-strategists-cut-us-stocks-upgrade-europe-after-ai-turmoil",
-   "time": "2026-11-09T09:55:47+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
    "id": "3999a80c0b7cc455",
    "source": "MarketWatch",
    "bank": "Morgan Stanley",
