@@ -64,7 +64,8 @@
   "632c138c40f554d1": "2026-11-18T21:24:23.019985+00:00",
   "722ca38ebd3cb890": "2026-11-19T07:10:37.956044+00:00",
   "2bbbc54bb33ad562": "2026-11-19T08:00:45.091936+00:00",
-  "920de01e03e2da51": "2026-11-19T11:30:42.291304+00:00"
+  "920de01e03e2da51": "2026-11-19T11:30:42.291304+00:00",
+  "b77ee92cc1b04f35": "2026-11-19T12:06:23.497713+00:00"
  },
  "week": [
   {
@@ -814,6 +815,18 @@
    "desc": "Romania’s local-currency bonds may offer more upside for investors following a recent rally if the country’s new government holds stable and further improves state finances, according to Citigroup Inc.",
    "link": "https://www.bloomberg.com/news/articles/2026-11-19/citi-sees-romanian-carry-appeal-with-budget-key-for-bond-rally",
    "time": "2026-11-19T11:15:21+00:00",
+   "assets": [
+    "fx"
+   ]
+  },
+  {
+   "id": "b77ee92cc1b04f35",
+   "source": "MarketWatch",
+   "bank": "Deutsche Bank",
+   "title": "Deutsche Bank got its dollar call for 2026 wrong. Why it’s shifting tack now.",
+   "desc": "Deutsche Bank’s team readily acknowledges its call for a weaker dollar in 2026 misfired. They predict the forces driving the dollar higher since February will continue into the first half of 2027 but any slowdown in the AI bonanza will start to undermine it.",
+   "link": "https://www.marketwatch.com/story/deutsche-bank-got-its-dollar-call-for-2026-wrong-why-its-shifting-tack-now-bbecbd00?mod=mw_rss_topstories",
+   "time": "2026-11-19T12:04:00+00:00",
    "assets": [
     "fx"
    ]
