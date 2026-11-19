@@ -67,18 +67,6 @@
  },
  "week": [
   {
-   "id": "0241d37b99ea4ded",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "US Dollar Credit Supply: October slowdown",
-   "desc": "October supply drops, but Reverse Yankees continue to impress",
-   "link": "https://think.ing.com/reports/us-dollar-credit-supply-october-slowdown/",
-   "time": "2026-11-09T18:08:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
    "id": "2f74281a77064951",
    "source": "CNBC",
    "bank": "Goldman Sachs",
