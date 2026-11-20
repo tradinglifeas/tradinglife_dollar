@@ -66,7 +66,8 @@
   "2b3315fbd828bf1b": "2026-11-20T08:00:34.588786+00:00",
   "35dddd38916f1125": "2026-11-20T11:00:32.372006+00:00",
   "788121eb5dd580bf": "2026-11-20T11:28:18.510829+00:00",
-  "ed045b877e893d1e": "2026-11-20T12:00:54.387267+00:00"
+  "ed045b877e893d1e": "2026-11-20T12:00:54.387267+00:00",
+  "237259be7e90d452": "2026-11-20T12:25:26.934201+00:00"
  },
  "week": [
   {
@@ -831,6 +832,19 @@
    "time": "2026-11-20T11:45:00+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "237259be7e90d452",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Metals sell-off runs ahead of physical markets",
+   "desc": "It has been a difficult week for metals. Copper is down more than 8%, aluminium almost 6% and gold around 9% as a stronger dollar, higher rate expectations and weaker risk appetite weigh on the complex. Concerns about China have added to the pressure on industrial metals",
+   "link": "https://think.ing.com/articles/metals-sell-off-runs-ahead-of-physical-markets/",
+   "time": "2026-11-20T12:02:00+00:00",
+   "assets": [
+    "metals",
+    "fx"
    ]
   }
  ],
