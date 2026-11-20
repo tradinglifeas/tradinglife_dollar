@@ -68,7 +68,8 @@
   "237259be7e90d452": "2026-11-20T12:25:26.934201+00:00",
   "8bf1339f28ae249f": "2026-11-20T13:00:33.274502+00:00",
   "2236432d9615278d": "2026-11-20T15:00:45.842879+00:00",
-  "bd1b43713cafe119": "2026-11-20T19:00:35.503217+00:00"
+  "bd1b43713cafe119": "2026-11-20T19:00:35.503217+00:00",
+  "ec013068d8cfe181": "2026-11-20T21:28:31.381959+00:00"
  },
  "week": [
   {
@@ -858,6 +859,18 @@
    "time": "2026-11-20T18:06:59+00:00",
    "assets": [
     "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "ec013068d8cfe181",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Goldman Says Stock Selloff Has Legs as Panic Index Nears Maximum",
+   "desc": "Goldman Sachs Group Inc.’s panic gauge climbed near its maximum level as US stocks tumbled Friday, signaling that another substantial wave of selling will follow over the coming week, according to the bank’s traders.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-20/goldman-says-stock-selloff-has-legs-as-panic-index-nears-maximum",
+   "time": "2026-11-20T21:20:55+00:00",
+   "assets": [
     "stocks"
    ]
   }
