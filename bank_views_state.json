@@ -68,18 +68,6 @@
  },
  "week": [
   {
-   "id": "bf1df8d5787a0978",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "Carsten’s view of 2027",
-   "desc": "Underneath a thick layer of risk and fear, 2027 could turn out to be a surprisingly benign year for the global economy. At least if politics, (AI) investment, stock markets and central banks fall into place at the right time",
-   "link": "https://think.ing.com/articles/carstens-view-of-2027/",
-   "time": "2026-11-10T09:12:00+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
    "id": "fade4ea2741f7fb7",
    "source": "Bloomberg",
    "bank": "UBS",
