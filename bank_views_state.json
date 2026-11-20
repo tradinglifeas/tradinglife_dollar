@@ -71,18 +71,6 @@
  },
  "week": [
   {
-   "id": "fade4ea2741f7fb7",
-   "source": "Bloomberg",
-   "bank": "UBS",
-   "title": "UBS, Europe’s Biggest Stock Bull, Sees 13% Gain By End of 2027",
-   "desc": "European stocks are set for double-digit gains by the end of next year as a broadening industrial cycle fuels profit growth, according to UBS Group AG strategists whose separate 2026 target is already the most bullish among forecasters tracked by Bloomberg.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-10/ubs-europe-s-biggest-stock-bull-sees-13-gain-by-end-of-2027",
-   "time": "2026-11-10T12:30:12+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
    "id": "85bc5e84146dea61",
    "source": "Bloomberg",
    "bank": "Barclays",
