@@ -62,7 +62,9 @@
   "b77ee92cc1b04f35": "2026-11-19T12:06:23.497713+00:00",
   "fe9d3c18b4bb986f": "2026-11-19T14:03:24.544545+00:00",
   "a49e19ef20b9e527": "2026-11-19T16:24:21.750791+00:00",
-  "2f74281a77064951": "2026-11-19T18:23:20.110414+00:00"
+  "2f74281a77064951": "2026-11-19T18:23:20.110414+00:00",
+  "01b742e66cd5ed43": "2026-11-20T07:00:34.721704+00:00",
+  "eead2301014791eb": "2026-11-20T07:00:34.721704+00:00"
  },
  "week": [
   {
@@ -776,6 +778,30 @@
    "desc": "Morgan Stanley expects Skydance’s $52 billion financing to become a model for even larger deals combining investment-grade and junk debt, as bankers anticipate another busy year for acquisition financing. But rising rates are putting pressure on weaker borrowers and private-equity-backed companies facing 2028 and 2029 maturities, prompting calls for private credit to help refinance looming debt. (Source: Bloomberg)",
    "link": "https://www.bloomberg.com/news/videos/2026-11-19/wall-street-preps-debt-deals-using-paramount-blueprint-video",
    "time": "2026-11-19T16:07:31+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "01b742e66cd5ed43",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Goldman’s Moe on Uncertainties Around the AI Trade",
+   "desc": "Goldman Sachs Chief Regional Equity Strategist for Asia Pacific Timothy Moe describes some of the broader pressures on AI-related stocks. He speaks as investors contend with worries over Nvidia, political developments in the US and opposition to data centers. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-20/goldman-s-moe-on-uncertainties-around-the-ai-trade-video",
+   "time": "2026-11-20T06:12:53+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "eead2301014791eb",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Goldman Sachs on India, Korea Opportunities",
+   "desc": "Goldman Sachs Chief Regional Equity Strategist for Asia Pacific Timothy Moe says uncertainty and de-risking are weighing on the broader AI trade. Speaking with Bloomberg's Haslinda Amin and Avril Hong, he also outlines the case for India, and explains why they prefer Korea over Taiwan. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-20/goldman-sachs-on-anthropic-india-korea-opportunities-video",
+   "time": "2026-11-20T06:35:32+00:00",
    "assets": [
     "stocks"
    ]
