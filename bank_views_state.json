@@ -63,7 +63,8 @@
   "2f74281a77064951": "2026-11-19T18:23:20.110414+00:00",
   "01b742e66cd5ed43": "2026-11-20T07:00:34.721704+00:00",
   "eead2301014791eb": "2026-11-20T07:00:34.721704+00:00",
-  "2b3315fbd828bf1b": "2026-11-20T08:00:34.588786+00:00"
+  "2b3315fbd828bf1b": "2026-11-20T08:00:34.588786+00:00",
+  "35dddd38916f1125": "2026-11-20T11:00:32.372006+00:00"
  },
  "week": [
   {
@@ -792,6 +793,18 @@
    "assets": [
     "fx",
     "stocks"
+   ]
+  },
+  {
+   "id": "35dddd38916f1125",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "THINK Ahead: Your questions, answered",
+   "desc": "Our Q&A explores where ING’s Global Outlook differs from market expectations, from the path for interest rates and inflation to US debt, European fiscal risks, wages and gold",
+   "link": "https://think.ing.com/articles/think-ahead-201126/",
+   "time": "2026-11-20T10:58:00+00:00",
+   "assets": [
+    "metals"
    ]
   }
  ],
