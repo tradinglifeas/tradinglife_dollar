@@ -67,7 +67,8 @@
   "ed045b877e893d1e": "2026-11-20T12:00:54.387267+00:00",
   "237259be7e90d452": "2026-11-20T12:25:26.934201+00:00",
   "8bf1339f28ae249f": "2026-11-20T13:00:33.274502+00:00",
-  "2236432d9615278d": "2026-11-20T15:00:45.842879+00:00"
+  "2236432d9615278d": "2026-11-20T15:00:45.842879+00:00",
+  "bd1b43713cafe119": "2026-11-20T19:00:35.503217+00:00"
  },
  "week": [
   {
@@ -844,6 +845,19 @@
    "link": "https://www.actionforex.com/contributors/fundamental-analysis/661603-weekly-focus-anthropic-ipo-and-nvidia-earnings-bring-no-relief-for-tech/",
    "time": "2026-11-20T14:47:09+00:00",
    "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "bd1b43713cafe119",
+   "source": "Bloomberg",
+   "bank": "Morgan Stanley",
+   "title": "Morgan Stanley Sees Aussie Riding AI Storm to Outperform in 2027",
+   "desc": "The Australian dollar will stand out among developed-market currencies next year as it will reap the benefits of the artificial intelligence buildout, weathering the recent stock selloff, according to Andrew Watrous at Morgan Stanley.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-20/morgan-stanley-sees-aussie-riding-ai-storm-to-outperform-in-2027",
+   "time": "2026-11-20T18:06:59+00:00",
+   "assets": [
+    "fx",
     "stocks"
    ]
   }
