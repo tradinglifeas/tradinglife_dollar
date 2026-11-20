@@ -65,7 +65,8 @@
   "eead2301014791eb": "2026-11-20T07:00:34.721704+00:00",
   "2b3315fbd828bf1b": "2026-11-20T08:00:34.588786+00:00",
   "35dddd38916f1125": "2026-11-20T11:00:32.372006+00:00",
-  "788121eb5dd580bf": "2026-11-20T11:28:18.510829+00:00"
+  "788121eb5dd580bf": "2026-11-20T11:28:18.510829+00:00",
+  "ed045b877e893d1e": "2026-11-20T12:00:54.387267+00:00"
  },
  "week": [
   {
@@ -816,6 +817,18 @@
    "desc": "Katrina Dudley of J.P. Morgan Asset Management discusses opportunities beyond the biggest AI and tech names as the market broadens. She examines underappreciated AI beneficiaries, the earnings outlook, consumer strength and inflation risks, and what the economic backdrop could mean for the Federal Reserve. She spoke with Guy Johnson on Bloomberg Brief. (Source: Bloomberg)",
    "link": "https://www.bloomberg.com/news/videos/2026-11-20/jpmorgan-s-dudley-sees-opportunities-beyond-big-tech-video",
    "time": "2026-11-20T11:24:37+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "ed045b877e893d1e",
+   "source": "MarketWatch",
+   "bank": "Citi",
+   "title": "Citi warns a key stock-market signal is close to flashing red",
+   "desc": "Having turned risk averse more than a month ago, Citi strategists find no compelling reason to go more positive risk assets yet, despite the steep decline. If sentiment deteriorates further, buying long-duration bonds is the answer, they say.",
+   "link": "https://www.marketwatch.com/story/citi-warns-a-key-stock-market-signal-is-close-to-flashing-red-5cbee1c3?mod=mw_rss_topstories",
+   "time": "2026-11-20T11:45:00+00:00",
    "assets": [
     "stocks"
    ]
