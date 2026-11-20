@@ -67,7 +67,8 @@
   "788121eb5dd580bf": "2026-11-20T11:28:18.510829+00:00",
   "ed045b877e893d1e": "2026-11-20T12:00:54.387267+00:00",
   "237259be7e90d452": "2026-11-20T12:25:26.934201+00:00",
-  "8bf1339f28ae249f": "2026-11-20T13:00:33.274502+00:00"
+  "8bf1339f28ae249f": "2026-11-20T13:00:33.274502+00:00",
+  "2236432d9615278d": "2026-11-20T15:00:45.842879+00:00"
  },
  "week": [
   {
@@ -843,6 +844,18 @@
    "desc": "The S&P 500 is nearing a level worth buying if the U.S. avoids a recession, but one strategist warns Wall Street is underpricing the hard-landing risk as he said investors should wait before buying risky assets.",
    "link": "https://www.marketwatch.com/story/bank-of-america-strategist-warns-doom-loop-could-hit-stocks-with-wall-street-underpricing-hard-landing-risks-c3181e57?mod=mw_rss_topstories",
    "time": "2026-11-20T12:43:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "2236432d9615278d",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "Weekly Focus – Anthropic IPO and Nvidia Earnings Bring No Relief for Tech",
+   "desc": "Despite a successful Anthropic IPO and a clear earnings beat from Nvidia, the week did not dispel concerns around the AI-trade. Nvidia has been in the spotlight in recent weeks after CEO Jensen Huang resigned following an affair with an alleged Chinese spy. On Tuesday, the company reported its Q3 earnings, and as usual, handily […] The post Weekly Focus – Anthropic IPO and Nvidia Earnings Bring No Relief for Tech appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/661603-weekly-focus-anthropic-ipo-and-nvidia-earnings-bring-no-relief-for-tech/",
+   "time": "2026-11-20T14:47:09+00:00",
    "assets": [
     "stocks"
    ]
