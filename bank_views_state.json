@@ -64,7 +64,8 @@
   "01b742e66cd5ed43": "2026-11-20T07:00:34.721704+00:00",
   "eead2301014791eb": "2026-11-20T07:00:34.721704+00:00",
   "2b3315fbd828bf1b": "2026-11-20T08:00:34.588786+00:00",
-  "35dddd38916f1125": "2026-11-20T11:00:32.372006+00:00"
+  "35dddd38916f1125": "2026-11-20T11:00:32.372006+00:00",
+  "788121eb5dd580bf": "2026-11-20T11:28:18.510829+00:00"
  },
  "week": [
   {
@@ -805,6 +806,18 @@
    "time": "2026-11-20T10:58:00+00:00",
    "assets": [
     "metals"
+   ]
+  },
+  {
+   "id": "788121eb5dd580bf",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "JPMorgan’s Katrina Dudley Sees Opportunities Beyond Big Tech",
+   "desc": "Katrina Dudley of J.P. Morgan Asset Management discusses opportunities beyond the biggest AI and tech names as the market broadens. She examines underappreciated AI beneficiaries, the earnings outlook, consumer strength and inflation risks, and what the economic backdrop could mean for the Federal Reserve. She spoke with Guy Johnson on Bloomberg Brief. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-20/jpmorgan-s-dudley-sees-opportunities-beyond-big-tech-video",
+   "time": "2026-11-20T11:24:37+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
