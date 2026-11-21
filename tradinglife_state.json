@@ -18,57 +18,57 @@
     "updated": "2026-11-19T12:31:12.440423Z"
   },
   "BTC": {
-    "strength": 40.391,
-    "flow_score": 66.037,
-    "alert": "MARKET STRENGTH IMPROVING",
-    "price": 63754.9,
+    "strength": 26.8,
+    "flow_score": 41.377,
+    "alert": "MARKET STRENGTH WEAKENING",
+    "price": 58474.6,
     "deriv_source": "OKX",
-    "deriv_oi_value": 2077313761.1031485,
-    "updated": "2026-11-19T12:31:14.927581Z"
+    "deriv_oi_value": 1964029260.0204885,
+    "updated": "2026-11-21T12:30:48.349359Z"
   },
   "ETH": {
-    "strength": 38.185,
-    "flow_score": 65.34,
-    "alert": "MARKET STRENGTH IMPROVING",
-    "price": 1796.88,
+    "strength": 33.879,
+    "flow_score": 54.188,
+    "alert": "NO MAJOR ALERT",
+    "price": 1657.92,
     "deriv_source": "OKX",
-    "deriv_oi_value": 1284058046.717763,
-    "updated": "2026-11-19T12:31:43.282402Z"
+    "deriv_oi_value": 1102596638.5514028,
+    "updated": "2026-11-21T12:30:50.714871Z"
   },
   "SOL": {
-    "strength": 27.025,
-    "flow_score": 53.945,
+    "strength": 28.784,
+    "flow_score": 47.307,
     "alert": "NO MAJOR ALERT",
-    "price": 74.32,
+    "price": 69.09,
     "deriv_source": "OKX",
-    "deriv_oi_value": 230598300.52630013,
-    "updated": "2026-11-19T12:31:49.489195Z"
+    "deriv_oi_value": 212594697.26099995,
+    "updated": "2026-11-21T12:30:52.941351Z"
   },
   "XRP": {
-    "strength": 27.106,
-    "flow_score": 54.123,
+    "strength": 25.556,
+    "flow_score": 43.959,
     "alert": "NO MAJOR ALERT",
-    "price": 0.9813,
+    "price": 0.9045,
     "deriv_source": "OKX",
-    "deriv_oi_value": 73682120.17919995,
-    "updated": "2026-11-19T12:31:54.375068Z"
+    "deriv_oi_value": 62203611.657,
+    "updated": "2026-11-21T12:30:55.116706Z"
   },
   "ADA": {
-    "strength": 31.842,
-    "flow_score": 64.648,
-    "alert": "MARKET STRENGTH IMPROVING",
-    "price": 0.1533,
+    "strength": 23.883,
+    "flow_score": 41.28,
+    "alert": "DOWNSIDE PRESSURE INCREASING",
+    "price": 0.141,
     "deriv_source": "OKX",
-    "deriv_oi_value": 17850806.263000004,
-    "updated": "2026-11-19T12:32:48.946516Z"
+    "deriv_oi_value": 17640636.762000006,
+    "updated": "2026-11-21T12:30:57.516074Z"
   },
   "DOGE": {
-    "strength": 27.121,
-    "flow_score": 54.158,
+    "strength": 24.346,
+    "flow_score": 43.103,
     "alert": "NO MAJOR ALERT",
-    "price": 0.0593,
+    "price": 0.054,
     "deriv_source": "OKX",
-    "deriv_oi_value": 62747100.41440002,
-    "updated": "2026-11-19T12:32:51.175866Z"
+    "deriv_oi_value": 56610072.1884,
+    "updated": "2026-11-21T12:30:59.903998Z"
   }
 }
