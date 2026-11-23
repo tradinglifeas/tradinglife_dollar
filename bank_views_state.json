@@ -55,7 +55,8 @@
   "243dcb769eee82df": "2026-11-23T07:04:20.006726+00:00",
   "7688f454e48f3f7b": "2026-11-23T07:14:20.725379+00:00",
   "83ac3379fe97a793": "2026-11-23T08:00:35.100377+00:00",
-  "8eefd73bc11dd766": "2026-11-23T10:00:32.621609+00:00"
+  "8eefd73bc11dd766": "2026-11-23T10:00:32.621609+00:00",
+  "9d4219c81feb0125": "2026-11-23T10:09:21.565522+00:00"
  },
  "week": [
   {
@@ -652,6 +653,18 @@
    "desc": "Morgan Stanley points to trough Nasdaq valuations, implied earnings declines and a capitulation in both sentiment and positioning as reasons to be bullish.",
    "link": "https://www.marketwatch.com/story/stocks-are-serving-up-a-fat-pitch-for-investors-right-now-as-morgan-stanleys-top-strategist-19abe30a?mod=mw_rss_topstories",
    "time": "2026-11-23T09:40:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "9d4219c81feb0125",
+   "source": "Bloomberg",
+   "bank": "Morgan Stanley",
+   "title": "Morgan Stanley’s Wilson Says Buying Opportunity Too Good to Miss",
+   "desc": "A week that saw both the S&P 500 and Dow Jones Industrial Average enter correction territory has delivered investors a buying opportunity that’s too good to miss, according to Morgan Stanley strategists.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-23/morgan-stanley-s-wilson-says-buying-opportunity-too-good-to-miss",
+   "time": "2026-11-23T10:02:24+00:00",
    "assets": [
     "stocks"
    ]
