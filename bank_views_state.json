@@ -55,21 +55,10 @@
   "fdf937413dc04474": "2026-11-23T07:01:20.492336+00:00",
   "243dcb769eee82df": "2026-11-23T07:04:20.006726+00:00",
   "7688f454e48f3f7b": "2026-11-23T07:14:20.725379+00:00",
-  "83ac3379fe97a793": "2026-11-23T08:00:35.100377+00:00"
+  "83ac3379fe97a793": "2026-11-23T08:00:35.100377+00:00",
+  "8eefd73bc11dd766": "2026-11-23T10:00:32.621609+00:00"
  },
  "week": [
-  {
-   "id": "0edeb5ddc623dad4",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "Turkey’s annual current account deficit narrows sharply",
-   "desc": "CENTRAL AND EASTERN EUROPE: September data shows that Turkey's large current account surplus is attributable to a moderation in domestic demand and lower net gold imports. Its capital account, on the other hand, saw outflows amid volatility in investment funds",
-   "link": "https://think.ing.com/articles/turkeys-annual-c-a-deficit-narrowed-sharply/",
-   "time": "2026-11-13T09:58:00+00:00",
-   "assets": [
-    "metals"
-   ]
-  },
   {
    "id": "560fe5c6f043f1ae",
    "source": "MarketWatch",
@@ -653,6 +642,18 @@
    "time": "2026-11-23T07:52:00+00:00",
    "assets": [
     "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "8eefd73bc11dd766",
+   "source": "MarketWatch",
+   "bank": "Morgan Stanley",
+   "title": "Stocks are serving up a ‘fat pitch’ for investors right now, says Morgan Stanley’s top strategist",
+   "desc": "Morgan Stanley points to trough Nasdaq valuations, implied earnings declines and a capitulation in both sentiment and positioning as reasons to be bullish.",
+   "link": "https://www.marketwatch.com/story/stocks-are-serving-up-a-fat-pitch-for-investors-right-now-as-morgan-stanleys-top-strategist-19abe30a?mod=mw_rss_topstories",
+   "time": "2026-11-23T09:40:00+00:00",
+   "assets": [
     "stocks"
    ]
   }
