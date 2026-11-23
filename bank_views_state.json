@@ -57,7 +57,8 @@
   "c3a7bd6d40b1077f": "2026-11-23T14:00:35.115280+00:00",
   "1fc64452bed4bf98": "2026-11-23T15:28:22.772467+00:00",
   "c742f762013372fa": "2026-11-23T18:00:37.186501+00:00",
-  "50453ce3f6c379df": "2026-11-23T18:27:20.800462+00:00"
+  "50453ce3f6c379df": "2026-11-23T18:27:20.800462+00:00",
+  "db3e5918f7df4022": "2026-11-23T22:03:42.871211+00:00"
  },
  "week": [
   {
@@ -666,6 +667,18 @@
    "desc": "Wells Fargo Investment Institute analysts upgraded US large-cap stocks to its highest rating, after last week’s rout offered investors the opportunity to add equity exposure at more attractive levels.",
    "link": "https://www.bloomberg.com/news/articles/2026-11-23/us-large-cap-stocks-upgraded-to-most-favorable-at-wells-fargo",
    "time": "2026-11-23T18:18:14+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "db3e5918f7df4022",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Rates Spark: Jensen who?",
+   "desc": "Treasury yields paid minimal respect to the big moves in equities through Monday. Yields, in fact, in the end, decided to edge lower, mostly in a nod to the easing in the price of oil. That will help take headline inflation rates off highs in December CPI releases. But the upcoming US core PCE reading will still head in the wrong direction. That needs to change",
+   "link": "https://think.ing.com/articles/rates-spark-nvidia-back-up/",
+   "time": "2026-11-23T16:45:00+00:00",
    "assets": [
     "stocks"
    ]
