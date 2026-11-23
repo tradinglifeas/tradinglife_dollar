@@ -1,6 +1,5 @@
 {
  "seen": {
-  "af351857f314b5b8": "2026-11-13T08:00:33.711027+00:00",
   "0edeb5ddc623dad4": "2026-11-13T10:00:32.790706+00:00",
   "560fe5c6f043f1ae": "2026-11-13T10:18:18.150967+00:00",
   "d4641f7243528452": "2026-11-13T12:00:39.096956+00:00",
@@ -55,21 +54,10 @@
   "57a4ee0396129026": "2026-11-23T07:01:20.492336+00:00",
   "fdf937413dc04474": "2026-11-23T07:01:20.492336+00:00",
   "243dcb769eee82df": "2026-11-23T07:04:20.006726+00:00",
-  "7688f454e48f3f7b": "2026-11-23T07:14:20.725379+00:00"
+  "7688f454e48f3f7b": "2026-11-23T07:14:20.725379+00:00",
+  "83ac3379fe97a793": "2026-11-23T08:00:35.100377+00:00"
  },
  "week": [
-  {
-   "id": "af351857f314b5b8",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: Don’t mess with the dollar near term",
-   "desc": "Hot US inflation and the prospect of a more aggressive response from the Fed are the themes dominating FX markets currently. Another dose of firm US PPI today and some more hawkish Fed rhetoric are set to keep the dollar very supported into next week",
-   "link": "https://think.ing.com/articles/fx-daily-dont-mess-with-the-dollar/",
-   "time": "2026-11-13T07:56:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
   {
    "id": "0edeb5ddc623dad4",
    "source": "ING THINK",
@@ -650,6 +638,19 @@
    "desc": "In focus this week Today, S&P Global will release the preliminary November PMIs for the euro area, the UK and the US, with Japan following overnight. Over the past month, we have seen signs pointing to a cooling in the manufacturing cycle, as economic surprise indices have edged lower and the price of industrial metals […] The post US Futures Rebound After AI Rout appeared first on ActionForex .",
    "link": "https://www.actionforex.com/contributors/fundamental-analysis/661755-us-futures-rebound-after-ai-rout/",
    "time": "2026-11-23T07:03:37+00:00",
+   "assets": [
+    "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "83ac3379fe97a793",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Uneasy calm as markets stabilise",
+   "desc": "After a frenetic week of tech-led selling that dragged the S&P 500 index nearly 9% lower, equity futures are marked 2% higher today. Equity corrections have tended to be short, sharp affairs since a major rally started in 2022, and investors will be hoping the worst is over. The challenge will be another hot US inflation print this week. USD is set to hold gains",
+   "link": "https://think.ing.com/articles/fx-daily-uneasy-calm-as-markets-stabilise/",
+   "time": "2026-11-23T07:52:00+00:00",
    "assets": [
     "fx",
     "stocks"
