@@ -55,7 +55,8 @@
   "7688f454e48f3f7b": "2026-11-23T07:14:20.725379+00:00",
   "83ac3379fe97a793": "2026-11-23T08:00:35.100377+00:00",
   "8eefd73bc11dd766": "2026-11-23T10:00:32.621609+00:00",
-  "9d4219c81feb0125": "2026-11-23T10:09:21.565522+00:00"
+  "9d4219c81feb0125": "2026-11-23T10:09:21.565522+00:00",
+  "6961f730bb361ce2": "2026-11-23T11:09:19.128855+00:00"
  },
  "week": [
   {
@@ -654,6 +655,18 @@
    "time": "2026-11-23T10:02:24+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "6961f730bb361ce2",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Goldman’s Trivedi Says ‘Dollar Still Has Some Fight in It’",
+   "desc": "Kamakshya Trivedi, chief FX and emerging markets strategist at Goldman Sachs, offers his outlook for the US dollar and examines the factors that can most impact the currency. He speaks on “Bloomberg Brief.” (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-23/goldman-s-trivedi-dollar-still-has-some-fight-in-it-video",
+   "time": "2026-11-23T11:06:25+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
