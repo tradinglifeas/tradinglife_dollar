@@ -55,7 +55,9 @@
   "8eefd73bc11dd766": "2026-11-23T10:00:32.621609+00:00",
   "9d4219c81feb0125": "2026-11-23T10:09:21.565522+00:00",
   "6961f730bb361ce2": "2026-11-23T11:09:19.128855+00:00",
-  "bb48a0298c56acee": "2026-11-23T12:00:31.935101+00:00"
+  "bb48a0298c56acee": "2026-11-23T12:00:31.935101+00:00",
+  "68c5963ecaeb6ad1": "2026-11-23T14:00:35.115280+00:00",
+  "c3a7bd6d40b1077f": "2026-11-23T14:00:35.115280+00:00"
  },
  "week": [
   {
@@ -652,6 +654,30 @@
    "desc": "JPMorgan Chase & Co.’s trading desk is taking a cautious view toward US stocks after the S&P 500 Index tumbled into a correction last week.",
    "link": "https://www.bloomberg.com/news/articles/2026-11-23/jpmorgan-traders-drop-bullish-view-on-stocks-after-selloff",
    "time": "2026-11-23T11:47:04+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "68c5963ecaeb6ad1",
+   "source": "Bloomberg",
+   "bank": "Citi",
+   "title": "Citi Wealth CIO Moore Says ‘Going to Wait It Out’ on Market Selloff",
+   "desc": "Kate Moore, chief investment officer at Citi Wealth, says she’s not ready to call an “all clear” on markets, but doesn’t see anything to make her cut back her equity exposure. She speaks on “Bloomberg Surveillance.” (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-23/citi-wealth-cio-moore-on-selloff-going-to-wait-it-out-video",
+   "time": "2026-11-23T13:38:06+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "c3a7bd6d40b1077f",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Stocks Rebound After AI-Driven Correction; Crowdstrike to Buy ZScaler",
+   "desc": "US equity futures rebound from a rout in the AI trade that sent the S&P 500 into a correction. US Treasury Secretary Scott Bessent warns that the Federal Reserve risks jeopardizing the US economy by overtightening in response to the latest inflation data. CrowdStrike agrees to acquire cybersecurity provider Zscaler in an all-stock transaction valued at about $43.9 billion. Kamakshya Trivedi of Goldman Sachs joins “Bloomberg Brief” to discuss the latest market recovery. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-23/bloomberg-brief-11-23-2026-video",
+   "time": "2026-11-23T13:41:55+00:00",
    "assets": [
     "stocks"
    ]
