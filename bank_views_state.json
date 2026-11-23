@@ -1,23 +1,5 @@
 {
  "seen": {
-  "57a4ee0396129026": "2026-11-11T07:00:32.082013+00:00",
-  "1a647f3b40075c81": "2026-11-11T08:00:31.170554+00:00",
-  "d18e2e635cc01313": "2026-11-11T12:12:25.221560+00:00",
-  "c478ff3abf247a42": "2026-11-11T13:00:33.398046+00:00",
-  "fdf937413dc04474": "2026-11-12T08:00:31.720089+00:00",
-  "3a8d585e8ba34c1e": "2026-11-12T08:00:31.720089+00:00",
-  "8c86609ec5a17626": "2026-11-12T08:03:18.384446+00:00",
-  "71d5195db16f3d51": "2026-11-12T10:00:40.577010+00:00",
-  "8efc8aa342cd3eac": "2026-11-12T18:01:23.285183+00:00",
-  "8cc7993c37ea8a72": "2026-11-12T18:02:19.860345+00:00",
-  "e61d7bebb3f8dbe0": "2026-11-12T18:03:20.536075+00:00",
-  "5d90b3b734b49b1d": "2026-11-12T18:04:28.959890+00:00",
-  "2f490341ac169b6b": "2026-11-12T18:05:26.342197+00:00",
-  "93e54d99e39572a9": "2026-11-12T18:06:20.075394+00:00",
-  "19d3bb2f80a846a7": "2026-11-12T18:06:20.075394+00:00",
-  "735f1cbea99d42ba": "2026-11-12T18:07:19.202305+00:00",
-  "2ff3fbe550ad9ed3": "2026-11-12T18:09:20.841763+00:00",
-  "fd8b213f5819a947": "2026-11-12T20:06:27.025657+00:00",
   "7688f454e48f3f7b": "2026-11-13T07:13:17.832185+00:00",
   "af351857f314b5b8": "2026-11-13T08:00:33.711027+00:00",
   "0edeb5ddc623dad4": "2026-11-13T10:00:32.790706+00:00",
@@ -69,227 +51,10 @@
   "8bf1339f28ae249f": "2026-11-20T13:00:33.274502+00:00",
   "2236432d9615278d": "2026-11-20T15:00:45.842879+00:00",
   "bd1b43713cafe119": "2026-11-20T19:00:35.503217+00:00",
-  "ec013068d8cfe181": "2026-11-20T21:28:31.381959+00:00"
+  "ec013068d8cfe181": "2026-11-20T21:28:31.381959+00:00",
+  "4eeba7a092a0b8e3": "2026-11-23T07:00:35.154316+00:00"
  },
  "week": [
-  {
-   "id": "57a4ee0396129026",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "US CPI Hotter Than Expected",
-   "desc": "In focus today In the euro area, ECB President Christine Lagarde will be speaking at the Paris Peace Forum. Otherwise, Wednesday lacks a clear market moving data release or an event. In Japan, PPI print for October will be released overnight. Consensus is expecting a 0.3% m/m (prior: -0.3%) and a 6.5% y/y (prior: 6.8%) […] The post US CPI Hotter Than Expected appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/contributors/fundamental-analysis/660510-us-cpi-hotter-than-expected/",
-   "time": "2026-11-11T06:43:08+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "1a647f3b40075c81",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: Bearish yield curve flattening lifts the dollar",
-   "desc": "The dollar is trading close to the year's highs after US inflation came in hot for the third month in a row and the Fed's Chris Waller threatened to vote for a 50bp rate hike in December. Bearish yield curve flattening is typically good for the dollar and bad for procyclical currencies, as the monetary brakes are applied. Expect the dollar to hold gains today",
-   "link": "https://think.ing.com/articles/fx-daily-bearish-yield-curve-flattening-lifts-dollar/",
-   "time": "2026-11-11T07:50:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "d18e2e635cc01313",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "Webinar: The G10 FX winners and losers in 2027",
-   "desc": "Join Chris Turner, ING's Global Head of Markets, and FX Strategist Francesco Pesole on 16 November as they reveal their G10 FX winners and losers for 2027 and explore the key themes driving currency markets in the year ahead. Sign up here",
-   "link": "https://think.ing.com/articles/webinar-the-g10-fx-winners-and-losers-in-2027/",
-   "time": "2026-11-11T12:00:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "c478ff3abf247a42",
-   "source": "Bloomberg",
-   "bank": "Citi",
-   "title": "AI Stocks Rally After Coreweave's Results; Treasury Market Closed",
-   "desc": "US equity futures rise after Coreweave's strong results and robust demand for Anthropic's IPO. US Treasury futures fall after a hot inflation print fueled Fed rate-hike bets and fueled a spike in yields. Cash Treasury market is closed for Veterans Day holiday. Olaolu Aganga of Citi discusses the sustainability of the AI-driven tech rally. (Source: Bloomberg)",
-   "link": "https://www.bloomberg.com/news/videos/2026-11-11/bloomberg-brief-11-11-2026-video",
-   "time": "2026-11-11T12:19:50+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "fdf937413dc04474",
-   "source": "ActionForex (Danske)",
-   "bank": "Danske Bank",
-   "title": "UK GDP and Swedish Inflation in Focus",
-   "desc": "In focus today In equity markets, Nvidia’s board is meeting on Thursday morning to decide whether to oust CEO Jensen Huang following a revealed affair with a suspected Chinese spy. Overnight multiple media reported on another affair involving Huang and Kimberly Powell, the chipmaker’s vice-president of healthcare. Nvidia’s shares dropped over 8% in after-hours trading. […] The post UK GDP and Swedish Inflation in Focus appeared first on ActionForex .",
-   "link": "https://www.actionforex.com/contributors/fundamental-analysis/660618-uk-gdp-and-swedish-inflation-in-focus/",
-   "time": "2026-11-12T07:30:58+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "3a8d585e8ba34c1e",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: EUR/USD gears up for a 1.10 test",
-   "desc": "The dollar’s strong rally this week is firmly rooted in a shift in short-term rate dynamics, driven by hawkish Fed rhetoric and hotter inflation. That makes it harder to argue for a material rebound in EUR/USD, which may instead test 1.10 should upcoming data releases offer the dollar extra support. For now, we don’t see the conditions for a break below 1.10",
-   "link": "https://think.ing.com/articles/fx-daily-eur-usd-gears-up-for-a-110-test/",
-   "time": "2026-11-12T07:40:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "8c86609ec5a17626",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "The Commodities Feed: Stronger dollar weighs on commodities",
-   "desc": "A firmer dollar and higher US yields have weighed on metals, pushing copper and gold lower. Iron ore has also weakened, while oil slipped as Middle East supply recovered",
-   "link": "https://think.ing.com/articles/the-commodities-feed-stronger-dollar-weighs-on-commodities/",
-   "time": "2026-11-12T08:00:00+00:00",
-   "assets": [
-    "metals",
-    "fx"
-   ]
-  },
-  {
-   "id": "71d5195db16f3d51",
-   "source": "Bloomberg",
-   "bank": "Bank of America",
-   "title": "BofA Says India’s Foreign Inflow Revival Has Further Room to Run",
-   "desc": "The strong momentum in foreign inflows into Indian stocks may continue given a combination of improving earnings, cheaper valuations and light positioning, according to BofA Global Research.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-12/bofa-says-india-s-foreign-inflow-revival-has-further-room-to-run",
-   "time": "2026-11-12T08:44:28+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "8efc8aa342cd3eac",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Outlook 2027: Fat tails, slim ranges",
-   "desc": "We’ve all heard of black swans or ‘unknown unknowns’, which can come out of the blue and destroy the best laid plans. In 2027, however, there are enough ‘known unknowns’ to raise the risk of fat tail events: low-probability, high-impact shocks that could drive FX markets out of otherwise well-worn ranges",
-   "link": "https://think.ing.com/reports/fx-outlook-2027-fat-tails-slim-ranges/",
-   "time": "2026-11-12T18:00:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "8cc7993c37ea8a72",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Outlook 2027: Our latest forecasts",
-   "desc": "EUROPE: The latest FX forecasts from our team",
-   "link": "https://think.ing.com/articles/fx-outlook-2027-our-latest-forecasts/",
-   "time": "2026-11-12T18:01:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "e61d7bebb3f8dbe0",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "Asia FX Outlook 2027: Rotation underway but tech currencies should lead",
-   "desc": "ASIA/PACIFIC: The recent sell-off in oil prices has provided some much-needed relief to South Asian currencies. Looking into 2027, and assuming the dollar does start to soften, we prefer to back the tech-linked currencies of North Asia. These currencies are backed by large current account surpluses – surpluses which could be coming home",
-   "link": "https://think.ing.com/articles/asia-fx-outlook-2027-rotation-underway-but-tech-currencies-should-lead/",
-   "time": "2026-11-12T18:03:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "5d90b3b734b49b1d",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "Latam FX Outlook 2027: Banxico abandons the peso",
-   "desc": "LATIN AMERICA: It has been a mixed year for Latam FX, where only the higher yields of the Brazilian real and Mexican peso have allowed those currencies to deliver a net total positive return against the dollar. In 2027, we think the real can outperform the forwards, but are worried about Banxico’s neglect of the peso. Chile’s peso might prove a little more resilient, too",
-   "link": "https://think.ing.com/articles/latam-fx-outlook-2027/",
-   "time": "2026-11-12T18:03:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "2f490341ac169b6b",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "EMEA FX Outlook 2027: Restrictive policy remains the key FX anchor",
-   "desc": "CENTRAL AND EASTERN EUROPE: EMEA FX should remain supported by restrictive policy and attractive carry, but performance will increasingly diverge. We favour HUF, ZAR and TRY, while CZK remains supported and PLN faces headwinds. Global yields, energy prices, fiscal risks and geopolitics remain key drivers",
-   "link": "https://think.ing.com/articles/emea-fx-outlook-2027/",
-   "time": "2026-11-12T18:04:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "93e54d99e39572a9",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX volatility in 2027: In need of shock therapy",
-   "desc": "EUROPE: Why is FX volatility so low? Even a 6% fall in the Nasdaq barely budges USD/JPY these days. Have FX markets found a general equilibrium, or is there some kind of separation between geopolitics and macro? We think the answer lies more in the structure of FX trading and do not rule out jump risk if the shock is big enough",
-   "link": "https://think.ing.com/articles/fx-volatility-in-2027-in-need-of-shock-therapy/",
-   "time": "2026-11-12T18:05:00+00:00",
-   "assets": [
-    "fx",
-    "stocks"
-   ]
-  },
-  {
-   "id": "19d3bb2f80a846a7",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "G10 FX Outlook 2027: It’s hard to look beyond the Fed",
-   "desc": "EUROPE: In a very uncertain world, this year’s more hawkish steer from the Federal Reserve has provided a constant and supportive anchor for the dollar. While the immediate picture for the dollar looks quite constructive, a turn in the inflation cycle by the second half of 2027 should usher in a modest downtrend",
-   "link": "https://think.ing.com/articles/g10-fx-outlook-2027/",
-   "time": "2026-11-12T18:05:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "735f1cbea99d42ba",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX outlook 2027: Seven key risks",
-   "desc": "EUROPE: Low volatility masks a wide range of tail risks for 2027. AI stress, another inflation shock, fiscal concerns, elections and geopolitical escalation could all trigger sharp FX moves, while financial repression and a carry unwind add further asymmetric risks",
-   "link": "https://think.ing.com/articles/fx-outlook-2027-seven-key-risks/",
-   "time": "2026-11-12T18:06:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "2ff3fbe550ad9ed3",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Outlook 2027: Seven key calls",
-   "desc": "We expect 2027 to be a low-volatility year in FX, with central banks and rate differentials firmly in the driving seat. We see a dollar decline resuming from 2Q27, while diverging monetary, growth and external dynamics create opportunities across regions",
-   "link": "https://think.ing.com/articles/fx-outlook-2027-seven-key-calls/",
-   "time": "2026-11-12T18:08:00+00:00",
-   "assets": [
-    "fx"
-   ]
-  },
-  {
-   "id": "fd8b213f5819a947",
-   "source": "Bloomberg",
-   "bank": "Bank of America",
-   "title": "BofA Traders See Short Sellers Pile Into Rate-Sensitive Stocks",
-   "desc": "Hedge funds are reloading their bets that equities most exposed to interest-rate movements will fall after being forced to back down during the recent rally, Bank of America Corp.’s trading desk said.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-12/bofa-traders-see-short-sellers-pile-into-rate-sensitive-stocks",
-   "time": "2026-11-12T20:00:15+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "7688f454e48f3f7b",
    "source": "ActionForex (Danske)",
@@ -870,6 +635,18 @@
    "desc": "Goldman Sachs Group Inc.’s panic gauge climbed near its maximum level as US stocks tumbled Friday, signaling that another substantial wave of selling will follow over the coming week, according to the bank’s traders.",
    "link": "https://www.bloomberg.com/news/articles/2026-11-20/goldman-says-stock-selloff-has-legs-as-panic-index-nears-maximum",
    "time": "2026-11-20T21:20:55+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "4eeba7a092a0b8e3",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "Earnings Could Signal When to Buy the AI Dip: JPMorgan",
+   "desc": "JPMorgan Co-Head of Global Fundamental Research James Sullivan says earnings revisions might provide a marker for investors looking to move on AI stocks. Nvidia sank 14% on Friday last week, while Anthropic fell 8.5% on its second day of trading and a gauge of chipmakers sank 11%. (Source: Bloomberg)",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-23/earnings-could-signal-when-to-buy-the-ai-dip-video",
+   "time": "2026-11-23T05:31:29+00:00",
    "assets": [
     "stocks"
    ]
