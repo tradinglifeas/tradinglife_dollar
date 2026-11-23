@@ -57,7 +57,8 @@
   "bb48a0298c56acee": "2026-11-23T12:00:31.935101+00:00",
   "68c5963ecaeb6ad1": "2026-11-23T14:00:35.115280+00:00",
   "c3a7bd6d40b1077f": "2026-11-23T14:00:35.115280+00:00",
-  "1fc64452bed4bf98": "2026-11-23T15:28:22.772467+00:00"
+  "1fc64452bed4bf98": "2026-11-23T15:28:22.772467+00:00",
+  "c742f762013372fa": "2026-11-23T18:00:37.186501+00:00"
  },
  "week": [
   {
@@ -668,6 +669,18 @@
    "time": "2026-11-23T13:41:55+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "c742f762013372fa",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Goldman’s Trivedi Says Dollar ‘Has Some Fight’ Left on Rate Path",
+   "desc": "The US dollar rally has legs with rising interest rates spurring the currency further before it weakens “modestly” next year, according to Kamakshya Trivedi at Goldman Sachs Group Inc.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-23/goldman-s-trivedi-says-dollar-has-some-fight-left-on-rate-path",
+   "time": "2026-11-23T17:37:10+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
