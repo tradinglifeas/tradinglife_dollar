@@ -56,21 +56,10 @@
   "83ac3379fe97a793": "2026-11-23T08:00:35.100377+00:00",
   "8eefd73bc11dd766": "2026-11-23T10:00:32.621609+00:00",
   "9d4219c81feb0125": "2026-11-23T10:09:21.565522+00:00",
-  "6961f730bb361ce2": "2026-11-23T11:09:19.128855+00:00"
+  "6961f730bb361ce2": "2026-11-23T11:09:19.128855+00:00",
+  "bb48a0298c56acee": "2026-11-23T12:00:31.935101+00:00"
  },
  "week": [
-  {
-   "id": "d4641f7243528452",
-   "source": "MarketWatch",
-   "bank": "Citi",
-   "title": "Profit surprises are normalizing — and that may signal a healthier stock market, say Citi strategists",
-   "desc": "Although the majority of S&P 500 companies reported earnings above analysts’ expectations, the beats were significantly lower than in more recent quarters.",
-   "link": "https://www.marketwatch.com/story/profit-surprises-are-normalizing-and-that-may-signal-a-healthier-stock-market-say-citi-strategists-d8cce7c2?mod=mw_rss_topstories",
-   "time": "2026-11-13T11:41:00+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "a902cca4cbf924b0",
    "source": "Bloomberg",
@@ -667,6 +656,18 @@
    "time": "2026-11-23T11:06:25+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "bb48a0298c56acee",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "JPMorgan Traders Drop Bullish View on Stocks After Selloff",
+   "desc": "JPMorgan Chase & Co.’s trading desk is taking a cautious view toward US stocks after the S&P 500 Index tumbled into a correction last week.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-23/jpmorgan-traders-drop-bullish-view-on-stocks-after-selloff",
+   "time": "2026-11-23T11:47:04+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
