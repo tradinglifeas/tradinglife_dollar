@@ -54,7 +54,8 @@
   "ec013068d8cfe181": "2026-11-20T21:28:31.381959+00:00",
   "4eeba7a092a0b8e3": "2026-11-23T07:00:35.154316+00:00",
   "57a4ee0396129026": "2026-11-23T07:01:20.492336+00:00",
-  "fdf937413dc04474": "2026-11-23T07:01:20.492336+00:00"
+  "fdf937413dc04474": "2026-11-23T07:01:20.492336+00:00",
+  "243dcb769eee82df": "2026-11-23T07:04:20.006726+00:00"
  },
  "week": [
   {
@@ -650,6 +651,19 @@
    "link": "https://www.bloomberg.com/news/videos/2026-11-23/earnings-could-signal-when-to-buy-the-ai-dip-video",
    "time": "2026-11-23T05:31:29+00:00",
    "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "243dcb769eee82df",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "US Futures Rebound After AI Rout",
+   "desc": "In focus this week Today, S&P Global will release the preliminary November PMIs for the euro area, the UK and the US, with Japan following overnight. Over the past month, we have seen signs pointing to a cooling in the manufacturing cycle, as economic surprise indices have edged lower and the price of industrial metals […] The post US Futures Rebound After AI Rout appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/661755-us-futures-rebound-after-ai-rout/",
+   "time": "2026-11-23T07:03:37+00:00",
+   "assets": [
+    "fx",
     "stocks"
    ]
   }
