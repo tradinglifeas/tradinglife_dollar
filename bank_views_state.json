@@ -1,6 +1,5 @@
 {
  "seen": {
-  "c7029ae1bcf37aa7": "2026-11-13T20:00:34.361734+00:00",
   "a382545926e64338": "2026-11-16T07:03:18.524784+00:00",
   "9c288c33546c111b": "2026-11-16T08:00:41.132206+00:00",
   "ef4a644ffb23148d": "2026-11-16T10:23:19.982091+00:00",
@@ -61,18 +60,6 @@
   "50453ce3f6c379df": "2026-11-23T18:27:20.800462+00:00"
  },
  "week": [
-  {
-   "id": "c7029ae1bcf37aa7",
-   "source": "Bloomberg",
-   "bank": "Barclays",
-   "title": "Barclays Trading Desk Turns Bullish for First Time Since March",
-   "desc": "Barclays Plc.’s trading desk has turned tactically bullish on US equities for the first time since mid-March, signaling that a sharp pullback in investor positioning and easing volatility pressures have created an attractive opportunity for a tactical market rebound.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-13/barclays-trading-desk-turns-bullish-for-first-time-since-march",
-   "time": "2026-11-13T19:36:01+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "9c288c33546c111b",
    "source": "ING THINK",
