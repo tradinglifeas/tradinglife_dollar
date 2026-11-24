@@ -60,7 +60,8 @@
   "50453ce3f6c379df": "2026-11-23T18:27:20.800462+00:00",
   "db3e5918f7df4022": "2026-11-23T22:03:42.871211+00:00",
   "2a15a88ff3e82eb8": "2026-11-24T07:00:32.497215+00:00",
-  "bec92602d96820fe": "2026-11-24T07:21:21.315461+00:00"
+  "bec92602d96820fe": "2026-11-24T07:21:21.315461+00:00",
+  "9b4cd560018c3aef": "2026-11-24T08:00:31.785804+00:00"
  },
  "week": [
   {
@@ -707,6 +708,18 @@
    "time": "2026-11-24T07:21:01+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "9b4cd560018c3aef",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Dollar may be heading into overshoot territory",
+   "desc": "It is hard to know what to make of Monday's surprise dollar strength. Blaming fresh unhedged inflows into the US tech sector following White House intervention on Nvidia is not that appealing as a rationale. But it may be the case. We think the dollar is starting to head into overshoot territory and would be careful about expecting more strength just yet",
+   "link": "https://think.ing.com/articles/fx-daily-surprise-dollar-strength/",
+   "time": "2026-11-24T07:30:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
