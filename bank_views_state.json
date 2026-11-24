@@ -64,7 +64,8 @@
   "9b4cd560018c3aef": "2026-11-24T08:00:31.785804+00:00",
   "0f1f6cd2d00c6670": "2026-11-24T08:06:19.984131+00:00",
   "bf8f26fc1c483785": "2026-11-24T10:00:35.040638+00:00",
-  "26c4ace1c9f131ae": "2026-11-24T19:00:33.135846+00:00"
+  "26c4ace1c9f131ae": "2026-11-24T19:00:33.135846+00:00",
+  "7c1e89919eeb9410": "2026-11-24T21:06:19.858841+00:00"
  },
  "week": [
   {
@@ -757,6 +758,18 @@
    "desc": "A BNP Paribas analyst says the risk of an “oversupply scenario is mounting” for memory chips, and that could threaten Micron’s pricing power.",
    "link": "https://www.marketwatch.com/story/microns-stock-falls-as-an-analyst-warns-about-a-future-supply-glut-f7fbeefb?mod=mw_rss_topstories",
    "time": "2026-11-24T18:33:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "7c1e89919eeb9410",
+   "source": "Bloomberg",
+   "bank": "JPMorgan",
+   "title": "JPMorgan Sets Below Consensus S&P 500 Target of 8,200 for 2027",
+   "desc": "JPMorgan Chase & Co. strategists see US stocks advancing through the end of 2027, with artificial intelligence remaining a driving force behind earnings growth.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-24/jpmorgan-sets-below-consensus-s-p-500-target-of-8-200-for-2027",
+   "time": "2026-11-24T20:55:49+00:00",
    "assets": [
     "stocks"
    ]
