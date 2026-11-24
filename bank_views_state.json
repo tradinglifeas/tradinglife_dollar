@@ -59,7 +59,8 @@
   "c742f762013372fa": "2026-11-23T18:00:37.186501+00:00",
   "50453ce3f6c379df": "2026-11-23T18:27:20.800462+00:00",
   "db3e5918f7df4022": "2026-11-23T22:03:42.871211+00:00",
-  "2a15a88ff3e82eb8": "2026-11-24T07:00:32.497215+00:00"
+  "2a15a88ff3e82eb8": "2026-11-24T07:00:32.497215+00:00",
+  "bec92602d96820fe": "2026-11-24T07:21:21.315461+00:00"
  },
  "week": [
   {
@@ -694,6 +695,18 @@
    "time": "2026-11-24T04:33:10+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "bec92602d96820fe",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "Tech Stocks Rebound as Nvidia Reinstates Huang",
+   "desc": "In focus today In the US, the Conference Board releases November consumer confidence. Confidence rebounded notably in October from low September levels. Nevertheless, consumers still have a fairly pessimistic view of the economy, although this has not been visible in consumption data. In Germany, we will receive the Ifo indicator for November. Yesterday’s flash PMIs […] The post Tech Stocks Rebound as Nvidia Reinstates Huang appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/661873-tech-stocks-rebound-as-nvidia-reinstates-huang/",
+   "time": "2026-11-24T07:21:01+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
