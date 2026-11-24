@@ -62,7 +62,8 @@
   "2a15a88ff3e82eb8": "2026-11-24T07:00:32.497215+00:00",
   "bec92602d96820fe": "2026-11-24T07:21:21.315461+00:00",
   "9b4cd560018c3aef": "2026-11-24T08:00:31.785804+00:00",
-  "0f1f6cd2d00c6670": "2026-11-24T08:06:19.984131+00:00"
+  "0f1f6cd2d00c6670": "2026-11-24T08:06:19.984131+00:00",
+  "bf8f26fc1c483785": "2026-11-24T10:00:35.040638+00:00"
  },
  "week": [
   {
@@ -733,6 +734,18 @@
    "time": "2026-11-24T08:00:00+00:00",
    "assets": [
     "metals"
+   ]
+  },
+  {
+   "id": "bf8f26fc1c483785",
+   "source": "MarketWatch",
+   "bank": "Bank of America",
+   "title": "The bull and bear surprises that could ambush investors next year, according to Bank of America",
+   "desc": "Michael Hartnett’s tactical masterplan is to stay risk off until global rate hikes start to dry up next spring. Thereafter, modest earnings growth and the chance of looser financial conditions in the second half favor owning cyclicals and adding more risk.",
+   "link": "https://www.marketwatch.com/story/the-bull-and-bear-surprises-that-could-ambush-investors-next-year-according-to-bank-of-america-1cf7dc26?mod=mw_rss_topstories",
+   "time": "2026-11-24T09:58:00+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
