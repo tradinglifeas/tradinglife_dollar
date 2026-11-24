@@ -58,7 +58,8 @@
   "1fc64452bed4bf98": "2026-11-23T15:28:22.772467+00:00",
   "c742f762013372fa": "2026-11-23T18:00:37.186501+00:00",
   "50453ce3f6c379df": "2026-11-23T18:27:20.800462+00:00",
-  "db3e5918f7df4022": "2026-11-23T22:03:42.871211+00:00"
+  "db3e5918f7df4022": "2026-11-23T22:03:42.871211+00:00",
+  "2a15a88ff3e82eb8": "2026-11-24T07:00:32.497215+00:00"
  },
  "week": [
   {
@@ -681,6 +682,18 @@
    "time": "2026-11-23T16:45:00+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "2a15a88ff3e82eb8",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Goldman Says Won Stability Beats Rate Hikes in Cooling Inflation",
+   "desc": "Goldman Sachs Group Inc. said stabilizing South Korea’s currency would be a more effective way to curb inflation than raising interest rates, arguing that price pressures stem more from rising import costs than from strong domestic demand.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-24/goldman-says-won-stability-beats-rate-hikes-in-cooling-inflation",
+   "time": "2026-11-24T04:33:10+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
