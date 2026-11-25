@@ -66,7 +66,8 @@
   "bf8f26fc1c483785": "2026-11-24T10:00:35.040638+00:00",
   "26c4ace1c9f131ae": "2026-11-24T19:00:33.135846+00:00",
   "7c1e89919eeb9410": "2026-11-24T21:06:19.858841+00:00",
-  "dc31c4890457dc21": "2026-11-25T08:00:31.772072+00:00"
+  "dc31c4890457dc21": "2026-11-25T08:00:31.772072+00:00",
+  "ffc7c2daf62ca37c": "2026-11-25T10:16:19.997598+00:00"
  },
  "week": [
   {
@@ -785,6 +786,18 @@
    "time": "2026-11-25T07:40:00+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "ffc7c2daf62ca37c",
+   "source": "Bloomberg",
+   "bank": "Deutsche Bank",
+   "title": "Deutsche Bank Is Among Biggest S&P 500 Bulls With 9,000 Target",
+   "desc": "Deutsche Bank AG’s Binky Chadha is among the most bullish stock forecasters on Wall Street, predicting the S&P 500 will recover from its rout to rally 25% by the end of next year.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-25/deutsche-bank-is-among-biggest-s-p-500-bulls-with-9-000-target",
+   "time": "2026-11-25T10:06:53+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
