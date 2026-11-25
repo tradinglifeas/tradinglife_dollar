@@ -67,7 +67,8 @@
   "26c4ace1c9f131ae": "2026-11-24T19:00:33.135846+00:00",
   "7c1e89919eeb9410": "2026-11-24T21:06:19.858841+00:00",
   "dc31c4890457dc21": "2026-11-25T08:00:31.772072+00:00",
-  "ffc7c2daf62ca37c": "2026-11-25T10:16:19.997598+00:00"
+  "ffc7c2daf62ca37c": "2026-11-25T10:16:19.997598+00:00",
+  "3c020f71d2ac18d7": "2026-11-25T11:00:34.254360+00:00"
  },
  "week": [
   {
@@ -798,6 +799,18 @@
    "time": "2026-11-25T10:06:53+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "3c020f71d2ac18d7",
+   "source": "Bloomberg",
+   "bank": "ING",
+   "title": "ING Sees ‘Full Unwind’ in Emerging-Market Currencies Underway",
+   "desc": "Emerging-market currencies face mounting pressure from the technology selloff, the risk of shrinking interest rate premiums and the threat of fresh global tariffs, according to strategists at ING Bank.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-25/ing-sees-full-unwind-in-emerging-market-currencies-underway",
+   "time": "2026-11-25T10:29:45+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
