@@ -68,7 +68,8 @@
   "7c1e89919eeb9410": "2026-11-24T21:06:19.858841+00:00",
   "dc31c4890457dc21": "2026-11-25T08:00:31.772072+00:00",
   "ffc7c2daf62ca37c": "2026-11-25T10:16:19.997598+00:00",
-  "3c020f71d2ac18d7": "2026-11-25T11:00:34.254360+00:00"
+  "3c020f71d2ac18d7": "2026-11-25T11:00:34.254360+00:00",
+  "73bd758881af9d87": "2026-11-25T11:26:19.365502+00:00"
  },
  "week": [
   {
@@ -811,6 +812,18 @@
    "time": "2026-11-25T10:29:45+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "73bd758881af9d87",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "China Hits Back at New Trump Tariff Prospects",
+   "desc": "China called the prospect of new US tariffs on its exports “political maneuvering” and said the two nations should work together to maintain their trade truce. Jensen Huang struck a somber tone a day after his reinstatement as Nvidia CEO, apologizing to employees during an all-hands meeting and sharing that he’d been in daily therapy to address the behavior that led to his brief ouster from the top job. A global selloff in technology stocks is showing no sign of letting up as questions about the outlook for the artificial intelligence trade pile up. Today’s guests: Christian Mueller-Glissman, Goldman Sachs Head of Asset Allocation Research; Xiaolan Fu, Oxford University Technology & Internat",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-25/the-pulse-11-25-2026-video",
+   "time": "2026-11-25T10:51:01+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
