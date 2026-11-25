@@ -65,7 +65,8 @@
   "0f1f6cd2d00c6670": "2026-11-24T08:06:19.984131+00:00",
   "bf8f26fc1c483785": "2026-11-24T10:00:35.040638+00:00",
   "26c4ace1c9f131ae": "2026-11-24T19:00:33.135846+00:00",
-  "7c1e89919eeb9410": "2026-11-24T21:06:19.858841+00:00"
+  "7c1e89919eeb9410": "2026-11-24T21:06:19.858841+00:00",
+  "dc31c4890457dc21": "2026-11-25T08:00:31.772072+00:00"
  },
  "week": [
   {
@@ -772,6 +773,18 @@
    "time": "2026-11-24T20:55:49+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "dc31c4890457dc21",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Full EMFX unwind underway",
+   "desc": "The investment environment remains hostile. Lingering uncertainty over the US tech story, Fed tightening and now a little more tariff uncertainty are leading to a full unwind of risk-seeking trades, particularly in EMFX. More pressure could come today with hot core US PCE inflation. Expect EMFX and commodity FX to remain on the back foot",
+   "link": "https://think.ing.com/articles/fx-daily-full-emfx-unwind-underway/",
+   "time": "2026-11-25T07:40:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
