@@ -70,7 +70,8 @@
   "ffc7c2daf62ca37c": "2026-11-25T10:16:19.997598+00:00",
   "3c020f71d2ac18d7": "2026-11-25T11:00:34.254360+00:00",
   "73bd758881af9d87": "2026-11-25T11:26:19.365502+00:00",
-  "c2dc3e143235d826": "2026-11-25T11:29:20.679731+00:00"
+  "c2dc3e143235d826": "2026-11-25T11:29:20.679731+00:00",
+  "2a3428cca5d7e267": "2026-11-25T13:26:25.195117+00:00"
  },
  "week": [
   {
@@ -835,6 +836,18 @@
    "desc": "While artificial intelligence is still being assessed based on capital expenditure, strategists argued it’s time to look more at adoption.",
    "link": "https://www.marketwatch.com/story/the-s-p-500-is-headed-to-8-200-and-downturns-like-this-one-are-actually-part-of-the-reason-why-says-jpmorgan-b6acae4b?mod=mw_rss_topstories",
    "time": "2026-11-25T11:27:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "2a3428cca5d7e267",
+   "source": "Bloomberg",
+   "bank": "Goldman Sachs",
+   "title": "Goldman Strategist Says It’s Too Early to Buy the AI Selloff",
+   "desc": "Investors need to see real profits from the billions being spent to build artificial intelligence, according to Goldman Sachs Group Inc.’s Christian Mueller-Glissmann, who warned it’s too soon to buy stocks.",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-25/goldman-strategist-says-it-s-too-early-to-buy-the-ai-selloff",
+   "time": "2026-11-25T13:17:13+00:00",
    "assets": [
     "stocks"
    ]
