@@ -72,7 +72,8 @@
   "73bd758881af9d87": "2026-11-25T11:26:19.365502+00:00",
   "c2dc3e143235d826": "2026-11-25T11:29:20.679731+00:00",
   "2a3428cca5d7e267": "2026-11-25T13:26:25.195117+00:00",
-  "35567cd263bc1534": "2026-11-25T14:00:37.377302+00:00"
+  "35567cd263bc1534": "2026-11-25T14:00:37.377302+00:00",
+  "59d7b61f2a5e9992": "2026-11-25T22:13:22.364603+00:00"
  },
  "week": [
   {
@@ -863,6 +864,18 @@
    "time": "2026-11-25T13:28:13+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "59d7b61f2a5e9992",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Rates Spark: No risk appetite for Thanksgiving dinner",
+   "desc": "Despite another hot US inflation reading, rates are under downward pressure amid fragile risk sentiment. Growing concerns about growth could push down the belly of the euro curve as they did in 2008 and 2023. Meanwhile, the ECB will likely wait until 2027 to evaluate minimum reserve requirements",
+   "link": "https://think.ing.com/articles/rates-spark-no-risk-appetite-for-thanksgiving-dinner/",
+   "time": "2026-11-25T18:22:00+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
