@@ -75,18 +75,6 @@
  },
  "week": [
   {
-   "id": "6757fc86f70bf46c",
-   "source": "CNBC",
-   "bank": "Bank of America",
-   "title": "Berkshire Hathaway raised its stake in Delta in the third quarter. It also trimmed a key bank holding",
-   "desc": "Berkshire Hathaway added to several stock positions in the third quarter while trimming others, including Bank of America.",
-   "link": "https://www.cnbc.com/2026/11/16/berkshire-hathaway-raised-its-stake-in-delta-air-in-the-third-quarter.html",
-   "time": "2026-11-16T22:22:52+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
    "id": "71ed7db7886fd957",
    "source": "Bloomberg",
    "bank": "Wells Fargo",
