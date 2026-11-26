@@ -79,19 +79,6 @@
  },
  "week": [
   {
-   "id": "9c288c33546c111b",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: Time for a break below 1.10 in EUR/USD?",
-   "desc": "EUR/USD is ready to test the key 1.100 support. We think the pair can hold the line in a light week for US data, but risks of a break lower are meaningful given the macro nature of this USD rally. Any AI-related equity market instability probably has a greater chance of denting this USD momentum than Fedspeak this week",
-   "link": "https://think.ing.com/articles/fx-daily-time-for-a-break-below-110-in-eur-usd/",
-   "time": "2026-11-16T07:51:00+00:00",
-   "assets": [
-    "fx",
-    "stocks"
-   ]
-  },
-  {
    "id": "ef4a644ffb23148d",
    "source": "MarketWatch",
    "bank": "Morgan Stanley",
