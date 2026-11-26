@@ -1,6 +1,5 @@
 {
  "seen": {
-  "9c288c33546c111b": "2026-11-16T08:00:41.132206+00:00",
   "ef4a644ffb23148d": "2026-11-16T10:23:19.982091+00:00",
   "3685097b43ce36e9": "2026-11-16T12:00:33.058397+00:00",
   "f932233d6315aea7": "2026-11-16T12:47:52.887809+00:00",
@@ -75,7 +74,8 @@
   "59d7b61f2a5e9992": "2026-11-25T22:13:22.364603+00:00",
   "e2738eec4dc27bc0": "2026-11-26T07:03:17.121133+00:00",
   "a382545926e64338": "2026-11-26T07:05:24.089044+00:00",
-  "178d127313021083": "2026-11-26T07:24:19.791144+00:00"
+  "178d127313021083": "2026-11-26T07:24:19.791144+00:00",
+  "0c5b98957f1d7590": "2026-11-26T08:01:17.102356+00:00"
  },
  "week": [
   {
@@ -888,6 +888,19 @@
    "link": "https://www.cnbc.com/2026/11/26/wealthy-europeans-alternative-investments-ai.html",
    "time": "2026-11-26T07:23:42+00:00",
    "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "0c5b98957f1d7590",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Korean won stands out in a harsh EM environment",
+   "desc": "It looks like the sell-off in risk assets has run its course for now, with investors starting to find value in equities, commodities and some FX pairs. How long this calm lasts is unknown, since it looks like the Fed will have to push ahead with tightening. To withstand dollar strength, currencies will need a good story. The Korean won has one",
+   "link": "https://think.ing.com/articles/fx-daily-korean-won-stands-out-in-a-harsh-em-environment/",
+   "time": "2026-11-26T08:00:00+00:00",
+   "assets": [
+    "fx",
     "stocks"
    ]
   }
