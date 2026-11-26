@@ -77,18 +77,6 @@
  },
  "week": [
   {
-   "id": "3bc0907720e1d37e",
-   "source": "Bloomberg",
-   "bank": "Goldman Sachs",
-   "title": "Goldman Forecasts Gold to Take Two Years to Recapture All-Time Highs",
-   "desc": "It took gold just one month to climb more than 30% to a record, but its likely to take another two years before the precious metal takes out a new peak, according to Goldman Sachs.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-16/goldman-forecasts-gold-to-take-two-years-to-recapture-all-time-highs",
-   "time": "2026-11-16T20:15:45+00:00",
-   "assets": [
-    "metals"
-   ]
-  },
-  {
    "id": "d4b42d61aacf1789",
    "source": "Bloomberg",
    "bank": "Deutsche Bank",
