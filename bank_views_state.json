@@ -75,7 +75,8 @@
   "e2738eec4dc27bc0": "2026-11-26T07:03:17.121133+00:00",
   "a382545926e64338": "2026-11-26T07:05:24.089044+00:00",
   "178d127313021083": "2026-11-26T07:24:19.791144+00:00",
-  "0c5b98957f1d7590": "2026-11-26T08:01:17.102356+00:00"
+  "0c5b98957f1d7590": "2026-11-26T08:01:17.102356+00:00",
+  "b50cd145e4f86f50": "2026-11-26T08:09:22.121308+00:00"
  },
  "week": [
   {
@@ -902,6 +903,18 @@
    "assets": [
     "fx",
     "stocks"
+   ]
+  },
+  {
+   "id": "b50cd145e4f86f50",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "The Commodities Feed: Oil extends rally as copper rebounds",
+   "desc": "Oil prices continued to climb as escalating tensions in the Middle East kept supply risks in focus, while copper bounced after Wednesday’s sharp sell-off. Gold remained close to a 15-month low as expectations for higher-for-longer US rates continued to weigh on precious metals",
+   "link": "https://think.ing.com/articles/the-commodities-feed-gold-slumps-below-3500-oz/",
+   "time": "2026-11-26T08:04:00+00:00",
+   "assets": [
+    "metals"
    ]
   }
  ],
