@@ -70,7 +70,8 @@
   "0c5b98957f1d7590": "2026-11-26T08:01:17.102356+00:00",
   "b50cd145e4f86f50": "2026-11-26T08:09:22.121308+00:00",
   "1df0807b87ed68ac": "2026-11-26T10:13:19.005484+00:00",
-  "bf83decbdba7c453": "2026-11-26T12:23:19.806274+00:00"
+  "bf83decbdba7c453": "2026-11-26T12:23:19.806274+00:00",
+  "6757fc86f70bf46c": "2026-11-26T22:26:18.601804+00:00"
  },
  "week": [
   {
@@ -834,6 +835,18 @@
    "desc": "China has vowed to defend its interests after the US unveiled new tariffs on Chinese goods and warned the rate could double if trade talks collapse, injecting fresh tension ahead of a planned meeting between Donald Trump and Xi Jinping. Stocks rose as investors in Europe and Asia tracked a comeback in technology shares on Wall Street, with days of sharp swings likely to give way to thin holiday trading. UniCredit proposed CEO Andrea Orcel as chairman of Commerzbank’s supervisory board as the Italian lender moves to take control of the German rival in one of Europe’s largest cross-border banking deals in decades. Today’s guests: Jimmy Muchechetere, Investec Senior Equity Analyst; Ahmed Rostom",
    "link": "https://www.bloomberg.com/news/videos/2026-11-26/the-pulse-with-francine-lacqua-11-26-2026-video",
    "time": "2026-11-26T11:56:51+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "6757fc86f70bf46c",
+   "source": "CNBC",
+   "bank": "Bank of America",
+   "title": "Berkshire Hathaway raised its stake in Delta in the third quarter. It also trimmed a key bank holding",
+   "desc": "Berkshire Hathaway added to several stock positions in the third quarter while trimming others, including Bank of America.",
+   "link": "https://www.cnbc.com/2026/11/16/berkshire-hathaway-raised-its-stake-in-delta-air-in-the-third-quarter.html",
+   "time": "2026-11-16T23:01:19+00:00",
    "assets": [
     "stocks"
    ]
