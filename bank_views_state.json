@@ -76,19 +76,6 @@
  },
  "week": [
   {
-   "id": "d4b42d61aacf1789",
-   "source": "Bloomberg",
-   "bank": "Deutsche Bank",
-   "title": "Deutsche Sees Asia Chip Boom Supporting Dollar Through Equities",
-   "desc": "Deutsche Bank sees growing Asian chip surpluses as a source of support for the US dollar as the proceeds are increasingly recycled into US equities.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-16/deutsche-sees-asia-chip-boom-supporting-dollar-through-equities",
-   "time": "2026-11-16T21:42:04+00:00",
-   "assets": [
-    "fx",
-    "stocks"
-   ]
-  },
-  {
    "id": "6757fc86f70bf46c",
    "source": "CNBC",
    "bank": "Bank of America",
