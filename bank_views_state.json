@@ -75,18 +75,6 @@
  },
  "week": [
   {
-   "id": "f84dd48128237ffe",
-   "source": "Bloomberg",
-   "bank": "Goldman Sachs",
-   "title": "Goldman Traders See Stocks Grinding Higher Despite Nvidia Risk",
-   "desc": "Goldman Sachs Group Inc.’s trading desk sees room for US stocks to climb in the the coming weeks as resilient retail demand, corporate buybacks and a projected increase in buying from systematic investors help steady a slumping market.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-17/goldman-traders-see-stocks-grinding-higher-despite-nvidia-risk",
-   "time": "2026-11-17T14:44:08+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
    "id": "7675e0f7f0dee015",
    "source": "ING THINK",
    "bank": "ING",
