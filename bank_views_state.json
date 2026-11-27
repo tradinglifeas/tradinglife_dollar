@@ -1,6 +1,5 @@
 {
  "seen": {
-  "2a9b42bedb688aea": "2026-11-17T08:00:35.744469+00:00",
   "56877f374c991041": "2026-11-17T08:10:24.054949+00:00",
   "bd45f9278800daaf": "2026-11-17T09:00:34.037703+00:00",
   "fc188ff56e176b93": "2026-11-17T11:03:19.644660+00:00",
@@ -69,22 +68,12 @@
   "1df0807b87ed68ac": "2026-11-26T10:13:19.005484+00:00",
   "bf83decbdba7c453": "2026-11-26T12:23:19.806274+00:00",
   "6757fc86f70bf46c": "2026-11-26T22:26:18.601804+00:00",
-  "0714048862e811e0": "2026-11-27T07:00:31.145607+00:00"
+  "0714048862e811e0": "2026-11-27T07:00:31.145607+00:00",
+  "c6cd38a384ea5bc9": "2026-11-27T08:00:38.693086+00:00",
+  "2db531a09a5cd03f": "2026-11-27T08:00:38.693086+00:00",
+  "e4dce879f4f7c83a": "2026-11-27T08:00:38.693086+00:00"
  },
  "week": [
-  {
-   "id": "2a9b42bedb688aea",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "FX Daily: Dollar showing resilience to tech stock instability",
-   "desc": "A poor start to the week for tech stocks has caused some dovish repricing in the USD curve, but the dollar has retained its good momentum. We still feel the AI story has the best potential to hit the dollar at this stage. Nvidia’s earnings will drive market sentiment today. EUR/USD may hold up around 1.100 despite a brief dip lower yesterday",
-   "link": "https://think.ing.com/articles/fx-daily-dollar-showing-resilience-to-tech-stock-instability/",
-   "time": "2026-11-17T07:55:00+00:00",
-   "assets": [
-    "fx",
-    "stocks"
-   ]
-  },
   {
    "id": "56877f374c991041",
    "source": "ING THINK",
@@ -811,6 +800,43 @@
    "time": "2026-11-27T06:58:15+00:00",
    "assets": [
     "fx"
+   ]
+  },
+  {
+   "id": "c6cd38a384ea5bc9",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "Rates Spark: Rates resist bearish pressure as France faces rating risk",
+   "desc": "Bearish dynamics remain contained in European rates despite the ECB’s tightening bias and firmer energy prices. French spreads tightened ahead of S&P’s review, but political uncertainty and budget risks could warrant a negative outlook – and keep investors cautious",
+   "link": "https://think.ing.com/articles/rates-spark-rates-resist-bearish-pressure-as-france-faces-rating-risk/",
+   "time": "2026-11-27T07:30:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "2db531a09a5cd03f",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "FX Daily: Green Friday",
+   "desc": "US stock markets look set to rebound in a shortened session today, after sentiment improved over Thanksgiving. While that can give breathing room to high-beta FX, EUR/USD is far from guaranteed to follow the move higher as markets start to price some Fed tightening back in. Focus will be on some eurozone CPI numbers today",
+   "link": "https://think.ing.com/articles/fx-daily-green-friday/",
+   "time": "2026-11-27T07:51:00+00:00",
+   "assets": [
+    "fx",
+    "stocks"
+   ]
+  },
+  {
+   "id": "e4dce879f4f7c83a",
+   "source": "ING THINK",
+   "bank": "ING",
+   "title": "The Commodities Feed: Copper and gold rebound while oil extends gains",
+   "desc": "Copper and gold continued to recover on Friday as risk appetite improved, while oil extended its advance amid renewed concerns over Middle East supply disruptions. Zinc also moved higher after the planned suspension of production at a European smelter",
+   "link": "https://think.ing.com/articles/the-commodities-feed-copper-and-gold-rebound-while-oil-extends-gains/",
+   "time": "2026-11-27T07:58:00+00:00",
+   "assets": [
+    "metals"
    ]
   }
  ],
