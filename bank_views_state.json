@@ -70,33 +70,10 @@
   "b50cd145e4f86f50": "2026-11-26T08:09:22.121308+00:00",
   "1df0807b87ed68ac": "2026-11-26T10:13:19.005484+00:00",
   "bf83decbdba7c453": "2026-11-26T12:23:19.806274+00:00",
-  "6757fc86f70bf46c": "2026-11-26T22:26:18.601804+00:00"
+  "6757fc86f70bf46c": "2026-11-26T22:26:18.601804+00:00",
+  "0714048862e811e0": "2026-11-27T07:00:31.145607+00:00"
  },
  "week": [
-  {
-   "id": "8d0b3ca37049a074",
-   "source": "Bloomberg",
-   "bank": "Barclays",
-   "title": "Barclays Says Forced Retail Selling Behind Taiwan Stock Rout",
-   "desc": "Forced selling by retail investors was a main driver of Taiwanese stocks’ steep selloff on Monday, a trend that could extend and pressure the market further, according to Barclays Plc.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-17/barclays-says-forced-retail-liquidation-behind-taiwan-stock-rout",
-   "time": "2026-11-17T03:17:04+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "1389770229ecdd64",
-   "source": "Bloomberg",
-   "bank": "UBS",
-   "title": "China Stock Bull Sees Up to 15% Upside on Earnings, Valuation",
-   "desc": "The MSCI China Index has 10% to 15% upside as earnings grow and low valuations bolster the country’s appeal as an alternative to global markets, according to UBS Group AG.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-17/china-stock-bull-ubs-sees-upside-msci-china-index-earnings-valuation",
-   "time": "2026-11-17T06:06:52+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "2a9b42bedb688aea",
    "source": "ING THINK",
@@ -824,6 +801,18 @@
    "time": "2026-11-26T11:56:51+00:00",
    "assets": [
     "stocks"
+   ]
+  },
+  {
+   "id": "0714048862e811e0",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "De Cos Set to Become Next ECB President",
+   "desc": "In focus today and this weekend In the euro area, we will get the Commission’s business survey and the ECB’s consumer expectations survey. We will focus on firms’ selling price expectations and consumers’ inflation expectations, which have both drifted slightly higher since the summer, and we expect this trend to have continued. Flash November inflation […] The post De Cos Set to Become Next ECB President appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/662264-de-cos-set-to-become-next-ecb-president/",
+   "time": "2026-11-27T06:58:15+00:00",
+   "assets": [
+    "fx"
    ]
   }
  ],
