@@ -69,21 +69,11 @@
   "0714048862e811e0": "2026-11-27T07:00:31.145607+00:00",
   "c6cd38a384ea5bc9": "2026-11-27T08:00:38.693086+00:00",
   "2db531a09a5cd03f": "2026-11-27T08:00:38.693086+00:00",
-  "e4dce879f4f7c83a": "2026-11-27T08:00:38.693086+00:00"
+  "e4dce879f4f7c83a": "2026-11-27T08:00:38.693086+00:00",
+  "bb6c79034c3367bc": "2026-11-27T11:00:35.980878+00:00",
+  "9790982cf45f8868": "2026-11-27T11:00:35.980878+00:00"
  },
  "week": [
-  {
-   "id": "fc188ff56e176b93",
-   "source": "Bloomberg",
-   "bank": "Bank of America",
-   "title": "BofA Survey Shows Investors Cut Tech Exposure by Most Since 2006",
-   "desc": "Investor optimism around the global AI boom is fading with fund managers slashing exposure to technology stocks by the most in two decades, according to a poll by Bank of America Corp.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-17/bofa-survey-shows-investors-cut-tech-exposure-by-most-since-2006",
-   "time": "2026-11-17T10:53:44+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
   {
    "id": "f84dd48128237ffe",
    "source": "Bloomberg",
@@ -798,6 +788,30 @@
    "time": "2026-11-27T07:58:00+00:00",
    "assets": [
     "metals"
+   ]
+  },
+  {
+   "id": "bb6c79034c3367bc",
+   "source": "MarketWatch",
+   "bank": "JPMorgan",
+   "title": "The AI stock crash is mostly over, JPMorgan says — but a worse phase could be coming in 2027",
+   "desc": "The crash in artificial-intelligence stocks has just about run its course, but a worse phase could be in store for next year, say JPMorgan’s European quant team.",
+   "link": "https://www.marketwatch.com/story/the-ai-stock-crash-is-mostly-over-jpmorgan-says-but-a-worse-phase-could-be-coming-in-2027-fa769fbd?mod=mw_rss_topstories",
+   "time": "2026-11-27T10:32:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "9790982cf45f8868",
+   "source": "MarketWatch",
+   "bank": "Goldman Sachs",
+   "title": "Stocks are poised for a Friday jump — right into a $100 billion wave of automated selling, Goldman Sachs warns",
+   "desc": "Goldman Sachs traders say one big bout of selling is left for stocks this year by some trend-following trend funds.",
+   "link": "https://www.marketwatch.com/story/stocks-are-poised-for-a-friday-jump-right-into-a-100-billion-wave-of-automated-selling-goldman-sachs-warns-aba6440f?mod=mw_rss_topstories",
+   "time": "2026-11-27T10:54:00+00:00",
+   "assets": [
+    "stocks"
    ]
   }
  ],
