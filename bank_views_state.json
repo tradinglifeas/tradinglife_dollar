@@ -74,18 +74,6 @@
  },
  "week": [
   {
-   "id": "bd45f9278800daaf",
-   "source": "Bloomberg",
-   "bank": "JPMorgan",
-   "title": "Turkish Stocks Raised to Overweight at JPMorgan on Rebound Bet",
-   "desc": "Turkish stocks are set to rebound after a fund crisis pushed the index into oversold territory, according to analysts at JPMorgan Chase & Co., who upgraded the country’s market to overweight from neutral.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-17/turkish-stocks-raised-to-overweight-at-jpmorgan-on-rebound-bet",
-   "time": "2026-11-17T08:26:44+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
    "id": "fc188ff56e176b93",
    "source": "Bloomberg",
    "bank": "Bank of America",
