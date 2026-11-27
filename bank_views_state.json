@@ -1,6 +1,5 @@
 {
  "seen": {
-  "bd45f9278800daaf": "2026-11-17T09:00:34.037703+00:00",
   "fc188ff56e176b93": "2026-11-17T11:03:19.644660+00:00",
   "a5a5435c2cbd9877": "2026-11-17T15:00:35.987938+00:00",
   "f84dd48128237ffe": "2026-11-17T15:00:35.987938+00:00",
@@ -81,18 +80,6 @@
    "desc": "Investor optimism around the global AI boom is fading with fund managers slashing exposure to technology stocks by the most in two decades, according to a poll by Bank of America Corp.",
    "link": "https://www.bloomberg.com/news/articles/2026-11-17/bofa-survey-shows-investors-cut-tech-exposure-by-most-since-2006",
    "time": "2026-11-17T10:53:44+00:00",
-   "assets": [
-    "stocks"
-   ]
-  },
-  {
-   "id": "a5a5435c2cbd9877",
-   "source": "Bloomberg",
-   "bank": "Deutsche Bank",
-   "title": "European Stocks Extend Fall as Tech Drags; Deutsche Bank Slides",
-   "desc": "European stocks extended declines Tuesday, weighed down by technology stocks ahead of results from Nvidia Corp.",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-17/european-stocks-fall-as-us-chip-curbs-ignite-fresh-ai-selloff",
-   "time": "2026-11-17T08:30:44+00:00",
    "assets": [
     "stocks"
    ]
