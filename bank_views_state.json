@@ -70,7 +70,8 @@
   "2db531a09a5cd03f": "2026-11-27T08:00:38.693086+00:00",
   "e4dce879f4f7c83a": "2026-11-27T08:00:38.693086+00:00",
   "bb6c79034c3367bc": "2026-11-27T11:00:35.980878+00:00",
-  "9790982cf45f8868": "2026-11-27T11:00:35.980878+00:00"
+  "9790982cf45f8868": "2026-11-27T11:00:35.980878+00:00",
+  "b988bc1c2a932aef": "2026-11-27T14:08:20.871504+00:00"
  },
  "week": [
   {
@@ -809,6 +810,18 @@
    "desc": "Goldman Sachs traders say one big bout of selling is left for stocks this year by some trend-following trend funds.",
    "link": "https://www.marketwatch.com/story/stocks-are-poised-for-a-friday-jump-right-into-a-100-billion-wave-of-automated-selling-goldman-sachs-warns-aba6440f?mod=mw_rss_topstories",
    "time": "2026-11-27T10:54:00+00:00",
+   "assets": [
+    "stocks"
+   ]
+  },
+  {
+   "id": "b988bc1c2a932aef",
+   "source": "ActionForex (Danske)",
+   "bank": "Danske Bank",
+   "title": "Weekly Focus – AI Concerns Drive Volatile Markets",
+   "desc": "Equities, mainly in the tech sector, continued to steal the spotlight this week. NVIDIA reinstated Jensen Huang as CEO on Monday, which brought significant market relief. Nevertheless, stocks remained volatile for the rest of the week. The development does not reflect a macro slowdown. Rather, it reflects concerns about AI and its longer-term implications, which […] The post Weekly Focus – AI Concerns Drive Volatile Markets appeared first on ActionForex .",
+   "link": "https://www.actionforex.com/contributors/fundamental-analysis/662331-weekly-focus-ai-concerns-drive-volatile-markets/",
+   "time": "2026-11-27T14:07:17+00:00",
    "assets": [
     "stocks"
    ]
