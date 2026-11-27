@@ -1,6 +1,5 @@
 {
  "seen": {
-  "56877f374c991041": "2026-11-17T08:10:24.054949+00:00",
   "bd45f9278800daaf": "2026-11-17T09:00:34.037703+00:00",
   "fc188ff56e176b93": "2026-11-17T11:03:19.644660+00:00",
   "a5a5435c2cbd9877": "2026-11-17T15:00:35.987938+00:00",
@@ -74,19 +73,6 @@
   "e4dce879f4f7c83a": "2026-11-27T08:00:38.693086+00:00"
  },
  "week": [
-  {
-   "id": "56877f374c991041",
-   "source": "ING THINK",
-   "bank": "ING",
-   "title": "Rates Spark: Can AI confidence bring rates back up?",
-   "desc": "Nvidia will announce its quarterly earnings today, followed a day later by Anthropic's IPO, two major AI events. Macro has become closely intertwined with AI sentiment and therefore positive and negative surprises should not be ignored by the bond market. Having said that, we think fading spillovers to euro rates will often make sense",
-   "link": "https://think.ing.com/articles/rates-spark-ai-earnings-and-new-highs-for-rates/",
-   "time": "2026-11-17T08:10:00+00:00",
-   "assets": [
-    "fx",
-    "stocks"
-   ]
-  },
   {
    "id": "bd45f9278800daaf",
    "source": "Bloomberg",
